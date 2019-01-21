@@ -5,7 +5,9 @@ import App from './App'
 import router from './router'
 import KeenUI from 'keen-ui'
 import 'keen-ui/dist/keen-ui.css'
-import './Icon/material-icons.css'
+import './icon/material-icons.css'
+import 'url-search-params-polyfill'
+
 Vue.use(KeenUI)
 Vue.config.productionTip = false
 

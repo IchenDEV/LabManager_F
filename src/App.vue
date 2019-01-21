@@ -1,28 +1,29 @@
 <template>
   <div id="app">
+    <NavBar></NavBar>
     <router-view/>
     <ui-menu id="pop" has-icons has-secondary-text :options="menuOption" raised></ui-menu>
   </div>
 </template>
 <script>
 /* eslint-disable */
-document.oncontextmenu = function (ev)
-{
-var oEvent=ev||event;
-var oDiv=document.getElementById('pop');    
-oDiv.style.display='block';
-oDiv.style.left=oEvent.clientX+'px';
-oDiv.style.top=oEvent.clientY+'px';    
-return false;
+document.oncontextmenu = function(ev) {
+  var oEvent = ev || event;
+  var oDiv = document.getElementById("pop");
+  oDiv.style.display = "block";
+  oDiv.style.left = oEvent.clientX + "px";
+  oDiv.style.top = oEvent.clientY + "px";
+  return false;
+};
+document.onclick = function() {
+  var oDiv = document.getElementById("pop");
+  oDiv.style.display = "none";
 };
 
-document.onclick=function ()
-{
-var oDiv=document.getElementById('pop');    
-oDiv.style.display='none';
-};
+import NavBar from './components/NavBar/NavBar'
 export default {
   name: "App",
+  components:{NavBar},
   data() {
     return {
       menuOption: [
@@ -56,8 +57,10 @@ export default {
         }
       ]
     };
-  }
+  },
+
 };
+
 </script>
 <style>
 #app {
