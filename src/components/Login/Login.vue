@@ -1,55 +1,63 @@
 <template>
   <div>
-    <ui-textbox icon="person" floating-label label="userName" v-bind="username"></ui-textbox>
-    <ui-textbox floating-label label="password" icon="lock" type="password" v-bind="password"></ui-textbox>
-    <ui-button color="primary" icon="check" @click="LonginClicked" :loading="iswaitting">Login</ui-button>
+    <ui-textbox icon="person" floating-label label="用户名" v-model="username"></ui-textbox>
+    <ui-textbox icon="lock"   floating-label label="密码"   v-model="password" type="password"></ui-textbox>
+    <ui-button color="primary" icon="check" @click="LonginClicked" :loading="iswaitting">登录</ui-button>
   </div>
 </template>
 <script>
 /* eslint-disable */
-import fetch from "@/util/fetch.js";
-import sha3 from "@/util/sha3.js";
+import VueNotifications from 'vue-notifications'
+import fetch from '@/util/fetch.js';
+import sha3 from '@/util/sha3.js';
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       iswaitting: false,
-      username: "",
-      password: ""
+      username: '',
+      password: ''
     };
   },
   methods: {
     LonginClicked() {
-      const JsSHA = require("jssha");
-      var shaObj = new JsSHA("SHA3-256", "TEXT");
-      shaObj.update('123456');
-      let code= shaObj.getHash("HEX");
-
-      let con = { username: "admin", password: code };
-      this.iswaitting = true;
+      const JsSHA = require('jssha')
+      var shaObj = new JsSHA('SHA3-256', 'TEXT')
+      shaObj.update(this.password)
+      let code= shaObj.getHash('HEX')
+      let con = { username: this.username, password: code }
+      this.iswaitting = true
       fetch({
-        method: "Post",
-        url: "//localhost:8080/login/auth",
+        method: 'Post',
+        url: '//localhost:8080/login/auth',
         data: JSON.stringify(con)
       }).then(res => {
         console.log(res);
-        if (res.data.code === "100") {
-          alert("success");
-          this.iswaitting = false;
-
-          fetch({
-            method: "Post",
-            url: "//localhost:8080/login/getInfo"
-          }).then(res => {
-            console.log(res);
-            if (res.data.code === "100") {
-              alert("success");
-              this.iswaitting = false;
-            }
-          });
+        if (res.data.info.loginCode === 0) {
+          this.showSuccessMsg({title:'Welcome '+this.username})
+        }else{
+          this.showWarnMsg()
         }
-      });
+           this.iswaitting = false
+      })
+    }
+  },
+   notifications: {
+    showSuccessMsg: {
+      type: VueNotifications.types.success,
+      title: 'Hello '+this.username,
+      message: '登录成功'
+    },
+    showWarnMsg: {
+      type: VueNotifications.types.warn,
+      title: '登录失败',
+      message: '可能你输入了不正确的密码或者用户名'
+    },
+    showErrorMsg: {
+      type: VueNotifications.types.error,
+      title: 'Wow-wow',
+      message: 'That\'s the error'
     }
   }
-};
+}
 </script>
