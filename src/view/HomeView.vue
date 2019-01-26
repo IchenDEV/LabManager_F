@@ -1,16 +1,18 @@
 <template>
-<div>
-  <QRScanner v-on:recived='handle($event)'></QRScanner>
-</div>
+  <div>
+    <QRScanner v-on:recived='handle($event)'></QRScanner>
+   <vue-qr text="Hello world!"  qid="testid"></vue-qr>
+  </div>
 </template>
 <script>
+import VueQr from 'vue-qr'
 import QRScanner from '@/components/QRScanner/QRScanner'
 export default {
   name: 'homeView',
-  components: {QRScanner},
-  methods: {
-    handle (eve) {
-      alert(eve)
+  components: {VueQr, QRScanner},
+  data () {
+    return {
+      qrcodeUrl: '1312'
     }
   }
 }
