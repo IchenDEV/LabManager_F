@@ -36,10 +36,10 @@ export default {
           console.log(res);
           if (res.data.info.loginCode === 0) {
             this.showSuccessMsg({ title: "Welcome " + this.username });
-            con = { No: 1, name: "21212ds", description: "sdf", model: "50" };
+            con = { project: 1, device: 1, applicant: 0, beginTime:"2008-12-14 14:10", endTime: "2019-12-14 14:10",status:1 };
             fetch({
               method: "Post",
-              url: "//localhost:8080/device/addDevice",
+              url: "//localhost:8080/login/getInfo",
               data: JSON.stringify(con)
             })
               .then(res => {
