@@ -15,7 +15,6 @@ function toast ({title, message, type, timeout, cb}) {
   if (type === VueNotifications.types.warn) type = 'warning'
   return iziToast[type]({title, message, timeout})
 }
-
 const options = {
   success: toast,
   error: toast,
@@ -27,9 +26,20 @@ Vue.use(KeenUI)
 Vue.use(Vuex)
 Vue.config.productionTip = false
 /* eslint-disable no-new */
+const store = new Vuex.Store({
+  state: {
+    currentUser: {
+      username: '',
+      nickname: '',
+      id: 0
+    },
+    hasSingin: false
+  }
+})
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

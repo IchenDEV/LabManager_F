@@ -36,18 +36,21 @@ export default {
           console.log(res);
           if (res.data.info.loginCode === 0) {
             this.showSuccessMsg({ title: "Welcome " + this.username });
-            con = { project: 1, device: 1, applicant: 0, beginTime:"2008-12-14 14:10", endTime: "2019-12-14 14:10",status:1 };
+
             fetch({
               method: "Post",
-              url: "//localhost:8080/login/getInfo",
-              data: JSON.stringify(con)
+              url: "//localhost:8080/login/getInfo"
             })
               .then(res => {
                 console.log(res);
-                if (res.data.info.loginCode === 0) {
-                  this.showSuccessMsg({ title: "Welcome " + this.username });
+                if (res.data.code === "100") {
+                  this.$store.state.currentUser.nickname = res.data.info.userPermission.nickname;
+                  this.$store.state.currentUser.username = this.username;
+                  this.$store.state.currentUser.id = res.data.info.userPermission.userId;
+                  this.$store.state.hasSingin=true;
+                  this.showSuccessMsg({ title: this.nickname });
                 } else {
-                  this.showWarnMsg();
+                  this.showErrorMsg({ title: res.data.msg });
                 }
                 this.iswaitting = false;
               })

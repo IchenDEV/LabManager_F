@@ -1,17 +1,13 @@
 <template>
   <div class="navbar">
     <ui-tabs
-      background-color="primary"
       fullwidth
-      indicator-color="white"
-      text-color-active="white"
-      text-color="white"
       type="icon-and-text"
     >
       <ui-tab id="home" icon="home" title="Home" @select="tabChange"></ui-tab>
       <ui-tab id="login" icon="person" title="Authors" @select="tabChange"></ui-tab>
       <ui-tab icon="microscope" title="Collections"></ui-tab>
-      <ui-tab icon="person-circle" title="Favourites"></ui-tab>
+      <ui-tab icon="person" iconSet="segmdl2"  title="Favourites"></ui-tab>
     </ui-tabs>
   </div>
 </template>

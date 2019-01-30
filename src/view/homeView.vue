@@ -1,18 +1,18 @@
 <template>
   <div>
-    <QRScanner v-on:recived='handle($event)'></QRScanner>
-   <vue-qr text="Hello world!"  qid="testid"></vue-qr>
+   <vue-qr :text="qrid"  qid="testid"></vue-qr>
+   <current-user-box></current-user-box>
   </div>
 </template>
 <script>
 import VueQr from 'vue-qr'
-import QRScanner from '@/components/QRScanner/QRScanner'
+import CurrentUserBox from '@/components/CurrentUserBox/CurrentUserBox'
 export default {
   name: 'homeView',
-  components: {VueQr, QRScanner},
+  components: {VueQr, CurrentUserBox},
   data () {
     return {
-      qrcodeUrl: '1312'
+      qrid: this.$store.state.currentUser.id.toString()
     }
   }
 }
