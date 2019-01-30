@@ -4,10 +4,10 @@
       fullwidth
       type="icon-and-text"
     >
-      <ui-tab id="home" icon="home" title="Home" @select="tabChange"></ui-tab>
-      <ui-tab id="login" icon="person" title="Authors" @select="tabChange"></ui-tab>
-      <ui-tab icon="microscope" title="Collections"></ui-tab>
-      <ui-tab icon="person" iconSet="segmdl2"  title="Favourites"></ui-tab>
+      <ui-tab id="home"  icon="home"            title="Home"  @select="tabChange"></ui-tab>
+      <ui-tab id="find"  icon="find_in_page"    title="查询"  @select="tabChange"></ui-tab>
+      <ui-tab id="book"  icon="book"            title="预定"  @select="tabChange"></ui-tab>
+      <ui-tab id="my"    icon="person"          title="我"    @select="tabChange"></ui-tab>
     </ui-tabs>
   </div>
 </template>

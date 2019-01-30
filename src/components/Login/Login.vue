@@ -29,17 +29,16 @@ export default {
       this.iswaitting = true;
       fetch({
         method: "Post",
-        url: "//localhost:8080/login/auth",
+        url: this.$store.state.host+"/login/auth",
         data: JSON.stringify(con)
       })
         .then(res => {
           console.log(res);
           if (res.data.info.loginCode === 0) {
             this.showSuccessMsg({ title: "Welcome " + this.username });
-
             fetch({
               method: "Post",
-              url: "//localhost:8080/login/getInfo"
+              url: this.$store.state.host+"/login/getInfo"
             })
               .then(res => {
                 console.log(res);

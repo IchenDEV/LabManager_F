@@ -1,74 +1,95 @@
 <template>
   <div>
-    <div v-if="mo" class="user-panel">
-      <span>
-        <h3>姓名</h3>
-        <p>{{nickname}}</p>
-      </span>
-      <span>
-        <h3>id</h3>
-        <p>{{id}}</p>
-      </span>
-      <span>
-        <h3>性别</h3>
-        <p>{{sex}}</p>
-      </span>
-      <span>
-        <h3>角色</h3>
-        <p>{{roleName}}</p>
-      </span>
-      <span>
-        <h3>电话</h3>
-        <p>{{phone}}</p>
-      </span>
-      <span>
-        <h3>邮箱</h3>
-        <p>{{email}}</p>
-      </span>
-      <span>
-        <h3>地址</h3>
-        <p>{{address}}</p>
+    <div v-if="hasSingin">
+      <div v-if="mo" class="user-panel">
+        <span>
+          <h3>姓名</h3>
+          <p>{{nickname}}</p>
+        </span>
+        <span>
+          <h3>id</h3>
+          <p>{{id}}</p>
+        </span>
+        <span>
+          <h3>性别</h3>
+          <p>{{sex}}</p>
+        </span>
+        <span>
+          <h3>角色</h3>
+          <p>{{roleName}}</p>
+        </span>
+        <span>
+          <h3>电话</h3>
+          <p>{{phone}}</p>
+        </span>
+        <span>
+          <h3>邮箱</h3>
+          <p>{{email}}</p>
+        </span>
+        <span>
+          <h3>地址</h3>
+          <p>{{address}}</p>
+        </span>
+      </div>
+      <div v-else class="user-panel">
+        <ui-textbox
+          class="user-itme"
+          icon="person"
+          :invalid="nickname.length === 0"
+          floating-label
+          label="姓名"
+          v-model="nickname"
+          required
+          error="This field is required"
+        ></ui-textbox>
+        <ui-select
+          class="user-itme"
+          icon="person"
+          floating-label
+          label="性别"
+          :options="sexString"
+          v-model="sex"
+        ></ui-select>
+        <ui-textbox class="user-itme" icon="phone" floating-label label="电话" v-model="phone"></ui-textbox>
+        <ui-textbox
+          class="user-itme"
+          icon="mail"
+          :invalid="ismail === false&&email.length>0"
+          floating-label
+          label="邮箱"
+          v-model="email"
+          error="错误的邮箱格式"
+        ></ui-textbox>
+        <ui-textbox class="user-itme" icon="home" floating-label label="地址" v-model="address"></ui-textbox>
+      </div>
+      <ui-button color="primary" icon="adjust" @click="logouthandle" :loading="iswaitting">登出</ui-button>
+      <ui-button
+        v-if="mo"
+        color="primary"
+        icon="adjust"
+        @click="mohandle"
+        :loading="iswaitting"
+      >{{moString}}</ui-button>
+      <span v-else>
+        <ui-button color="primary" icon="update" @click="updateinfo" :loading="iswaitting">更新</ui-button>
+        <ui-button
+          color="primary"
+          icon="cancel"
+          @click="mohandle"
+          :loading="iswaitting"
+        >{{moString}}</ui-button>
       </span>
     </div>
-    <div v-else class="user-panel">
-      <ui-textbox class="user-itme"
-        icon="person"
-        :invalid="nickname.length === 0"
-        floating-label
-        label="姓名"
-        v-model="nickname"
-        required
-        error="This field is required"
-      ></ui-textbox>
-      <ui-select class="user-itme" icon="person" floating-label label="性别" :options="sexString" v-model="sex"></ui-select>
-      <ui-textbox class="user-itme" icon="phone" floating-label label="电话" v-model="phone"></ui-textbox>
-      <ui-textbox class="user-itme"
-        icon="mail"
-        :invalid="ismail === false&&email.length>0"
-        floating-label
-        label="邮箱"
-        v-model="email"
-        error="错误的邮箱格式"
-      ></ui-textbox>
-      <ui-textbox class="user-itme" icon="home" floating-label label="地址" v-model="address"></ui-textbox>
+    <div v-else>
+      <ui-button color="primary" icon="adjust" @click="loginhandle">请登录</ui-button>
     </div>
-    <ui-button
-      v-if="mo"
-      color="primary"
-      icon="adjust"
-      @click="mohandle"
-      :loading="iswaitting"
-    >{{moString}}</ui-button>
-    <span v-else>
-      <ui-button color="primary" icon="update" @click="updateinfo" :loading="iswaitting">更新</ui-button>
-      <ui-button color="primary" icon="cancel" @click="mohandle" :loading="iswaitting">{{moString}}</ui-button>
-    </span>
   </div>
 </template>
 <script>
 /* eslint-disable */
 import VueNotifications from "vue-notifications";
 import fetch from "@/util/fetch.js";
+import router from "@/router";
 import stringCK from "@/util/stringCK.js";
 export default {
   data() {
@@ -89,16 +110,18 @@ export default {
   },
   computed: {
     ismail() {
-      return stringCK.isEmail(this.email);
-    }
+      return stringCK.isEmail(this.email)
+    },
+    hasSingin (){return this.$store.state.hasSingin}
   },
   methods: {
     getinfo() {
       if (this.nickname === "") {
         this.iswaitting = true;
+        var that = this;
         fetch({
           method: "Post",
-          url: "//localhost:8080/login/getInfo"
+          url: this.$store.state.host + "/login/getInfo"
         })
           .then(res => {
             console.log(res);
@@ -119,7 +142,7 @@ export default {
           })
           .catch(function(err) {
             console.log(err);
-            this.showErrorMsg();
+            that.showErrorMsg();
           });
       } else {
       }
@@ -135,7 +158,7 @@ export default {
       };
       fetch({
         method: "Post",
-        url: "//localhost:8080//login/updateInfo",
+        url: this.$store.state.host + "/login/updateInfo",
         data: JSON.stringify(con)
       })
         .then(res => {
@@ -162,6 +185,31 @@ export default {
         this.moString = "修改";
       }
       this.mo = !this.mo;
+    },
+    loginhandle() {
+      router.push("/login");
+    },
+    logouthandle() {
+      this.iswaitting = true;
+      var that = this;
+      fetch({
+        method: "Post",
+        url: this.$store.state.host + "/login/logout"
+      })
+        .then(res => {
+          console.log(res);
+          if (res.data.code === "100") {
+            this.showSuccessMsg({ title: this.nickname });
+            this.$store.state.hasSingin = false;
+          } else {
+            this.showErrorMsg({ title: res.data.msg });
+          }
+          this.iswaitting = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.showErrorMsg();
+        });
     }
   },
   mounted() {

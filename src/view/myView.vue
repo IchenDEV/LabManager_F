@@ -2,13 +2,14 @@
   <div>
    <vue-qr :text="qrid"  qid="testid"></vue-qr>
    <current-user-box></current-user-box>
+
   </div>
 </template>
 <script>
 import VueQr from 'vue-qr'
 import CurrentUserBox from '@/components/CurrentUserBox/CurrentUserBox'
 export default {
-  name: 'homeView',
+  name: 'myView',
   components: {VueQr, CurrentUserBox},
   data () {
     return {
