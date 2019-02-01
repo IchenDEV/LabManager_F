@@ -3,10 +3,12 @@
     <NavBar></NavBar>
     <router-view/>
     <ui-menu id='pop' has-icons has-secondary-text :options='menuOption' raised></ui-menu>
+    <my-footer></my-footer>
   </div>
 </template>
 <script>
 import NavBar from './components/NavBar/NavBar'
+import myFooter from './components/Footer/Footer'
 document.oncontextmenu = function (ev) {
   var oEvent = ev || event
   var oDiv = document.getElementById('pop')
@@ -21,7 +23,7 @@ document.onclick = function () {
 }
 export default {
   name: 'App',
-  components: { NavBar },
+  components: { NavBar, myFooter },
   data () {
     return {
       menuOption: [

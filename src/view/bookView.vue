@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import DeviceBox from '@/components/DeviceBox/DeviceBox'
+import DeviceBox from '@/components/Device/DeviceBox'
 export default {
   components: { DeviceBox }
 }

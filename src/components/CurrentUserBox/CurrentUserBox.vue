@@ -30,6 +30,14 @@
           <h3>地址</h3>
           <p>{{address}}</p>
         </span>
+        <span>
+          <h3>部门</h3>
+          <div v-for="(item,index) in dpinfo.list" :key="index">{{item.departmentName}}</div>
+        </span>
+        <span>
+          <h3>项目组</h3>
+          <div v-for="(item,index) in gpinfo.list" :key="index">{{item.groupName}}</div>
+        </span>
       </div>
       <div v-else class='user-panel'>
         <ui-textbox
@@ -104,7 +112,9 @@ export default {
       email: '',
       roleName: '',
       id: '',
-      sexString: ['未知', '男', '女', '其他']
+      sexString: ['未知', '男', '女', '其他'],
+      dpinfo: {},
+      gpinfo: {}
     }
   },
   computed: {
@@ -139,6 +149,8 @@ export default {
             } else {
               this.showErrorMsg({ title: res.data.msg })
             }
+            this.getDpinfo()
+            this.getGpinfo()
             this.iswaitting = false
           })
           .catch(function (err) {
@@ -147,6 +159,56 @@ export default {
           })
       } else {
       }
+    },
+    getDpinfo () {
+      let conp = { id: this.$store.state.currentUser.id }
+      this.iswaitting = true
+      var that = this
+      fetch({
+        method: 'Post',
+        url: this.$store.state.host + '/user/listDepartment',
+        data: JSON.stringify(conp)
+      })
+        .then(res => {
+          console.log(res)
+          if (res.data.code === '100') {
+            console.log(res.data.info.list)
+            this.showSuccessMsg({ title: this.nickname })
+            this.dpinfo = res.data.info
+          } else {
+            this.showErrorMsg({ title: res.data.msg })
+          }
+          this.iswaitting = false
+        })
+        .catch(function (err) {
+          console.log(err)
+          that.showErrorMsg()
+        })
+    },
+    getGpinfo () {
+      let conp = { id: this.$store.state.currentUser.id }
+      this.iswaitting = true
+      var that = this
+      fetch({
+        method: 'Post',
+        url: this.$store.state.host + '/user/listGroup',
+        data: JSON.stringify(conp)
+      })
+        .then(res => {
+          console.log(res)
+          if (res.data.code === '100') {
+            console.log(res.data.info.list)
+            this.showSuccessMsg({ title: this.nickname })
+            this.gpinfo = res.data.info
+          } else {
+            this.showErrorMsg({ title: res.data.msg })
+          }
+          this.iswaitting = false
+        })
+        .catch(function (err) {
+          console.log(err)
+          that.showErrorMsg()
+        })
     },
     updateinfo () {
       this.iswaitting = true
@@ -201,7 +263,7 @@ export default {
           console.log(res)
           if (res.data.code === '100') {
             this.showSuccessMsg({ title: this.nickname })
-            this.$store.comments('cleanInfo')
+            this.$store.commit('cleanInfo')
             location.reload()
           } else {
             this.showErrorMsg({ title: res.data.msg })
@@ -242,20 +304,6 @@ export default {
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
   width: 300px; /* 让过渡表现良好。（从/到'width:auto'的过渡
-                      至少在 Gecko 和 Webkit 上是有 bug 的。
-                      更多信息参见 http://bugzil.la/731886 ） */
-
-  -webkit-transition: width 0.7s ease-out;
-  transition: width 0.7s ease-out;
-}
-
-.user-itme {
-  padding: 10px;
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  min-width: 120px;
-  max-width: 350px;
-  width: 250px; /* 让过渡表现良好。（从/到'width:auto'的过渡
                       至少在 Gecko 和 Webkit 上是有 bug 的。
                       更多信息参见 http://bugzil.la/731886 ） */
 

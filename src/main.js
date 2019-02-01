@@ -39,8 +39,8 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    //  host: '//localhost:8080/',
-    host: '//acm.idevlab.cn:8080/',
+    host: '//localhost:8080/',
+    //  host: '//acm.idevlab.cn:8080/',
     currentUser: {
       username: '',
       nickname: '',
