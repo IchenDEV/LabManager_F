@@ -18,15 +18,15 @@
           <h3>角色</h3>
           <p>{{roleName}}</p>
         </span>
-        <span>
+        <span v-if="!simple">
           <h3>电话</h3>
           <p>{{phone}}</p>
         </span>
-        <span>
+        <span v-if="!simple">
           <h3>邮箱</h3>
           <p>{{email}}</p>
         </span>
-        <span>
+        <span v-if="!simple">
           <h3>地址</h3>
           <p>{{address}}</p>
         </span>
@@ -70,17 +70,18 @@
         ></ui-textbox>
         <ui-textbox class='user-itme' icon='home' floating-label label='地址' v-model='address'></ui-textbox>
       </div>
-      <ui-button color='primary' icon='adjust' @click='logouthandle' :loading='iswaitting'>登出</ui-button>
+      <ui-button v-if="!simple" color='primary' icon='adjust' @click='logouthandle' :loading='iswaitting'>登出</ui-button>
       <ui-button
-        v-if='mo'
+        v-if='mo&&!simple'
         color='primary'
         icon='adjust'
         @click='mohandle'
         :loading='iswaitting'
       >{{moString}}</ui-button>
       <span v-else>
-        <ui-button color='primary' icon='update' @click='updateinfo' :loading='iswaitting'>更新</ui-button>
+        <ui-button v-if="!simple" color='primary' icon='update' @click='updateinfo' :loading='iswaitting'>更新</ui-button>
         <ui-button
+          v-if="!simple"
           color='primary'
           icon='cancel'
           @click='mohandle'
@@ -99,6 +100,7 @@ import fetch from '@/util/fetch.js'
 import router from '@/router'
 import stringCK from '@/util/stringCK.js'
 export default {
+  props: { simple: { default: false } },
   data () {
     return {
       iswaitting: false,
@@ -298,12 +300,14 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  font-size: 1.1rem;
 }
 .user-panel > span {
+  margin: 10px;
   padding: 10px;
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
-  width: 300px; /* 让过渡表现良好。（从/到'width:auto'的过渡
+  width: 150px; /* 让过渡表现良好。（从/到'width:auto'的过渡
                       至少在 Gecko 和 Webkit 上是有 bug 的。
                       更多信息参见 http://bugzil.la/731886 ） */
 

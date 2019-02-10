@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="flex-panel">
     <ui-textbox icon='person' floating-label label='设备名称' v-model='search.name'></ui-textbox>
     <ui-textbox icon='person' floating-label label='设备编号' v-model='search.No'></ui-textbox>
     <ui-textbox icon='person' floating-label label='设备型号' v-model='search.model'></ui-textbox>
@@ -13,11 +14,12 @@
       :keys='{ label: "name", value: "id" }'
       v-model='search.lab'
     ></ui-select>
-    <ui-button color='primary' icon='search' @click='searchClicked'>查询</ui-button>
+    </div>
+     <ui-button color='primary' icon='search' @click='searchClicked'>查询</ui-button>
     <div class="flex-panel">
-      <div v-for='(item,index) in info.list' :key='index'>
+      <Card v-for='(item,index) in info.list' :key='index'>
         <div>
-          <h2>设备 {{index}}</h2>
+          <h2>设备 {{item.id}}</h2>
           <p>名称 {{item.name}}</p>
           <p>编号 {{item.No}}</p>
           <p>品牌 {{item.band}}</p>
@@ -26,10 +28,16 @@
           <p>位置 {{item.locationName}}</p>
           <p>{{item.locationDescription}}</p>
           <p>地址 {{item.locationAddress}}</p>
-          <ui-button color='primary' icon='book' @click='bookClicked(index)'>预订</ui-button>
+          <ui-button color='primary' icon='book' @click='bookClicked(item.id)'>预订</ui-button>
         </div>
-      </div>
+      </Card>
+      <Card v-if="info.totalCount===0">
+        <div>
+         没有找到相关设备
+        </div>
+      </Card>
     </div>
+     <Page v-if="info.totalPage>1" :total="info.totalCount" :page-size="search.pageRow" show-elevator @on-change="onPageChange"/>
   </div>
 </template>
 <script>
@@ -48,7 +56,7 @@ export default {
         No: '',
         lab: -1,
         pageRow: 10,
-        offSet: 0
+        pageNum: 1
       }
     }
   },
@@ -101,6 +109,11 @@ export default {
         this.search.location = this.search.lab.id
       }
       this.getDeviceInfo()
+    },
+    onPageChange (page) {
+      console.log(page)
+      this.search.pageNum = page
+      this.getDeviceInfo()
     }
   },
   mounted () {
@@ -144,6 +157,9 @@ export default {
 
   -webkit-transition: width 0.7s ease-out;
   transition: width 0.7s ease-out;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 0.5rem
 }
 
 .user-itme {

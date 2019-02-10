@@ -1,8 +1,11 @@
 <template>
   <div>
-      device
+      <add-device></add-device>
   </div>
 </template>
 <script>
-export default {}
+import AddDevice from '@/components/Device/AddDevice'
+export default {
+  components: { AddDevice }
+}
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="add-user">
+  <div class="add-lab">
     <ui-textbox icon="person" floating-label label="名称" v-model="con.name"></ui-textbox>
     <ui-textbox icon="lock" floating-label label="描述" v-model="con.description"></ui-textbox>
     <ui-textbox icon="lock" floating-label label="位置" v-model="con.location"></ui-textbox>
@@ -25,7 +25,7 @@ export default {
       this.iswaitting = true
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/user/addUser',
+        url: this.$store.state.host + '/lab/addLab',
         data: JSON.stringify(this.con)
       })
         .then(res => {

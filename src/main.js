@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import iView from 'iview'
 import router from './router'
 import KeenUI from 'keen-ui'
 import 'keen-ui/dist/keen-ui.css'
@@ -11,6 +12,7 @@ import VueNotifications from 'vue-notifications'
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import fetch from '@/util/fetch.js'
+import 'iview/dist/styles/iview.css'
 
 function toast ({
   title,
@@ -35,6 +37,7 @@ const options = {
 Vue.use(VueNotifications, options)
 Vue.use(KeenUI)
 Vue.use(Vuex)
+Vue.use(iView)
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({

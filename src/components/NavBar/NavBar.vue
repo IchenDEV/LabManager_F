@@ -32,4 +32,7 @@ export default {
 }
 </script>
 <style>
+.ui-tabs{
+  margin-bottom: 0;
+}
 </style>

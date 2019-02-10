@@ -5,14 +5,14 @@
       <add-lab/>
     </Card>
     <Card v-for="(item,index) in labs.list" :key="index">
-      <p slot="title">{{item.username}}</p>
-      <p>{{item.userId}}</p>
-      <p>{{item.nickname}}</p>
-      <p>{{item.roleName}}</p>
-      <p>{{item.phone}}</p>
+      <p slot="title">{{item.name}}</p>
+      <p>{{item.id}}</p>
+      <p>{{item.location}}</p>
+      <p>{{item.description}}</p>
+      <p>{{item.createTime}}</p>
       <span>
-      <ui-button color="primary" icon="delete" @click="moClicked(item.userId)" :loading="iswaitting">修改</ui-button>
-      <ui-button color="primary" icon="delete" @click="delClicked(item.userId)" :loading="iswaitting">删除</ui-button>
+      <ui-button color="primary" icon="delete" @click="moClicked(item.id)" :loading="iswaitting">修改</ui-button>
+      <ui-button color="primary" icon="delete" @click="delClicked(item.id)" :loading="iswaitting">删除</ui-button>
       </span>
     </Card>
   </div>
@@ -26,7 +26,8 @@ export default {
   data () {
     return {
       labs: {},
-      conp: { pageRow: 10 }
+      conp: { pageRow: 10 },
+      iswaitting: false
     }
   },
   components: { AddLab },
@@ -34,7 +35,7 @@ export default {
     getInfo () {
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/user/list',
+        url: this.$store.state.host + '/lab/list',
         data: JSON.stringify(this.conp)
       })
         .then(res => {
@@ -43,6 +44,7 @@ export default {
         })
         .catch(function (err) {
           console.log(err)
+          this.showErrorMsg()
         })
     },
     onPageChange (page) {
@@ -54,7 +56,7 @@ export default {
       let da = {id: id}
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/user/delUser',
+        url: this.$store.state.host + '/lab/deleteLab',
         data: JSON.stringify(da)
       })
         .then(res => {
@@ -62,6 +64,7 @@ export default {
         })
         .catch(function (err) {
           console.log(err)
+          this.showErrorMsg()
         })
     }
   },

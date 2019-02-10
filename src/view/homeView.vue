@@ -1,21 +1,21 @@
 <template>
-<div class="flex-panel">
-  <Card>
-<h1>登录</h1>
-<Login></Login>
-  </Card>
-  <Card>
-<h1>或 注册</h1>
-<sing-up></sing-up>
-  </Card>
-</div>
+  <div class="flex-panel">
+    <Card>
+       <p slot="title">预定信息</p>
+    </Card>
+    <Card>
+       <p slot="title">通信信息</p>
+    </Card>
+    <Card style="width:70%;">
+       <p slot="title">个人信息</p>
+       <current-user-box simple='true'></current-user-box>
+    </Card>
+  </div>
 </template>
 <script>
-import Login from '../components/Login/Login'
-import SingUp from '../components/SingUp/SingUp'
+import CurrentUserBox from '@/components/CurrentUserBox/CurrentUserBox'
 export default {
-  name: 'loginView',
-  components: {Login, SingUp}
+  components: {CurrentUserBox}
 }
 </script>
 <style>
@@ -23,9 +23,6 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: white
-}
-.sider{
   background-color: white
 }
 .flex-panel > div {

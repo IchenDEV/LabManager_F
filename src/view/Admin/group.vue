@@ -1,11 +1,13 @@
 <template>
   <div>
-      group
+      <add-group></add-group>
   </div>
 </template>
 <script>
 import fetch from '@/util/fetch.js'
+import AddGroup from '@/components/Group/AddGroup'
 export default {
+  components: { AddGroup },
   methods: {
     getInfo () {
       let conp = { pageRow: 100, offSet: 0 }
