@@ -29,17 +29,12 @@ export default {
         data: JSON.stringify(this.conp)
       })
         .then(res => {
-          console.log(res.data)
           this.logs = res.data.info
           this.totalPage = res.data.info.totalCount
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     },
     onPageChange (page) {
-      console.log(page)
       this.conp.pageNum = page
       this.getInfo()
     }

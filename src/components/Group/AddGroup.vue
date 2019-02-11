@@ -26,13 +26,10 @@ export default {
         url: this.$store.state.host + '/group/addGroup',
         data: JSON.stringify(this.con)
       })
-        .then(res => {
-          console.log(res)
+        .then(() => {
           this.iswaitting = false
         })
-        .catch(function (err) {
-          console.log(err)
-        })
+        .catch()
     }
   }
 }

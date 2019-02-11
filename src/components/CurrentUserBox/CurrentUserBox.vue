@@ -137,7 +137,7 @@ export default {
           url: this.$store.state.host + '/login/getInfo'
         })
           .then(res => {
-            console.log(res)
+           
             if (res.data.code === '100') {
               this.nickname = res.data.info.userPermission.nickname
               this.phone = res.data.info.userPermission.phone
@@ -155,11 +155,9 @@ export default {
             this.getGpinfo()
             this.iswaitting = false
           })
-          .catch(function (err) {
-            console.log(err)
+          .catch(function () {     
             that.showErrorMsg()
           })
-      } else {
       }
     },
     getDpinfo () {
@@ -172,9 +170,8 @@ export default {
         data: JSON.stringify(conp)
       })
         .then(res => {
-          console.log(res)
+         
           if (res.data.code === '100') {
-            console.log(res.data.info.list)
             this.showSuccessMsg({ title: this.nickname })
             this.dpinfo = res.data.info
           } else {
@@ -182,8 +179,8 @@ export default {
           }
           this.iswaitting = false
         })
-        .catch(function (err) {
-          console.log(err)
+        .catch(function () {
+
           that.showErrorMsg()
         })
     },
@@ -197,9 +194,8 @@ export default {
         data: JSON.stringify(conp)
       })
         .then(res => {
-          console.log(res)
+         
           if (res.data.code === '100') {
-            console.log(res.data.info.list)
             this.showSuccessMsg({ title: this.nickname })
             this.gpinfo = res.data.info
           } else {
@@ -207,8 +203,8 @@ export default {
           }
           this.iswaitting = false
         })
-        .catch(function (err) {
-          console.log(err)
+        .catch(function () {
+          
           that.showErrorMsg()
         })
     },
@@ -227,7 +223,7 @@ export default {
         data: JSON.stringify(con)
       })
         .then(res => {
-          console.log(res)
+         
           if (res.data.code === '100') {
             this.showSuccessMsg({ title: this.nickname })
             this.moString = '修改'
@@ -237,10 +233,7 @@ export default {
           }
           this.iswaitting = false
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     },
     mohandle () {
       if (this.mo) {
@@ -262,7 +255,7 @@ export default {
         url: this.$store.state.host + '/login/logout'
       })
         .then(res => {
-          console.log(res)
+         
           if (res.data.code === '100') {
             this.showSuccessMsg({ title: this.nickname })
             this.$store.commit('cleanInfo')
@@ -272,8 +265,7 @@ export default {
           }
           this.iswaitting = false
         })
-        .catch(function (err) {
-          console.log(err)
+        .catch(function () {
           that.showErrorMsg()
         })
     }
@@ -284,7 +276,7 @@ export default {
   notifications: {
     showSuccessMsg: {
       type: VueNotifications.types.success,
-      title: 'Hello ' + this.username,
+      title: 'Hello ',
       message: '成功'
     },
     showErrorMsg: {

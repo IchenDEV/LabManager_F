@@ -14,13 +14,8 @@ export default {
         url: this.$store.state.host + '/project/list',
         data: JSON.stringify(conp)
       })
-        .then(res => {
-          console.log(res.data)
-        })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .then()
+        .catch()
     }
   },
   mounted () {

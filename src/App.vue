@@ -21,9 +21,13 @@ document.onclick = function () {
   var oDiv = document.getElementById('pop')
   oDiv.style.display = 'none'
 }
+/* eslint-disable */
 export default {
   name: 'App',
   components: { NavBar, myFooter },
+  mounted () {
+    console.log('道路千万条，安全第一条\r\n行车不规范，亲人两行泪')
+  },
   data () {
     return {
       menuOption: [

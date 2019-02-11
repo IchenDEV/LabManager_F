@@ -53,13 +53,10 @@ export default {
         url: this.$store.state.host + '/device/addDevice',
         data: JSON.stringify(this.con)
       })
-        .then(res => {
-          console.log(res)
+        .then(()=> {
           this.iswaitting = false
         })
-        .catch(function (err) {
-          console.log(err)
-        })
+        .catch()
     },
     getLabInfo () {
       let conp = { pageRow: 100, offSet: 0 }
@@ -70,12 +67,8 @@ export default {
       })
         .then(res => {
           this.labInfo = res.data.info
-          console.log(res.data)
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     }
   },
   mounted () {

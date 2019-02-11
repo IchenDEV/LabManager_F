@@ -39,16 +39,11 @@ export default {
         data: JSON.stringify(this.conp)
       })
         .then(res => {
-          console.log(res.data)
           this.labs = res.data.info
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     },
     onPageChange (page) {
-      console.log(page)
       this.conp.pageNum = page
       this.getInfo()
     },
@@ -59,13 +54,8 @@ export default {
         url: this.$store.state.host + '/lab/deleteLab',
         data: JSON.stringify(da)
       })
-        .then(res => {
-          console.log(res.data)
-        })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .then()
+        .catch()
     }
   },
   mounted () {

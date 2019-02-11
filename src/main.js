@@ -13,13 +13,13 @@ import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import fetch from '@/util/fetch.js'
 import 'iview/dist/styles/iview.css'
+import '@babel/polyfill'
 
-function toast ({
+function toast({
   title,
   message,
   type,
-  timeout,
-  cb
+  timeout
 }) {
   if (type === VueNotifications.types.warn) type = 'warning'
   return iziToast[type]({
@@ -42,8 +42,8 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    host: '//localhost:8080/',
-    //  host: '//acm.idevlab.cn:8080/',
+    //  host: '//localhost:8080/',
+    host: '//acm.idevlab.cn:8080/',
     currentUser: {
       username: '',
       nickname: '',
@@ -53,16 +53,14 @@ const store = new Vuex.Store({
     isAdmin: false
   },
   actions: {
-    getInfo () {
+    getInfo() {
       let state = this.state
       fetch({
-        method: 'Post',
-        url: state.host + '/login/getInfo'
-      })
+          method: 'Post',
+          url: state.host + '/login/getInfo'
+        })
         .then(res => {
-          console.log(res)
           if (res.data.code === '100') {
-            console.log('1')
             state.hasSingin = true
             state.currentUser.nickname = res.data.info.userPermission.nickname
             state.currentUser.username = this.username
@@ -70,13 +68,13 @@ const store = new Vuex.Store({
             if (res.data.info.userPermission.roleId === 1) {
               state.isAdmin = true
             }
-          } else {}
+          }
           this.iswaitting = false
         })
     }
   },
   mutations: {
-    cleanInfo () {
+    cleanInfo() {
       let state = this.state
       state.hasSingin = false
       state.currentUser.nickname = ''
@@ -87,14 +85,10 @@ const store = new Vuex.Store({
   }
 })
 new Vue({
-  el: '#app',
   router,
   store,
-  components: {
-    App
-  },
-  template: '<App/>',
-  mounted () {
+  mounted() {
     this.$store.dispatch('getInfo')
-  }
-})
+  },
+  render: h => h(App)
+}).$mount('#app')

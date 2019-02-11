@@ -31,26 +31,22 @@ export default {
         url: this.$store.state.host + '/login/auth',
         data: JSON.stringify(con)
       })
-        .then(res => {
-          console.log(res)
+        .then(res => {  
           if (res.data.info.loginCode === 0) {
-            this.showSuccessMsg({ title: 'Welcome ' + this.username })
+            this.showSuccessMsg({ title: 'Welcome ' })
             this.$store.dispatch('getInfo')
           } else {
             this.showWarnMsg()
           }
           this.iswaitting = false
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     }
   },
   notifications: {
     showSuccessMsg: {
       type: VueNotifications.types.success,
-      title: 'Hello ' + this.username,
+      title: 'Hello ',
       message: '登录成功'
     },
     showWarnMsg: {

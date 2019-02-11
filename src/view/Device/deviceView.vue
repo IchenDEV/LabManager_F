@@ -12,7 +12,7 @@
           <p>{{item.locationDescription}}</p>
           <p>地址 {{item.locationAddress}}</p>
         </div>
-      </Card>
+    </Card>
   </div>
 </template>
 <script>
@@ -37,14 +37,8 @@ export default {
         url: this.$store.state.host + '/book/list',
         data: JSON.stringify(this.search)
       })
-        .then(res => {
-          //  this.info = res.data.info;
-          console.log(res)
-        })
-        .catch(function (err) {
-          console.log(err)
-          //  this.showErrorMsg();
-        })
+        .then()
+        .catch()
     },
     getDeviceInfo () {
       for (var key in this.search2) {
@@ -59,12 +53,8 @@ export default {
       })
         .then(res => {
           this.item = res.data.info.list[0]
-          console.log(res.data)
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     }
   },
   mounted () {

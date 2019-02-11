@@ -44,7 +44,6 @@ export default {
           data: JSON.stringify(con)
         })
           .then(res => {
-            console.log(res)
             if (res.data.code === '100') {
               this.showSuccessMsg({ title: this.username })
             } else {
@@ -52,17 +51,14 @@ export default {
             }
             this.iswaitting = false
           })
-          .catch(function (err) {
-            console.log(err)
-            this.showErrorMsg()
-          })
+          .catch()
       }
     }
   },
   notifications: {
     showSuccessMsg: {
       type: VueNotifications.types.success,
-      title: 'Hello ' + this.username,
+      title: 'Hello ',
       message: '注册成功'
     },
     showErrorMsg: {

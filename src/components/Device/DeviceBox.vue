@@ -77,12 +77,8 @@ export default {
       })
         .then(res => {
           this.info = res.data.info
-          console.log(res.data)
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     },
     getLabInfo () {
       let conp = { pageRow: 100, offSet: 0 }
@@ -95,12 +91,8 @@ export default {
           this.labInfo = res.data.info
           var temp = { name: 'All', id: -1 }
           this.labInfo.list.splice(0, 0, temp)
-          console.log(res.data)
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     },
     searchClicked () {
       if (this.search.lab.id < 0) {
@@ -111,7 +103,6 @@ export default {
       this.getDeviceInfo()
     },
     onPageChange (page) {
-      console.log(page)
       this.search.pageNum = page
       this.getDeviceInfo()
     }
@@ -125,7 +116,7 @@ export default {
   notifications: {
     showSuccessMsg: {
       type: VueNotifications.types.success,
-      title: 'Hello ' + this.username,
+      title: 'Hello ',
       message: '登录成功'
     },
     showWarnMsg: {

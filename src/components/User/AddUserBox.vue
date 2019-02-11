@@ -29,11 +29,11 @@ export default {
         data: JSON.stringify(this.con)
       })
         .then(res => {
-          console.log(res)
+         
           this.iswaitting = false
         })
         .catch(function (err) {
-          console.log(err)
+          
         })
     }
   }

@@ -28,13 +28,9 @@ export default {
         data: JSON.stringify(conp)
       })
         .then(res => {
-          console.log(res.data)
           this.department = res.data.info
         })
-        .catch(function (err) {
-          console.log(err)
-          this.showErrorMsg()
-        })
+        .catch()
     }
   },
   mounted () {
