@@ -1,6 +1,11 @@
 <template>
 <div>
   <div class="flex-panel">
+      <ui-textbox icon="person" floating-label label="name" v-model="search.name"></ui-textbox>
+      <ui-textbox icon="person" floating-label label="id" v-model="search.id"></ui-textbox>
+    </div>
+    <ui-button color="primary" icon="search" @click="searchClicked">??</ui-button>
+  <div class="flex-panel">
     <Card v-for="(item,index) in projects.list" :key="index">
       <p slot="title">{{item.name}}</p>
       <p>{{item.id}}</p>
@@ -14,7 +19,7 @@
       </span>
     </Card>
   </div>
-  <Page v-if="projects.totalPage>1" :total="projects.totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
+  <Page v-if="projects.totalPage>1" :total="projects.totalPage" :page-size="search.pageRow" show-elevator @on-change="onPageChange"/>
 </div>
 </template>
 <script>
@@ -23,7 +28,7 @@ export default {
   data () {
     return {
       projects: {},
-      conp: { pageRow: 10 },
+      search: { pageRow: 10 },
       iswaitting: false
     }
   },
@@ -32,7 +37,7 @@ export default {
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/project/list',
-        data: JSON.stringify(this.conp)
+        data: JSON.stringify(this.search)
       })
         .then(res => {
           this.projects = res.data.info
@@ -40,7 +45,7 @@ export default {
         .catch()
     },
     onPageChange (page) {
-      this.conp.pageNum = page
+      this.search.pageNum = page
       this.getInfo()
     },
     delClicked (id) {
@@ -52,6 +57,14 @@ export default {
       })
         .then()
         .catch()
+    },
+    searchClicked() {
+      for (var key in this.search) {
+        if (this.search[key] === null || this.search[key] === "") {
+          delete this.search[key];
+        }
+      }
+      this.getInfo();
     }
   },
   mounted () {

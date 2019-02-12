@@ -22,11 +22,13 @@ export default {
   data () {
     return {
       users: {},
-      conp: { pageRow: 10 }
+      conp: { pageRow: 10 },
+      iswaitting: false
     }
   },
   methods: {
     getInfo () {
+      this.iswaitting=true;
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/user/list',
@@ -34,8 +36,10 @@ export default {
       })
         .then(res => {
           this.users = res.data.info
+          this.iswaitting=false;
         })
         .catch()
+        this.iswaitting=false;
     },
     onPageChange (page) {
       this.conp.pageNum = page

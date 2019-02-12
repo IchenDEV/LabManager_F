@@ -1,6 +1,12 @@
 <template>
   <div>
   <table class="table">
+  <tr >
+    <th>操作人员</th>
+    <th>操作</th>
+    <th>目标</th>
+    <th>时间</th>
+  </tr>
   <tr v-for="(item,index) in logs.list" :key="index">
     <th>{{item.user}}</th>
     <th>{{item.operation}}</th>

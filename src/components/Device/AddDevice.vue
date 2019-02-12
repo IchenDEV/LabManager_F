@@ -62,7 +62,7 @@ export default {
       let conp = { pageRow: 100, offSet: 0 }
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/device/list',
+        url: this.$store.state.host + '/lab/list',
         data: JSON.stringify(conp)
       })
         .then(res => {
