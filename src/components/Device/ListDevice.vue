@@ -12,10 +12,10 @@
       type='image'
       :options='labInfo.list'
       :keys='{ label: "name", value: "id" }'
-      v-model='search.lab'
+      v-model='search.device'
     ></ui-select>
     </div>
-     <ui-button color='primary' icon='search' @click='searchClicked'>查询</ui-button>
+    <ui-button color='primary' icon='search' @click='searchClicked'>查询</ui-button>
     <div class="flex-panel">
       <Card v-for='(item,index) in info.list' :key='index'>
         <div>
@@ -28,7 +28,9 @@
           <p>位置 {{item.locationName}}</p>
           <p>{{item.locationDescription}}</p>
           <p>地址 {{item.locationAddress}}</p>
-          <ui-button color='primary' icon='book' @click='bookClicked(item.id)'>预订</ui-button>
+          <ui-button v-if="!admin" color='primary' icon='book' @click='bookClicked(item.id)'>预订</ui-button>
+          <ui-button v-if="admin" color='primary' icon='delete' @click='bookClicked(item.id)'>修改</ui-button>
+          <ui-button v-if="admin" color='primary' icon='delete' @click='delClicked(item.id)'>删除</ui-button>
         </div>
       </Card>
       <Card v-if="info.totalCount===0">
@@ -45,6 +47,7 @@ import router from '@/router'
 import VueNotifications from 'vue-notifications'
 import fetch from '@/util/fetch.js'
 export default {
+  props: { admin: { default: false } },
   data () {
     return {
       labInfo: { list: [] },
@@ -54,7 +57,7 @@ export default {
         band: '',
         name: '',
         No: '',
-        lab: -1,
+        device: -1,
         pageRow: 10,
         pageNum: 1
       }
@@ -84,7 +87,7 @@ export default {
       let conp = { pageRow: 100, offSet: 0 }
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/lab/list',
+        url: this.$store.state.host + '/device/list',
         data: JSON.stringify(conp)
       })
         .then(res => {
@@ -95,16 +98,26 @@ export default {
         .catch()
     },
     searchClicked () {
-      if (this.search.lab.id < 0) {
+      if (this.search.device.id < 0) {
         delete this.search.location
       } else {
-        this.search.location = this.search.lab.id
+        this.search.location = this.search.device.id
       }
       this.getDeviceInfo()
     },
     onPageChange (page) {
       this.search.pageNum = page
       this.getDeviceInfo()
+    },
+    delClicked (id) {
+      let da = {id: id}
+      fetch({
+        method: 'Post',
+        url: this.$store.state.host + '/device/deleteDevice',
+        data: JSON.stringify(da)
+      })
+        .then()
+        .catch()
     }
   },
   mounted () {

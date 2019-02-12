@@ -1,89 +1,17 @@
 <template>
 <div>
-  <div class="flex-panel">
+  <div>
     <Card>
-      <add-lab/>
+      <add-user/>
     </Card>
-    <Card v-for="(item,index) in labs.list" :key="index">
-      <p slot="title">{{item.username}}</p>
-      <p>{{item.userId}}</p>
-      <p>{{item.nickname}}</p>
-      <p>{{item.roleName}}</p>
-      <p>{{item.phone}}</p>
-      <span>
-      <ui-button color="primary" icon="delete" @click="moClicked(item.userId)" :loading="iswaitting">修改</ui-button>
-      <ui-button color="primary" icon="delete" @click="delClicked(item.userId)" :loading="iswaitting">删除</ui-button>
-      </span>
-    </Card>
+   <list-user></list-user>
   </div>
-  <Page v-if="labs.totalPage>1" :total="labs.totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
 </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
-import AddLab from '@/components/Lab/AddLab'
+import AddUser from '@/components/User/AddUser'
+import ListUser from '@/components/User/ListUser'
 export default {
-  data () {
-    return {
-      labs: {},
-      conp: { pageRow: 10 }
-    }
-  },
-  components: { AddLab },
-  methods: {
-    getInfo () {
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/user/list',
-        data: JSON.stringify(this.conp)
-      })
-        .then(res => {
-          this.labs = res.data.info
-        })
-        .catch()
-    },
-    onPageChange (page) {
-      this.conp.pageNum = page
-      this.getInfo()
-    },
-    delClicked (id) {
-      let da = {id: id}
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/user/delUser',
-        data: JSON.stringify(da)
-      })
-        .then()
-        .catch()
-    }
-  },
-  mounted () {
-    this.getInfo()
-  }
+  components: { AddUser, ListUser },
 }
 </script>
-<style>
-.flex-panel {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background-color: white
-}
-.sider{
-  background-color: white
-}
-.flex-panel > div {
-  padding: 10px;
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  width: 300px; /* 让过渡表现良好。（从/到'width:auto'的过渡
-                      至少在 Gecko 和 Webkit 上是有 bug 的。
-                      更多信息参见 http://bugzil.la/731886 ） */
-
-  -webkit-transition: width 0.7s ease-out;
-  transition: width 0.7s ease-out;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  margin-top: 0.5rem
-}
-</style>

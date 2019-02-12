@@ -5,6 +5,7 @@
     </Card>
     <Card>
        <p slot="title">通信信息</p>
+       <MsgBox></MsgBox>
     </Card>
     <Card style="width:70%;">
        <p slot="title">个人信息</p>
@@ -14,8 +15,9 @@
 </template>
 <script>
 import CurrentUserBox from '@/components/CurrentUserBox/CurrentUserBox'
+import MsgBox from '@/components/Msg/MsgBox'
 export default {
-  components: {CurrentUserBox}
+  components: { CurrentUserBox,MsgBox }
 }
 </script>
 <style>

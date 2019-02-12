@@ -8,7 +8,7 @@
       type='image'
       :options='labInfo.list'
       :keys='{ label: "name", value: "id" }'
-      v-model='search.lab'
+      v-model='search.device'
     ></ui-select>
     <ui-textbox icon="lock"   floating-label label="描述" v-model="con.description"></ui-textbox>
     <ui-textbox icon="person" floating-label label="型号" v-model="con.model"></ui-textbox>
@@ -37,7 +37,7 @@ export default {
         band: '',
         name: '',
         No: '',
-        lab: 1,
+        device: 1,
         pageRow: 1000,
         offSet: 0
       },
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     addClicked () {
-      this.con.location = this.search.lab.id
+      this.con.location = this.search.device.id
       this.iswaitting = true
       fetch({
         method: 'Post',
@@ -62,7 +62,7 @@ export default {
       let conp = { pageRow: 100, offSet: 0 }
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/lab/list',
+        url: this.$store.state.host + '/device/list',
         data: JSON.stringify(conp)
       })
         .then(res => {

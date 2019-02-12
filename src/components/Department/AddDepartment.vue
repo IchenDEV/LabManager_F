@@ -1,8 +1,7 @@
 <template>
-  <div class="add-user">
+  <div class="add-department">
     <ui-textbox icon="person" floating-label label="名称" v-model="con.name"></ui-textbox>
     <ui-textbox icon="lock" floating-label label="描述" v-model="con.description"></ui-textbox>
-    <ui-textbox icon="lock" floating-label label="位置" v-model="con.location"></ui-textbox>
     <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting">新建</ui-button>
   </div>
 </template>
@@ -14,7 +13,6 @@ export default {
       con: {
         name: '',
         description: '',
-        location: '',
         status: 1
       },
       iswaitting: false
@@ -25,19 +23,14 @@ export default {
       this.iswaitting = true
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/user/addUser',
+        url: this.$store.state.host + '/department/addDepartment',
         data: JSON.stringify(this.con)
       })
-        .then(res => {
-         
+        .then(() => {
           this.iswaitting = false
         })
-        .catch(function (err) {
-          
-        })
+        .catch()
     }
   }
 }
 </script>
-<style>
-</style>

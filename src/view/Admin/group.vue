@@ -1,27 +1,15 @@
 <template>
   <div>
+    <Card>
       <add-group></add-group>
+    </Card>
+      <list-group></list-group>
   </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
 import AddGroup from '@/components/Group/AddGroup'
+import ListGroup from '@/components/Group/ListGroup'
 export default {
-  components: { AddGroup },
-  methods: {
-    getInfo () {
-      let conp = { pageRow: 100, offSet: 0 }
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/group/list',
-        data: JSON.stringify(conp)
-      })
-        .then()
-        .catch()
-    }
-  },
-  mounted () {
-    this.getInfo()
-  }
+  components: { AddGroup, ListGroup }
 }
 </script>

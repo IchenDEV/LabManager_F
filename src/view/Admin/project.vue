@@ -1,25 +1,17 @@
 <template>
+<div>
   <div>
-      project
+    <Card>
+      <add-project/>
+    </Card>
+    <list-project></list-project>
   </div>
+</div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import AddProject from '@/components/Project/AddProject'
+import ListProject from '@/components/Project/ListProject'
 export default {
-  methods: {
-    getInfo () {
-      let conp = { pageRow: 100, offSet: 0 }
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/project/list',
-        data: JSON.stringify(conp)
-      })
-        .then()
-        .catch()
-    }
-  },
-  mounted () {
-    this.getInfo()
-  }
+  components: { AddProject, ListProject },
 }
 </script>

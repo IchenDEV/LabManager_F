@@ -1,6 +1,6 @@
 <template>
   <div class='navbar'>
-    <ui-tabs
+    <ui-tabs style="margin-bottom: 0;"
       fullwidth
       type='icon-and-text'
     >
