@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex-panel">
     <Card>
       <add-department></add-department>
     </Card>

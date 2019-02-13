@@ -26,7 +26,7 @@ export default {
   name: 'App',
   components: { NavBar, myFooter },
   mounted () {
-    console.log('道路千万条，安全第一条\r\n行车不规范，亲人两行泪')
+    console.warn('北京第三交通委提醒您：\r\n道路千万条，安全第一条\r\n行车不规范，亲人两行泪')
   },
   data () {
     return {

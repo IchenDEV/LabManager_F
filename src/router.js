@@ -9,6 +9,8 @@ import adminView from '@/view/Admin/adminView'
 import department from '@/view/Admin/department'
 import departmentAdmin from '@/view/Admin/page/departmentAdmin'
 import groupAdmin from '@/view/Admin/page/groupAdmin'
+import userAdmin from '@/view/Admin/page/userAdmin'
+import deviceAdmin from '@/view/Admin/page/deviceAdmin'
 import labAdmin from '@/view/Admin/page/labAdmin'
 import device from '@/view/Admin/device'
 import log from '@/view/Admin/log'
@@ -76,6 +78,10 @@ export default new Router({
           component: device
         },
         {
+          path: 'device/:id',
+          component: deviceAdmin
+        },
+        {
           path: 'group',
           component: group
         },
@@ -86,6 +92,10 @@ export default new Router({
         {
           path: 'user',
           component: user
+        },
+        {
+          path: 'user/:id',
+          component: userAdmin
         }
       ]
     }

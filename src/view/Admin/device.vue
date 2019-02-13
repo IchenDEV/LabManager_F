@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex-panel">
     <Card>
       <add-device></add-device>
     </Card>

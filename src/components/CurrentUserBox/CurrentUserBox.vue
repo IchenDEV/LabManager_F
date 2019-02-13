@@ -78,6 +78,7 @@
         @click='mohandle'
         :loading='iswaitting'
       >{{moString}}</ui-button>
+       <ui-button v-if="!simple" color='primary' icon='adjust' @click='passwordhandle' :loading='iswaitting'>修改密码</ui-button>
       <span v-else>
         <ui-button v-if="!simple" color='primary' icon='update' @click='updateinfo' :loading='iswaitting'>更新</ui-button>
         <ui-button
@@ -92,6 +93,9 @@
     <div v-else>
       <ui-button color='primary' icon='adjust' @click='loginhandle'>请登录</ui-button>
     </div>
+    <ui-modal ref="passmodal" title="修改密码">
+        <update-current-password @close="closepass"></update-current-password>
+    </ui-modal>
   </div>
 </template>
 <script>
@@ -99,7 +103,9 @@ import VueNotifications from 'vue-notifications'
 import fetch from '@/util/fetch.js'
 import router from '@/router'
 import stringCK from '@/util/stringCK.js'
+import UpdateCurrentPassword from '@/components/CurrentUserBox/UpdateCurrentPassword'
 export default {
+  components: {UpdateCurrentPassword},
   props: { simple: { default: false } },
   data () {
     return {
@@ -129,15 +135,14 @@ export default {
   },
   methods: {
     getinfo () {
-      if (this.nickname === '' && this.$store.state.hasSingin === true) {
+      if (this.$store.state.hasSingin === true) {
         this.iswaitting = true
         var that = this
         fetch({
           method: 'Post',
           url: this.$store.state.host + '/login/getInfo'
         })
-          .then(res => {
-           
+          .then(res => {   
             if (res.data.code === '100') {
               this.nickname = res.data.info.userPermission.nickname
               this.phone = res.data.info.userPermission.phone
@@ -244,6 +249,12 @@ export default {
       }
       this.mo = !this.mo
     },
+    closepass (){
+      this.$refs['passmodal'].close()
+    },
+    passwordhandle (){
+      this.$refs['passmodal'].open()
+    },
     loginhandle () {
       router.push('../login')
     },
@@ -272,6 +283,11 @@ export default {
   },
   mounted () {
     this.getinfo()
+  },
+  watch: {
+    hasSingin () {
+      this.getinfo()
+    }
   },
   notifications: {
     showSuccessMsg: {

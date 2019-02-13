@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>设备列表</h2>
     <div class="flex-panel">
     <ui-textbox icon='person' floating-label label='设备名称' v-model='search.name'></ui-textbox>
     <ui-textbox icon='person' floating-label label='设备编号' v-model='search.No'></ui-textbox>
@@ -17,8 +18,7 @@
     </div>
     <ui-button color='primary' icon='search' @click='searchClicked'>查询</ui-button>
     <div class="flex-panel">
-      <transition-group name="list" tag="div" class="flex-panel">
-      <Card v-for='(item,index) in info.list' :key='item'>
+      <Card v-for='(item,index) in info.list' :key='index'>
         <div>
           <h2>设备 {{item.id}}</h2>
           <p>名称 {{item.name}}</p>
@@ -34,7 +34,6 @@
           <ui-button v-if="admin" color='primary' icon='delete' @click='delClicked(item.id,index)'>删除</ui-button>
         </div>
       </Card>
-      </transition-group>
       <Card v-if="info.totalCount===0">
         <div>
          没有找到相关设备
@@ -67,7 +66,7 @@ export default {
   },
   methods: {
     bookClicked (i) {
-      router.push('/device/' + i)
+      router.push('device/' + i)
     },
     getDeviceInfo () {
       for (var key in this.search) {

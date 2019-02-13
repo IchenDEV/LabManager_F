@@ -1,15 +1,16 @@
 <template>
 <div>
+  <h2>用户列表</h2>
   <div class="flex-panel">
     <Card v-for="(item,index) in users.list" :key="index">
-      <p slot="title">{{item.username}}</p>
-      <p>{{item.userId}}</p>
-      <p>{{item.nickname}}</p>
-      <p>{{item.roleName}}</p>
-      <p>{{item.phone}}</p>
+      <p slot="title">用户名 {{item.username}}</p>
+      <p>用户id {{item.userId}}</p>
+      <p>姓名 {{item.nickname}}</p>
+      <p>角色 {{item.roleName}}</p>
+      <p>电话 {{item.phone}}</p>
       <span>
-      <ui-button color="primary" icon="delete" @click="moClicked(item.userId)" :loading="iswaitting">修改</ui-button>
-      <ui-button color="primary" icon="delete" @click="delClicked(item.userId)" :loading="iswaitting">删除</ui-button>
+      <ui-button color="primary" icon="adjust" @click="moClicked(item.userId)" :loading="iswaitting">修改</ui-button>
+      <ui-button v-if="item.userId!==10003" color="primary" icon="delete" @click="delClicked(item.userId,index)" :loading="iswaitting">删除</ui-button>
       </span>
     </Card>
   </div>
@@ -18,12 +19,13 @@
 </template>
 <script>
 import fetch from '@/util/fetch.js'
+import router from '@/router'
 export default {
   data () {
     return {
       users: {},
       conp: { pageRow: 10 },
-      iswaitting: false
+      iswaitting: false  
     }
   },
   methods: {
@@ -45,7 +47,8 @@ export default {
       this.conp.pageNum = page
       this.getInfo()
     },
-    delClicked (id) {
+    delClicked (id,index) {
+      this.info.list.splice(index, 1)
       let da = {id: id}
       fetch({
         method: 'Post',
@@ -54,6 +57,9 @@ export default {
       })
         .then()
         .catch()
+    },
+    moClicked (id){
+      router.push("user/"+id.toString())
     }
   },
   mounted () {

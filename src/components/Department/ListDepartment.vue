@@ -1,7 +1,8 @@
 <template>
   <div>
+    <h2>部门列表</h2>
     <div class="flex-panel">
-      <ui-textbox icon="person" floating-label label="name" v-model="search.name"></ui-textbox>
+      <ui-textbox icon="person" floating-label label="名称" v-model="search.name"></ui-textbox>
       <ui-textbox icon="person" floating-label label="id" v-model="search.id"></ui-textbox>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button>
@@ -21,10 +22,15 @@
           <ui-button
             color="primary"
             icon="delete"
-            @click="delClicked(item.id)"
+            @click="delClicked(item.id,index)"
             :loading="iswaitting"
           >删除</ui-button>
         </span>
+      </Card>
+      <Card v-if="departments.totalCount===0">
+        <div>
+         没有找到相关部门
+        </div>
       </Card>
     </div>
     <Page
@@ -63,8 +69,9 @@ export default {
       this.search.pageNum = page;
       this.getInfo();
     },
-    delClicked(id) {
+    delClicked(id,index) {
       let da = { id: id };
+      this.info.list.splice(index, 1)
       fetch({
         method: "Post",
         url: this.$store.state.host + "/department/deleteDepartment",

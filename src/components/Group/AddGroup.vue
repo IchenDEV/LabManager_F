@@ -1,5 +1,6 @@
 <template>
   <div class="add-group">
+    <h2>添加项目组</h2>
     <ui-textbox icon="person" floating-label label="名称" v-model="con.name"></ui-textbox>
     <ui-textbox icon="lock" floating-label label="描述" v-model="con.description"></ui-textbox>
     <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting">新建</ui-button>

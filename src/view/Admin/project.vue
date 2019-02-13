@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div>
+  <div class="flex-panel">
     <Card>
       <add-project/>
     </Card>

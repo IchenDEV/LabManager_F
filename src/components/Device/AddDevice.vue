@@ -1,5 +1,6 @@
 <template>
   <div class="add-group">
+    <h2>新建设备</h2>
     <ui-textbox icon="person" floating-label label="编号" v-model="con.No"></ui-textbox>
     <ui-textbox icon="person" floating-label label="名称" v-model="con.name"></ui-textbox>
      <ui-select
@@ -59,7 +60,7 @@ export default {
         .catch()
     },
     getLabInfo () {
-      let conp = { pageRow: 100, offSet: 0 }
+      let conp = { pageRow: 1000, offSet: 0 }
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/lab/list',

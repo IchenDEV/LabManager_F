@@ -1,8 +1,9 @@
 <template>
 <div>
+  <h2>项目组列表</h2>
   <div class="flex-panel">
-      <ui-textbox icon="person" floating-label label="名称" v-model="search.name"></ui-textbox>
-      <ui-textbox icon="person" floating-label label="id" v-model="search.id"></ui-textbox>
+      <ui-textbox icon="group" floating-label label="名称" v-model="search.name"></ui-textbox>
+      <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button>
   <div class="flex-panel">
@@ -13,9 +14,14 @@
       <p>{{item.createTime}}</p>
       <span>
       <ui-button color="primary" icon="delete" @click="moClicked(item.id)" :loading="iswaitting">修改</ui-button>
-      <ui-button color="primary" icon="delete" @click="delClicked(item.id)" :loading="iswaitting">删除</ui-button>
+      <ui-button color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">删除</ui-button>
       </span>
     </Card>
+    <Card v-if="groups.totalCount===0">
+        <div>
+         没有找到相关项目组
+        </div>
+      </Card>
   </div>
   <Page v-if="groups.totalPage>1" :total="groups.totalPage" :page-size="search.pageRow" show-elevator @on-change="onPageChange"/>
 </div>
@@ -47,8 +53,9 @@ export default {
       this.search.pageNum = page
       this.getInfo()
     },
-    delClicked (id) {
+    delClicked (id,index) {
       let da = {id: id}
+      this.info.list.splice(index, 1)
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/group/deleteGroup',
