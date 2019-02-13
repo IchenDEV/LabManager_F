@@ -23,6 +23,7 @@
 </div>
 </template>
 <script>
+import router from '@/router'
 import fetch from '@/util/fetch.js'
 export default {
   data () {
@@ -65,6 +66,9 @@ export default {
         }
       }
       this.getInfo();
+    },
+    moClicked (id){
+      router.push("lab/"+id.toString())
     }
   },
   mounted () {

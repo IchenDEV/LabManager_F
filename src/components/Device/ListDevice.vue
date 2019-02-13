@@ -17,7 +17,8 @@
     </div>
     <ui-button color='primary' icon='search' @click='searchClicked'>查询</ui-button>
     <div class="flex-panel">
-      <Card v-for='(item,index) in info.list' :key='index'>
+      <transition-group name="list" tag="div" class="flex-panel">
+      <Card v-for='(item,index) in info.list' :key='item'>
         <div>
           <h2>设备 {{item.id}}</h2>
           <p>名称 {{item.name}}</p>
@@ -30,9 +31,10 @@
           <p>地址 {{item.locationAddress}}</p>
           <ui-button v-if="!admin" color='primary' icon='book' @click='bookClicked(item.id)'>预订</ui-button>
           <ui-button v-if="admin" color='primary' icon='delete' @click='bookClicked(item.id)'>修改</ui-button>
-          <ui-button v-if="admin" color='primary' icon='delete' @click='delClicked(item.id)'>删除</ui-button>
+          <ui-button v-if="admin" color='primary' icon='delete' @click='delClicked(item.id,index)'>删除</ui-button>
         </div>
       </Card>
+      </transition-group>
       <Card v-if="info.totalCount===0">
         <div>
          没有找到相关设备
@@ -87,7 +89,7 @@ export default {
       let conp = { pageRow: 100, offSet: 0 }
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/device/list',
+        url: this.$store.state.host + '/lab/list',
         data: JSON.stringify(conp)
       })
         .then(res => {
@@ -109,8 +111,9 @@ export default {
       this.search.pageNum = page
       this.getDeviceInfo()
     },
-    delClicked (id) {
+    delClicked (id,index) {
       let da = {id: id}
+      this.info.list.splice(index, 1)
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/device/deleteDevice',
@@ -146,26 +149,6 @@ export default {
 }
 </script>
 <style>
-.flex-panel {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.flex-panel > div {
-  padding: 10px;
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  width: 300px; /* 让过渡表现良好。（从/到'width:auto'的过渡
-                      至少在 Gecko 和 Webkit 上是有 bug 的。
-                      更多信息参见 http://bugzil.la/731886 ） */
-
-  -webkit-transition: width 0.7s ease-out;
-  transition: width 0.7s ease-out;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  margin-top: 0.5rem
-}
-
 .user-itme {
   padding: 10px;
   -webkit-flex: 1 1 auto;
@@ -178,5 +161,16 @@ export default {
 
   -webkit-transition: width 0.7s ease-out;
   transition: width 0.7s ease-out;
+}
+.list-item {
+  margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to
+/* .list-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>

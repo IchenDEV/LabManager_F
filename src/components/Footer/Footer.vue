@@ -1,5 +1,6 @@
 <template>
   <footer class="footer">
+    <ui-alert :dismissible="false">可以在搜索项后面添加?启动模糊搜索</ui-alert>
     <h2>实验室设备管理系统</h2>
     <p>由XXX开发</p>
     <p>测试版</p>

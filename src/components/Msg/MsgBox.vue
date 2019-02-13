@@ -3,12 +3,21 @@
   <table class="table">
   <tr v-for="(item,index) in msgs.list" :key="index">
     <th>{{item.authorNickName}}</th>
-    <th>{{item.msg}}</th>
+    <a @click="msgcli(item.id)">{{item.msg}}</a>
+    <th>
     <Badge v-if="item.hasRead===0" status="error" />
+    </th>
     <th>{{item.createTime}}</th>
   </tr>
   </table>
   <Page v-if="msgs.totalPage>1" :total="totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
+  <ui-fab
+    icon="refresh"
+    class="fab"
+    tooltip-position="right"
+    @click="getInfo"
+    tooltip="刷新"
+  ></ui-fab>
   </div>
 </template>
 <script>
@@ -34,9 +43,22 @@ export default {
         })
         .catch()
     },
+    readMsg (id) {
+      let cp={id: id}
+      fetch({
+        method: 'Post',
+        url: this.$store.state.host + '/msg/readMsg',
+        data: JSON.stringify(cp)
+      })
+        .then()
+        .catch()
+    },
     onPageChange (page) {
       this.conp.pageNum = page
       this.getInfo()
+    },
+    msgcli (id) {
+      this.readMsg (id)
     }
   },
   mounted () {
@@ -51,5 +73,10 @@ export default {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+}
+.fab{
+  position: absolute;
+  right: 10px;
+  bottom: 0px;
 }
 </style>

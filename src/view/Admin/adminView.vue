@@ -72,7 +72,7 @@ import router from "@/router";
 export default {
   methods: {
     menuChangeHandle(name) {
-      router.push("../admin/" + name);
+      router.push("../../admin/" + name);
     },
     meBTcli() {
       this.showMe=!this.showMe

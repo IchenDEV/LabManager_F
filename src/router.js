@@ -7,6 +7,9 @@ import homeView from '@/view/homeView'
 import deviceView from '@/view/Device/deviceView'
 import adminView from '@/view/Admin/adminView'
 import department from '@/view/Admin/department'
+import departmentAdmin from '@/view/Admin/page/departmentAdmin'
+import groupAdmin from '@/view/Admin/page/groupAdmin'
+import labAdmin from '@/view/Admin/page/labAdmin'
 import device from '@/view/Admin/device'
 import log from '@/view/Admin/log'
 import lab from '@/view/Admin/lab'
@@ -49,12 +52,20 @@ export default new Router({
           component: department
         },
         {
+          path: 'department/:id',
+          component: departmentAdmin
+        },
+        {
           path: 'log',
           component: log
         },
         {
           path: 'lab',
           component: lab
+        },
+        {
+          path: 'lab/:id',
+          component: labAdmin
         },
         {
           path: 'project',
@@ -67,6 +78,10 @@ export default new Router({
         {
           path: 'group',
           component: group
+        },
+        {
+          path: 'group/:id',
+          component: groupAdmin
         },
         {
           path: 'user',
