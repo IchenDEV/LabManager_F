@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div class="flex-panel">
-    <Card>
+  <div class="flex-panel warp">
+    <Card class="card">
       <add-project/>
     </Card>
     <list-project></list-project>
@@ -15,3 +15,16 @@ export default {
   components: { AddProject, ListProject },
 }
 </script>
+<style>
+.warp {
+  flex-wrap: wrap;
+}
+@media only screen and (min-width: 1208px) {
+  .warp {
+    flex-wrap: nowrap;
+  }
+  .card {
+    max-height: 900px;
+  }
+}
+</style>

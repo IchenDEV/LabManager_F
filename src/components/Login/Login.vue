@@ -2,7 +2,7 @@
   <div>
     <ui-textbox icon='person' floating-label label='用户名' v-model='username'></ui-textbox>
     <ui-textbox icon='lock' floating-label label='密码' v-model='password' type='password'></ui-textbox>
-    <ui-button color='primary' icon='check' @click='LonginClicked' :loading='iswaitting'>登录</ui-button>
+    <ui-button color='primary' icon='check' @click='LonginClicked' :loading='iswaitting' :disabled='showLoginBt'>登录</ui-button>
   </div>
 </template>
 <script>
@@ -17,6 +17,11 @@ export default {
       iswaitting: false,
       username: '',
       password: ''
+    }
+  },
+  computed :{
+    showLoginBt (){
+      return this.username===''||this.password===''
     }
   },
   methods: {
