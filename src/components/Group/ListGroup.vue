@@ -55,7 +55,7 @@ export default {
     },
     delClicked (id,index) {
       let da = {id: id}
-      this.info.list.splice(index, 1)
+      this.groups.list.splice(index, 1)
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/group/deleteGroup',

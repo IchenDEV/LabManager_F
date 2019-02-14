@@ -10,7 +10,7 @@
       <p>电话 {{item.phone}}</p>
       <span>
       <ui-button color="primary" icon="adjust" @click="moClicked(item.userId)" :loading="iswaitting">修改</ui-button>
-      <ui-button v-if="item.userId!==10003" color="primary" icon="delete" @click="delClicked(item.userId,index)" :loading="iswaitting">删除</ui-button>
+      <ui-button v-if="item.userId!==10003&&$store.state.isSuperAdmin" color="primary" icon="delete" @click="delClicked(item.userId,index)" :loading="iswaitting">删除</ui-button>
       </span>
     </Card>
   </div>
@@ -48,7 +48,7 @@ export default {
       this.getInfo()
     },
     delClicked (id,index) {
-      this.info.list.splice(index, 1)
+      this.users.list.splice(index, 1)
       let da = {id: id}
       fetch({
         method: 'Post',

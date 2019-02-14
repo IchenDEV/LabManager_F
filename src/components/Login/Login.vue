@@ -9,6 +9,7 @@
 
 import VueNotifications from 'vue-notifications'
 import fetch from '@/util/fetch.js'
+import router from '@/router'
 export default {
   name: 'Login',
   data () {
@@ -33,8 +34,9 @@ export default {
       })
         .then(res => {  
           if (res.data.info.loginCode === 0) {
-            this.showSuccessMsg({ title: 'Welcome ' })
+            this.showSuccessMsg({ title: 'Welcome' })
             this.$store.dispatch('getInfo')
+            router.push('/home')
           } else {
             this.showWarnMsg()
           }

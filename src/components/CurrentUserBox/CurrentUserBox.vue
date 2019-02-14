@@ -79,7 +79,7 @@
         :loading='iswaitting'
       >{{moString}}</ui-button>
        <ui-button v-if="!simple" color='primary' icon='adjust' @click='passwordhandle' :loading='iswaitting'>修改密码</ui-button>
-      <span v-else>
+      <span v-if='!mo'>
         <ui-button v-if="!simple" color='primary' icon='update' @click='updateinfo' :loading='iswaitting'>更新</ui-button>
         <ui-button
           v-if="!simple"

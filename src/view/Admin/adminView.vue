@@ -62,9 +62,7 @@
         </Submenu>
       </Menu>
     </div>
-    <Content>
       <router-view/>
-    </Content>
   </Layout>
 </template>
 <script>

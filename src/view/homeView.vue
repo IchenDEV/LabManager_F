@@ -6,10 +6,11 @@
     </Card>
     <Card v-if="$store.state.hasSingin">
        <p slot="title">预定信息</p>
+       <book-box></book-box>
     </Card>
     <Card v-if="$store.state.hasSingin">
        <p slot="title">通信信息</p>
-       <MsgBox></MsgBox>
+       <msg-box></msg-box>
     </Card>
     <Card style="width:70%;">
        <p slot="title">个人信息</p>
@@ -20,8 +21,9 @@
 <script>
 import CurrentUserBox from '@/components/CurrentUserBox/CurrentUserBox'
 import MsgBox from '@/components/Msg/MsgBox'
+import BookBox from '@/components/Book/BookBox'
 import SendMsg from '@/components/Msg/SendMsg'
 export default {
-  components: { CurrentUserBox,MsgBox,SendMsg}
+  components: { CurrentUserBox,MsgBox,SendMsg,BookBox}
 }
 </script>

@@ -56,7 +56,7 @@ export default {
       this.getInfo()
     },
     delClicked (id,index) {
-      this.info.list.splice(index, 1)
+      this.labs.list.splice(index, 1)
       let da = {id: id}
       fetch({
         method: 'Post',

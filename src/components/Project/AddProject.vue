@@ -9,15 +9,15 @@
                 floating-label
                 v-model="beginDate"
             >开始日期</ui-datepicker>
-    <TimePicker class="timepick" type="time" placeholder="Select time" v-model="beginTime"></TimePicker>
+    <TimePicker class="timepick" style="display:block" type="time" placeholder="Select time" v-model="beginTime"></TimePicker>
     </span>
-    <span>
+    <span style="margin-buttom:20px;">
     <ui-datepicker
                 icon="events"
                 floating-label
                 v-model="endDate"
             >结束日期</ui-datepicker>
-    <TimePicker class="timepick" type="time" placeholder="Select time" v-model="endTime" ></TimePicker>
+    <TimePicker style="display:block" class="timepick" type="time" placeholder="Select time" v-model="endTime" ></TimePicker>
     </span>
     <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting">新建</ui-button>
   </div>
@@ -61,6 +61,9 @@ export default {
 </script>
 <style>
 .timepick .ivu-date-picker{
-  display: block
+  display: block;
+}
+.ivu-picker-panel-body{
+  z-index: 9999;
 }
 </style>

@@ -1,24 +1,20 @@
 <template>
   <div>
-    <h2>部门列表</h2>
-    <div class="flex-panel">
+    <h2>预定列表</h2>
+    <!-- <div class="flex-panel">
       <ui-textbox icon="person" floating-label label="名称" v-model="search.name"></ui-textbox>
       <ui-textbox icon="person" floating-label label="id" v-model="search.id"></ui-textbox>
     </div>
-    <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button>
+    <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button> -->
     <div class="flex-panel">
-      <Card v-for="(item,index) in departments.list" :key="index">
-        <p slot="title">{{item.name}}</p>
+      <Card v-for="(item,index) in books.list" :key="index">
+        <p slot="title">{{item.applicantNickname}}</p>
         <p>{{item.id}}</p>
-        <p>{{item.description}}</p>
+        <p>{{item.projectName}}</p>
+        <p>{{item.deviceName}}</p>
+        <p>{{item.beginTime}} ~ {{item.endTime}}</p>
         <p>{{item.createTime}}</p>
         <span>
-          <ui-button
-            color="primary"
-            icon="delete"
-            @click="moClicked(item.id)"
-            :loading="iswaitting"
-          >修改</ui-button>
           <ui-button
             color="primary"
             icon="delete"
@@ -27,15 +23,15 @@
           >删除</ui-button>
         </span>
       </Card>
-      <Card v-if="departments.totalCount===0">
+      <Card v-if="books.totalCount===0">
         <div>
          没有找到相关部门
         </div>
       </Card>
     </div>
     <Page
-      v-if="departments.totalPage>1"
-      :total="departments.totalPage"
+      v-if="books.totalPage>1"
+      :total="books.totalPage"
       :page-size="search.pageRow"
       show-elevator
       @on-change="onPageChange"
@@ -43,12 +39,11 @@
   </div>
 </template>
 <script>
-import router from '@/router'
 import fetch from "@/util/fetch.js";
 export default {
   data() {
     return {
-      departments: {},
+      books: {},
       search: { pageRow: 10 },
       iswaitting: false
     };
@@ -57,11 +52,11 @@ export default {
     getInfo() {
       fetch({
         method: "Post",
-        url: this.$store.state.host + "/department/list",
+        url: this.$store.state.host + "/book/list",
         data: JSON.stringify(this.search)
       })
         .then(res => {
-          this.departments = res.data.info;
+          this.books = res.data.info;
         })
         .catch();
     },
@@ -71,10 +66,10 @@ export default {
     },
     delClicked(id,index) {
       let da = { id: id };
-      this.departments.list.splice(index, 1)
+      this.books.list.splice(index, 1)
       fetch({
         method: "Post",
-        url: this.$store.state.host + "/department/deleteDepartment",
+        url: this.$store.state.host + "/book/deleteBook",
         data: JSON.stringify(da)
       })
         .then()
@@ -87,9 +82,6 @@ export default {
         }
       }
       this.getInfo();
-    },
-    moClicked (id){
-      router.push("department/"+id.toString())
     }
   },
   mounted() {

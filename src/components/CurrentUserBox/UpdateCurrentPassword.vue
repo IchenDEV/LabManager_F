@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if='hasSingin'>
-      <div class='user-panel'>
+      <div>
         <ui-textbox icon='lock' floating-label label='密码' v-model='password' type='password'></ui-textbox>
       </div>
       <ui-button  color='primary' icon='adjust' @click='mohandle' :loading='iswaitting'>修改密码</ui-button>
@@ -50,23 +50,3 @@ export default {
   }
 }
 </script>
-<style>
-.user-panel {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  font-size: 1.1rem;
-}
-.user-panel > span {
-  margin: 10px;
-  padding: 10px;
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  width: 150px; /* 让过渡表现良好。（从/到'width:auto'的过渡
-                      至少在 Gecko 和 Webkit 上是有 bug 的。
-                      更多信息参见 http://bugzil.la/731886 ） */
-
-  -webkit-transition: width 0.7s ease-out;
-  transition: width 0.7s ease-out;
-}
-</style>

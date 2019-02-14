@@ -18,5 +18,6 @@ export default {}
   font-size: 0.9375rem;
   padding: 1.5rem;
   padding-bottom: 5rem;
+  z-index: -1;
 }
 </style>

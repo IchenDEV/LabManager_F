@@ -3,7 +3,7 @@
   <table class="table">
   <tr v-for="(item,index) in msgs.list" :key="index">
     <th>{{item.authorNickName}}</th>
-    <a @click="msgcli(item.id)">{{item.msg}}</a>
+    <a @click="msgcli(item.id,index)">{{item.msg}}</a>
     <th>
     <Badge v-if="item.hasRead===0" status="error" />
     </th>
@@ -18,6 +18,9 @@
     @click="getInfo"
     tooltip="刷新"
   ></ui-fab>
+    <ui-modal ref="msgmodal" :title="selectMsg.authorNickName">
+        {{selectMsg.msg}}
+    </ui-modal>
   </div>
 </template>
 <script>
@@ -26,6 +29,7 @@ export default {
   data () {
     return {
       msgs: {},
+      selectMsg: {},
       totalPage: 0,
       conp: { pageRow: 10, pageNum: 0 ,receiver: this.$store.state.currentUser.id}
     }
@@ -57,7 +61,10 @@ export default {
       this.conp.pageNum = page
       this.getInfo()
     },
-    msgcli (id) {
+    msgcli (id,index) {
+      this.msgs.list[index].hasRead = true
+      this.selectMsg = this.msgs.list[index]
+      this.$refs['msgmodal'].open()
       this.readMsg (id)
     }
   },

@@ -45,7 +45,7 @@ export default {
         })
           .then(res => {
             if (res.data.code === '100') {
-              this.showSuccessMsg({ title: this.username })
+              this.showSuccessMsg({ title:'注册成功'+'现在你可以登录'+ this.username })
             } else {
               this.showErrorMsg({title: res.data.msg})
             }

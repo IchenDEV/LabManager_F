@@ -2,7 +2,7 @@
   <div class="add-department">
     <user-selector v-model="s" :label="label"></user-selector>
     <ui-textbox icon="lock" floating-label label="信息" v-model="con.msg"></ui-textbox>
-    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting">发送</ui-button>
+    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="con.msg===''||con.msg===null||s===null">发送</ui-button>
   </div>
 </template>
 <script>
@@ -13,7 +13,7 @@ export default {
   props: { label: { default: '用户' }},
   data () {
     return {
-      s:{userId:10003},
+      s:{userId:10003,username:'admin'},
       con: {
         receiver:0,
         msg: null,

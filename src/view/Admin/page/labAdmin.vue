@@ -45,7 +45,7 @@ export default {
         url: this.$store.state.host + '/lab/updateLab',
         data: JSON.stringify(this.item)
       })
-      .then(this.iswaitting = false)
+      .then(()=>{this.iswaitting = false;this.getLabInfo()})
       .catch()
     }
   },

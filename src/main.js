@@ -50,7 +50,8 @@ const store = new Vuex.Store({
       id: 0
     },
     hasSingin: false,
-    isAdmin: false
+    isAdmin: false,
+    isSuperAdmin: false
   },
   actions: {
     getInfo() {
@@ -66,6 +67,10 @@ const store = new Vuex.Store({
             state.currentUser.username = this.username
             state.currentUser.id = res.data.info.userPermission.userId
             if (res.data.info.userPermission.roleId === 1) {
+              state.isSuperAdmin = true
+              state.isAdmin = true
+            }
+            if (res.data.info.userPermission.roleId === 2) {
               state.isAdmin = true
             }
           }

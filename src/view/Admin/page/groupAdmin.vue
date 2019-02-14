@@ -8,6 +8,22 @@
         </div>
         <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">更新</ui-button>
     </Card>
+    <div class="flex-panel">
+    <Card>
+        <div>
+          <h2>添加项目</h2>
+          <project-selector v-model="p" label="项目"></project-selector>
+          <ui-button color="primary" icon="add" @click="addProjectClick" :loading="iswaitting">添加</ui-button>
+        </div>
+    </Card>
+    <Card v-for="(item,index) in projectInfo.list" :key="index" >
+        <div>
+          <h2>项目 {{item.name}}</h2>
+          <ui-button color="primary" icon="delete" @click="deleteProjectClick(item.id)" :loading="iswaitting">删除</ui-button>
+        </div>
+    </Card>
+  </div>
+  <Page v-if="projectInfo.totalPage>1" :total="projectInfo.totalPage" :page-size="search3.pageRow" show-elevator @on-change="onPageChange2"/>
   <div class="flex-panel">
     <Card>
         <div>
@@ -30,15 +46,19 @@
 <script>
 import fetch from '@/util/fetch.js'
 import userSelector from '@/components/User/UserSelector'
+import projectSelector from '@/components/Project/ProjectSelector'
 export default {
-  components: { userSelector },
+  components: { userSelector,projectSelector },
   data () {
     return {
       search: { id: this.$route.params.id, pageRow: 1},
       search2: { group: this.$route.params.id, pageRow: 10, pageNum: 1},
+      search3: { group: this.$route.params.id, pageRow: 10, pageNum: 1},
       item: {},
       userInfo: {},
+      projectInfo: {},
       s: {},
+      p:{},
       iswaitting: false
     }
   },
@@ -75,12 +95,39 @@ export default {
         })
         .catch()
     },
+    getGroupProjectInfo () {
+      for (var key in this.search3) {
+        if (this.search3[key] === null || this.search3[key] === '') {
+          delete this.search3[key]
+        }
+      }
+      fetch({
+        method: 'Post',
+        url: this.$store.state.host + '/group/listProject',
+        data: JSON.stringify(this.search3)
+      })
+        .then(res => {
+          this.projectInfo = res.data.info
+        })
+        .catch()
+    },
     addUserClick () {
       this.iswaitting = true
       let cons = {user: this.s.userId,group: this.$route.params.id,status:1}
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/group/addGroupUser',
+        data: JSON.stringify(cons)
+      })
+        .then(this.iswaitting = false)
+        .catch()
+    },
+    addProjectClick () {
+      this.iswaitting = true
+      let cons = {project: this.p.id ,group: this.$route.params.id,status:1}
+      fetch({
+        method: 'Post',
+        url: this.$store.state.host + '/group/addGroupProject',
         data: JSON.stringify(cons)
       })
         .then(this.iswaitting = false)
@@ -97,9 +144,24 @@ export default {
       .then(this.iswaitting = false)
       .catch()
     },
+    deleteProjectClick (id) {
+      this.iswaitting = true
+      let cons = {id:id}
+      fetch({
+        method: 'Post',
+        url: this.$store.state.host + '/group/deleteGroupProject',
+        data: JSON.stringify(cons)
+      })
+      .then(this.iswaitting = false)
+      .catch()
+    },
     onPageChange (page) {
       this.search2.pageNum = page
       this.getGroupUserInfo()
+    },
+    onPageChange2 (page) {
+      this.search3.pageNum = page
+      this.getGroupProjectInfo()
     },
    updateClick () {
       this.iswaitting = true
@@ -114,6 +176,7 @@ export default {
   },
   mounted () {
     this.getGroupUserInfo()
+    this.getGroupProjectInfo()
     this.getGroupInfo()
   }
 }

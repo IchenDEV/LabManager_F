@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import myView from '@/view/myView'
+import View404 from '@/view/404'
 import loginView from '@/view/loginView'
 import bookView from '@/view/bookView'
 import homeView from '@/view/homeView'
@@ -14,6 +15,7 @@ import deviceAdmin from '@/view/Admin/page/deviceAdmin'
 import labAdmin from '@/view/Admin/page/labAdmin'
 import device from '@/view/Admin/device'
 import log from '@/view/Admin/log'
+import book from '@/view/Admin/book'
 import lab from '@/view/Admin/lab'
 import project from '@/view/Admin/project'
 import user from '@/view/Admin/user'
@@ -96,8 +98,16 @@ export default new Router({
         {
           path: 'user/:id',
           component: userAdmin
+        },
+        {
+          path: 'book',
+          component: book
         }
       ]
+    },
+    {
+      path: '*',
+      component: View404
     }
   ]
 })
