@@ -6,7 +6,7 @@
     >
       <ui-tab id='home'  icon='home'            title='Home'  @select='tabChange'></ui-tab>
       <!-- <ui-tab id='find'  icon='find_in_page'    title='查询'  @select='tabChange' v-if="$store.state.hasSingin"></ui-tab> -->
-      <ui-tab id='book'  icon='book'            title='预定'  @select='tabChange' v-show="$store.state.hasSingin"></ui-tab>
+      <ui-tab id='book'  icon='book'            title='预定'  @select='tabChange' v-if="$store.state.hasSingin"></ui-tab>
       <ui-tab id='my'    icon='person'          title='我'    @select='tabChange'></ui-tab>
       <ui-tab v-if="isAdmin&&$store.state.hasSingin" id='admin'    icon='person'       title='管理员'    @select='tabChange'></ui-tab>
     </ui-tabs>

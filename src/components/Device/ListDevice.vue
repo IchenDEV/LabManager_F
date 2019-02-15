@@ -18,9 +18,15 @@
     </div>
     <ui-button color='primary' icon='search' @click='searchClicked'>查询</ui-button>
     <div class="flex-panel">
-      <Card v-for='(item,index) in info.list' :key='index'>
+      <Card v-for='(item,index) in info.list' :key='index' >
         <div>
+          <span>
           <h2>设备 {{item.id}}</h2>
+          <Tag color="success" v-if="item.status===1">正常</Tag>
+          <Tag color="error"   v-if="item.status===4">故障</Tag>
+          <Tag color="error"   v-if="item.status===0">报废</Tag>
+          <Tag color="warning"   v-if="item.status===3">暂停</Tag>
+          </span>
           <p>名称 {{item.name}}</p>
           <p>编号 {{item.No}}</p>
           <p>品牌 {{item.band}}</p>
@@ -29,7 +35,7 @@
           <p>位置 {{item.locationName}}</p>
           <p>{{item.locationDescription}}</p>
           <p>地址 {{item.locationAddress}}</p>
-          <ui-button v-if="!admin" color='primary' icon='book' @click='bookClicked(item.id)'>预订</ui-button>
+          <ui-button v-if="!admin&&item.status===1" color='primary' icon='book' @click='bookClicked(item.id)'>预订</ui-button>
           <ui-button v-if="admin" color='primary' icon='delete' @click='bookClicked(item.id)'>修改</ui-button>
           <ui-button v-if="admin" color='primary' icon='delete' @click='delClicked(item.id,index)'>删除</ui-button>
         </div>
@@ -40,7 +46,7 @@
         </div>
       </Card>
     </div>
-     <Page v-if="info.totalPage>1" :total="info.totalCount" :page-size="search.pageRow" show-elevator @on-change="onPageChange"/>
+     <Page size="small" v-if="info.totalPage>1" :total="info.totalCount" :page-size="search.pageRow" show-elevator @on-change="onPageChange"/>
   </div>
 </template>
 <script>

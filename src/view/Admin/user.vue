@@ -19,12 +19,9 @@ export default {
 .warp {
   flex-wrap: wrap;
 }
-@media only screen and (min-width: 1208px) {
+@media only screen and (min-width: 1280px) {
   .warp {
     flex-wrap: nowrap;
-  }
-  .card {
-    max-height: 400px;
   }
 }
 </style>

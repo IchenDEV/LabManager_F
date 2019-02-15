@@ -15,7 +15,8 @@
       <h3>已预定的时间</h3>
       <ul>
         <li v-for="(item,index) in bookInfo.list" :key="index">
-          {{item.beginTime}} ~ {{item.endTime}}
+          <Tooltip :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
+          >{{item.beginTime}} ~ {{item.endTime}}</Tooltip>
         </li>
       </ul>
     </Card>
@@ -50,23 +51,23 @@
 </template>
 <script>
 import fetch from "@/util/fetch.js";
-import projectSelector from '@/components/Project/ProjectSelector'
+import projectSelector from "@/components/Project/ProjectSelector";
 export default {
-  components: {projectSelector},
+  components: { projectSelector },
   data() {
     return {
       search: { device: this.$route.params.id, pageRow: 10, offSet: 0 },
       search2: { id: this.$route.params.id, pageRow: 1, offSet: 0 },
-      bookInfo:{},
+      bookInfo: {},
       item: {},
-      beginDate:null,
-      endDate:null,
-      beginTime:null,
-      endTime:null,
+      beginDate: null,
+      endDate: null,
+      beginTime: null,
+      endTime: null,
       con: {
         project: 3,
         applicant: this.$store.state.currentUser.id,
-        device:this.$route.params.id,
+        device: this.$route.params.id,
         beginTime: null,
         endTime: null,
         status: 1
@@ -88,8 +89,8 @@ export default {
         data: JSON.stringify(this.search)
       })
         .then(res => {
-          this.bookInfo = res.data.info
-          })
+          this.bookInfo = res.data.info;
+        })
         .catch();
     },
     getDeviceInfo() {
@@ -108,10 +109,24 @@ export default {
         })
         .catch();
     },
-    bookClick(){
-      this.con.project=this.p.id
-      this.con.beginTime=this.beginDate.getFullYear()+'-'+(new Number(this.beginDate.getMonth())+1)+ '-'+this.beginDate.getDate()+' '+this.beginTime
-      this.con.endTime=this.endDate.getFullYear()+'-'+(new Number(this.endDate.getMonth())+1)+ '-'+this.endDate.getDate()+' '+this.endTime
+    bookClick() {
+      this.con.project = this.p.id;
+      this.con.beginTime =
+        this.beginDate.getFullYear() +
+        "-" +
+        (new Number(this.beginDate.getMonth()) + 1) +
+        "-" +
+        this.beginDate.getDate() +
+        " " +
+        this.beginTime;
+      this.con.endTime =
+        this.endDate.getFullYear() +
+        "-" +
+        (new Number(this.endDate.getMonth()) + 1) +
+        "-" +
+        this.endDate.getDate() +
+        " " +
+        this.endTime;
       fetch({
         method: "Post",
         url: this.$store.state.host + "/book/addBook",
@@ -119,6 +134,9 @@ export default {
       })
         .then()
         .catch();
+    },
+    stringCat(a,b,c){
+      return a +' 为 '+b+' 预定于 '+c
     }
   },
   mounted() {

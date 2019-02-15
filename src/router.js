@@ -49,6 +49,7 @@ export default new Router({
     },
     {
       path: '/admin/',
+      redirect:'/admin/device',
       component: adminView,
       children: [
         {

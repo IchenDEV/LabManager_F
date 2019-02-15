@@ -24,7 +24,7 @@
         </div>
     </Card>
   </div>
-  <Page v-if="userInfo.totalPage>1" :total="userInfo.totalPage" :page-size="search2.pageRow" show-elevator @on-change="onPageChange"/>
+  <Page size="small" v-if="userInfo.totalPage>1" :total="userInfo.totalPage" :page-size="search2.pageRow" show-elevator @on-change="onPageChange"/>
   </div>
 </template>
 <script>

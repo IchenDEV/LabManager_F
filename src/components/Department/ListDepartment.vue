@@ -33,7 +33,7 @@
         </div>
       </Card>
     </div>
-    <Page
+    <Page size="small"
       v-if="departments.totalPage>1"
       :total="departments.totalPage"
       :page-size="search.pageRow"

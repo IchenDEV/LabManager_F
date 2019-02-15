@@ -14,7 +14,7 @@
     <th>{{item.createTime}}</th>
   </tr>
   </table>
-  <Page v-if="logs.totalPage>1" :total="totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
+  <Page size="small" v-if="logs.totalPage>1" :total="totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
   </div>
 </template>
 <script>

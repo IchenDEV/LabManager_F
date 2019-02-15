@@ -23,7 +23,7 @@
         </div>
       </Card>
   </div>
-  <Page v-if="groups.totalPage>1" :total="groups.totalPage" :page-size="search.pageRow" show-elevator @on-change="onPageChange"/>
+  <Page size="small" v-if="groups.totalPage>1" :total="groups.totalPage" :page-size="search.pageRow" show-elevator @on-change="onPageChange"/>
 </div>
 </template>
 <script>

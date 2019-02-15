@@ -7,7 +7,7 @@
     <ui-textbox icon="person" floating-label label="名称" v-model="item.name"></ui-textbox>
     <ui-textbox icon="lock"   floating-label label="描述" v-model="item.description"></ui-textbox>
     <ui-textbox icon="person" floating-label label="型号" v-model="item.model"></ui-textbox>
-    <ui-textbox icon="person" floating-label label="品牌" v-model="item.band"></ui-textbox>
+    <ui-textbox icon="person" floating-label label="品牌" v-model="item.bands"></ui-textbox>
      <ui-select
       has-search
       label='实验室'
@@ -17,6 +17,9 @@
       v-model='lab'
     ></ui-select>
         </div>
+        <ui-button v-if="this.item.status !== 3"  color="primary" icon="pause" @click="pauseClick" :loading="iswaitting">标记暂停(按更新生效)</ui-button>
+        <ui-button v-if="this.item.status !== 4"  color="primary" icon="warning" @click="brokenClick" :loading="iswaitting">标记故障(按更新生效)</ui-button>
+        <ui-button v-if="this.item.status !== 1"  color="primary" icon="update" @click="restartClick" :loading="iswaitting">重启设备(按更新生效)</ui-button>
         <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">更新</ui-button>
     </Card>
   </div>
@@ -72,6 +75,15 @@ export default {
       })
       .then(this.iswaitting = false)
       .catch()
+    },
+    pauseClick () {
+      this.item.status = 3
+    },
+    restartClick () {
+      this.item.status = 1
+    },
+    brokenClick () {
+      this.item.status = 4
     }
   },
   mounted () {

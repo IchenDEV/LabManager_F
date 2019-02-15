@@ -23,7 +23,7 @@
         </div>
     </Card>
   </div>
-  <Page v-if="projectInfo.totalPage>1" :total="projectInfo.totalPage" :page-size="search3.pageRow" show-elevator @on-change="onPageChange2"/>
+  <Page size="small" v-if="projectInfo.totalPage>1" :total="projectInfo.totalPage" :page-size="search3.pageRow" show-elevator @on-change="onPageChange2"/>
   <div class="flex-panel">
     <Card>
         <div>
@@ -40,7 +40,7 @@
         </div>
     </Card>
   </div>
-  <Page v-if="userInfo.totalPage>1" :total="userInfo.totalPage" :page-size="search2.pageRow" show-elevator @on-change="onPageChange"/>
+  <Page size="small" v-if="userInfo.totalPage>1" :total="userInfo.totalPage" :page-size="search2.pageRow" show-elevator @on-change="onPageChange"/>
   </div>
 </template>
 <script>

@@ -29,7 +29,7 @@
         </div>
       </Card>
     </div>
-    <Page
+    <Page size="small"
       v-if="books.totalPage>1"
       :total="books.totalPage"
       :page-size="search.pageRow"

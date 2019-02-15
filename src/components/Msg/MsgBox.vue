@@ -10,13 +10,12 @@
     <th>{{item.createTime}}</th>
   </tr>
   </table>
-  <Page v-if="msgs.totalPage>1" :total="totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
+  <Page size="small" v-if="msgs.totalPage>1" :total="totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
   <ui-fab
     icon="refresh"
     class="fab"
     tooltip-position="right"
     @click="getInfo"
-    tooltip="刷新"
   ></ui-fab>
     <ui-modal ref="msgmodal" :title="selectMsg.authorNickName">
         {{selectMsg.msg}}

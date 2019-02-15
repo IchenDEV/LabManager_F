@@ -14,7 +14,7 @@
       </span>
     </Card>
   </div>
-  <Page v-if="users.totalPage>1" :total="users.totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
+  <Page size="small" v-if="users.totalPage>1" :total="users.totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
 </div>
 </template>
 <script>
