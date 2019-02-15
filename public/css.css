@@ -28,6 +28,7 @@
 .ui-modal__mask{
   background-color: rgba(255, 255, 255, 0.4)!important;
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .ui-select__dropdown{
   background-color: rgba(255, 255, 255, 0.6)!important;
@@ -35,10 +36,12 @@
 .ui-select__options{
   background-color: rgba(255, 255, 255, 0.3)!important;
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .ui-calendar__body{
   background-color: rgba(255, 255, 255, 0.5)!important;
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .ui-popover{
   background-color: rgba(255, 255, 255, 0.5)!important;
