@@ -4,7 +4,7 @@
     <p v-if="data.lastBackupTime === null">无备份</p>
     <Time v-else :time="data.lastBackupTime" :interval="1"/>
     <h2>设定备份周期</h2>
-    <ui-textbox icon="time" floating-label label="备份时间cron表达式" v-model="data.schedule"></ui-textbox>
+    <ui-textbox icon="access_time" floating-label label="备份时间cron表达式" v-model="data.schedule"></ui-textbox>
     <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">设定</ui-button>
   </div>
 </template>
@@ -15,7 +15,8 @@ export default {
     return {
       iswaitting: false,
       data: {
-        schedule: ""
+        schedule: "",
+        lastBackupTime:''
       }
     };
   },
@@ -39,11 +40,8 @@ export default {
         url: this.$store.state.host + "/backup/getSchedule"
       })
         .then(res => {
-          /* eslint-disable */
           this.data.schedule = res.data.info.cron;
-          console.log(this.data.lastBackupTime)
           this.data.lastBackupTime=res.data.info.lastBackupTime;
-          console.log(this.data.lastBackupTime)
           this.iswaitting = false;
         })
         .catch();

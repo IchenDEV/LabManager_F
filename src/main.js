@@ -95,6 +95,10 @@ new Vue({
   store,
   mounted() {
     this.$store.dispatch('getInfo')
+      // 删除加载动画demo
+      if (document.getElementById('nb-global-spinner')) {
+        document.body.removeChild(document.getElementById('nb-global-spinner'));
+      }
   },
   render: h => h(App)
 }).$mount('#app')

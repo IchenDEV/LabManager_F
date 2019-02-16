@@ -29,28 +29,36 @@ export default {
     if (window.Notification && Notification.permission !== "granted") {
       Notification.requestPermission(function(status) {
         if (Notification.permission !== status) {
-          Notification.permission = status; 
+          Notification.permission = status;
         }
       });
     }
     if (window.Notification && Notification.permission === "granted") {
-            var n = new Notification("北京第三交通委提醒您：\r\n道路千万条，安全第一条\r\n行车不规范，亲人两行泪");
-          }
-          else if (
-            window.Notification &&
-            Notification.permission !== "denied"
-          ) {
-            Notification.requestPermission(function(status) {
-              if (Notification.permission !== status) {
-                Notification.permission = status;
-              }
+      var n = new Notification(
+            "北京第三交通委提醒您：",
+            {
+              body: "道路千万条，安全第一条\r\n行车不规范，亲人两行泪",
+              icon: "safe.jpg"
+            }
+          );
+    } else if (window.Notification && Notification.permission !== "denied") {
+      Notification.requestPermission(function(status) {
+        if (Notification.permission !== status) {
+          Notification.permission = status;
+        }
 
-              // 如果用户同意了
-              if (status === "granted") {
-                var n = new Notification("北京第三交通委提醒您：\r\n道路千万条，安全第一条\r\n行车不规范，亲人两行泪");
-              }
-            });
-          }
+        // 如果用户同意了
+        if (status === "granted") {
+          var n = new Notification(
+            "北京第三交通委提醒您：",
+            {
+              body: "道路千万条，安全第一条\r\n行车不规范，亲人两行泪",
+              icon: "safe.jpg"
+            }
+          );
+        }
+      });
+    }
     console.warn(
       "北京第三交通委提醒您：\r\n道路千万条，安全第一条\r\n行车不规范，亲人两行泪"
     );
