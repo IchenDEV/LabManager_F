@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="flex-panel">
+  <div class="flex-panel col-panel">
     <backup-now></backup-now>
     <backup-setter></backup-setter>
   </div>
@@ -13,3 +13,12 @@ export default {
   components: { BackupNow,BackupSetter },
 }
 </script>
+<style>
+.col-panel {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+</style>
+
