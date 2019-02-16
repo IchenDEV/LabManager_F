@@ -4,6 +4,7 @@ import myView from '@/view/myView'
 import View404 from '@/view/404'
 import loginView from '@/view/loginView'
 import bookView from '@/view/bookView'
+import findView from '@/view/findView'
 import homeView from '@/view/homeView'
 import deviceView from '@/view/Device/deviceView'
 import adminView from '@/view/Admin/adminView'
@@ -12,6 +13,7 @@ import department from '@/view/Admin/department'
 import departmentAdmin from '@/view/Admin/page/departmentAdmin'
 import groupAdmin from '@/view/Admin/page/groupAdmin'
 import userAdmin from '@/view/Admin/page/userAdmin'
+import projectAdmin from '@/view/Admin/page/projectAdmin'
 import deviceAdmin from '@/view/Admin/page/deviceAdmin'
 import labAdmin from '@/view/Admin/page/labAdmin'
 import device from '@/view/Admin/device'
@@ -38,6 +40,11 @@ export default new Router({
       path: '/book',
       name: 'bookView',
       component: bookView
+    },
+    {
+      path: '/find',
+      name: 'findView',
+      component: findView
     },
     {
       path: '/login',
@@ -80,6 +87,10 @@ export default new Router({
         {
           path: 'project',
           component: project
+        },
+        {
+          path: 'project/:id',
+          component: projectAdmin
         },
         {
           path: 'device',

@@ -49,7 +49,8 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import fetch from "@/util/fetch.js"
+import router from '@/router'
 export default {
   data() {
     return {
@@ -92,6 +93,9 @@ export default {
         }
       }
       this.getInfo();
+    },
+    moClicked (id){
+      router.push("project/"+id.toString())
     }
   },
   mounted() {

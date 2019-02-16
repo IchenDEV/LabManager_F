@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="flex-panel">
     <Card>
       <div>
@@ -14,16 +15,16 @@
       </div>
       <h3>已预定的时间</h3>
       <ul>
-        <li v-for="(item,index) in bookInfo.list" :key="index">
+        <a v-for="(item,index) in bookInfo.list" :key="index" @click="openModel(item.applicant,item.applicantNickname)">
           <Tooltip :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
           >{{item.beginTime}} ~ {{item.endTime}}</Tooltip>
-        </li>
+        </a>
       </ul>
     </Card>
     <Card>
       <div>
         <h2>预约</h2>
-        <project-selector v-model="p" label="项目"></project-selector>
+        <project-selector isWorking="true" v-model="p" label="项目"></project-selector>
         <span>
           <ui-datepicker icon="events" floating-label v-model="beginDate">开始日期</ui-datepicker>
           <TimePicker
@@ -48,12 +49,17 @@
       </div>
     </Card>
   </div>
+    <ui-modal ref="sendMsg" title="发送信息">
+      <send-msg @send="closeModel" :quickid="quickid" :quickname="quickname"></send-msg>
+    </ui-modal>
+  </div>
 </template>
 <script>
 import fetch from "@/util/fetch.js";
 import projectSelector from "@/components/Project/ProjectSelector";
+import SendMsg from '@/components/Msg/SendMsg'
 export default {
-  components: { projectSelector },
+  components: { projectSelector,SendMsg },
   data() {
     return {
       search: { device: this.$route.params.id, pageRow: 10, offSet: 0 },
@@ -72,11 +78,21 @@ export default {
         endTime: null,
         status: 1
       },
+      quickid:0,
+      quickname:null,
       iswaitting: false,
       p: {}
     };
   },
   methods: {
+    closeModel (){
+      this.$refs['sendMsg'].close()
+    },
+    openModel (a,b){
+      this.quickid = a
+      this.quickname = b
+      this.$refs['sendMsg'].open()
+    },
     getDeviceBookInfo() {
       for (var key in this.search) {
         if (this.search[key] === null || this.search[key] === "") {

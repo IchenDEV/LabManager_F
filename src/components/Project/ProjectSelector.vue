@@ -11,13 +11,14 @@
 <script>
 import fetch from '@/util/fetch.js'
 export default {
-  props: { label: { default: '项目' }, selected:Object},
+  props: { label: { default: '项目' }, selected:Object,isWorking:{ default: false }},
   model: {
     prop: 'selected',
     event: 'change'
   },
   data () {
     return {
+      search:{},
       projectInfo: { list: [] },
       iswaitting: false,
       select: {}
@@ -25,10 +26,13 @@ export default {
   },
   methods: {
     getProjectInfo () {
+      if(this.isWorking){
+        this.search.status = 1
+      }
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/project/list',
-        data: '{}'
+        data: JSON.stringify(this.search)
       })
         .then(res => {
           this.projectInfo = res.data.info
@@ -37,7 +41,6 @@ export default {
     },
     /* eslint-disable */
     vs (){
-        //this.selected = this.select  
         this.$emit('change', this.select)
         console.log(this.select)
     }

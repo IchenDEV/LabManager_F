@@ -1,11 +1,12 @@
 <template>
   <div>
     <h2>预定列表</h2>
-    <!-- <div class="flex-panel">
-      <ui-textbox icon="person" floating-label label="名称" v-model="search.name"></ui-textbox>
+    <div class="flex-panel">
       <ui-textbox icon="person" floating-label label="id" v-model="search.id"></ui-textbox>
+      <user-selector v-model="user"></user-selector>
+      <project-selector v-model="project"></project-selector>
     </div>
-    <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button> -->
+    <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button>
     <div class="flex-panel">
       <Card v-for="(item,index) in books.list" :key="index">
         <p slot="title">{{item.applicantNickname}}</p>
@@ -40,16 +41,27 @@
 </template>
 <script>
 import fetch from "@/util/fetch.js";
+import userSelector from "@/components/User/UserSelector";
+import projectSelector from "@/components/Project/ProjectSelector";
 export default {
+  components: { userSelector,projectSelector},
   data() {
     return {
       books: {},
       search: { pageRow: 10 },
-      iswaitting: false
+      iswaitting: false,
+      user:null,
+      project:null
     };
   },
   methods: {
     getInfo() {
+      if(this.user!=null){
+        this.search.applicant = this.user.userId
+      }
+      if(this.project!=null){
+        this.search.project = this.project.id
+      }
       fetch({
         method: "Post",
         url: this.$store.state.host + "/book/list",

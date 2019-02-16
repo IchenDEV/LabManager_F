@@ -5,7 +5,7 @@
        <send-msg label="接收方"></send-msg>
     </Card>
     <Card v-if="$store.state.hasSingin">
-       <p slot="title">预定信息</p>
+       <p slot="title">我的预定信息</p>
        <book-box></book-box>
     </Card>
     <Card v-if="$store.state.hasSingin">
