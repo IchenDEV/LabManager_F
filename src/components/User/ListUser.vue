@@ -9,7 +9,7 @@
       <p>角色 {{item.roleName}}</p>
       <p>电话 {{item.phone}}</p>
       <span>
-      <ui-button color="primary" icon="adjust" @click="moClicked(item.userId)" :loading="iswaitting">修改</ui-button>
+      <ui-button v-if="item.userId!==10003&&$store.state.isSuperAdmin" color="primary" icon="adjust" @click="moClicked(item.userId)" :loading="iswaitting">修改</ui-button>
       <ui-button v-if="item.userId!==10003&&$store.state.isSuperAdmin" color="primary" icon="delete" @click="delClicked(item.userId,index)" :loading="iswaitting">删除</ui-button>
       </span>
     </Card>

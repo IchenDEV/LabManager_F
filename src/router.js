@@ -7,6 +7,7 @@ import bookView from '@/view/bookView'
 import homeView from '@/view/homeView'
 import deviceView from '@/view/Device/deviceView'
 import adminView from '@/view/Admin/adminView'
+import backup from '@/view/Admin/backup'
 import department from '@/view/Admin/department'
 import departmentAdmin from '@/view/Admin/page/departmentAdmin'
 import groupAdmin from '@/view/Admin/page/groupAdmin'
@@ -55,6 +56,10 @@ export default new Router({
         {
           path: 'department',
           component: department
+        },
+        {
+          path: 'backup',
+          component: backup
         },
         {
           path: 'department/:id',

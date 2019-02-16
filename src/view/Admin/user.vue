@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="flex-panel warp">
-    <Card class="card">
+    <Card  v-if="$store.state.isSuperAdmin" class="card">
       <add-user/>
     </Card>
    <list-user></list-user>

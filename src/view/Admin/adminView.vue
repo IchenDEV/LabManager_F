@@ -28,7 +28,7 @@
             </template>
             <MenuGroup title="使用">
               <menu-item name="3-1">新增和启动</menu-item>
-              <menu-item name="3-2">活跃分析</menu-item>
+              <menu-item name="backup">备份</menu-item>
               <menu-item name="log">日志</menu-item>
             </MenuGroup>
           </Submenu>

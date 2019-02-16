@@ -20,7 +20,6 @@
     class="fab"
     tooltip-position="right"
     @click="getInfo"
-    tooltip="刷新"
   ></ui-fab>
     <ui-modal ref="devicemodal" :title="selectBook.deviceName">
         <p>{{selectBook.device}}</p>
