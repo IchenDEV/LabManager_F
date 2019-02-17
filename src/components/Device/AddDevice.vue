@@ -14,7 +14,7 @@
     <ui-textbox icon="lock"   floating-label label="描述" v-model="con.description"></ui-textbox>
     <ui-textbox icon="person" floating-label label="型号" v-model="con.model"></ui-textbox>
     <ui-textbox icon="person" floating-label label="品牌" v-model="con.band"></ui-textbox>
-    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" @touch="getLabInfo">新建</ui-button>
+    <ui-button :disabled="disable" color="primary" icon="check" @click="addClicked" :loading="iswaitting" @touch="getLabInfo">新建</ui-button>
   </div>
 </template>
 <script>
@@ -43,6 +43,11 @@ export default {
         offSet: 0
       },
       iswaitting: false
+    }
+  },
+  computed :{
+    disable () {
+      return this.con.No==''||this.con.name==''||this.con.band==''||this.con.model==''||this.con.description==''||this.search.device==null||this.search.device==1
     }
   },
   methods: {

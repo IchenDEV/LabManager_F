@@ -19,7 +19,7 @@
             >结束日期</ui-datepicker>
     <TimePicker style="display:block" class="timepick" type="time" placeholder="Select time" v-model="endTime" ></TimePicker>
     </span>
-    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting">新建</ui-button>
+    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">新建</ui-button>
   </div>
 </template>
 <script>
@@ -39,6 +39,11 @@ export default {
         status: 1
       },
       iswaitting: false
+    }
+  },
+  computed :{
+    disable (){
+      return this.con.name==''||this.con.description==''||this.beginDate==null||this.endDate==null||this.beginTime==null|this.endTime==null
     }
   },
   methods: {

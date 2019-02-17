@@ -16,7 +16,7 @@ export default {
       iswaitting: false,
       data: {
         schedule: "",
-        lastBackupTime:''
+        lastBackupTime:new Date()
       }
     };
   },

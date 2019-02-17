@@ -4,7 +4,7 @@
     <ui-textbox icon="person" floating-label label="名称" v-model="con.name"></ui-textbox>
     <ui-textbox icon="lock" floating-label label="描述" v-model="con.description"></ui-textbox>
     <ui-textbox icon="lock" floating-label label="位置" v-model="con.location"></ui-textbox>
-    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting">新建</ui-button>
+    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">新建</ui-button>
   </div>
 </template>
 <script>
@@ -19,6 +19,11 @@ export default {
         status: 1
       },
       iswaitting: false
+    }
+  },
+  computed :{
+    disable (){
+      return this.con.name==''||this.con.description==''||this.con.location==''
     }
   },
   methods: {

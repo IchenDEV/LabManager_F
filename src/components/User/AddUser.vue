@@ -11,7 +11,7 @@
           :options='roleString'
           v-model='role'
         ></ui-select>
-    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting">新建</ui-button>
+    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">新建</ui-button>
   </div>
 </template>
 <script>
@@ -29,6 +29,11 @@ export default {
         status: 1
       },
       iswaitting: false
+    }
+  },
+  computed :{
+    disable (){
+      return this.con.username==''||this.con.password==''||this.con.nickname==''
     }
   },
   methods: {
