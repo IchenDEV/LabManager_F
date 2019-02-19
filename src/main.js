@@ -14,6 +14,7 @@ import 'izitoast/dist/css/iziToast.min.css'
 import fetch from '@/util/fetch.js'
 import 'iview/dist/styles/iview.css'
 import '@babel/polyfill'
+import VueI18n from 'vue-i18n'
 
 function toast({
   title,
@@ -34,10 +35,12 @@ const options = {
   info: toast,
   warn: toast
 }
+
 Vue.use(VueNotifications, options)
 Vue.use(KeenUI)
 Vue.use(Vuex)
 Vue.use(iView)
+Vue.use(VueI18n)
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({
@@ -90,9 +93,19 @@ const store = new Vuex.Store({
     }
   }
 })
+
+const i18n = new VueI18n({
+  locale: 'zh-cn',    // 语言标识
+  messages: {
+    'zh-cn': require('./assets/common/lang/zh-cn'),   // 中文语言包
+    'en': require('./assets/common/lang/en')    // 英文语言包
+  },
+})
+
 new Vue({
   router,
   store,
+  i18n,
   mounted() {
     this.$store.dispatch('getInfo')
       // 删除加载动画demo

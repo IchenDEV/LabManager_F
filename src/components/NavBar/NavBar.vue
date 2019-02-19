@@ -15,7 +15,11 @@
 <script>
 import router from '@/router'
 export default {
-  name: 'NavBar',
+  data () {
+    return {
+      menuOptions: ['中文','英文'],
+      }
+  },
   methods: {
     tabChange (event) {
       router.push('../../' + event)

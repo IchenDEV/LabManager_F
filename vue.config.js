@@ -1,5 +1,5 @@
 module.exports = {
-  transpileDependencies: ["axios","vue-qr"],
+  transpileDependencies: ["axios","vue-qr","iview"],
   devServer: {
       port: 8000
     },

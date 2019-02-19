@@ -1,7 +1,21 @@
 <template>
   <div>
-    <div v-if='hasSingin'>
-      <div v-if='mo' class='user-panel'>
+    <div>
+      <ui-button color="primary" has-dropdown ref="dropdownButton">
+        <ui-menu
+          contain-focus
+          has-icons
+          has-secondary-text
+          slot="dropdown"
+          :options="langOptions"
+          @close="$refs.dropdownButton.closeDropdown()"
+          @select="langChange"
+        ></ui-menu>
+        {{$t("message.language")}}
+      </ui-button>
+    </div>
+    <div v-if="hasSingin">
+      <div v-if="mo" class="user-panel">
         <span>
           <h3>姓名</h3>
           <p>{{nickname}}</p>
@@ -39,269 +53,285 @@
           <div v-for="(item,index) in gpinfo.list" :key="index">{{item.groupName}}</div>
         </span>
       </div>
-      <div v-else class='user-panel'>
+      <div v-else class="user-panel">
         <ui-textbox
-          class='user-itme'
-          icon='person'
-          :invalid='nickname.length === 0'
+          class="user-itme"
+          icon="person"
+          :invalid="nickname.length === 0"
           floating-label
-          label='姓名'
-          v-model='nickname'
+          label="姓名"
+          v-model="nickname"
           required
-          error='This field is required'
+          error="This field is required"
         ></ui-textbox>
         <ui-select
-          class='user-itme'
-          icon='person'
+          class="user-itme"
+          icon="person"
           floating-label
-          label='性别'
-          :options='sexString'
-          v-model='sex'
+          label="性别"
+          :options="sexString"
+          v-model="sex"
         ></ui-select>
-        <ui-textbox class='user-itme' icon='phone' floating-label label='电话' v-model='phone'></ui-textbox>
+        <ui-textbox class="user-itme" icon="phone" floating-label label="电话" v-model="phone"></ui-textbox>
         <ui-textbox
-          class='user-itme'
-          icon='mail'
-          :invalid='ismail === false&&email.length>0'
+          class="user-itme"
+          icon="mail"
+          :invalid="ismail === false&&email.length>0"
           floating-label
-          label='邮箱'
-          v-model='email'
-          error='错误的邮箱格式'
+          label="邮箱"
+          v-model="email"
+          error="错误的邮箱格式"
         ></ui-textbox>
-        <ui-textbox class='user-itme' icon='home' floating-label label='地址' v-model='address'></ui-textbox>
+        <ui-textbox class="user-itme" icon="home" floating-label label="地址" v-model="address"></ui-textbox>
       </div>
-      <ui-button v-if="!simple" color='primary' icon='adjust' @click='logouthandle' :loading='iswaitting'>登出</ui-button>
       <ui-button
-        v-if='mo&&!simple'
-        color='primary'
-        icon='adjust'
-        @click='mohandle'
-        :loading='iswaitting'
+        v-if="!simple"
+        color="primary"
+        icon="adjust"
+        @click="logouthandle"
+        :loading="iswaitting"
+      >登出</ui-button>
+      <ui-button
+        v-if="mo&&!simple"
+        color="primary"
+        icon="adjust"
+        @click="mohandle"
+        :loading="iswaitting"
       >{{moString}}</ui-button>
-       <ui-button v-if="!simple" color='primary' icon='adjust' @click='passwordhandle' :loading='iswaitting'>修改密码</ui-button>
-      <span v-if='!mo'>
-        <ui-button v-if="!simple" color='primary' icon='update' @click='updateinfo' :loading='iswaitting'>更新</ui-button>
+      <ui-button
+        v-if="!simple"
+        color="primary"
+        icon="adjust"
+        @click="passwordhandle"
+        :loading="iswaitting"
+      >修改密码</ui-button>
+      <span v-if="!mo">
         <ui-button
           v-if="!simple"
-          color='primary'
-          icon='cancel'
-          @click='mohandle'
-          :loading='iswaitting'
+          color="primary"
+          icon="update"
+          @click="updateinfo"
+          :loading="iswaitting"
+        >更新</ui-button>
+        <ui-button
+          v-if="!simple"
+          color="primary"
+          icon="cancel"
+          @click="mohandle"
+          :loading="iswaitting"
         >{{moString}}</ui-button>
       </span>
     </div>
     <div v-else>
-      <ui-button color='primary' icon='adjust' @click='loginhandle'>请登录</ui-button>
+      <ui-button color="primary" icon="adjust" @click="loginhandle">请登录</ui-button>
     </div>
     <ui-modal ref="passmodal" title="修改密码">
-        <update-current-password @close="closepass"></update-current-password>
+      <update-current-password @close="closepass"></update-current-password>
     </ui-modal>
   </div>
 </template>
 <script>
-import VueNotifications from 'vue-notifications'
-import fetch from '@/util/fetch.js'
-import router from '@/router'
-import stringCK from '@/util/stringCK.js'
-import UpdateCurrentPassword from '@/components/CurrentUserBox/UpdateCurrentPassword'
+import VueNotifications from "vue-notifications";
+import fetch from "@/util/fetch.js";
+import router from "@/router";
+import stringCK from "@/util/stringCK.js";
+import UpdateCurrentPassword from "@/components/CurrentUserBox/UpdateCurrentPassword";
 export default {
-  components: {UpdateCurrentPassword},
+  components: { UpdateCurrentPassword },
   props: { simple: { default: false } },
-  data () {
+  data() {
     return {
       iswaitting: false,
-      moString: '修改',
+      moString: "修改",
       mo: true,
-      username: '',
-      nickname: '',
-      sex: '',
-      address: '',
-      phone: '',
-      email: '',
-      roleName: '',
-      id: '',
-      sexString: ['未知', '男', '女', '其他'],
+      username: "",
+      nickname: "",
+      sex: "",
+      address: "",
+      phone: "",
+      email: "",
+      roleName: "",
+      id: "",
+      sexString: ["未知", "男", "女", "其他"],
+      langOptions: ["zh-cn", "en"],
       dpinfo: {},
       gpinfo: {}
-    }
+    };
   },
   computed: {
-    ismail () {
-      return stringCK.isEmail(this.email)
+    ismail() {
+      return stringCK.isEmail(this.email);
     },
-    hasSingin () {
-      return this.$store.state.hasSingin
+    hasSingin() {
+      return this.$store.state.hasSingin;
     }
   },
   methods: {
-    getinfo () {
+    langChange(e) {
+      this.$i18n.locale = e;
+    },
+    getinfo() {
       if (this.$store.state.hasSingin === true) {
-        this.iswaitting = true
-        var that = this
+        this.iswaitting = true;
+        var that = this;
         fetch({
-          method: 'Post',
-          url: this.$store.state.host + '/login/getInfo'
+          method: "Post",
+          url: this.$store.state.host + "/login/getInfo"
         })
-          .then(res => {   
-            if (res.data.code === '100') {
-              this.nickname = res.data.info.userPermission.nickname
-              this.phone = res.data.info.userPermission.phone
-              this.address = res.data.info.userPermission.address
-              this.email = res.data.info.userPermission.email
-              this.sex = this.sexString[res.data.info.userPermission.sex]
-              this.roleName = res.data.info.userPermission.roleName
-              this.id = res.data.info.userPermission.userId
-              this.$store.state.currentUser.id = this.id
-              this.showSuccessMsg({ title: this.nickname })
+          .then(res => {
+            if (res.data.code === "100") {
+              this.nickname = res.data.info.userPermission.nickname;
+              this.phone = res.data.info.userPermission.phone;
+              this.address = res.data.info.userPermission.address;
+              this.email = res.data.info.userPermission.email;
+              this.sex = this.sexString[res.data.info.userPermission.sex];
+              this.roleName = res.data.info.userPermission.roleName;
+              this.id = res.data.info.userPermission.userId;
+              this.$store.state.currentUser.id = this.id;
+              this.showSuccessMsg({ title: this.nickname });
             } else {
-              this.showErrorMsg({ title: res.data.msg })
+              this.showErrorMsg({ title: res.data.msg });
             }
-            this.getDpinfo()
-            this.getGpinfo()
-            this.iswaitting = false
+            this.getDpinfo();
+            this.getGpinfo();
+            this.iswaitting = false;
           })
-          .catch(function () {     
-            that.showErrorMsg()
-          })
+          .catch(function() {
+            that.showErrorMsg();
+          });
       }
     },
-    getDpinfo () {
-      let conp = { id: this.$store.state.currentUser.id }
-      this.iswaitting = true
-      var that = this
+    getDpinfo() {
+      let conp = { id: this.$store.state.currentUser.id };
+      this.iswaitting = true;
+      var that = this;
       fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/user/listDepartment',
+        method: "Post",
+        url: this.$store.state.host + "/user/listDepartment",
         data: JSON.stringify(conp)
       })
         .then(res => {
-         
-          if (res.data.code === '100') {
-            this.showSuccessMsg({ title: this.nickname })
-            this.dpinfo = res.data.info
+          if (res.data.code === "100") {
+            this.showSuccessMsg({ title: this.nickname });
+            this.dpinfo = res.data.info;
           } else {
-            this.showErrorMsg({ title: res.data.msg })
+            this.showErrorMsg({ title: res.data.msg });
           }
-          this.iswaitting = false
+          this.iswaitting = false;
         })
-        .catch(function () {
-
-          that.showErrorMsg()
-        })
+        .catch(function() {
+          that.showErrorMsg();
+        });
     },
-    getGpinfo () {
-      let conp = { id: this.$store.state.currentUser.id }
-      this.iswaitting = true
-      var that = this
+    getGpinfo() {
+      let conp = { id: this.$store.state.currentUser.id };
+      this.iswaitting = true;
+      var that = this;
       fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/user/listGroup',
+        method: "Post",
+        url: this.$store.state.host + "/user/listGroup",
         data: JSON.stringify(conp)
       })
         .then(res => {
-         
-          if (res.data.code === '100') {
-            this.showSuccessMsg({ title: this.nickname })
-            this.gpinfo = res.data.info
+          if (res.data.code === "100") {
+            this.showSuccessMsg({ title: this.nickname });
+            this.gpinfo = res.data.info;
           } else {
-            this.showErrorMsg({ title: res.data.msg })
+            this.showErrorMsg({ title: res.data.msg });
           }
-          this.iswaitting = false
+          this.iswaitting = false;
         })
-        .catch(function () {
-          
-          that.showErrorMsg()
-        })
+        .catch(function() {
+          that.showErrorMsg();
+        });
     },
-    updateinfo () {
-      this.iswaitting = true
+    updateinfo() {
+      this.iswaitting = true;
       let con = {
         nickname: this.nickname,
         phone: this.phone,
         sex: this.sexString.indexOf(this.sex),
         address: this.address,
         email: this.email
-      }
+      };
       fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/login/updateInfo',
+        method: "Post",
+        url: this.$store.state.host + "/login/updateInfo",
         data: JSON.stringify(con)
       })
         .then(res => {
-         
-          if (res.data.code === '100') {
-            this.showSuccessMsg({ title: this.nickname })
-            this.moString = '修改'
-            this.mo = true
+          if (res.data.code === "100") {
+            this.showSuccessMsg({ title: this.nickname });
+            this.moString = "修改";
+            this.mo = true;
           } else {
-            this.showErrorMsg({ title: res.data.msg })
+            this.showErrorMsg({ title: res.data.msg });
           }
-          this.iswaitting = false
+          this.iswaitting = false;
         })
-        .catch()
+        .catch();
     },
-    mohandle () {
+    mohandle() {
       if (this.mo) {
-        this.moString = '取消'
+        this.moString = "取消";
       } else {
-        this.getinfo()
-        this.moString = '修改'
+        this.getinfo();
+        this.moString = "修改";
       }
-      this.mo = !this.mo
+      this.mo = !this.mo;
     },
-    closepass (){
-      this.$refs['passmodal'].close()
+    closepass() {
+      this.$refs["passmodal"].close();
     },
-    passwordhandle (){
-      this.$refs['passmodal'].open()
+    passwordhandle() {
+      this.$refs["passmodal"].open();
     },
-    loginhandle () {
-      router.push('../login')
+    loginhandle() {
+      router.push("../login");
     },
-    logouthandle () {
-      this.iswaitting = true
-      var that = this
+    logouthandle() {
+      this.iswaitting = true;
+      var that = this;
       fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/login/logout'
+        method: "Post",
+        url: this.$store.state.host + "/login/logout"
       })
         .then(res => {
-         
-          if (res.data.code === '100') {
-            this.showSuccessMsg({ title: this.nickname })
-            this.$store.commit('cleanInfo')
-            location.reload()
+          if (res.data.code === "100") {
+            this.showSuccessMsg({ title: this.nickname });
+            this.$store.commit("cleanInfo");
+            location.reload();
           } else {
-            this.showErrorMsg({ title: res.data.msg })
+            this.showErrorMsg({ title: res.data.msg });
           }
-          this.iswaitting = false
+          this.iswaitting = false;
         })
-        .catch(function () {
-          that.showErrorMsg()
-        })
+        .catch(function() {
+          that.showErrorMsg();
+        });
     }
   },
-  mounted () {
-    this.getinfo()
+  mounted() {
+    this.getinfo();
   },
   watch: {
-    hasSingin () {
-      this.getinfo()
+    hasSingin() {
+      this.getinfo();
     }
   },
   notifications: {
     showSuccessMsg: {
       type: VueNotifications.types.success,
-      title: 'Hello ',
-      message: '成功'
+      title: "Hello ",
+      message: "成功"
     },
     showErrorMsg: {
       type: VueNotifications.types.error,
-      title: 'Wow-wow',
-      message: '错误'
+      title: "Wow-wow",
+      message: "错误"
     }
   }
-}
+};
 </script>
 <style>
 .user-panel {

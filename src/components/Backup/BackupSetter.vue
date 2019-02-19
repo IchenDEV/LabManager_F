@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>上次备份时间</h2>
-    <p v-if="data.lastBackupTime === null">无备份</p>
+    <p v-if="data.lastBackupTime == null">无备份</p>
     <Time v-else :time="data.lastBackupTime" :interval="1"/>
     <h2>设定备份周期</h2>
     <ui-textbox icon="access_time" floating-label label="备份时间cron表达式" v-model="data.schedule"></ui-textbox>
@@ -40,8 +40,8 @@ export default {
         url: this.$store.state.host + "/backup/getSchedule"
       })
         .then(res => {
-          this.data.schedule = res.data.info.cron;
-          this.data.lastBackupTime=res.data.info.lastBackupTime;
+          this.data.schedule = res.data.info.cron
+          this.data.lastBackupTime=res.data.info.lastBackupTime
           this.iswaitting = false;
         })
         .catch();
