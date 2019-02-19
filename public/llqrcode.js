@@ -1,4 +1,4 @@
-/* eslint-disable  */
+/* eslint-disable */
 var _aa = {};
 _aa._ab = function (f, e) {
   var d = qrcode.width;
@@ -8,7 +8,7 @@ _aa._ab = function (f, e) {
     var a = Math.floor(e[g]);
     var h = Math.floor(e[g + 1]);
     if (a < -1 || a > d || h < -1 || h > b) {
-      throw 'Error._ab'
+      throw "Error._ab"
     }
     c = false;
     if (a === -1) {
@@ -2514,4 +2514,4 @@ function QRCodeDataBlockReader(c, a, b) {
     } while (true);
     return h
   })
-};
+}
