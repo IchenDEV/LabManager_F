@@ -40,7 +40,7 @@ export default {
         this.iswaitting = true
         fetch({
           method: 'Post',
-          url: '//localhost:8080/singUp',
+          url: this.$store.state.host+ '/singUp',
           data: JSON.stringify(con)
         })
           .then(res => {
