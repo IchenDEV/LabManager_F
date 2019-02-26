@@ -14,13 +14,13 @@
             <template slot="title">
               <Icon type="ios-paper"/>内容管理
             </template>
-            <menu-item name="device">设备管理</menu-item>
-            <menu-item name="book">预定管理</menu-item>
-            <menu-item name="department">部门管理</menu-item>
-            <menu-item name="project">项目管理</menu-item>
-            <menu-item name="group">项目组管理</menu-item>
-            <menu-item name="lab">实验室管理</menu-item>
-            <menu-item name="user">用户管理</menu-item>
+            <menu-item name="device">{{$t('message.device')}}</menu-item>
+            <menu-item name="book">{{$t('message.appointment')}}</menu-item>
+            <menu-item name="department">{{$t('message.department')}}</menu-item>
+            <menu-item name="project">{{$t('message.product')}}</menu-item>
+            <menu-item name="group">{{$t('message.group')}}</menu-item>
+            <menu-item name="lab">{{$t('message.lab')}}</menu-item>
+            <menu-item name="user">{{$t('message.user')}}</menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
@@ -28,8 +28,8 @@
             </template>
             <MenuGroup title="使用">
               <menu-item name="3-1">新增和启动</menu-item>
-              <menu-item name="backup">备份</menu-item>
-              <menu-item name="log">日志</menu-item>
+              <menu-item name="backup">{{$t('message.backup')}}</menu-item>
+              <menu-item name="log">{{$t('message.log')}}</menu-item>
             </MenuGroup>
           </Submenu>
         </Menu>
@@ -71,24 +71,3 @@ export default {
   }
 };
 </script>
-<style>
-.col-panel {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
-}
-.sider {
-  background-color: white;
-  text-align: left;
-}
-.row-panel {
-      background-color: white;
-      display: flex;
-      flex-direction: row;
-      z-index: 1;
-}
-.left{
-  margin-left: 3rem;
-}
-</style>

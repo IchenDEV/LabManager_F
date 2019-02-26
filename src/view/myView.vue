@@ -1,6 +1,6 @@
 <template>
   <div>
-   <vue-qr :text='qrid'  qid='testid'></vue-qr>
+   <vue-qr v-if="qrid!=0" :text='qrid' qid='testid'></vue-qr>
    <current-user-box></current-user-box>
   </div>
 </template>

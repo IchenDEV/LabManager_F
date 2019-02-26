@@ -11,7 +11,7 @@
 <script>
 import fetch from '@/util/fetch.js'
 export default {
-  props: { label: { default: '项目' }, selected:Object,isWorking:{ default: false }},
+  props: { label: { default: '' }, selected:Object,isWorking:{ default: false },user:{default: null}},
   model: {
     prop: 'selected',
     event: 'change'
@@ -21,17 +21,22 @@ export default {
       search:{},
       projectInfo: { list: [] },
       iswaitting: false,
-      select: {}
+      select: null
     }
   },
   methods: {
     getProjectInfo () {
+      var fetchPath='/project/list';
       if(this.isWorking){
         this.search.status = 1
       }
+      if(this.user!=null){
+        this.search.id=this.user
+        fetchPath='/user/listUserProject'
+      }
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/project/list',
+        url: this.$store.state.host +fetchPath ,
         data: JSON.stringify(this.search)
       })
         .then(res => {
@@ -39,10 +44,8 @@ export default {
         })
         .catch()
     },
-    /* eslint-disable */
     vs (){
         this.$emit('change', this.select)
-        console.log(this.select)
     }
   },
   mounted () {

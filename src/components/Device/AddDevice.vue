@@ -1,20 +1,20 @@
 <template>
   <div class="add-group">
-    <h2>新建设备</h2>
-    <ui-textbox icon="person" floating-label label="编号" v-model="con.No"></ui-textbox>
-    <ui-textbox icon="person" floating-label label="名称" v-model="con.name"></ui-textbox>
+    <h2>{{$t('message.create')}} {{$t('message.device')}}</h2>
+    <ui-textbox icon="person" floating-label :label="$t('message.No')" v-model="con.No"></ui-textbox>
+    <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
      <ui-select
       has-search
-      label='实验室'
+      :label="$t('message.lab')"
       type='image'
       :options='labInfo.list'
       :keys='{ label: "name", value: "id" }'
       v-model='search.device'
     ></ui-select>
-    <ui-textbox icon="lock"   floating-label label="描述" v-model="con.description"></ui-textbox>
-    <ui-textbox icon="person" floating-label label="型号" v-model="con.model"></ui-textbox>
-    <ui-textbox icon="person" floating-label label="品牌" v-model="con.band"></ui-textbox>
-    <ui-button :disabled="disable" color="primary" icon="check" @click="addClicked" :loading="iswaitting" @touch="getLabInfo">新建</ui-button>
+    <ui-textbox icon="lock"   floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
+    <ui-textbox icon="person" floating-label :label="$t('message.model')" v-model="con.model"></ui-textbox>
+    <ui-textbox icon="person" floating-label :label="$t('message.band')" v-model="con.band"></ui-textbox>
+    <ui-button :disabled="disable" color="primary" icon="check" @click="addClicked" :loading="iswaitting" @touch="getLabInfo">{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>

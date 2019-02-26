@@ -5,10 +5,10 @@
       type='icon-and-text'
     >
       <ui-tab id='home'  icon='home'            title='Home'  @select='tabChange'></ui-tab>
-      <ui-tab id='find'  icon='find_in_page'    title='查询'  @select='tabChange' v-if="$store.state.hasSingin"></ui-tab>
-      <ui-tab id='book'  icon='book'            title='预定'  @select='tabChange' v-if="$store.state.hasSingin"></ui-tab>
-      <ui-tab id='my'    icon='person'          title='我'    @select='tabChange'></ui-tab>
-      <ui-tab v-if="isAdmin&&$store.state.hasSingin" id='admin'    icon='person'       title='管理员'    @select='tabChange'></ui-tab>
+      <ui-tab id='find'  icon='find_in_page'    :title="$t('message.search')"  @select='tabChange' v-if="$store.state.hasSingin"></ui-tab>
+      <ui-tab id='book'  icon='book'            :title="$t('message.appointment')"  @select='tabChange' v-if="$store.state.hasSingin"></ui-tab>
+      <ui-tab id='my'    icon='person'          :title="$t('message.my')"    @select='tabChange'></ui-tab>
+      <ui-tab v-if="isAdmin&&$store.state.hasSingin" id='admin'    icon='person'       :title="$t('message.admin')"    @select='tabChange'></ui-tab>
     </ui-tabs>
   </div>
 </template>
@@ -17,7 +17,7 @@ import router from '@/router'
 export default {
   data () {
     return {
-      menuOptions: ['中文','英文'],
+      menuOptions: ['ä¸­æ–‡','è‹±æ–‡'],
       }
   },
   methods: {

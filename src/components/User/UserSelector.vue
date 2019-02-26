@@ -11,7 +11,7 @@
 <script>
 import fetch from '@/util/fetch.js'
 export default {
-  props: { label: { default: '用户' }, selected:Object},
+  props: { label: { default: '' }, selected:Object},
   model: {
     prop: 'selected',
     event: 'change'
@@ -20,7 +20,7 @@ export default {
     return {
       userInfo: { list: [] },
       iswaitting: false,
-      select: {}
+      select: null
     }
   },
   methods: {

@@ -2,10 +2,10 @@
   <div>
   <table class="table">
   <tr >
-    <th>操作人员</th>
-    <th>操作</th>
-    <th>目标</th>
-    <th>时间</th>
+    <th>{{$t('message.operator')}}</th>
+    <th>{{$t('message.operation')}}</th>
+    <th>{{$t('message.targer')}}</th>
+    <th>{{$t('message.time')}}</th>
   </tr>
   <tr v-for="(item,index) in logs.list" :key="index">
     <th>{{item.user}}</th>

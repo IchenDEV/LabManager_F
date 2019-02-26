@@ -13,12 +13,4 @@ export default {
   components: { BackupNow,BackupSetter },
 }
 </script>
-<style>
-.col-panel {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
-}
-</style>
 

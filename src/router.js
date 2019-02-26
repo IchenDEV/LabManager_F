@@ -1,21 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import myView from '@/view/myView'
 import View404 from '@/view/404'
 import loginView from '@/view/loginView'
 import bookView from '@/view/bookView'
 import findView from '@/view/findView'
 import homeView from '@/view/homeView'
-import deviceView from '@/view/Device/deviceView'
-import adminView from '@/view/Admin/adminView'
-import backup from '@/view/Admin/backup'
-import department from '@/view/Admin/department'
+import deviceView from '@/view/Public/deviceView'
+
+
 import departmentAdmin from '@/view/Admin/page/departmentAdmin'
 import groupAdmin from '@/view/Admin/page/groupAdmin'
 import userAdmin from '@/view/Admin/page/userAdmin'
 import projectAdmin from '@/view/Admin/page/projectAdmin'
 import deviceAdmin from '@/view/Admin/page/deviceAdmin'
 import labAdmin from '@/view/Admin/page/labAdmin'
+
 import device from '@/view/Admin/device'
 import log from '@/view/Admin/log'
 import book from '@/view/Admin/book'
@@ -23,10 +24,13 @@ import lab from '@/view/Admin/lab'
 import project from '@/view/Admin/project'
 import user from '@/view/Admin/user'
 import group from '@/view/Admin/group'
+import adminView from '@/view/Admin/adminView'
+import backup from '@/view/Admin/backup'
+import department from '@/view/Admin/department'
+
 Vue.use(Router)
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/home',
       name: 'homeView',
       component: homeView
@@ -57,10 +61,9 @@ export default new Router({
     },
     {
       path: '/admin/',
-      redirect:'/admin/device',
+      redirect: '/admin/device',
       component: adminView,
-      children: [
-        {
+      children: [{
           path: 'department',
           component: department
         },

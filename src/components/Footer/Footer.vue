@@ -1,10 +1,9 @@
 <template>
   <footer class="footer">
-    <ui-alert :dismissible="false">可以在搜索项添加%启动模糊搜索</ui-alert>
-    <h2>实验室设备管理系统</h2>
-    <p>由XXX开发</p>
-    <p>测试版</p>
-    <p>版权没有，盗版没法究</p>
+    <ui-alert :dismissible="false">{{$t('message.footerAlert')}}</ui-alert>
+    <h2>{{$t('message.productName')}}</h2>
+    <p>{{$t('message.devBy')}}</p>
+    <p>Beta</p>
   </footer>
 </template>
 <script>

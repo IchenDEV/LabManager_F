@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h2>部门列表</h2>
+    <h2>{{$t('message.department')}} {{$t('message.list')}}</h2>
     <div class="flex-panel">
-      <ui-textbox icon="person" floating-label label="名称" v-model="search.name"></ui-textbox>
+      <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="person" floating-label label="id" v-model="search.id"></ui-textbox>
     </div>
-    <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button>
+    <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
     <div class="flex-panel">
       <Card v-for="(item,index) in departments.list" :key="index">
         <p slot="title">{{item.name}}</p>
@@ -18,18 +18,18 @@
             icon="delete"
             @click="moClicked(item.id)"
             :loading="iswaitting"
-          >修改</ui-button>
+          >{{$t('message.modify')}}</ui-button>
           <ui-button
             color="primary"
             icon="delete"
             @click="delClicked(item.id,index)"
             :loading="iswaitting"
-          >删除</ui-button>
+          >{{$t('message.delete')}}</ui-button>
         </span>
       </Card>
       <Card v-if="departments.totalCount===0">
         <div>
-         没有找到相关部门
+         {{$t('message.findless')}} {{$t('message.department')}}
         </div>
       </Card>
     </div>

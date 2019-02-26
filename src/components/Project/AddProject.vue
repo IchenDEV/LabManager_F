@@ -1,14 +1,14 @@
 <template>
   <div class="add-project">
-    <h2>添加项目</h2>
-    <ui-textbox icon="person" floating-label label="名称" v-model="con.name"></ui-textbox>
-    <ui-textbox icon="dock" floating-label label="描述" v-model="con.description"></ui-textbox>
+    <h2>{{$t('message.create')}} {{$t('message.project')}}</h2>
+    <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
+    <ui-textbox icon="dock" floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
     <span>
     <ui-datepicker
                 icon="events"
                 floating-label
                 v-model="beginDate"
-            >开始日期</ui-datepicker>
+            >{{$t('message.beginDate')}}</ui-datepicker>
     <TimePicker class="timepick" style="display:block" type="time" placeholder="Select time" v-model="beginTime"></TimePicker>
     </span>
     <span style="margin-buttom:20px;">
@@ -16,10 +16,10 @@
                 icon="events"
                 floating-label
                 v-model="endDate"
-            >结束日期</ui-datepicker>
+            >{{$t('message.endDate')}}</ui-datepicker>
     <TimePicker style="display:block" class="timepick" type="time" placeholder="Select time" v-model="endTime" ></TimePicker>
     </span>
-    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">新建</ui-button>
+    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>

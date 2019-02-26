@@ -1,5 +1,5 @@
 <template>
-    <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">现在备份</ui-button>
+    <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">{{$t('message.backup')}}</ui-button>
 </template>
 <script>
 import fetch from '@/util/fetch.js'

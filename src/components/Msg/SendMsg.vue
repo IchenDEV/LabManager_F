@@ -1,15 +1,15 @@
 <template>
   <div class="add-department">
     <user-selector v-if="quickid===null" v-model="s" :label="label"></user-selector>
-    <h2 v-if="quickname!=null">发送到{{quickname}}</h2>
-    <ui-textbox icon="lock" floating-label label="信息" v-model="con.msg"></ui-textbox>
+    <h2 v-if="quickname!=null">{{$t('message.send')}} {{quickname}}</h2>
+    <ui-textbox icon="lock" floating-label :label="$t('message.message')" v-model="con.msg"></ui-textbox>
     <ui-button
       color="primary"
       icon="check"
       @click="addClicked"
       :loading="iswaitting"
       :disabled="con.msg===''||con.msg===null||s===null"
-    >发送</ui-button>
+    >{{$t('message.send')}}</ui-button>
   </div>
 </template>
 <script>
@@ -18,7 +18,7 @@ import userSelector from "@/components/User/UserSelector";
 export default {
   components: { userSelector },
   props: {
-    label: { default: "用户" },
+    label: { default: "" },
     quickid: { default: null },
     quickname: { default: null }
   },

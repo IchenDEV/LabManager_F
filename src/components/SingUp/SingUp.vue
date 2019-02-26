@@ -1,10 +1,10 @@
 <template>
   <div>
-    <ui-textbox icon='person' floating-label label='用户名' v-model='username'></ui-textbox>
-    <ui-textbox icon='person' floating-label label='姓名' v-model='nickname'></ui-textbox>
-    <ui-textbox icon='lock' floating-label label='密码' v-model='password' type='password'></ui-textbox>
-    <ui-textbox icon='lock' floating-label label='重复密码' v-model='password2' type='password'></ui-textbox>
-    <ui-button  color='primary' icon='check' @click='SingUpClicked' :loading='iswaitting' :disabled=" !((this.password === this.password2) !== ''&&this.username !== '' &&this.nickname !== '')">注册</ui-button>
+    <ui-textbox icon='person' floating-label :label="$t('message.username')" v-model='username'></ui-textbox>
+    <ui-textbox icon='person' floating-label :label="$t('message.Uname')" v-model='nickname'></ui-textbox>
+    <ui-textbox icon='lock' floating-label :label="$t('message.password')" v-model='password' type='password'></ui-textbox>
+    <ui-textbox icon='lock' floating-label :label="$t('message.password')" v-model='password2' type='password'></ui-textbox>
+    <ui-button  color='primary' icon='check' @click='SingUpClicked' :loading='iswaitting' :disabled=" !((this.password === this.password2) !== ''&&this.username !== '' &&this.nickname !== '')">{{$t('message.singup')}}</ui-button>
   </div>
 </template>
 <script>

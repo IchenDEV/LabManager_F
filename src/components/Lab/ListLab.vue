@@ -1,27 +1,27 @@
 <template>
 <div>
-  <h2>实验室列表</h2>
+  <h2>{{$t('message.lab')}} {{$t('message.list')}}</h2>
   <div class="flex-panel">
-      <ui-textbox icon="person" floating-label label="名称" v-model="search.name"></ui-textbox>
+      <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
-      <ui-textbox icon="location_on" floating-label label="地点" v-model="search.location"></ui-textbox>
+      <ui-textbox icon="location_on" floating-label :label="$t('message.location')" v-model="search.location"></ui-textbox>
     </div>
-    <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button>
+    <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
   <div class="flex-panel">
     <Card v-for="(item,index) in labs.list" :key="index">
       <p slot="title">{{item.name}}</p>
       <p>id: {{item.id}}</p>
-      <p>地点 {{item.location}}</p>
-      <p>描述 {{item.description}}</p>
-      <p>创建时间 {{item.createTime}}</p>
+      <p>{{$t('message.location')}} {{item.location}}</p>
+      <p>{{$t('message.description')}} {{item.description}}</p>
+      <p>{{$t('message.createTime')}} {{item.createTime}}</p>
       <span>
-      <ui-button color="primary" icon="delete" @click="moClicked(item.id)" :loading="iswaitting">修改</ui-button>
-      <ui-button color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">删除</ui-button>
+      <ui-button color="primary" icon="delete" @click="moClicked(item.id)" :loading="iswaitting">{{$t('message.modify')}}</ui-button>
+      <ui-button color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
       </span>
     </Card>
     <Card v-if="labs.totalCount===0">
         <div>
-         没有找到相关实验室
+         {{$t('message.findless')}}{{$t('message.lab')}}
         </div>
       </Card>
   </div>

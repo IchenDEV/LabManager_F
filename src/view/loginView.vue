@@ -1,11 +1,11 @@
 <template>
 <div class="flex-panel">
   <Card>
-<h1>登录</h1>
+<h1>{{$t('message.login')}}</h1>
 <Login></Login>
   </Card>
   <Card>
-<h1>或 注册</h1>
+<h1>{{$t('message.or')}} {{$t('message.singup')}}</h1>
 <sing-up></sing-up>
   </Card>
 </div>

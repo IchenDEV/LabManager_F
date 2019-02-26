@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h2>新建用户</h2>
-    <ui-textbox icon="person" floating-label label="用户名" v-model="con.username" autocomplete="off"></ui-textbox>
-    <ui-textbox icon="lock" floating-label label="密码" type="password" placeholder="password" v-model="con.password" autocomplete="off"></ui-textbox>
-    <ui-textbox icon="lock" floating-label label="姓名" v-model="con.nickname" autocomplete="off"></ui-textbox>
+    <h2>{{$t('message.create')}} {{$t('message.user')}}</h2>
+    <ui-textbox icon="person" floating-label :label="$t('message.username')" v-model="con.username" autocomplete="off"></ui-textbox>
+    <ui-textbox icon="lock" floating-label :label="$t('message.password')" type="password" placeholder="password" v-model="con.password" autocomplete="off"></ui-textbox>
+    <ui-textbox icon="lock" floating-label :label="$t('message.Uname')" v-model="con.nickname" autocomplete="off"></ui-textbox>
     <ui-select
           icon='person'
           floating-label
-          label='角色'
+          :label="$t('message.role')"
           :options='roleString'
           v-model='role'
         ></ui-select>
-    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">新建</ui-button>
+    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>
@@ -19,7 +19,7 @@ import fetch from '@/util/fetch.js'
 export default {
   data () {
     return {
-      roleString: ['超级管理员', '管理员', '用户'],
+      roleString: [this.$t('message.superAdmin'), this.$t('message.admin'), this.$t('message.user')],
       role: 2,
       con: {
         username: '',

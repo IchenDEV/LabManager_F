@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h2>设备列表</h2>
+    <h2>{{$t('message.device')}} {{$t('message.list')}}</h2>
     <div class="flex-panel">
-    <ui-textbox icon='person' floating-label label='设备名称' v-model='search.name'></ui-textbox>
-    <ui-textbox icon='person' floating-label label='设备编号' v-model='search.No'></ui-textbox>
-    <ui-textbox icon='person' floating-label label='设备型号' v-model='search.model'></ui-textbox>
-    <ui-textbox icon='person' floating-label label='设备品牌' v-model='search.bands'></ui-textbox>
+    <ui-textbox icon='person' floating-label :label="$t('message.name')" v-model='search.name'></ui-textbox>
+    <ui-textbox icon='person' floating-label :label="$t('message.No')" v-model='search.No'></ui-textbox>
+    <ui-textbox icon='person' floating-label :label="$t('message.model')" v-model='search.model'></ui-textbox>
+    <ui-textbox icon='person' floating-label :label="$t('message.band')" v-model='search.bands'></ui-textbox>
     <ui-select
       has-search
-      label='实验室'
+      :label="$t('message.lab')"
       placeholder='All'
       type='image'
       :options='labInfo.list'
@@ -16,33 +16,33 @@
       v-model='search.device'
     ></ui-select>
     </div>
-    <ui-button color='primary' icon='search' @click='searchClicked'>查询</ui-button>
+    <ui-button color='primary' icon='search' @click='searchClicked'>{{$t('message.search')}}</ui-button>
     <div class="flex-panel">
       <Card v-for='(item,index) in info.list' :key='index' >
         <div>
           <span>
-          <h2>设备 {{item.id}}</h2>
-          <Tag color="success" v-if="item.status===1">正常</Tag>
-          <Tag color="error"   v-if="item.status===4">故障</Tag>
-          <Tag color="error"   v-if="item.status===0">报废</Tag>
-          <Tag color="warning"   v-if="item.status===3">暂停</Tag>
+          <h2>{{$t('message.device')}} {{item.id}}</h2>
+          <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
+          <Tag color="error"   v-if="item.status===4">{{$t('message.error')}}</Tag>
+          <Tag color="error"   v-if="item.status===0">{{$t('message.scrap')}}</Tag>
+          <Tag color="warning"   v-if="item.status===3">{{$t('message.pause')}}</Tag>
           </span>
-          <p>名称 {{item.name}}</p>
-          <p>编号 {{item.No}}</p>
-          <p>品牌 {{item.band}}</p>
-          <p>描述 {{item.description}}</p>
-          <p>型号 {{item.model}}</p>
-          <p>位置 {{item.locationName}}</p>
+          <p>{{$t('message.name')}} {{item.name}}</p>
+          <p>{{$t('message.No')}} {{item.No}}</p>
+          <p>{{$t('message.band')}} {{item.band}}</p>
+          <p>{{$t('message.description')}} {{item.description}}</p>
+          <p>{{$t('message.model')}} {{item.model}}</p>
+          <p>{{$t('message.lab')}} {{item.locationName}}</p>
           <p>{{item.locationDescription}}</p>
-          <p>地址 {{item.locationAddress}}</p>
-          <ui-button v-if="!admin&&item.status===1" color='primary' icon='book' @click='bookClicked(item.id)'>预订</ui-button>
-          <ui-button v-if="admin" color='primary' icon='delete' @click='bookClicked(item.id)'>修改</ui-button>
-          <ui-button v-if="admin" color='primary' icon='delete' @click='delClicked(item.id,index)'>删除</ui-button>
+          <p>{{$t('message.address')}} {{item.locationAddress}}</p>
+          <ui-button v-if="!admin&&item.status===1" color='primary' icon='book' @click='bookClicked(item.id)'>{{$t('message.appointment')}}</ui-button>
+          <ui-button v-if="admin" color='primary' icon='delete' @click='bookClicked(item.id)'>{{$t('message.modify')}}</ui-button>
+          <ui-button v-if="admin" color='primary' icon='delete' @click='delClicked(item.id,index)'>{{$t('message.delete')}}</ui-button>
         </div>
       </Card>
       <Card v-if="info.totalCount===0">
         <div>
-         没有找到相关设备
+         {{$t('message.findless')}}{{$t('message.device')}}
         </div>
       </Card>
     </div>

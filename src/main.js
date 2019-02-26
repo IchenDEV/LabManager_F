@@ -41,12 +41,13 @@ Vue.use(KeenUI)
 Vue.use(Vuex)
 Vue.use(iView)
 Vue.use(VueI18n)
+
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
     //host: '//localhost:8080/',
-    host: '//lab.idevlab.cn:8080/',
+    host: '//134.175.45.72:8080/',
     //host: '//idevlab.cn:8080/',
     currentUser: {
       username: '',
@@ -95,10 +96,10 @@ const store = new Vuex.Store({
 })
 
 const i18n = new VueI18n({
-  locale: 'zh-cn',    // 语言标识
+  locale: 'zh-cn', // 语言标识
   messages: {
-    'zh-cn': require('./assets/common/lang/zh-cn'),   // 中文语言包
-    'en': require('./assets/common/lang/en')    // 英文语言包
+    'zh-cn': require('./assets/common/lang/zh-cn'), // 中文语言包
+    'en': require('./assets/common/lang/en') // 英文语言包
   },
 })
 
@@ -108,10 +109,10 @@ new Vue({
   i18n,
   mounted() {
     this.$store.dispatch('getInfo')
-      // 删除加载动画demo
-      if (document.getElementById('nb-global-spinner')) {
-        document.body.removeChild(document.getElementById('nb-global-spinner'));
-      }
+    // 删除加载动画demo
+    if (document.getElementById('nb-global-spinner')) {
+      document.body.removeChild(document.getElementById('nb-global-spinner'));
+    }
   },
   render: h => h(App)
 }).$mount('#app')

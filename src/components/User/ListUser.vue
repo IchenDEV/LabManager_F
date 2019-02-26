@@ -1,16 +1,16 @@
 <template>
 <div>
-  <h2>用户列表</h2>
+  <h2>{{$t('message.user')}} {{$t('message.list')}}</h2>
   <div class="flex-panel">
     <Card v-for="(item,index) in users.list" :key="index">
-      <p slot="title">用户名 {{item.username}}</p>
-      <p>用户id {{item.userId}}</p>
-      <p>姓名 {{item.nickname}}</p>
-      <p>角色 {{item.roleName}}</p>
-      <p>电话 {{item.phone}}</p>
+      <p slot="title">{{$t('message.username')}} {{item.username}}</p>
+      <p>{{$t('message.user')}} id {{item.userId}}</p>
+      <p>{{$t('message.Uname')}} {{item.nickname}}</p>
+      <p>{{$t('message.role')}} {{item.roleName}}</p>
+      <p>{{$t('message.phone')}} {{item.phone}}</p>
       <span>
-      <ui-button v-if="item.userId!==10003&&$store.state.isSuperAdmin" color="primary" icon="adjust" @click="moClicked(item.userId)" :loading="iswaitting">修改</ui-button>
-      <ui-button v-if="item.userId!==10003&&$store.state.isSuperAdmin" color="primary" icon="delete" @click="delClicked(item.userId,index)" :loading="iswaitting">删除</ui-button>
+      <ui-button v-if="item.userId!==10003&&$store.state.isSuperAdmin" color="primary" icon="adjust" @click="moClicked(item.userId)" :loading="iswaitting">{{$t('message.modify')}}</ui-button>
+      <ui-button v-if="item.userId!==10003&&$store.state.isSuperAdmin" color="primary" icon="delete" @click="delClicked(item.userId,index)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
       </span>
     </Card>
   </div>

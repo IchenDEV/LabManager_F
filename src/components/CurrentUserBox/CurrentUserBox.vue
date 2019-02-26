@@ -11,13 +11,13 @@
           @close="$refs.dropdownButton.closeDropdown()"
           @select="langChange"
         ></ui-menu>
-        {{$t("message.language")}}
+        {{$t("message.currentLanguage")}}
       </ui-button>
     </div>
     <div v-if="hasSingin">
       <div v-if="mo" class="user-panel">
         <span>
-          <h3>姓名</h3>
+          <h3>{{$t("message.Uname")}}</h3>
           <p>{{nickname}}</p>
         </span>
         <span>
@@ -25,31 +25,31 @@
           <p>{{id}}</p>
         </span>
         <span>
-          <h3>性别</h3>
+          <h3>{{$t("message.sex")}}</h3>
           <p>{{sex}}</p>
         </span>
         <span>
-          <h3>角色</h3>
+          <h3>{{$t("message.role")}}</h3>
           <p>{{roleName}}</p>
         </span>
         <span v-if="!simple">
-          <h3>电话</h3>
+          <h3>{{$t("message.phone")}}</h3>
           <p>{{phone}}</p>
         </span>
         <span v-if="!simple">
-          <h3>邮箱</h3>
+          <h3>{{$t("message.email")}}</h3>
           <p>{{email}}</p>
         </span>
         <span v-if="!simple">
-          <h3>地址</h3>
+          <h3>{{$t("message.address")}}</h3>
           <p>{{address}}</p>
         </span>
         <span>
-          <h3>部门</h3>
+          <h3>{{$t("message.department")}}</h3>
           <div v-for="(item,index) in dpinfo.list" :key="index">{{item.departmentName}}</div>
         </span>
         <span>
-          <h3>项目组</h3>
+          <h3>{{$t("message.group")}}</h3>
           <div v-for="(item,index) in gpinfo.list" :key="index">{{item.groupName}}</div>
         </span>
       </div>
@@ -59,7 +59,7 @@
           icon="person"
           :invalid="nickname.length === 0"
           floating-label
-          label="姓名"
+          :label="$t('message.name')"
           v-model="nickname"
           required
           error="This field is required"
@@ -68,21 +68,21 @@
           class="user-itme"
           icon="person"
           floating-label
-          label="性别"
+          label="$t('message.sex')"
           :options="sexString"
           v-model="sex"
         ></ui-select>
-        <ui-textbox class="user-itme" icon="phone" floating-label label="电话" v-model="phone"></ui-textbox>
+        <ui-textbox class="user-itme" icon="phone" floating-label :label="$t('message.phone')" v-model="phone"></ui-textbox>
         <ui-textbox
           class="user-itme"
           icon="mail"
           :invalid="ismail === false&&email.length>0"
           floating-label
-          label="邮箱"
+          label="$t('message.email')"
           v-model="email"
-          error="错误的邮箱格式"
+          :error="$t('message.wrongEmail')"
         ></ui-textbox>
-        <ui-textbox class="user-itme" icon="home" floating-label label="地址" v-model="address"></ui-textbox>
+        <ui-textbox class="user-itme" icon="home" floating-label label="$t('message.address')" v-model="address"></ui-textbox>
       </div>
       <ui-button
         v-if="!simple"
@@ -90,7 +90,7 @@
         icon="adjust"
         @click="logouthandle"
         :loading="iswaitting"
-      >登出</ui-button>
+      >{{$t("message.logout")}}</ui-button>
       <ui-button
         v-if="mo&&!simple"
         color="primary"
@@ -104,7 +104,7 @@
         icon="adjust"
         @click="passwordhandle"
         :loading="iswaitting"
-      >修改密码</ui-button>
+      >{{$t("message.modifyPass")}}</ui-button>
       <span v-if="!mo">
         <ui-button
           v-if="!simple"
@@ -112,7 +112,7 @@
           icon="update"
           @click="updateinfo"
           :loading="iswaitting"
-        >更新</ui-button>
+        >{{$t("message.update")}}</ui-button>
         <ui-button
           v-if="!simple"
           color="primary"
@@ -123,9 +123,9 @@
       </span>
     </div>
     <div v-else>
-      <ui-button color="primary" icon="adjust" @click="loginhandle">请登录</ui-button>
+      <ui-button color="primary" icon="adjust" @click="loginhandle">{{$t("message.pleaseLogin")}}</ui-button>
     </div>
-    <ui-modal ref="passmodal" title="修改密码">
+    <ui-modal ref="passmodal" :title="$t('message.modifyPass')">
       <update-current-password @close="closepass"></update-current-password>
     </ui-modal>
   </div>
@@ -142,7 +142,7 @@ export default {
   data() {
     return {
       iswaitting: false,
-      moString: "修改",
+      moString: this.$t('message.modify'),
       mo: true,
       username: "",
       nickname: "",
@@ -152,7 +152,7 @@ export default {
       email: "",
       roleName: "",
       id: "",
-      sexString: ["未知", "男", "女", "其他"],
+      sexString: [this.$t('message.unknow'),this.$t('message.male'), this.$t('message.female'), this.$t('message.other')],
       langOptions: ["zh-cn", "en"],
       dpinfo: {},
       gpinfo: {}
@@ -262,7 +262,7 @@ export default {
         .then(res => {
           if (res.data.code === "100") {
             this.showSuccessMsg({ title: this.nickname });
-            this.moString = "修改";
+            this.moString = this.$t('message.modify');
             this.mo = true;
           } else {
             this.showErrorMsg({ title: res.data.msg });
@@ -273,10 +273,10 @@ export default {
     },
     mohandle() {
       if (this.mo) {
-        this.moString = "取消";
+        this.moString = this.$t('message.cancel');
       } else {
         this.getinfo();
-        this.moString = "修改";
+        this.moString = this.$t('message.modify');
       }
       this.mo = !this.mo;
     },
@@ -298,7 +298,6 @@ export default {
       })
         .then(res => {
           if (res.data.code === "100") {
-            this.showSuccessMsg({ title: this.nickname });
             this.$store.commit("cleanInfo");
             location.reload();
           } else {

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h2>上次备份时间</h2>
-    <p v-if="data.lastBackupTime == null">无备份</p>
+    <h2>{{$t('message.lastBackupTime')}}</h2>
+    <p v-if="data.lastBackupTime == null">{{$t('message.noBackup')}}</p>
     <Time v-else :time="data.lastBackupTime" :interval="1"/>
-    <h2>设定备份周期</h2>
-    <ui-textbox icon="access_time" floating-label label="备份时间cron表达式" v-model="data.schedule"></ui-textbox>
-    <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">设定</ui-button>
+    <h2>{{$t('message.setBackupSchedule')}}</h2>
+    <ui-textbox icon="access_time" floating-label label="cron" v-model="data.schedule"></ui-textbox>
+    <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">{{$t('message.set')}}</ui-button>
   </div>
 </template>
 <script>

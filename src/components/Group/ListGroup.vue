@@ -1,11 +1,11 @@
 <template>
 <div>
-  <h2>项目组列表</h2>
+  <h2>{{$t('message.group')}} {{$t('message.list')}}</h2>
   <div class="flex-panel">
-      <ui-textbox icon="group" floating-label label="名称" v-model="search.name"></ui-textbox>
+      <ui-textbox icon="group" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
     </div>
-    <ui-button color="primary" icon="search" @click="searchClicked">搜索</ui-button>
+    <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
   <div class="flex-panel">
     <Card v-for="(item,index) in groups.list" :key="index">
       <p slot="title">{{item.name}}</p>
@@ -13,13 +13,13 @@
       <p>{{item.description}}</p>
       <p>{{item.createTime}}</p>
       <span>
-      <ui-button color="primary" icon="delete" @click="moClicked(item.id)" :loading="iswaitting">修改</ui-button>
-      <ui-button color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">删除</ui-button>
+      <ui-button color="primary" icon="delete" @click="moClicked(item.id)" :loading="iswaitting">{{$t('message.modify')}}</ui-button>
+      <ui-button color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
       </span>
     </Card>
     <Card v-if="groups.totalCount===0">
         <div>
-         没有找到相关项目组
+         {{$t('message.fingless')}}{{$t('message.group')}}
         </div>
       </Card>
   </div>

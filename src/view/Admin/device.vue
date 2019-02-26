@@ -13,13 +13,3 @@ export default {
   components: { AddDevice, ListDevice }
 }
 </script>
-<style>
-.warp {
-  flex-wrap: wrap;
-}
-@media only screen and (min-width: 1280px) {
-  .warp {
-    flex-wrap: nowrap;
-  }
-}
-</style>

@@ -1,19 +1,19 @@
 <template>
   <div class="flex-panel">
     <Card v-if="$store.state.hasSingin">
-       <p slot="title">发送信息</p>
-       <send-msg label="接收方"></send-msg>
+       <p slot="title">{{$t('message.sendMsg')}}</p>
+       <send-msg :label="$t('message.receiver')"></send-msg>
     </Card>
     <Card v-if="$store.state.hasSingin">
-       <p slot="title">我的预定信息</p>
+       <p slot="title">{{$t('message.myBookInfo')}}</p>
        <book-box></book-box>
     </Card>
     <Card v-if="$store.state.hasSingin">
-       <p slot="title">通信信息</p>
+       <p slot="title">{{$t('message.message')}}</p>
        <msg-box></msg-box>
     </Card>
     <Card style="width:70%;">
-       <p slot="title">个人信息</p>
+       <p slot="title">{{$t('message.personalInfo')}}</p>
        <current-user-box simple='true'></current-user-box>
     </Card>
   </div>
