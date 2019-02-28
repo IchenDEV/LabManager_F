@@ -3,7 +3,7 @@
       has-search
       :label='label'
       :options='projectInfo.list'
-      :keys='{ label: "name", value: "id" }'
+      :keys='keys'
       v-model='select'
       @select="vs"
     ></ui-select>
@@ -11,7 +11,7 @@
 <script>
 import fetch from '@/util/fetch.js'
 export default {
-  props: { label: { default: '' }, selected:Object,isWorking:{ default: false },user:{default: null}},
+  props: { label: { default: '' }, selected:{ default: null },isWorking:{ default: false },user:{default: null}},
   model: {
     prop: 'selected',
     event: 'change'
@@ -21,18 +21,20 @@ export default {
       search:{},
       projectInfo: { list: [] },
       iswaitting: false,
-      select: null
+      select: '',
+      keys:{ label: "name", value: "id" }
     }
   },
   methods: {
     getProjectInfo () {
-      var fetchPath='/project/list';
+      let fetchPath='/project/list';
       if(this.isWorking){
         this.search.status = 1
       }
       if(this.user!=null){
         this.search.id=this.user
-        fetchPath='/user/listUserProject'
+        fetchPath='/user/listProject'
+        this.keys.label="projectName"
       }
       fetch({
         method: 'Post',

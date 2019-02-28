@@ -57,7 +57,7 @@ export default {
   methods: {
     getInfo() {
       if (this.user != null) {
-        this.search.applicant = this.user.userId;
+        this.search.applicant = this.user.id;
       }
       if (this.project != null) {
         this.search.project = this.project.id;

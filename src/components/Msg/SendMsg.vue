@@ -8,7 +8,7 @@
       icon="check"
       @click="addClicked"
       :loading="iswaitting"
-      :disabled="con.msg===''||con.msg===null||s===null"
+      :disabled="con.msg===''||con.msg===null||s==null"
     >{{$t('message.send')}}</ui-button>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      s: { userId: 10003, username: "admin" },
+      s: null,
       con: {
         receiver: 0,
         msg: null,
@@ -41,7 +41,7 @@ export default {
       if (this.quickid != null) {
         this.con.receiver = this.quickid;
       } else {
-        this.con.receiver = this.s.userId;
+        this.con.receiver = this.s.id;
       }
       console.log(this.s);
       fetch({

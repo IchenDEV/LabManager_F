@@ -11,7 +11,7 @@
 <script>
 import fetch from '@/util/fetch.js'
 export default {
-  props: { label: { default: '' }, selected:Object},
+  props: { label: { default: '' }, selected:{ default: null }},
   model: {
     prop: 'selected',
     event: 'change'
@@ -20,7 +20,7 @@ export default {
     return {
       userInfo: { list: [] },
       iswaitting: false,
-      select: null
+      select: ''
     }
   },
   methods: {
@@ -39,7 +39,6 @@ export default {
     vs (){
         //this.selected = this.select  
         this.$emit('change', this.select)
-        console.log(this.select)
     }
   },
   mounted () {

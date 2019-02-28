@@ -1,55 +1,55 @@
 <template>
   <div>
     <Card>
-      <h2>修改用户信息</h2>
+      <h2>{{$t('message.modify')}} {{$t('message.user')}}</h2>
       <div class="flex-panel">
-        <ui-textbox icon="phone" floating-label label="名称" v-model="item.nickname"></ui-textbox>
-        <ui-textbox icon="phone" floating-label label="电话" v-model="item.phone"></ui-textbox>
-        <ui-textbox icon="phone" floating-label label="地址" v-model="item.address"></ui-textbox>
-        <ui-select icon="person" floating-label label="性别" :options="sexString" v-model="sex"></ui-select>
-        <ui-select icon="person" floating-label label="角色" :options="roleString" v-model="role"></ui-select>
+        <ui-textbox icon="person" floating-label :label="$t('message.Uname')" v-model="item.nickname"></ui-textbox>
+        <ui-textbox icon="phone" floating-label :label="$t('message.phone')" v-model="item.phone"></ui-textbox>
+        <ui-textbox icon="phone" floating-label :label="$t('message.address')" v-model="item.address"></ui-textbox>
+        <ui-select icon="person" floating-label :label="$t('message.sex')" :options="sexString" v-model="sex"></ui-select>
+        <ui-select icon="person" floating-label :label="$t('message.role')" :options="roleString" v-model="role"></ui-select>
         <ui-textbox
           icon="mail"
           :invalid="ismail === false"
           floating-label
-          label="邮箱"
+          :label="$t('message.email')"
           v-model="item.email"
-          error="错误的邮箱格式"
+          :error="$t('message.wrongEmail')"
         ></ui-textbox>
       </div>
-      <ui-button color="primary" icon="update" @click="updatePassword" :loading="iswaitting">修改密码</ui-button>
-      <ui-button v-if="item.roleId===1" color="primary" icon="update" @click="updateSuperPassword" :loading="iswaitting">修改超级密码</ui-button>
-      <ui-button color="primary" icon="update" @click="inputSuper" :loading="iswaitting">更新</ui-button>
+      <ui-button color="primary" icon="update" @click="updatePassword" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
+      <ui-button v-if="item.roleId===1" color="primary" icon="update" @click="updateSuperPassword" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.superPassword')}}</ui-button>
+      <ui-button color="primary" icon="update" @click="inputSuper" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
-    <ui-modal ref="SuperPasswordmModal" title="请输入超级管理员密码">
-      <p>如果修改了当前管理员超级密码请输入旧的超级管理员密码</p>
+    <ui-modal ref="SuperPasswordmModal" :title="$t('message.inputCurrentSuperPassword')">
       <ui-textbox
         icon="phone"
         floating-label
-        label="超级管理员密码"
+        :label="$t('message.superPassword')"
         type="password"
         v-model="item.adminSuperPassword"
       ></ui-textbox>
-      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">更新</ui-button>
+      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </ui-modal>
-    <ui-modal ref="PasswordmModal" title="请输入新密码">
-      <ui-textbox icon="lock" floating-label label="密码" type="password" v-model="item.password"></ui-textbox>
-    <ui-button color="primary" icon="update" @click="doneClick" :loading="iswaitting">完成</ui-button>
+    <ui-modal ref="PasswordmModal" :title="$t('message.inputNewPassword')">
+      <ui-textbox icon="lock" floating-label :label="$t('message.password')" type="password" v-model="item.password"></ui-textbox>
+    <ui-button color="primary" icon="update" @click="doneClick" :loading="iswaitting">{{$t('message.done')}}</ui-button>
     </ui-modal>
-    <ui-modal ref="PasswordmModal2" title="请输入新超级密码">
+    <ui-modal ref="PasswordmModal2" :title="$t('message.inputNewSuperPassword')">
       <ui-textbox
         icon="lock"
         floating-label
-        label="密码"
+        :label="$t('message.password')"
         type="password"
         v-model="item.superPassword"
       ></ui-textbox>
-      <ui-button color="primary" icon="update" @click="doneClick" :loading="iswaitting">完成</ui-button>
+      <ui-button color="primary" icon="update" @click="doneClick" :loading="iswaitting">{{$t('message.done')}}</ui-button>
     </ui-modal>
   </div>
 </template>
 <script>
 import fetch from "@/util/fetch.js";
+import tools from '@/util/tools.js'
 import stringCK from "@/util/stringCK.js";
 export default {
   data() {
@@ -57,9 +57,9 @@ export default {
       search: { id: this.$route.params.id, pageRow: 1 },
       item: {},
       iswaitting: false,
-      sexString: ["未知", "男", "女", "其他"],
+      sexString: [this.$t('message.unknow'),this.$t('message.male'), this.$t('message.female'), this.$t('message.other')],
       sex: 0,
-      roleString: ["超级管理员", "管理员", "用户"],
+      roleString: [this.$t('message.superAdmin'), this.$t('message.admin'), this.$t('message.user')],
       role: 2
     };
   },
@@ -104,30 +104,18 @@ export default {
       this.$refs["PasswordmModal"].close();
     },
     updateClick() {
-
-      const JsSHA = require("jssha");
-      var shaObj = new JsSHA("SHA3-256", "TEXT");
-      shaObj.update(this.item.adminSuperPassword.toString());
-      let code = shaObj.getHash("HEX");
-      this.item.adminSuperPassword = code;
-
+      this.item.adminSuperPassword = tools.sha3(this.item.adminSuperPassword.toString())
       this.iswaitting = true;
       this.item.sex = this.sexString.indexOf(this.sex);
       this.item.roleId = this.roleString.indexOf(this.role)+1;
       this.item.adminId = this.$store.state.currentUser.id;
 
       if (this.item.password != null && this.item.password !='') {
-        var shaObj2 = new JsSHA("SHA3-256", "TEXT");
-        shaObj2.update(this.item.password);
-        let code2 = shaObj2.getHash("HEX");
-        this.item.password = code2;
+        this.item.password = tools.sha3(this.item.password);
       }
 
       if (this.item.superPassword != null && this.item.superPassword != '') {
-        var shaObj3 = new JsSHA("SHA3-256", "TEXT");
-        shaObj3.update(this.item.superPassword);
-        let code3 = shaObj3.getHash("HEX");
-        this.item.superPassword = code3;
+        this.item.superPassword = tools.sha3(this.item.superPassword);
       }
 
       delete this.item["permissionList"];

@@ -15,6 +15,8 @@ import fetch from '@/util/fetch.js'
 import 'iview/dist/styles/iview.css'
 import '@babel/polyfill'
 import VueI18n from 'vue-i18n'
+import en from 'iview/dist/locale/en-US'
+import zh from 'iview/dist/locale/zh-CN'
 
 function toast({
   title,
@@ -41,13 +43,14 @@ Vue.use(KeenUI)
 Vue.use(Vuex)
 Vue.use(iView)
 Vue.use(VueI18n)
+Vue.locale = () => {};
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    //host: '//localhost:8080/',
-    host: '//134.175.45.72:8080/',
+    host: '//localhost:8080/',
+    //host: '//134.175.45.72:8080/',
     //host: '//idevlab.cn:8080/',
     currentUser: {
       username: '',
@@ -70,7 +73,7 @@ const store = new Vuex.Store({
             state.hasSingin = true
             state.currentUser.nickname = res.data.info.userPermission.nickname
             state.currentUser.username = this.username
-            state.currentUser.id = res.data.info.userPermission.userId
+            state.currentUser.id = res.data.info.userPermission.id
             if (res.data.info.userPermission.roleId === 1) {
               state.isSuperAdmin = true
               state.isAdmin = true
@@ -95,20 +98,27 @@ const store = new Vuex.Store({
   }
 })
 
+function getlang() {
+  if (navigator.language.toLowerCase() == 'zh-cn') {
+    return navigator.language.toLowerCase()
+  }else{
+    return 'en'
+  }
+}
 const i18n = new VueI18n({
-  locale: 'zh-cn', // 语言标识
+  locale: getlang(), // 语言标识
   messages: {
-    'zh-cn': require('./assets/common/lang/zh-cn'), // 中文语言包
-    'en': require('./assets/common/lang/en') // 英文语言包
+    'zh-cn': Object.assign(require('./assets/common/lang/zh-cn'),zh), // 中文语言包
+    'en': Object.assign(require('./assets/common/lang/en'),en) // 英文语言包
   },
 })
-
 new Vue({
   router,
   store,
   i18n,
   mounted() {
     this.$store.dispatch('getInfo')
+    document.title=this.$t('message.productName')
     // 删除加载动画demo
     if (document.getElementById('nb-global-spinner')) {
       document.body.removeChild(document.getElementById('nb-global-spinner'));

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{$t('message.device')}} {{$t('message.list')}}</h2>
+    <h1>{{$t('message.device')}} {{$t('message.list')}}</h1>
     <div class="flex-panel">
     <ui-textbox icon='person' floating-label :label="$t('message.name')" v-model='search.name'></ui-textbox>
     <ui-textbox icon='person' floating-label :label="$t('message.No')" v-model='search.No'></ui-textbox>
@@ -29,7 +29,7 @@
           </span>
           <p>{{$t('message.name')}} {{item.name}}</p>
           <p>{{$t('message.No')}} {{item.No}}</p>
-          <p>{{$t('message.band')}} {{item.band}}</p>
+          <p>{{$t('message.band')}} {{item.bands}}</p>
           <p>{{$t('message.description')}} {{item.description}}</p>
           <p>{{$t('message.model')}} {{item.model}}</p>
           <p>{{$t('message.lab')}} {{item.locationName}}</p>

@@ -1,19 +1,6 @@
 <template>
   <div>
-    <div>
-      <ui-button color="primary" has-dropdown ref="dropdownButton">
-        <ui-menu
-          contain-focus
-          has-icons
-          has-secondary-text
-          slot="dropdown"
-          :options="langOptions"
-          @close="$refs.dropdownButton.closeDropdown()"
-          @select="langChange"
-        ></ui-menu>
-        {{$t("message.currentLanguage")}}
-      </ui-button>
-    </div>
+    <language-switch></language-switch>
     <div v-if="hasSingin">
       <div v-if="mo" class="user-panel">
         <span>
@@ -59,7 +46,7 @@
           icon="person"
           :invalid="nickname.length === 0"
           floating-label
-          :label="$t('message.name')"
+          :label="$t('message.Uname')"
           v-model="nickname"
           required
           error="This field is required"
@@ -68,7 +55,7 @@
           class="user-itme"
           icon="person"
           floating-label
-          label="$t('message.sex')"
+          :label="$t('message.sex')"
           :options="sexString"
           v-model="sex"
         ></ui-select>
@@ -78,11 +65,11 @@
           icon="mail"
           :invalid="ismail === false&&email.length>0"
           floating-label
-          label="$t('message.email')"
+          :label="$t('message.email')"
           v-model="email"
           :error="$t('message.wrongEmail')"
         ></ui-textbox>
-        <ui-textbox class="user-itme" icon="home" floating-label label="$t('message.address')" v-model="address"></ui-textbox>
+        <ui-textbox class="user-itme" icon="home" floating-label :label="$t('message.address')" v-model="address"></ui-textbox>
       </div>
       <ui-button
         v-if="!simple"
@@ -132,12 +119,13 @@
 </template>
 <script>
 import VueNotifications from "vue-notifications";
+import languageSwitch from "@/components/Language/LanguageSwitch"
 import fetch from "@/util/fetch.js";
 import router from "@/router";
 import stringCK from "@/util/stringCK.js";
 import UpdateCurrentPassword from "@/components/CurrentUserBox/UpdateCurrentPassword";
 export default {
-  components: { UpdateCurrentPassword },
+  components: { UpdateCurrentPassword,languageSwitch},
   props: { simple: { default: false } },
   data() {
     return {
@@ -153,7 +141,6 @@ export default {
       roleName: "",
       id: "",
       sexString: [this.$t('message.unknow'),this.$t('message.male'), this.$t('message.female'), this.$t('message.other')],
-      langOptions: ["zh-cn", "en"],
       dpinfo: {},
       gpinfo: {}
     };
@@ -167,9 +154,7 @@ export default {
     }
   },
   methods: {
-    langChange(e) {
-      this.$i18n.locale = e;
-    },
+    
     getinfo() {
       if (this.$store.state.hasSingin === true) {
         this.iswaitting = true;
@@ -186,7 +171,7 @@ export default {
               this.email = res.data.info.userPermission.email;
               this.sex = this.sexString[res.data.info.userPermission.sex];
               this.roleName = res.data.info.userPermission.roleName;
-              this.id = res.data.info.userPermission.userId;
+              this.id = res.data.info.userPermission.id;
               this.$store.state.currentUser.id = this.id;
               this.showSuccessMsg({ title: this.nickname });
             } else {
@@ -212,7 +197,7 @@ export default {
       })
         .then(res => {
           if (res.data.code === "100") {
-            this.showSuccessMsg({ title: this.nickname });
+            //this.showSuccessMsg({ title: this.nickname });
             this.dpinfo = res.data.info;
           } else {
             this.showErrorMsg({ title: res.data.msg });
@@ -234,7 +219,7 @@ export default {
       })
         .then(res => {
           if (res.data.code === "100") {
-            this.showSuccessMsg({ title: this.nickname });
+            //this.showSuccessMsg({ title: this.nickname });
             this.gpinfo = res.data.info;
           } else {
             this.showErrorMsg({ title: res.data.msg });

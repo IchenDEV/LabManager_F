@@ -12,25 +12,23 @@
         <Menu v-show="showMe||!mobileView" @on-select="menuChangeHandle" class="sider" style="z-index:1">
           <Submenu name="1">
             <template slot="title">
-              <Icon type="ios-paper"/>内容管理
+              <Icon type="ios-paper"/>{{$t('message.contentMgr')}}
             </template>
             <menu-item name="device">{{$t('message.device')}}</menu-item>
             <menu-item name="book">{{$t('message.appointment')}}</menu-item>
             <menu-item name="department">{{$t('message.department')}}</menu-item>
-            <menu-item name="project">{{$t('message.product')}}</menu-item>
+            <menu-item name="project">{{$t('message.project')}}</menu-item>
             <menu-item name="group">{{$t('message.group')}}</menu-item>
             <menu-item name="lab">{{$t('message.lab')}}</menu-item>
             <menu-item name="user">{{$t('message.user')}}</menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">
-              <Icon type="ios-stats"/>统计分析
+              <Icon type="ios-stats"/>{{$t('message.systemSet')}}
             </template>
-            <MenuGroup title="使用">
-              <menu-item name="3-1">新增和启动</menu-item>
+              <menu-item name="statistics">{{$t('message.statistics')}}</menu-item>
               <menu-item name="backup">{{$t('message.backup')}}</menu-item>
               <menu-item name="log">{{$t('message.log')}}</menu-item>
-            </MenuGroup>
           </Submenu>
         </Menu>
       </div>

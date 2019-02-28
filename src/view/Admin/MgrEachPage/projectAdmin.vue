@@ -1,13 +1,13 @@
 <template>
   <div>
     <Card>
-      <h2>修改项目信息</h2>
-      <Tag color="success" v-if="item.status===1">进行中</Tag>
-      <Tag color="error" v-if="item.status===0">完成</Tag>
-      <Tag color="warning" v-if="item.status===3">暂停</Tag>
+      <h2>{{$t('message.modify')}} {{$t('message.project')}}</h2>
+      <Tag color="success" v-if="item.status===1">{{$t('message.working')}}</Tag>
+      <Tag color="error" v-if="item.status===0">{{$t('message.done')}}</Tag>
+      <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
       <div class="flex-panel">
-        <ui-textbox icon="phone" floating-label label="名称" v-model="item.name"></ui-textbox>
-        <ui-textbox icon="phone" floating-label label="描述" v-model="item.description"></ui-textbox>
+        <ui-textbox icon="phone" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
+        <ui-textbox icon="phone" floating-label :label="$t('message.description')" v-model="item.description"></ui-textbox>
       </div>
       <ui-button
         color="primary"
@@ -15,22 +15,22 @@
         icon="update"
         @click="setStatusClick(0)"
         :loading="iswaitting"
-      >完成</ui-button>
+      >{{$t('message.done')}}</ui-button>
       <ui-button
         color="primary"
         v-if="item.status===3"
         icon="update"
         @click="setStatusClick(1)"
         :loading="iswaitting"
-      >重启</ui-button>
+      >{{$t('message.restart')}}</ui-button>
       <ui-button
         color="primary"
         v-if="item.status===1"
         icon="update"
         @click="setStatusClick(3)"
         :loading="iswaitting"
-      >暂停</ui-button>
-      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">更新</ui-button>
+      >{{$t('message.pause')}}</ui-button>
+      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
   </div>
 </template>

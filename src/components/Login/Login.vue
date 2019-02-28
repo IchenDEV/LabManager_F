@@ -9,6 +9,7 @@
 
 import VueNotifications from 'vue-notifications'
 import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 import router from '@/router'
 export default {
   name: 'Login',
@@ -26,10 +27,7 @@ export default {
   },
   methods: {
     LonginClicked () {
-      const JsSHA = require('jssha')
-      var shaObj = new JsSHA('SHA3-256', 'TEXT')
-      shaObj.update(this.password)
-      let code = shaObj.getHash('HEX')
+      let code=tools.sha3(this.password)
       let con = { username: this.username, password: code }
       this.iswaitting = true
       fetch({

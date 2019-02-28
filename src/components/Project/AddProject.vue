@@ -43,7 +43,7 @@ export default {
   },
   computed :{
     disable (){
-      return this.con.name==''||this.con.description==''||this.beginDate==null||this.endDate==null||this.beginTime==null|this.endTime==null
+      return this.con.name==''||this.con.description==''||this.beginDate==null||this.endDate==null||this.beginTime==null||this.endTime==null
     }
   },
   methods: {

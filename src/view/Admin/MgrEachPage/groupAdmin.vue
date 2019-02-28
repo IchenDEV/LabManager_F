@@ -1,25 +1,25 @@
 <template>
   <div>
     <Card>
-      <h2>修改项目组信息</h2>
+      <h2>{{$t('message.modify')}} {{$t('message.group')}}</h2>
         <div class="flex-panel">
-          <ui-textbox icon='phone' floating-label label='名称' v-model='item.name'></ui-textbox>
-          <ui-textbox icon='phone' floating-label label='描述' v-model='item.description'></ui-textbox>
+          <ui-textbox icon='phone' floating-label :label="$t('message.name')" v-model='item.name'></ui-textbox>
+          <ui-textbox icon='phone' floating-label :label="$t('message.description')" v-model='item.description'></ui-textbox>
         </div>
-        <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">更新</ui-button>
+        <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
     <div class="flex-panel">
     <Card>
         <div>
-          <h2>添加项目</h2>
-          <project-selector v-model="p" label="项目"></project-selector>
-          <ui-button color="primary" icon="add" @click="addProjectClick" :loading="iswaitting">添加</ui-button>
+          <h2>{{$t('message.add')}} {{$t('message.project')}}</h2>
+          <project-selector v-model="p" :label="$t('message.project')"></project-selector>
+          <ui-button color="primary" icon="add" @click="addProjectClick" :loading="iswaitting">{{$t('message.add')}}</ui-button>
         </div>
     </Card>
     <Card v-for="(item,index) in projectInfo.list" :key="index" >
         <div>
-          <h2>项目 {{item.name}}</h2>
-          <ui-button color="primary" icon="delete" @click="deleteProjectClick(item.id)" :loading="iswaitting">删除</ui-button>
+          <h2>{{$t('message.project')}} {{item.name}}</h2>
+          <ui-button color="primary" icon="delete" @click="deleteProjectClick(item.id)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
         </div>
     </Card>
   </div>
@@ -27,16 +27,16 @@
   <div class="flex-panel">
     <Card>
         <div>
-          <h2>添加用户</h2>
-          <user-selector v-model="s" label="用户"></user-selector>
-          <ui-button color="primary" icon="add" @click="addUserClick" :loading="iswaitting">添加</ui-button>
+          <h2>{{$t('message.add')}} {{$t('message.user')}}</h2>
+          <user-selector v-model="s" :label="$t('message.user')"></user-selector>
+          <ui-button color="primary" icon="add" @click="addUserClick" :loading="iswaitting">{{$t('message.add')}}</ui-button>
         </div>
     </Card>
     <Card v-for="(item,index) in userInfo.list" :key="index" >
         <div>
-          <h2>用户 {{item.user}}</h2>
-          <p>姓名 {{item.nickname}}</p>
-          <ui-button color="primary" icon="delete" @click="deleteUserClick(item.id)" :loading="iswaitting">删除</ui-button>
+          <h2>{{$t('message.user')}} {{item.user}}</h2>
+          <p>{{$t('message.Uname')}} {{item.nickname}}</p>
+          <ui-button color="primary" icon="delete" @click="deleteUserClick(item.id)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
         </div>
     </Card>
   </div>
@@ -113,7 +113,7 @@ export default {
     },
     addUserClick () {
       this.iswaitting = true
-      let cons = {user: this.s.userId,group: this.$route.params.id,status:1}
+      let cons = {user: this.s.id,group: this.$route.params.id,status:1}
       fetch({
         method: 'Post',
         url: this.$store.state.host + '/group/addGroupUser',

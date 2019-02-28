@@ -1,16 +1,16 @@
 <template>
   <div>
     <Card>
-      <h2>修改设备信息</h2>
+      <h2>{{$t('message.modify')}} {{$t('message.device')}}</h2>
       <div class="flex-panel">
-        <ui-textbox icon="person" floating-label label="编号" v-model="item.No"></ui-textbox>
-        <ui-textbox icon="person" floating-label label="名称" v-model="item.name"></ui-textbox>
-        <ui-textbox icon="lock" floating-label label="描述" v-model="item.description"></ui-textbox>
-        <ui-textbox icon="person" floating-label label="型号" v-model="item.model"></ui-textbox>
-        <ui-textbox icon="person" floating-label label="品牌" v-model="item.bands"></ui-textbox>
+        <ui-textbox icon="person" floating-label :label="$t('message.No')" v-model="item.No"></ui-textbox>
+        <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
+        <ui-textbox icon="lock" floating-label :label="$t('message.description')" v-model="item.description"></ui-textbox>
+        <ui-textbox icon="person" floating-label :label="$t('message.model')" v-model="item.model"></ui-textbox>
+        <ui-textbox icon="person" floating-label :label="$t('message.band')" v-model="item.bands"></ui-textbox>
         <ui-select
           has-search
-          label="实验室"
+          :label="$t('message.lab')"
           type="image"
           :options="labInfo.list"
           :keys="{ label: 'name', value: 'id' }"
@@ -23,22 +23,22 @@
         icon="pause"
         @click="pauseClick"
         :loading="iswaitting"
-      >标记暂停(按更新生效)</ui-button>
+      >{{$t('message.pause')}}</ui-button>
       <ui-button
         v-if="this.item.status !== 4"
         color="primary"
         icon="warning"
         @click="brokenClick"
         :loading="iswaitting"
-      >标记故障(按更新生效)</ui-button>
+      >{{$t('message.error')}}</ui-button>
       <ui-button
         v-if="this.item.status !== 1"
         color="primary"
         icon="update"
         @click="restartClick"
         :loading="iswaitting"
-      >重启设备(按更新生效)</ui-button>
-      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">更新</ui-button>
+      >{{$t('message.restart')}}</ui-button>
+      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
   </div>
 </template>

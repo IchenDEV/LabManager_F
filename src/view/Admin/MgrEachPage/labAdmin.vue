@@ -1,13 +1,13 @@
 <template>
   <div>
     <Card>
-      <h2>修改实验室信息</h2>
+      <h2>{{$t('message.modify')}} {{$t('message.lab')}}</h2>
         <div class="flex-panel">
-          <ui-textbox icon='phone' floating-label label='名称' v-model='item.name'></ui-textbox>
-          <ui-textbox icon='phone' floating-label label='描述' v-model='item.description'></ui-textbox>
-          <ui-textbox icon='phone' floating-label label='地点' v-model='item.location'></ui-textbox>
+          <ui-textbox icon='phone' floating-label :label="$t('message.name')" v-model='item.name'></ui-textbox>
+          <ui-textbox icon='phone' floating-label :label="$t('message.description')" v-model='item.description'></ui-textbox>
+          <ui-textbox icon='phone' floating-label :label="$t('message.location')" v-model='item.location'></ui-textbox>
         </div>
-        <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">更新</ui-button>
+        <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
   </div>
 </template>

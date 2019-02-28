@@ -69,10 +69,20 @@ export const message = {
   scrap:'报废',
   done:'完成',
   working:'进行中',
+  contentMgr:'内容管理',
+  systemSet:'设置与分析',
+  statistics:'统计',
   lastBackupTime:'上次备份时间',
   noBackup:'无备份',
   setBackupSchedule:'设定备份周期',
   footerAlert:'可以在搜索项添加%启动模糊搜索',
   productName: '实验室设备管理系统',
-  devBy:'由XXX开发'
+  devBy:'由XXX开发',
+  add:'添加',
+  restart:'重新启用',
+  superPassword:'超级管理员密码',
+  inputNewPassword:'请输入新密码',
+  inputNewSuperPassword:'请输入新超级密码',
+  inputCurrentSuperPassword:'请输入当前超级密码',
+  useRate:'使用率'
 }
