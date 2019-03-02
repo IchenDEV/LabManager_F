@@ -19,7 +19,7 @@
     </Card>
     <Card v-if="groups.totalCount===0">
         <div>
-         {{$t('message.fingless')}}{{$t('message.group')}}
+         {{$t('message.findless')}}{{$t('message.group')}}
         </div>
       </Card>
   </div>
@@ -46,6 +46,7 @@ export default {
       })
         .then(res => {
           this.groups = res.data.info
+           this.$store.commit("onDataReached", res.data,this); 
         })
         .catch()
     },

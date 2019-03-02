@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{$t('message.appointment')}}</h1>
     <div class="flex-panel">
       <Card>
         <div>
@@ -108,9 +109,11 @@ export default {
   computed: {
     useRate() {
       /* eslint-disable */
-      var dt = new Date(this.item.createTime)
-      var now =new Date;
-      return  Number(this.bookInfo.totalBookedTime/(now.getTime()-dt.getTime()) * 100).toFixed(2)
+      var dt = new Date(this.item.createTime)      
+      return  Number((this.bookInfo.totalBookedTime/((this.now.getTime()-dt.getTime())/1000) )* 100).toFixed(2)
+    },
+    now(){
+      return new Date
     },
     canOrder() {
       if (
@@ -162,7 +165,8 @@ export default {
         .catch();
     },
     bookClick() {
-      this.con.project = this.p.id;
+      this.iswaitting=true
+      this.con.project = this.p.projectId;
       this.con.beginTime = tools.timeBuilder(this.beginDate, this.beginTime);
       this.con.endTime = tools.timeBuilder(this.endDate, this.endTime);
       fetch({
@@ -170,7 +174,7 @@ export default {
         url: this.$store.state.host + "/book/addBook",
         data: JSON.stringify(this.con)
       })
-        .then()
+        .then(()=>{ this.iswaitting=false})
         .catch();
     },
     stringCat(a, b, c) {

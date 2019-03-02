@@ -1,6 +1,6 @@
 <template>
+<div>
  <Badge :count="msgs.unread">
-  <div>
       <table class="table">
         <tr v-for="(item,index) in msgs.list" :key="index">
           <th>{{item.authorNickName}}</th>
@@ -11,7 +11,7 @@
           <th>{{item.createTime}}</th>
         </tr>
       </table>
-   
+  </Badge>
     <Page
       size="small"
       v-if="msgs.totalPage>1"
@@ -22,8 +22,7 @@
     />
     <ui-fab icon="refresh" class="fab" tooltip-position="right" @click="getInfo"></ui-fab>
     <ui-modal ref="msgmodal" :title="selectMsg.authorNickName">{{selectMsg.msg}}</ui-modal>
-  </div>
-   </Badge>
+</div>
 </template>
 <script>
 import fetch from "@/util/fetch.js";
@@ -50,6 +49,7 @@ export default {
         .then(res => {
           this.msgs = res.data.info;
           this.totalPage = res.data.info.totalCount;
+          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },
@@ -71,10 +71,11 @@ export default {
       if(this.msgs.list[index]==false){
       this.msgs.list[index].hasRead = true
       this.msgs.unread--
+      this.readMsg(id);
       }
       this.selectMsg = this.msgs.list[index];
       this.$refs["msgmodal"].open();
-      this.readMsg(id);
+      
     }
   },
   mounted() {

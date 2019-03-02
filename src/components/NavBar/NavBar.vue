@@ -1,12 +1,7 @@
 <template>
+<div>
   <div class='tabs' >
-    <ui-tabs     fullwidth raised    >
-      <ui-tab id='home'  icon='home'  title='Home'    @select='tabChange'>
-        <div slot="header" class="my-custom-tab-header">
-            <ui-icon class="center" slot="icon" icon="home"></ui-icon> 
-            <p>Home</p>
-        </div>
-      </ui-tab>
+    <ui-tabs  fullwidth raised>
       <ui-tab id='find'  @select='tabChange' v-if="$store.state.hasSingin">
         <div slot="header" class="my-custom-tab-header">
             <ui-icon class="center" slot="icon" icon="find_in_page"></ui-icon> 
@@ -17,6 +12,11 @@
         <div slot="header" class="my-custom-tab-header">
             <ui-icon class="center" slot="icon" icon="book"></ui-icon> 
             <p>{{$t('message.appointment')}}</p>
+        </div>
+      </ui-tab>
+      <ui-tab id='home'  icon='home'  title='Home'    @select='tabChange'>
+        <div slot="header" class="my-custom-tab-header">
+            <img class="center" slot="icon" src="favicon.ico" alt="logo"/> 
         </div>
       </ui-tab>
       <ui-tab id='my'  @select='tabChange' v-if="$store.state.hasSingin">
@@ -33,6 +33,7 @@
       </ui-tab>
     </ui-tabs>
   </div>
+</div>
 </template>
 <script>
 import router from '@/router'

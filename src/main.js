@@ -71,6 +71,17 @@ const store = new Vuex.Store({
       state.currentUser.username = ''
       state.currentUser.id = ''
       state.isAdmin = false
+    },
+    /* eslint-disable */
+    onDataReached(st,da,that){
+      let state = this.state
+      if(da.code=='20011'&&state.hasSingin==true){
+        state.hasSingin==false
+        that.$Notice.warning({
+          title: 'Login Expired'
+       });
+        this.cleanInfo()
+      }
     }
   }
 })

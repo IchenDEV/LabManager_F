@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{$t('message.log')}}</h1>
   <table class="table">
   <tr >
     <th>{{$t('message.operator')}}</th>
@@ -37,6 +38,7 @@ export default {
         .then(res => {
           this.logs = res.data.info
           this.totalPage = res.data.info.totalCount
+          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch()
     },

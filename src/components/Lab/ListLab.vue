@@ -48,6 +48,7 @@ export default {
       })
         .then(res => {
           this.labs = res.data.info
+          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch()
     },

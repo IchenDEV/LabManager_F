@@ -6,7 +6,6 @@
      <ui-select
       has-search
       :label="$t('message.lab')"
-      type='image'
       :options='labInfo.list'
       :keys='{ label: "name", value: "id" }'
       v-model='search.device'
@@ -61,6 +60,7 @@ export default {
       })
         .then(()=> {
           this.iswaitting = false
+          this.$emit('added')
         })
         .catch()
     },

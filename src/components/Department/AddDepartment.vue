@@ -34,6 +34,7 @@ export default {
       })
         .then(() => {
           this.iswaitting = false
+          this.$emit('added')
         })
         .catch()
     }

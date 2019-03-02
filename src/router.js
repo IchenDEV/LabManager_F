@@ -24,6 +24,7 @@ import project from '@/view/Admin/MgrPage/project'
 import user from '@/view/Admin/MgrPage/user'
 import group from '@/view/Admin/MgrPage/group'
 import backup from '@/view/Admin/MgrPage/backup'
+import statistics from '@/view/Admin/MgrPage/statistics'
 import department from '@/view/Admin/MgrPage/department'
 
 import adminView from '@/view/Admin/adminView'
@@ -70,6 +71,10 @@ export default new Router({
         {
           path: 'backup',
           component: backup
+        },
+        {
+          path: 'statistics',
+          component: statistics
         },
         {
           path: 'department/:id',

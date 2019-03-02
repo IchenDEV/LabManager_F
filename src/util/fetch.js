@@ -32,8 +32,10 @@ service.interceptors.request.use(
 )
 
 // response拦截器
+/* eslint-disable */
 service.interceptors.response.use(
   response => {
+
     // 数据响应之后，要做的业务
     return response
   },

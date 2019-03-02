@@ -34,8 +34,10 @@ export default {
         url: this.$store.state.host + '/lab/addLab',
         data: JSON.stringify(this.con)
       })
-        .then(() => {
+        .then((res) => {
           this.iswaitting = false
+          this.$store.commit("onDataReached", res.data,this); 
+          this.$emit('added')
         })
         .catch()
     }

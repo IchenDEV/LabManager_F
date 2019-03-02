@@ -62,6 +62,7 @@ export default {
       })
         .then(res => {
           this.departments = res.data.info;
+           this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },

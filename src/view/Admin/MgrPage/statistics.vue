@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>{{$t('message.backup')}}</h1>
+  <h1>{{$t('message.statistics')}}</h1>
   <div class="flex-panel col-panel">
     <backup-now></backup-now>
     <backup-setter></backup-setter>
@@ -8,10 +8,9 @@
 </div>
 </template>
 <script>
-import BackupNow from '@/components/Backup/BackupNow'
-import BackupSetter from '@/components/Backup/BackupSetter'
+import BackupNow from '@/components/statistics/counts'
+import BackupSetter from '@/components/statistics/rate'
 export default {
   components: { BackupNow,BackupSetter },
 }
 </script>
-

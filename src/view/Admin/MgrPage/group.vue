@@ -1,7 +1,7 @@
 <template>
   <div class="flex-panel warp">
     <Card class="card">
-      <add-group></add-group>
+      <add-group @added='rel'></add-group>
     </Card>
       <list-group></list-group>
   </div>
@@ -10,6 +10,12 @@
 import AddGroup from '@/components/Group/AddGroup'
 import ListGroup from '@/components/Group/ListGroup'
 export default {
-  components: { AddGroup, ListGroup }
+  components: { AddGroup, ListGroup },
+  inject:  ['reloadAdmin'],
+  methods:{
+    rel (){
+      this.reloadAdmin
+    }
+  }
 }
 </script>

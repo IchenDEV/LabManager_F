@@ -69,6 +69,7 @@ export default {
       })
         .then(res => {
           this.books = res.data.info;
+          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },

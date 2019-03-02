@@ -106,6 +106,7 @@ export default {
       })
         .then(res => {
           this.info = res.data.info;
+           this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },
@@ -120,6 +121,7 @@ export default {
           this.labInfo = res.data.info;
           var temp = { name: "All", id: -1 };
           this.labInfo.list.splice(0, 0, temp);
+          
         })
         .catch();
     },

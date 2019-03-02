@@ -188,11 +188,8 @@ export default {
               this.roleName = res.data.info.userPermission.roleName;
               this.id = res.data.info.userPermission.id;
               this.$store.state.currentUser.id = this.id;
-              
             } else {
-              this.$Notice.warning({
-                    title: 'Warning'
-                });
+              this.$store.commit("onDataReached", res.data,this); 
             }
             this.getDpinfo();
             this.getGpinfo();

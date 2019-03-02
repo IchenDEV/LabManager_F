@@ -2,7 +2,7 @@
 <div>
   <div class="flex-panel warp">
     <Card class="card">
-      <add-project/>
+      <add-project @added='rel'/>
     </Card>
     <list-project></list-project>
   </div>
@@ -13,5 +13,11 @@ import AddProject from '@/components/Project/AddProject'
 import ListProject from '@/components/Project/ListProject'
 export default {
   components: { AddProject, ListProject },
+  inject:  ['reloadAdmin'],
+  methods:{
+    rel (){
+      this.reloadAdmin
+    }
+  }
 }
 </script>

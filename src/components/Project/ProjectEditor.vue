@@ -7,7 +7,12 @@
       <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
       <div class="flex-panel">
         <ui-textbox icon="phone" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
-        <ui-textbox icon="phone" floating-label :label="$t('message.description')" v-model="item.description"></ui-textbox>
+        <ui-textbox
+          icon="phone"
+          floating-label
+          :label="$t('message.description')"
+          v-model="item.description"
+        ></ui-textbox>
       </div>
       <ui-button
         color="primary"
@@ -30,7 +35,12 @@
         @click="setStatusClick(3)"
         :loading="iswaitting"
       >{{$t('message.pause')}}</ui-button>
-      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
+      <ui-button
+        color="primary"
+        icon="update"
+        @click="updateClick"
+        :loading="iswaitting"
+      >{{$t('message.update')}}</ui-button>
     </Card>
   </div>
 </template>
@@ -72,7 +82,10 @@ export default {
         url: this.$store.state.host + "/project/updateProject",
         data: JSON.stringify(this.item)
       })
-        .then((this.iswaitting = false))
+        .then((res) => {
+          this.iswaitting = false;
+          this.$store.commit("onDataReached", res.data,this); 
+        })
         .catch();
     },
     setStatusClick(st) {

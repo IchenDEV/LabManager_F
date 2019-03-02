@@ -87,6 +87,7 @@ export default {
           this.item = res.data.info.list[0];
           this.sex = this.sexString[this.item.sex];
           this.role = this.roleString[this.item.roleId - 1];
+          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },
@@ -129,7 +130,7 @@ export default {
         url: this.$store.state.host + "/user/updateUser",
         data: JSON.stringify(this.item)
       })
-        .then(()=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();})
+        .then((res)=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();this.$store.commit("onDataReached",res.data); })
         .catch();
     }
   },

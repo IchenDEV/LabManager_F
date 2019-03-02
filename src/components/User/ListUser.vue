@@ -37,9 +37,10 @@ export default {
         url: this.$store.state.host + '/user/list',
         data: JSON.stringify(this.conp)
       })
-        .then(res => {
+        .then(res => {   
           this.users = res.data.info
           this.iswaitting=false;
+          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch()
         this.iswaitting=false;

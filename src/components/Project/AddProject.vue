@@ -56,8 +56,10 @@ export default {
         url: this.$store.state.host + '/project/addProject',
         data: JSON.stringify(this.con)
       })
-        .then(() => {
+        .then((res) => {
           this.iswaitting = false
+          this.$store.commit("onDataReached", res.data,this); 
+          this.$emit('added')
         })
         .catch()
     }

@@ -67,6 +67,7 @@ export default {
         data: JSON.stringify(this.search)
       })
         .then(res => {
+          this.$store.commit("onDataReached",res.data);
           this.projects = res.data.info;
         })
         .catch();

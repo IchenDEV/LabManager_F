@@ -43,6 +43,7 @@ export default {
           this.data.schedule = res.data.info.cron
           this.data.lastBackupTime=res.data.info.lastBackupTime
           this.iswaitting = false;
+          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     }

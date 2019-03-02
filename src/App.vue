@@ -1,9 +1,8 @@
 <template>
   <div id="app">
     <NavBar></NavBar>
-    <header style="height:80px;">
-    </header>
-    <router-view />
+    <header style="height:80px;"></header>
+    <router-view v-if="isRouterAlive"/>
     <my-footer></my-footer>
   </div>
 </template>
@@ -13,6 +12,22 @@ import myFooter from "./components/Footer/Footer";
 export default {
   name: "App",
   components: { NavBar, myFooter },
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
+  data() {
+    return {
+      isRouterAlive: true
+    };
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(() => (this.isRouterAlive = true));
+    }
+  },
   mounted() {
     /* eslint-disable */
     if (window.Notification && Notification.permission !== "granted") {
@@ -63,10 +78,10 @@ body {
   position: absolute;
   display: none;
 }
-.ui-tabs{
- margin-bottom: 0 !important;
+.ui-tabs {
+  margin-bottom: 0 !important;
 }
-.ui-tabs__body{
+.ui-tabs__body {
   display: none !important;
 }
 </style>

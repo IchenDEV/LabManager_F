@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="flex-panel">
-    <list-book></list-book>
+    <list-book ></list-book>
   </div>
 </div>
 </template>

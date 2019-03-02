@@ -1,7 +1,7 @@
 <template>
   <div class="flex-panel warp">
     <Card class="card">
-      <add-device></add-device>
+      <add-device @added='rel'></add-device>
     </Card>
       <list-device admin="true"></list-device>
   </div>
@@ -10,6 +10,12 @@
 import AddDevice from '@/components/Device/AddDevice'
 import ListDevice from '@/components/Device/ListDevice'
 export default {
-  components: { AddDevice, ListDevice }
+  components: { AddDevice, ListDevice },
+  inject:  ['reloadAdmin'],
+  methods:{
+    rel (){
+      this.reloadAdmin
+    }
+  }
 }
 </script>
