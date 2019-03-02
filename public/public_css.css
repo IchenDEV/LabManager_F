@@ -35,7 +35,7 @@ text-align: left;
     z-index: 1;
 }
 .left{
-margin-left: 3rem;
+margin-left: 0rem;
 }
 
 .warp {
@@ -55,7 +55,14 @@ margin-left: 3rem;
   margin-left: auto;
   margin-right: auto
 }
-
+.ui-tabs--background-color-default .ui-tabs__header{
+  background-color: rgba(210, 210, 210, 0.8) !important;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px)
+}
+.ivu-card-head{
+  font-size: 2rem;
+}
 .ui-modal__mask {
   background-color: rgba(255, 255, 255, 0.4) !important;
   -webkit-backdrop-filter: blur(10px);
@@ -65,7 +72,6 @@ margin-left: 3rem;
 .ui-select__dropdown {
   background-color: rgba(255, 255, 255, 0.6) !important
 }
-
 .ui-select__options {
   background-color: rgba(255, 255, 255, 0.3) !important;
   -webkit-backdrop-filter: blur(10px);

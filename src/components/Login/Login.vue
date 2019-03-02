@@ -6,8 +6,6 @@
   </div>
 </template>
 <script>
-
-import VueNotifications from 'vue-notifications'
 import fetch from '@/util/fetch.js'
 import tools from '@/util/tools.js'
 import router from '@/router'
@@ -37,32 +35,21 @@ export default {
       })
         .then(res => {  
           if (res.data.info.loginCode === 0) {
-            this.showSuccessMsg({ title: 'Welcome' })
+            this.$Notice.success({
+                    title: 'Welcome',
+                    desc: this.username
+                });
             this.$store.dispatch('getInfo')
             router.push('/home')
           } else {
-            this.showWarnMsg()
+            this.$Notice.warning({
+                    title: 'warning',
+                    desc:  'Wrong Password or Username'
+                });
           }
           this.iswaitting = false
         })
         .catch()
-    }
-  },
-  notifications: {
-    showSuccessMsg: {
-      type: VueNotifications.types.success,
-      title: 'Hello ',
-      message: '登录成功'
-    },
-    showWarnMsg: {
-      type: VueNotifications.types.warn,
-      title: '登录失败',
-      message: '可能你输入了不正确的密码或者用户名'
-    },
-    showErrorMsg: {
-      type: VueNotifications.types.error,
-      title: 'Wow-wow',
-      message: 'Thats the error'
     }
   }
 }

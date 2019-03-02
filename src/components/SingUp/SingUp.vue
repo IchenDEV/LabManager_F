@@ -27,7 +27,6 @@
   </div>
 </template>
 <script>
-import VueNotifications from 'vue-notifications'
 import fetch from '@/util/fetch.js'
 import tools from '@/util/tools.js'
 export default {
@@ -63,27 +62,20 @@ export default {
         })
           .then(res => {
             if (res.data.code === '100') {
-              this.showSuccessMsg({ title:'注册成功'+'现在你可以登录'+ this.username })
+              this.$Notice.success({
+                    title: 'Sing up Success',
+                    desc:  this.nickname
+                });
             } else {
-              this.showErrorMsg({title: res.data.msg})
+               this.$Notice.warning({
+                    title: 'Sing up Failed',
+                    desc:  'please try other username'
+                });
             }
             this.iswaitting = false
           })
           .catch()
       }
-    },
-    
-  },
-  notifications: {
-    showSuccessMsg: {
-      type: VueNotifications.types.success,
-      title: 'Hello ',
-      message: '注册成功'
-    },
-    showErrorMsg: {
-      type: VueNotifications.types.error,
-      title: 'Wow-wow',
-      message: '错误'
     }
   }
 }

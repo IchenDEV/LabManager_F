@@ -1,14 +1,36 @@
 <template>
-  <div class='navbar'>
-    <ui-tabs style="margin-bottom: 0;"
-      fullwidth
-      type='icon-and-text'
-    >
-      <ui-tab id='home'  icon='home'            title='Home'  @select='tabChange'></ui-tab>
-      <ui-tab id='find'  icon='find_in_page'    :title="$t('message.search')"  @select='tabChange' v-if="$store.state.hasSingin"></ui-tab>
-      <ui-tab id='book'  icon='book'            :title="$t('message.appointment')"  @select='tabChange' v-if="$store.state.hasSingin"></ui-tab>
-      <ui-tab id='my'    icon='person'          :title="$t('message.my')"    @select='tabChange' v-if="$store.state.hasSingin"></ui-tab>
-      <ui-tab v-if="isAdmin&&$store.state.hasSingin" id='admin'    icon='person'       :title="$t('message.admin')"    @select='tabChange'></ui-tab>
+  <div class='tabs' >
+    <ui-tabs     fullwidth raised    >
+      <ui-tab id='home'  icon='home'  title='Home'    @select='tabChange'>
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="home"></ui-icon> 
+            <p>Home</p>
+        </div>
+      </ui-tab>
+      <ui-tab id='find'  @select='tabChange' v-if="$store.state.hasSingin">
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="find_in_page"></ui-icon> 
+            <p>{{$t('message.search')}}</p>
+        </div>
+      </ui-tab>
+      <ui-tab id='book'  @select='tabChange' v-if="$store.state.hasSingin">
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="book"></ui-icon> 
+            <p>{{$t('message.appointment')}}</p>
+        </div>
+      </ui-tab>
+      <ui-tab id='my'  @select='tabChange' v-if="$store.state.hasSingin">
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="person"></ui-icon> 
+            <p class="center">{{$t('message.my')}}</p>
+        </div>
+      </ui-tab>
+      <ui-tab v-if="isAdmin&&$store.state.hasSingin" id='admin'  @select='tabChange'>
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="person"></ui-icon> 
+            <p>{{$t('message.admin')}}</p>
+        </div>
+      </ui-tab>
     </ui-tabs>
   </div>
 </template>
@@ -31,7 +53,21 @@ export default {
 }
 </script>
 <style>
-.ui-tabs{
-  margin-bottom: 0;
+.tabs{
+  margin-bottom: 4px;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 50px;
+  top: 0;
+  font-size: 16px;
+}
+.my-custom-tab-header{
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.my-custom-tab-header >p{
+  margin: auto;
 }
 </style>

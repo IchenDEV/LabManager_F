@@ -10,27 +10,25 @@
   "dependencies": {
     "axios": "^0.18.0",
     "iview": "^3.2.2",
-    "izitoast": "^1.4.0",
     "jssha": "^2.3.1",
-    "keen-ui": "^1.0.2",
+    "keen-ui": "^1.1.2",
     "url-search-params-polyfill": "^5.0.0",
-    "vue": "^2.5.22",
+    "vue": "^2.6.7",
     "vue-i18n": "^8.8.2",
-    "vue-notifications": "^0.9.0",
     "vue-qr": "^1.5.2",
     "vue-router": "^3.0.2",
     "vuex": "^3.1.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.2.5",
-    "@babel/preset-env": "^7.3.1",
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-eslint": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
+    "@babel/preset-env": "^7.3.4",
+    "@vue/cli-plugin-babel": "^3.4.1",
+    "@vue/cli-plugin-eslint": "^3.4.1",
+    "@vue/cli-service": "^3.4.1",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.5.21"
+    "eslint": "^5.14.1",
+    "eslint-plugin-vue": "^5.2.2",
+    "vue-template-compiler": "^2.6.7"
   },
   "eslintConfig": {
     "root": true,

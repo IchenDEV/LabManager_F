@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{$t('message.personalInfo')}}</h1>
    <vue-qr v-if="qrid!=0" :text='qrid' qid='testid'></vue-qr>
    <current-user-box></current-user-box>
   </div>

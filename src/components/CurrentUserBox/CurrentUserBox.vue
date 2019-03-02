@@ -59,7 +59,13 @@
           :options="sexString"
           v-model="sex"
         ></ui-select>
-        <ui-textbox class="user-itme" icon="phone" floating-label :label="$t('message.phone')" v-model="phone"></ui-textbox>
+        <ui-textbox
+          class="user-itme"
+          icon="phone"
+          floating-label
+          :label="$t('message.phone')"
+          v-model="phone"
+        ></ui-textbox>
         <ui-textbox
           class="user-itme"
           icon="mail"
@@ -69,7 +75,13 @@
           v-model="email"
           :error="$t('message.wrongEmail')"
         ></ui-textbox>
-        <ui-textbox class="user-itme" icon="home" floating-label :label="$t('message.address')" v-model="address"></ui-textbox>
+        <ui-textbox
+          class="user-itme"
+          icon="home"
+          floating-label
+          :label="$t('message.address')"
+          v-model="address"
+        ></ui-textbox>
       </div>
       <ui-button
         v-if="!simple"
@@ -118,19 +130,18 @@
   </div>
 </template>
 <script>
-import VueNotifications from "vue-notifications";
-import languageSwitch from "@/components/Language/LanguageSwitch"
+import languageSwitch from "@/components/Language/LanguageSwitch";
 import fetch from "@/util/fetch.js";
 import router from "@/router";
 import stringCK from "@/util/stringCK.js";
 import UpdateCurrentPassword from "@/components/CurrentUserBox/UpdateCurrentPassword";
 export default {
-  components: { UpdateCurrentPassword,languageSwitch},
+  components: { UpdateCurrentPassword, languageSwitch },
   props: { simple: { default: false } },
   data() {
     return {
       iswaitting: false,
-      moString: this.$t('message.modify'),
+      moString: this.$t("message.modify"),
       mo: true,
       username: "",
       nickname: "",
@@ -140,7 +151,12 @@ export default {
       email: "",
       roleName: "",
       id: "",
-      sexString: [this.$t('message.unknow'),this.$t('message.male'), this.$t('message.female'), this.$t('message.other')],
+      sexString: [
+        this.$t("message.unknow"),
+        this.$t("message.male"),
+        this.$t("message.female"),
+        this.$t("message.other")
+      ],
       dpinfo: {},
       gpinfo: {}
     };
@@ -154,7 +170,6 @@ export default {
     }
   },
   methods: {
-    
     getinfo() {
       if (this.$store.state.hasSingin === true) {
         this.iswaitting = true;
@@ -173,9 +188,11 @@ export default {
               this.roleName = res.data.info.userPermission.roleName;
               this.id = res.data.info.userPermission.id;
               this.$store.state.currentUser.id = this.id;
-              this.showSuccessMsg({ title: this.nickname });
+              
             } else {
-              this.showErrorMsg({ title: res.data.msg });
+              this.$Notice.warning({
+                    title: 'Warning'
+                });
             }
             this.getDpinfo();
             this.getGpinfo();
@@ -189,7 +206,6 @@ export default {
     getDpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
       this.iswaitting = true;
-      var that = this;
       fetch({
         method: "Post",
         url: this.$store.state.host + "/user/listDepartment",
@@ -199,19 +215,16 @@ export default {
           if (res.data.code === "100") {
             //this.showSuccessMsg({ title: this.nickname });
             this.dpinfo = res.data.info;
-          } else {
-            this.showErrorMsg({ title: res.data.msg });
           }
           this.iswaitting = false;
         })
         .catch(function() {
-          that.showErrorMsg();
+         
         });
     },
     getGpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
       this.iswaitting = true;
-      var that = this;
       fetch({
         method: "Post",
         url: this.$store.state.host + "/user/listGroup",
@@ -222,12 +235,12 @@ export default {
             //this.showSuccessMsg({ title: this.nickname });
             this.gpinfo = res.data.info;
           } else {
-            this.showErrorMsg({ title: res.data.msg });
+            //this.showErrorMsg({ title: res.data.msg });
           }
           this.iswaitting = false;
         })
         .catch(function() {
-          that.showErrorMsg();
+          //that.showErrorMsg();
         });
     },
     updateinfo() {
@@ -246,11 +259,14 @@ export default {
       })
         .then(res => {
           if (res.data.code === "100") {
-            this.showSuccessMsg({ title: this.nickname });
-            this.moString = this.$t('message.modify');
+            this.$Notice.success({
+                    title: 'Success',
+                    desc:  this.nickname
+                });
+            this.moString = this.$t("message.modify");
             this.mo = true;
           } else {
-            this.showErrorMsg({ title: res.data.msg });
+            //this.showErrorMsg({ title: res.data.msg });
           }
           this.iswaitting = false;
         })
@@ -258,10 +274,10 @@ export default {
     },
     mohandle() {
       if (this.mo) {
-        this.moString = this.$t('message.cancel');
+        this.moString = this.$t("message.cancel");
       } else {
         this.getinfo();
-        this.moString = this.$t('message.modify');
+        this.moString = this.$t("message.modify");
       }
       this.mo = !this.mo;
     },
@@ -276,7 +292,6 @@ export default {
     },
     logouthandle() {
       this.iswaitting = true;
-      var that = this;
       fetch({
         method: "Post",
         url: this.$store.state.host + "/login/logout"
@@ -286,12 +301,14 @@ export default {
             this.$store.commit("cleanInfo");
             location.reload();
           } else {
-            this.showErrorMsg({ title: res.data.msg });
+            this.$Notice.success({
+              title: res.data.msg
+            });
           }
           this.iswaitting = false;
         })
         .catch(function() {
-          that.showErrorMsg();
+          //that.showErrorMsg();
         });
     }
   },
@@ -301,18 +318,6 @@ export default {
   watch: {
     hasSingin() {
       this.getinfo();
-    }
-  },
-  notifications: {
-    showSuccessMsg: {
-      type: VueNotifications.types.success,
-      title: "Hello ",
-      message: "成功"
-    },
-    showErrorMsg: {
-      type: VueNotifications.types.error,
-      title: "Wow-wow",
-      message: "错误"
     }
   }
 };

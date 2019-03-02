@@ -1,4 +1,6 @@
 <template>
+<div>
+  <h1>Home</h1>
   <div class="flex-panel">
     <Card v-if="$store.state.hasSingin">
        <p slot="title">{{$t('message.sendMsg')}}</p>
@@ -17,6 +19,7 @@
        <current-user-box simple='true'></current-user-box>
     </Card>
   </div>
+</div>
 </template>
 <script>
 import CurrentUserBox from '@/components/CurrentUserBox/CurrentUserBox'

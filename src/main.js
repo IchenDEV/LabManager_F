@@ -8,9 +8,6 @@ import KeenUI from 'keen-ui'
 import 'keen-ui/dist/keen-ui.css'
 import 'url-search-params-polyfill'
 import Vuex from 'vuex'
-import VueNotifications from 'vue-notifications'
-import iziToast from 'izitoast'
-import 'izitoast/dist/css/iziToast.min.css'
 import fetch from '@/util/fetch.js'
 import 'iview/dist/styles/iview.css'
 import '@babel/polyfill'
@@ -18,27 +15,6 @@ import VueI18n from 'vue-i18n'
 import en from 'iview/dist/locale/en-US'
 import zh from 'iview/dist/locale/zh-CN'
 
-function toast({
-  title,
-  message,
-  type,
-  timeout
-}) {
-  if (type === VueNotifications.types.warn) type = 'warning'
-  return iziToast[type]({
-    title,
-    message,
-    timeout
-  })
-}
-const options = {
-  success: toast,
-  error: toast,
-  info: toast,
-  warn: toast
-}
-
-Vue.use(VueNotifications, options)
 Vue.use(KeenUI)
 Vue.use(Vuex)
 Vue.use(iView)
@@ -49,9 +25,10 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    host: '//localhost:8080/',
-    //host: '//134.175.45.72:8080/',
+    //host: '//localhost:8080/',
+    host: '//api.idevlab.cn:8080/',
     //host: '//idevlab.cn:8080/',
+    //host:'//'+process.env.SERVER_HOST+':'+process.env.SERVER_PORT+'/',
     currentUser: {
       username: '',
       nickname: '',
@@ -119,6 +96,8 @@ new Vue({
   mounted() {
     this.$store.dispatch('getInfo')
     document.title=this.$t('message.productName')
+    /* eslint-disable */ 
+    console.log(process.env.SERVER_HOST)
     // 删除加载动画demo
     if (document.getElementById('nb-global-spinner')) {
       document.body.removeChild(document.getElementById('nb-global-spinner'));

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <NavBar></NavBar>
-    <router-view/>
+    <header style="height:80px;">
+    </header>
+    <router-view />
     <my-footer></my-footer>
   </div>
 </template>
@@ -60,5 +62,11 @@ body {
 #pop {
   position: absolute;
   display: none;
+}
+.ui-tabs{
+ margin-bottom: 0 !important;
+}
+.ui-tabs__body{
+  display: none !important;
 }
 </style>
