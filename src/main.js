@@ -76,6 +76,7 @@ const store = new Vuex.Store({
     onDataReached(st,da,that){
       let state = this.state
       if(da.code=='20011'&&state.hasSingin==true){
+        console.log("cf")
         state.hasSingin==false
         that.$Notice.warning({
           title: 'Login Expired'
@@ -107,8 +108,6 @@ new Vue({
   mounted() {
     this.$store.dispatch('getInfo')
     document.title=this.$t('message.productName')
-    /* eslint-disable */ 
-    console.log(process.env.SERVER_HOST)
     // 删除加载动画demo
     if (document.getElementById('nb-global-spinner')) {
       document.body.removeChild(document.getElementById('nb-global-spinner'));

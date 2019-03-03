@@ -173,7 +173,6 @@ export default {
     getinfo() {
       if (this.$store.state.hasSingin === true) {
         this.iswaitting = true;
-        var that = this;
         fetch({
           method: "Post",
           url: this.$store.state.host + "/login/getInfo"
@@ -195,9 +194,7 @@ export default {
             this.getGpinfo();
             this.iswaitting = false;
           })
-          .catch(function() {
-            that.showErrorMsg();
-          });
+          .catch();
       }
     },
     getDpinfo() {

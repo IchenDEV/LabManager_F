@@ -6,9 +6,9 @@
         @click="meBTcli"
         style="display:inline;margin:10px;"
       ></ui-fab>
-      <div >
+      <div v-if="showMe">
         <transition name="slide-fade">
-        <Menu v-if="showMe" @on-select="menuChangeHandle" class="sider" style="z-index:1">
+        <Menu  @on-select="menuChangeHandle" class="sider" style="z-index:1">
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-paper"/>{{$t('message.contentMgr')}}
@@ -39,6 +39,9 @@ import router from "@/router";
 export default {
     methods: {
     menuChangeHandle(name) {
+      if(this.mobileView==true){
+        this.showMe=false;
+      }
       router.push("../../admin/" + name);
     },
     meBTcli() {
@@ -47,13 +50,12 @@ export default {
   },
   data() {
     return {
-      screenWidth: document.body.clientWidth,
       showMe: false
     };
   },
   computed:{
     mobileView (){
-      return this.screenWidth<=600;
+      return document.body.clientWidth<=600;
     }
   }
 }

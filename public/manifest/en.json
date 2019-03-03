@@ -1,0 +1,27 @@
+{
+  "lang": "en",
+  "name": "Lab Equipment Management System",
+  "short_name": "LEMS",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#eee",
+  "description": "Lab Equipment Management System",
+  "orientation": "any",
+  "theme_color": "#eee",
+  "icons": [{
+      "src": "../img/icons/32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+        "src": "../img/icons/book-72.png",
+        "sizes": "72x72",
+        "type": "image/png"
+    },
+    {
+      "src": "../img/icons/144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}

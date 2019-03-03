@@ -56,12 +56,16 @@ margin-left: auto;
   margin-right: auto
 }
 .ui-tabs--background-color-default .ui-tabs__header{
-  background-color: rgba(230, 230, 230, 0.8) !important;
+  background-color: rgba(233, 233, 233, 0.8) !important;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px)
 }
-.ivu-notice-notice{
-  background-color: rgba(255, 255, 255, 0.7) !important;
+.ivu-back-top{
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px)
+}
+.ivu-notice{
+  background-color: rgba(255, 255, 255, 0.8) !important;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px)
 }
@@ -69,28 +73,27 @@ margin-left: auto;
   font-size: 2rem;
 }
 .ui-modal__mask {
-  background-color: rgba(255, 255, 255, 0.4) !important;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px)
+  background-color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .ui-select__dropdown {
   background-color: rgba(255, 255, 255, 0.6) !important
 }
 .ui-select__options {
-  background-color: rgba(255, 255, 255, 0.3) !important;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px)
+  background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 .ui-calendar__body {
   background-color: rgba(255, 255, 255, 0.5) !important;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px)
 }
 
 .ui-popover {
   background-color: rgba(255, 255, 255, 0.5) !important
+}
+.ui-popover-theme{
+  background-color: transparent !important;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px)
 }
 
 .ui-calendar__header {

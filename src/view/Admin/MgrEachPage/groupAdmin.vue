@@ -48,6 +48,7 @@ import fetch from '@/util/fetch.js'
 import userSelector from '@/components/User/UserSelector'
 import projectSelector from '@/components/Project/ProjectSelector'
 export default {
+  inject:  ['reloadAdmin'],
   components: { userSelector,projectSelector },
   data () {
     return {
@@ -119,7 +120,7 @@ export default {
         url: this.$store.state.host + '/group/addGroupUser',
         data: JSON.stringify(cons)
       })
-        .then(this.iswaitting = false)
+        .then(()=>{this.iswaitting = false;this.reloadAdmin})
         .catch()
     },
     addProjectClick () {
@@ -130,7 +131,7 @@ export default {
         url: this.$store.state.host + '/group/addGroupProject',
         data: JSON.stringify(cons)
       })
-        .then(this.iswaitting = false)
+        .then(()=>{this.iswaitting = false;this.reloadAdmin})
         .catch()
     },
     deleteUserClick (id) {
@@ -141,7 +142,7 @@ export default {
         url: this.$store.state.host + '/group/deleteGroupUser',
         data: JSON.stringify(cons)
       })
-      .then(this.iswaitting = false)
+      .then(()=>{this.reloadAdmin})
       .catch()
     },
     deleteProjectClick (id) {
@@ -152,7 +153,7 @@ export default {
         url: this.$store.state.host + '/group/deleteGroupProject',
         data: JSON.stringify(cons)
       })
-      .then(this.iswaitting = false)
+      .then(()=>{this.iswaitting = false;this.reloadAdmin})
       .catch()
     },
     onPageChange (page) {
@@ -170,7 +171,7 @@ export default {
         url: this.$store.state.host + '/group/updateGroup',
         data: JSON.stringify(this.item)
       })
-      .then(this.iswaitting = false)
+      .then(()=>{this.iswaitting = false})
       .catch()
     }
   },

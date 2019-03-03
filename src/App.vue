@@ -3,6 +3,7 @@
     <NavBar></NavBar>
     <header style="height:80px;"></header>
     <router-view v-if="isRouterAlive"/>
+    <BackTop></BackTop>
     <my-footer></my-footer>
   </div>
 </template>

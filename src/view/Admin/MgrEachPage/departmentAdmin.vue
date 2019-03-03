@@ -31,6 +31,7 @@
 import fetch from '@/util/fetch.js'
 import userSelector from '@/components/User/UserSelector'
 export default {
+  inject:  ['reloadAdmin'],
   components: { userSelector },
   data () {
     return {
@@ -83,7 +84,7 @@ export default {
         url: this.$store.state.host + '/department/addDepartmentUser',
         data: JSON.stringify(cons)
       })
-        .then(this.iswaitting = false)
+        .then(()=>{this.iswaitting = false;this.reloadAdmin})
         .catch()
     },
     deleteUserClick (id) {
@@ -94,7 +95,7 @@ export default {
         url: this.$store.state.host + '/department/deleteDepartmentUser',
         data: JSON.stringify(cons)
       })
-      .then(this.iswaitting = false)
+      .then(()=>{this.iswaitting = false;this.reloadAdmin})
       .catch()
     },
     onPageChange (page) {
@@ -108,7 +109,7 @@ export default {
         url: this.$store.state.host + '/department/updateDepartment',
         data: JSON.stringify(this.item)
       })
-      .then(this.iswaitting = false)
+      .then(()=>{this.iswaitting = false;this.reloadAdmin})
       .catch()
     }
   },

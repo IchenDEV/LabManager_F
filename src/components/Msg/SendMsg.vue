@@ -8,7 +8,7 @@
       icon="check"
       @click="addClicked"
       :loading="iswaitting"
-      :disabled="con.msg===''||con.msg===null||s==null"
+      :disabled="con.msg===''||con.msg===null||(s==null&&quickid==null)"
     >{{$t('message.send')}}</ui-button>
   </div>
 </template>
@@ -43,7 +43,6 @@ export default {
       } else {
         this.con.receiver = this.s.id;
       }
-      console.log(this.s);
       fetch({
         method: "Post",
         url: this.$store.state.host + "/msg/addMsg",
