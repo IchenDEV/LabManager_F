@@ -20,6 +20,7 @@
             <menu-item name="group">{{$t('message.group')}}</menu-item>
             <menu-item name="lab">{{$t('message.lab')}}</menu-item>
             <menu-item name="user">{{$t('message.user')}}</menu-item>
+            <menu-item name="announcement">{{$t('message.announcement')}}</menu-item>
           </Submenu>
           <Submenu name="3">
             <template slot="title">

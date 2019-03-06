@@ -84,5 +84,16 @@ export const message = {
   inputNewPassword:'请输入新密码',
   inputNewSuperPassword:'请输入新超级密码',
   inputCurrentSuperPassword:'请输入当前超级密码',
-  useRate:'使用率'
+  useRate:'使用率',
+  requireReputation:'需要信誉度',
+  reputation:'信誉度',
+  announcement:'公告',
+  title:'标题',
+  summary:'概要',
+  totalUseRate:'总体利用率',
+  counts:'数量',
+  func:'功能',
+  links:'友情链接',
+  hot:'热门',
+  requireReputationD:"信誉度不足"
 }

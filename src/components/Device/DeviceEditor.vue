@@ -8,6 +8,8 @@
         <ui-textbox icon="lock" floating-label :label="$t('message.description')" v-model="item.description"></ui-textbox>
         <ui-textbox icon="person" floating-label :label="$t('message.model')" v-model="item.model"></ui-textbox>
         <ui-textbox icon="person" floating-label :label="$t('message.band')" v-model="item.bands"></ui-textbox>
+        <ui-textbox icon="person" floating-label :label="$t('message.func')" v-model="item.func"></ui-textbox>
+        <ui-textbox icon="person" floating-label :label="$t('message.requireReputation')" v-model="item.requireReputation"></ui-textbox>
         <ui-select
           has-search
           :label="$t('message.lab')"

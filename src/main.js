@@ -14,9 +14,17 @@ import '@babel/polyfill'
 import VueI18n from 'vue-i18n'
 import en from 'iview/dist/locale/en-US'
 import zh from 'iview/dist/locale/zh-CN'
+import  VueQuillEditor from 'vue-quill-editor'
+import VCharts from 'v-charts'
+// require styles 引入样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
+Vue.use(VueQuillEditor)
 Vue.use(KeenUI)
 Vue.use(Vuex)
+Vue.use(VCharts)
 Vue.use(iView)
 Vue.use(VueI18n)
 Vue.locale = () => {};
@@ -26,12 +34,13 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
   state: {
     //host: '//localhost:8080/',
-    host: '//api.idevlab.cn:8080/',
+    //host: '//api.idevlab.cn:8080/',
     //host: '//idevlab.cn:8080/',
-    //host:'//'+process.env.SERVER_HOST+':'+process.env.SERVER_PORT+'/',
+    host:'//'+process.env.VUE_APP_SERVER_HOST+':'+process.env.VUE_APP_SERVER_PORT+'/',
     currentUser: {
       username: '',
       nickname: '',
+      reputation:0,
       id: 0
     },
     hasSingin: false,
@@ -51,6 +60,7 @@ const store = new Vuex.Store({
             state.currentUser.nickname = res.data.info.userPermission.nickname
             state.currentUser.username = this.username
             state.currentUser.id = res.data.info.userPermission.id
+            state.currentUser.reputation = res.data.info.userPermission.reputation
             if (res.data.info.userPermission.roleId === 1) {
               state.isSuperAdmin = true
               state.isAdmin = true

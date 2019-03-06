@@ -1,11 +1,20 @@
 <template>
 <div>
-    <list-book></list-book>
+  <h1>{{$t('message.search')}}</h1>
+    <search-bar v-model='data'></search-bar>
+    <search-result :data='data'></search-result>
+    <!-- <list-book></list-book> -->
 </div>
 </template>
 <script>
-import ListBook from '@/components/Book/ListBook'
+import SearchBar from '@/components/SearchBar'
+import SearchResult from '@/components/SearchResult'
 export default {
-  components: { ListBook},
+  components: { SearchBar,SearchResult},
+  data (){
+    return{
+      data:{info:{list:[]}}
+    }
+  }
 }
 </script>

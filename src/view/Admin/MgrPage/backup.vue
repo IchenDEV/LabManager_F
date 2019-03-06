@@ -1,10 +1,12 @@
 <template>
 <div>
   <h1>{{$t('message.backup')}}</h1>
+  <Card>
   <div class="flex-panel col-panel">
     <backup-now></backup-now>
     <backup-setter></backup-setter>
   </div>
+  </Card>
 </div>
 </template>
 <script>

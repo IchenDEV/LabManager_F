@@ -1,11 +1,14 @@
 <template>
   <div>
-    <h1>{{$t('message.device')}} {{$t('message.list')}}</h1>
+    <Card>
+    <h1>{{$t('message.device')}} {{$t('message.list')}}</h1> 
     <div class="flex-panel">
       <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="person" floating-label :label="$t('message.No')" v-model="search.No"></ui-textbox>
       <ui-textbox icon="person" floating-label :label="$t('message.model')" v-model="search.model"></ui-textbox>
       <ui-textbox icon="person" floating-label :label="$t('message.band')" v-model="search.bands"></ui-textbox>
+      <ui-textbox icon="person" floating-label :label="$t('message.requireReputation')" v-model="search.requireReputation"></ui-textbox>
+      <ui-textbox icon="person" floating-label :label="$t('message.func')" v-model="search.func"></ui-textbox>
       <ui-select
         has-search
         :label="$t('message.lab')"
@@ -17,6 +20,7 @@
       ></ui-select>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+    </Card>
     <div class="flex-panel">
       <Card v-for="(item,index) in info.list" :key="index">
         <div>
@@ -26,6 +30,7 @@
             <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
             <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
             <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
+            <Tag color="success">{{item.func}}</Tag>
           </span>
           <p>{{$t('message.name')}} {{item.name}}</p>
           <p>{{$t('message.No')}} {{item.No}}</p>
@@ -33,6 +38,7 @@
           <p>{{$t('message.description')}} {{item.description}}</p>
           <p>{{$t('message.model')}} {{item.model}}</p>
           <p>{{$t('message.lab')}} {{item.locationName}}</p>
+         
           <p>{{item.locationDescription}}</p>
           <p>{{$t('message.address')}} {{item.locationAddress}}</p>
           <ui-button
@@ -83,6 +89,7 @@ export default {
         band: "",
         name: "",
         No: "",
+        requireReputation:"",
         device: -1,
         pageRow: 10,
         pageNum: 1

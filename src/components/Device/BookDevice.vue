@@ -121,9 +121,9 @@ export default {
         this.beginTime != null &&
         this.endDate != null &&
         this.endDate != null &&
-        this.endTime != null
+        this.endTime != null && this.item.requireReputation<=this.$store.state.currentUser.reputation
       ) {
-        if (this.beginDate <= this.endDate) {
+        if (Date(this.beginDate) <= Date(this.endDate)) {
           if (this.beginTime < this.endTime) {
             return true;
           }
@@ -161,6 +161,11 @@ export default {
       })
         .then(res => {
           this.item = res.data.info.list[0];
+          if(this.item.requireReputation>this.$store.state.currentUser.reputation){
+            this.$Notice.warning({
+              title: this.$t('message.requireReputationD')
+            });
+    }
         })
         .catch();
     },

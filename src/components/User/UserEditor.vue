@@ -6,6 +6,7 @@
         <ui-textbox icon="person" floating-label :label="$t('message.Uname')" v-model="item.nickname"></ui-textbox>
         <ui-textbox icon="phone" floating-label :label="$t('message.phone')" v-model="item.phone"></ui-textbox>
         <ui-textbox icon="phone" floating-label :label="$t('message.address')" v-model="item.address"></ui-textbox>
+        <ui-textbox icon="phone" floating-label :label="$t('message.reputation')" v-model="item.reputation"></ui-textbox>
         <ui-select icon="person" floating-label :label="$t('message.sex')" :options="sexString" v-model="sex"></ui-select>
         <ui-select icon="person" floating-label :label="$t('message.role')" :options="roleString" v-model="role"></ui-select>
         <ui-textbox

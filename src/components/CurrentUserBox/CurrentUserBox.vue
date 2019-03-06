@@ -16,6 +16,10 @@
           <p>{{sex}}</p>
         </span>
         <span>
+          <h3>{{$t("message.reputation")}}</h3>
+          <p>{{reputation}}</p>
+        </span>
+        <span>
           <h3>{{$t("message.role")}}</h3>
           <p>{{roleName}}</p>
         </span>
@@ -150,6 +154,7 @@ export default {
       phone: "",
       email: "",
       roleName: "",
+      reputation:"",
       id: "",
       sexString: [
         this.$t("message.unknow"),
@@ -186,7 +191,9 @@ export default {
               this.sex = this.sexString[res.data.info.userPermission.sex];
               this.roleName = res.data.info.userPermission.roleName;
               this.id = res.data.info.userPermission.id;
+              this.reputation=res.data.info.userPermission.reputation;
               this.$store.state.currentUser.id = this.id;
+              this.$store.state.currentUser.reputation = this.reputation;
             } else {
               this.$store.commit("onDataReached", res.data,this); 
             }

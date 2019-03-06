@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>{{$t('message.log')}}</h1>
+    <Card>
   <table class="table">
   <tr >
     <th>{{$t('message.operator')}}</th>
@@ -16,6 +17,7 @@
   </tr>
   </table>
   <Page size="small" v-if="logs.totalPage>1" :total="totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
+    </Card>
   </div>
 </template>
 <script>

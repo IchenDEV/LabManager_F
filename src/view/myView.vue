@@ -1,8 +1,10 @@
 <template>
   <div>
     <h1>{{$t('message.personalInfo')}}</h1>
-   <vue-qr v-if="qrid!=0" :text='qrid' qid='testid'></vue-qr>
+   <vue-qr v-if="qrid!=0" :text='qrid' qid='testid' style="border-radius:10px;"></vue-qr>
+   <Card class="margin10">
    <current-user-box></current-user-box>
+   </Card>
   </div>
 </template>
 <script>
@@ -18,3 +20,9 @@ export default {
   }
 }
 </script>
+<style>
+.margin10{
+  margin: 10px;
+}
+</style>
+

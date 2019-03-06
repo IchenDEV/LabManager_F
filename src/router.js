@@ -16,6 +16,7 @@ import projectAdmin from '@/view/Admin/MgrEachPage/projectAdmin'
 import deviceAdmin from '@/view/Admin/MgrEachPage/deviceAdmin'
 import labAdmin from '@/view/Admin/MgrEachPage/labAdmin'
 
+import announcement from '@/view/Admin/MgrPage/announcement'
 import device from '@/view/Admin/MgrPage/device'
 import log from '@/view/Admin/MgrPage/log'
 import book from '@/view/Admin/MgrPage/book'
@@ -71,6 +72,10 @@ export default new Router({
         {
           path: 'backup',
           component: backup
+        },
+        {
+          path: 'announcement',
+          component: announcement
         },
         {
           path: 'statistics',

@@ -3,8 +3,8 @@
   <h1>Home</h1>
   <div class="flex-panel">
     <Card v-if="$store.state.hasSingin">
-       <p slot="title">{{$t('message.sendMsg')}}</p>
-       <send-msg :label="$t('message.receiver')"></send-msg>
+       <p slot="title">{{$t('message.announcement')}}</p>
+       <Announcement-list></Announcement-list>
     </Card>
     <Card v-if="$store.state.hasSingin">
        <p slot="title">{{$t('message.myBookInfo')}}</p>
@@ -13,6 +13,10 @@
     <Card v-if="$store.state.hasSingin">
        <p slot="title">{{$t('message.message')}}</p>
        <msg-box></msg-box>
+    </Card>
+    <Card v-if="$store.state.hasSingin">
+       <p slot="title">{{$t('message.sendMsg')}}</p>
+       <send-msg :label="$t('message.receiver')"></send-msg>
     </Card>
     <Card style="width:70%;">
        <p slot="title">{{$t('message.personalInfo')}}</p>
@@ -25,8 +29,9 @@
 import CurrentUserBox from '@/components/CurrentUserBox/CurrentUserBox'
 import MsgBox from '@/components/Msg/MsgBox'
 import BookBox from '@/components/Book/BookBox'
+import AnnouncementList from '@/components/Announcement/AnnouncementList'
 import SendMsg from '@/components/Msg/SendMsg'
 export default {
-  components: { CurrentUserBox,MsgBox,SendMsg,BookBox}
+  components: { CurrentUserBox,MsgBox,SendMsg,BookBox,AnnouncementList}
 }
 </script>

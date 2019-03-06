@@ -1,12 +1,14 @@
 <template>
   <div>
-    <h1>{{$t('message.appointment')}} {{$t('message.list')}}</h1>
+    <Card>
+    <h1>{{$t('message.appointment')}} {{$t('message.list')}}</h1>  
     <div class="flex-panel">
       <ui-textbox icon="person" floating-label label="id" v-model="search.id"></ui-textbox>
       <user-selector v-model="user" :label="$t('message.user')"></user-selector>
       <project-selector v-model="project" :label="$t('message.project')"></project-selector>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+    </Card>
     <div class="flex-panel">
       <Card v-for="(item,index) in books.list" :key="index">
         <p slot="title">{{item.applicantNickname}}</p>

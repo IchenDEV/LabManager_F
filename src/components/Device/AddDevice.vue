@@ -3,6 +3,8 @@
     <h2>{{$t('message.create')}} {{$t('message.device')}}</h2>
     <ui-textbox icon="person" floating-label :label="$t('message.No')" v-model="con.No"></ui-textbox>
     <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
+    <ui-textbox icon="person" floating-label :label="$t('message.func')" v-model="con.func"></ui-textbox>
+    <ui-textbox icon="person" floating-label :label="$t('message.requireReputation')" v-model="con.requireReputation"></ui-textbox>
      <ui-select
       has-search
       :label="$t('message.lab')"
@@ -25,6 +27,7 @@ export default {
         No: '',
         name: '',
         description: '',
+        requireReputation:'',
         model: '',
         band: '',
         location: '',

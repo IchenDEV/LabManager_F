@@ -84,5 +84,8 @@ export const message = {
   inputNewPassword:'Please input new password',
   inputNewSuperPassword:'Please input Super Admin new password',
   inputCurrentSuperPassword:'Please input your Super Admin password',
-  useRate:'Use Rate'
+  useRate:'Use Rate',
+  requireReputation:'需要信誉度',
+  reputation:'信誉度',
+  Announcement:'Announcement'
 }

@@ -1,5 +1,6 @@
 <template>
 <div>
+  <Card>
   <h2>{{$t('message.lab')}} {{$t('message.list')}}</h2>
   <div class="flex-panel">
       <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
@@ -7,6 +8,7 @@
       <ui-textbox icon="location_on" floating-label :label="$t('message.location')" v-model="search.location"></ui-textbox>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+  </Card>
   <div class="flex-panel">
     <Card v-for="(item,index) in labs.list" :key="index">
       <p slot="title">{{item.name}}</p>

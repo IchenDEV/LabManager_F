@@ -1,11 +1,13 @@
 <template>
 <div>
   <h2>{{$t('message.group')}} {{$t('message.list')}}</h2>
+  <Card>
   <div class="flex-panel">
       <ui-textbox icon="group" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+  </Card>
   <div class="flex-panel">
     <Card v-for="(item,index) in groups.list" :key="index">
       <p slot="title">{{item.name}}</p>
