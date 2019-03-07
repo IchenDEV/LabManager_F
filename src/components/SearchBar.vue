@@ -11,7 +11,7 @@
   </section>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   props: { placeholder: { default: 'Type to search' }, selected:{ default: null }},
   model: {
@@ -27,18 +27,8 @@ export default {
   methods: {
     searchToggle() {
       if (this.isActive && this.content != "") {
-        let da={search:this.content}
-        fetch({
-          method: "Post",
-          url: this.$store.state.host + "/hyperSearch/search",
-          data: JSON.stringify(da)
-        })
-          .then(res => {
-            this.iswaitting = false;
-            this.$emit('change', res.data)
-            this.$store.commit("onDataReached", res.data, this);
-          })
-          .catch();
+        let data={search:this.content}
+        tools.easyfetch(tools.Api.HyperSearch,data).then((res)=>{this.iswaitting = false;this.$emit('change', res.data)})
       }
       this.isActive = !this.isActive;
     }

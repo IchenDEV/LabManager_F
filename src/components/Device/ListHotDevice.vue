@@ -31,7 +31,7 @@
 </template>
 <script>
 import router from "@/router";
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   props: { admin: { default: false } },
   data() {
@@ -44,15 +44,10 @@ export default {
       router.push("device/" + i);
     },
     getDeviceInfo() {
-      let da={};
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/book/getHot",
-        data: JSON.stringify(da)
-      })
+      let da={}
+      tools.easyfetch(tools.Api.HotDevice,da)
         .then(res => {
           this.info = res.data.info;
-           this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     }

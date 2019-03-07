@@ -51,7 +51,7 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js"
+import tools from "@/util/tools.js"
 import router from '@/router'
 export default {
   data() {
@@ -63,16 +63,7 @@ export default {
   },
   methods: {
     getInfo() {
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/project/list",
-        data: JSON.stringify(this.search)
-      })
-        .then(res => {
-          this.$store.commit("onDataReached",res.data);
-          this.projects = res.data.info;
-        })
-        .catch();
+      tools.easyfetch(tools.Api.ListProject,this.search).then(res=>{this.projects=res.info})
     },
     onPageChange(page) {
       this.search.pageNum = page;
@@ -80,14 +71,8 @@ export default {
     },
     delClicked(id, index) {
       this.projects.list.splice(index, 1);
-      let da = { id: id };
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/project/deleteProject",
-        data: JSON.stringify(da)
-      })
-        .then()
-        .catch();
+      let data = { id: id };
+      tools.easyfetch(tools.Api.DelProject,data)
     },
     searchClicked() {
       for (var key in this.search) {

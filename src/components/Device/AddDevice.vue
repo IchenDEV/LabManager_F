@@ -1,6 +1,7 @@
 <template>
   <div class="add-group">
     <h2>{{$t('message.create')}} {{$t('message.device')}}</h2>
+    <div class="flex-panel">
     <ui-textbox icon="person" floating-label :label="$t('message.No')" v-model="con.No"></ui-textbox>
     <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
     <ui-textbox icon="person" floating-label :label="$t('message.func')" v-model="con.func"></ui-textbox>
@@ -15,11 +16,12 @@
     <ui-textbox icon="lock"   floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
     <ui-textbox icon="person" floating-label :label="$t('message.model')" v-model="con.model"></ui-textbox>
     <ui-textbox icon="person" floating-label :label="$t('message.band')" v-model="con.band"></ui-textbox>
+    </div>
     <ui-button :disabled="disable" color="primary" icon="check" @click="addClicked" :loading="iswaitting" @touch="getLabInfo">{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   data () {
     return {
@@ -56,28 +58,18 @@ export default {
     addClicked () {
       this.con.location = this.search.device.id
       this.iswaitting = true
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/device/addDevice',
-        data: JSON.stringify(this.con)
+      tools.easyfetch(tools.Api.AddDevice,this.con).then(()=>{
+        this.iswaitting = false
+        this.$emit('added')
       })
-        .then(()=> {
-          this.iswaitting = false
-          this.$emit('added')
-        })
-        .catch()
+      
     },
     getLabInfo () {
       let conp = { pageRow: 1000, offSet: 0 }
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/lab/list',
-        data: JSON.stringify(conp)
-      })
+      tools.easyfetch(tools.Api.ListLab,conp)
         .then(res => {
           this.labInfo = res.data.info
         })
-        .catch()
     }
   },
   mounted () {

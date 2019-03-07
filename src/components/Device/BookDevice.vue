@@ -75,7 +75,6 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
 import tools from "@/util/tools.js";
 import projectSelector from "@/components/Project/ProjectSelector";
 import SendMsg from "@/components/Msg/SendMsg";
@@ -143,44 +142,29 @@ export default {
     },
 
     getDeviceBookInfo() {
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/book/list",
-        data: JSON.stringify(this.search)
-      })
+      tools.easyfetch(tools.Api.ListBook,this.search)
         .then(res => {
           this.bookInfo = res.data.info;
         })
-        .catch();
     },
     getDeviceInfo() {
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/device/list",
-        data: JSON.stringify(this.search2)
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.ListDevice,this.search2)
+      .then(res => {
           this.item = res.data.info.list[0];
           if(this.item.requireReputation>this.$store.state.currentUser.reputation){
             this.$Notice.warning({
               title: this.$t('message.requireReputationD')
             });
-    }
+        }
         })
-        .catch();
     },
     bookClick() {
       this.iswaitting=true
       this.con.project = this.p.projectId;
       this.con.beginTime = tools.timeBuilder(this.beginDate, this.beginTime);
       this.con.endTime = tools.timeBuilder(this.endDate, this.endTime);
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/book/addBook",
-        data: JSON.stringify(this.con)
-      })
+      tools.easyfetch(tools.Api.AddBook,this.con)
         .then(()=>{ this.iswaitting=false})
-        .catch();
     },
     stringCat(a, b, c) {
       return a + " " + b + " " + c;

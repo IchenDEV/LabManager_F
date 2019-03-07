@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -38,17 +38,10 @@ export default {
   methods: {
     addClicked() {
       this.iswaitting = true;
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/announcement/addAnnouncement",
-        data: JSON.stringify(this.con)
-      })
-        .then(() => {
-          this.iswaitting = false;
-          this.$emit("added");
-        })
-        .catch();
+      tools.easyfetch(tools.Api.AddAnnouncement,this.con).then()
+      this.iswaitting = false;
+      this.$emit("added");
     }
   }
-};
+}
 </script>

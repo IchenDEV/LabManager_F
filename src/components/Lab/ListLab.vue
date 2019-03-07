@@ -32,7 +32,7 @@
 </template>
 <script>
 import router from '@/router'
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   data () {
     return {
@@ -43,16 +43,10 @@ export default {
   },
   methods: {
     getInfo () {
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/lab/list',
-        data: JSON.stringify(this.search)
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.ListLab,this.search)
+      .then(res => {
           this.labs = res.data.info
-          this.$store.commit("onDataReached", res.data,this); 
         })
-        .catch()
     },
     onPageChange (page) {
       this.search.pageNum = page
@@ -61,20 +55,12 @@ export default {
     delClicked (id,index) {
       this.labs.list.splice(index, 1)
       let da = {id: id}
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/lab/deleteLab',
-        data: JSON.stringify(da)
-      })
+      tools.easyfetch(tools.Api.DelLab,da)
         .then()
         .catch()
     },
     searchClicked() {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === "") {
-          delete this.search[key];
-        }
-      }
+      this.search=tools.removeEmptyKey(this.search)
       this.getInfo();
     },
     moClicked (id){

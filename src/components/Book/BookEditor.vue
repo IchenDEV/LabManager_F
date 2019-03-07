@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -23,26 +23,16 @@ export default {
     updateClick() {
       this.iswaitting = true;
       this.item.location = this.lab.id;
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/book/updateBook",
-        data: JSON.stringify(this.item)
-      })
-        .then(() => {
+      tools.easyfetch(tools.Api.UpdateBook,this.item)
+      .then(() => {
           this.iswaitting = false;
         })
-        .catch();
     },
     getBookInfo() {
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/device/list",
-        data: JSON.stringify(this.search)
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.ListDevice,this.search)
+      .then(res => {
           this.item = res.data.info.list[0];
         })
-        .catch();
     },
   },
   mounted() {

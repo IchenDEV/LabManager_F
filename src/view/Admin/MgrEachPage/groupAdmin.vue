@@ -117,7 +117,7 @@ export default {
       let cons = {user: this.s.id,group: this.$route.params.id,status:1}
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/group/addGroupUser',
+        url: this.$store.state.host + '/group/addUser',
         data: JSON.stringify(cons)
       })
         .then(()=>{this.iswaitting = false;this.reloadAdmin})
@@ -128,7 +128,7 @@ export default {
       let cons = {project: this.p.id ,group: this.$route.params.id,status:1}
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/group/addGroupProject',
+        url: this.$store.state.host + '/group/addProject',
         data: JSON.stringify(cons)
       })
         .then(()=>{this.iswaitting = false;this.reloadAdmin})
@@ -139,7 +139,7 @@ export default {
       let cons = {id:id}
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/group/deleteGroupUser',
+        url: this.$store.state.host + '/group/deleteUser',
         data: JSON.stringify(cons)
       })
       .then(()=>{this.reloadAdmin})
@@ -150,7 +150,7 @@ export default {
       let cons = {id:id}
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/group/deleteGroupProject',
+        url: this.$store.state.host + '/group/deleteProject',
         data: JSON.stringify(cons)
       })
       .then(()=>{this.iswaitting = false;this.reloadAdmin})
@@ -168,7 +168,7 @@ export default {
       this.iswaitting = true
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/group/updateGroup',
+        url: this.$store.state.host + '/group/update',
         data: JSON.stringify(this.item)
       })
       .then(()=>{this.iswaitting = false})

@@ -33,7 +33,7 @@ export default {
       }
       if(this.user!=null){
         this.search.id=this.user
-        fetchPath='/user/listProject'
+        fetchPath='/user/list'
         this.keys.label="projectName"
       }
       fetch({

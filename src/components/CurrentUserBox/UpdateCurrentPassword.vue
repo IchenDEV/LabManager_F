@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -44,12 +44,8 @@ export default {
           username: this.$store.state.currentUser.username,
           password: code
         };
-        fetch({
-          method: "Post",
-          url: this.$store.state.host + "/login/updatePassword",
-          data: JSON.stringify(data)
-        })
-          .then(res => {
+        tools.easyfetch(tools.Api.UpdatePassword,data)
+        .then(res => {
             if (res.data.code === "100") {
               this.$emit("close");
             }

@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   data () {
     return {
@@ -51,17 +51,11 @@ export default {
       this.iswaitting = true
       this.con.beginTime=this.beginDate.getFullYear()+'-'+(new Number(this.beginDate.getMonth())+1)+ '-'+this.beginDate.getDate()+' '+this.beginTime
       this.con.endTime=this.endDate.getFullYear()+'-'+(new Number(this.endDate.getMonth())+1)+ '-'+this.endDate.getDate()+' '+this.endTime
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/project/addProject',
-        data: JSON.stringify(this.con)
+      tools.easyfetch(tools.Api.AddProject,this.con).then(()=>{
+        this.iswaitting = false
+        this.$emit('added')
       })
-        .then((res) => {
-          this.iswaitting = false
-          this.$store.commit("onDataReached", res.data,this); 
-          this.$emit('added')
-        })
-        .catch()
+      
     }
   }
 }

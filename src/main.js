@@ -2,45 +2,68 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import iView from 'iview'
+import {
+  Card,
+  Page,
+  Timeline,
+  TimePicker,
+  Tooltip,
+  Menu,
+  MenuItem,
+  Time,
+  Tag,
+  Modal,
+  BackTop,
+  Badge,
+  Notice,
+  Icon,
+  Submenu
+} from 'iview'
 import router from './router'
 import KeenUI from 'keen-ui'
 import 'keen-ui/dist/keen-ui.css'
 import 'url-search-params-polyfill'
 import Vuex from 'vuex'
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 import 'iview/dist/styles/iview.css'
 import '@babel/polyfill'
 import VueI18n from 'vue-i18n'
 import en from 'iview/dist/locale/en-US'
 import zh from 'iview/dist/locale/zh-CN'
-import  VueQuillEditor from 'vue-quill-editor'
-import VCharts from 'v-charts'
+import VueQuillEditor from 'vue-quill-editor'
 // require styles 引入样式
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-
 Vue.use(VueQuillEditor)
 Vue.use(KeenUI)
 Vue.use(Vuex)
-Vue.use(VCharts)
-Vue.use(iView)
 Vue.use(VueI18n)
 Vue.locale = () => {};
-
+Vue.component('Card', Card)
+Vue.component('Page', Page)
+Vue.component('Tag', Tag)
+Vue.component('Time', Time)
+Vue.component('Timeline', Timeline)
+Vue.component('TimePicker', TimePicker)
+Vue.component('Tooltip', Tooltip)
+Vue.component('Menu', Menu)
+Vue.component('MenuItem', MenuItem)
+Vue.component('Modal', Modal)
+Vue.component('BackTop', BackTop)
+Vue.component('Badge', Badge)
+Vue.component('Submenu', Submenu)
+Vue.component('Icon', Icon)
+Vue.prototype.$Notice = Notice
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    //host: '//localhost:8080/',
-    //host: '//api.idevlab.cn:8080/',
-    //host: '//idevlab.cn:8080/',
-    host:'//'+process.env.VUE_APP_SERVER_HOST+':'+process.env.VUE_APP_SERVER_PORT+'/',
+    host:'//localhost:8080/',
     currentUser: {
       username: '',
       nickname: '',
-      reputation:0,
+      reputation: 0,
       id: 0
     },
     hasSingin: false,
@@ -50,11 +73,8 @@ const store = new Vuex.Store({
   actions: {
     getInfo() {
       let state = this.state
-      fetch({
-          method: 'Post',
-          url: state.host + '/login/getInfo'
-        })
-        .then(res => {
+      tools.easyfetch(tools.Api.UserInfo, this.con).then(
+        res => {
           if (res.data.code === '100') {
             state.hasSingin = true
             state.currentUser.nickname = res.data.info.userPermission.nickname
@@ -71,6 +91,7 @@ const store = new Vuex.Store({
           }
           this.iswaitting = false
         })
+
     }
   },
   mutations: {
@@ -83,14 +104,13 @@ const store = new Vuex.Store({
       state.isAdmin = false
     },
     /* eslint-disable */
-    onDataReached(st,da,that){
+    onDataReached(st, da, that) {
       let state = this.state
-      if(da.code=='20011'&&state.hasSingin==true){
-        console.log("cf")
-        state.hasSingin==false
+      if (da.code == '20011' && state.hasSingin == true) {
+        state.hasSingin == false
         that.$Notice.warning({
           title: 'Login Expired'
-       });
+        });
         this.cleanInfo()
       }
     }
@@ -100,15 +120,15 @@ const store = new Vuex.Store({
 function getlang() {
   if (navigator.language.toLowerCase() == 'zh-cn') {
     return navigator.language.toLowerCase()
-  }else{
+  } else {
     return 'en'
   }
 }
 const i18n = new VueI18n({
   locale: getlang(), // 语言标识
   messages: {
-    'zh-cn': Object.assign(require('./assets/common/lang/zh-cn'),zh), // 中文语言包
-    'en': Object.assign(require('./assets/common/lang/en'),en) // 英文语言包
+    'zh-cn': Object.assign(require('./assets/common/lang/zh-cn'), zh), // 中文语言包
+    'en': Object.assign(require('./assets/common/lang/en'), en) // 英文语言包
   },
 })
 new Vue({
@@ -117,7 +137,7 @@ new Vue({
   i18n,
   mounted() {
     this.$store.dispatch('getInfo')
-    document.title=this.$t('message.productName')
+    document.title = this.$t('message.productName')
     // 删除加载动画demo
     if (document.getElementById('nb-global-spinner')) {
       document.body.removeChild(document.getElementById('nb-global-spinner'));

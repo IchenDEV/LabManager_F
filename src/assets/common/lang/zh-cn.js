@@ -26,7 +26,7 @@ export const message = {
   female:'女',
   other:'其他',
   superAdmin:'超级管理员',
-  admin:'管理员',
+  admin:'管理',
   login:'登录',
   singup:'注册',
   or:'或',
@@ -95,5 +95,6 @@ export const message = {
   func:'功能',
   links:'友情链接',
   hot:'热门',
-  requireReputationD:"信誉度不足"
+  requireReputationD:"信誉度不足",
+  export:"导出"
 }

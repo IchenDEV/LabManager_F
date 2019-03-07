@@ -18,7 +18,7 @@
 </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 import router from '@/router'
 export default {
   data () {
@@ -32,18 +32,12 @@ export default {
   methods: {
     getInfo () {
       this.iswaitting=true;
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/user/list',
-        data: JSON.stringify(this.conp)
-      })
+      tools.easyfetch(tools.Api.ListUser,this.conp)
         .then(res => {   
           this.users = res.data.info
           this.iswaitting=false;
-          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch()
-        this.iswaitting=false;
     },
     onPageChange (page) {
       this.conp.pageNum = page
@@ -52,13 +46,7 @@ export default {
     delClicked (id,index) {
       this.users.list.splice(index, 1)
       let da = {id: id}
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/user/delUser',
-        data: JSON.stringify(da)
-      })
-        .then()
-        .catch()
+      tools.easyfetch(tools.Api.DelUser,da).then().catch()
     },
     moClicked (id){
       router.push("user/"+id.toString())

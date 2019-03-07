@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   data () {
     return {
@@ -23,28 +23,16 @@ export default {
   },
   methods: {
     getLabInfo () {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === '') {
-          delete this.search[key]
-        }
-      }
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/lab/list',
-        data: JSON.stringify(this.search)
-      })
-        .then(res => {
+      this.search=tools.removeEmptyKey(this.search)
+      tools.easyfetch(tools.Api.ListLab,this.search)
+      .then(res => {
           this.item = res.data.info.list[0]
         })
         .catch()
     },
    updateClick () {
       this.iswaitting = true
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/lab/updateLab',
-        data: JSON.stringify(this.item)
-      })
+      tools.easyfetch(tools.Api.UpdateLab,this.item)
       .then(()=>{this.iswaitting = false;this.getLabInfo()})
       .catch()
     }

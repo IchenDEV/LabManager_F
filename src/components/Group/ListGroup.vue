@@ -1,7 +1,7 @@
 <template>
 <div>
-  <h2>{{$t('message.group')}} {{$t('message.list')}}</h2>
   <Card>
+  <h2>{{$t('message.group')}} {{$t('message.list')}}</h2>
   <div class="flex-panel">
       <ui-textbox icon="group" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
@@ -29,7 +29,7 @@
 </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 import router from '@/router'
 export default {
   data () {
@@ -41,16 +41,10 @@ export default {
   },
   methods: {
     getInfo () {
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/group/list',
-        data: JSON.stringify(this.search)
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.ListGroup,this.search)
+      .then(res => {
           this.groups = res.data.info
-           this.$store.commit("onDataReached", res.data,this); 
         })
-        .catch()
     },
     onPageChange (page) {
       this.search.pageNum = page
@@ -59,20 +53,10 @@ export default {
     delClicked (id,index) {
       let da = {id: id}
       this.groups.list.splice(index, 1)
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/group/deleteGroup',
-        data: JSON.stringify(da)
-      })
-        .then()
-        .catch()
+      tools.easyfetch(tools.Api.DeleteGroup,da).then()
     },
     searchClicked() {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === "") {
-          delete this.search[key];
-        }
-      }
+      this.search=tools.removeEmptyKey(this.search)
       this.getInfo();
     },
     moClicked (id){

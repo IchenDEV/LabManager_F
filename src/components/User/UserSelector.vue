@@ -9,7 +9,7 @@
     ></ui-select>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   props: { label: { default: '' }, selected:{ default: null }},
   model: {
@@ -25,11 +25,7 @@ export default {
   },
   methods: {
     getUserInfo () {
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/user/list',
-        data: '{}'
-      })
+      tools.easyfetch(tools.Api.ListUser,null)
         .then(res => {
           this.userInfo = res.data.info
         })

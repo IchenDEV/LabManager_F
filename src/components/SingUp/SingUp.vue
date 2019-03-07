@@ -27,54 +27,51 @@
   </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
-import tools from '@/util/tools.js'
+import tools from "@/util/tools.js";
 export default {
-  data () {
+  data() {
     return {
       iswaitting: false,
-      username: '',
-      nickname: '',
-      password: '',
-      password2: '',
-      buttonColor: 'primary'
-    }
+      username: "",
+      nickname: "",
+      password: "",
+      password2: "",
+      buttonColor: "primary"
+    };
   },
-  computed:{
-    isFullInputed(){
-      return (this.password == this.password2)&& this.password2!= '' &&
-        this.username != '' && this.nickname != ''
+  computed: {
+    isFullInputed() {
+      return (
+        this.password == this.password2 &&
+        this.password2 != "" &&
+        this.username != "" &&
+        this.nickname != ""
+      );
     }
   },
   methods: {
-    SingUpClicked () {
-      if (this.isFullInputed) {   
+    SingUpClicked() {
+      if (this.isFullInputed) {
         let con = {
           username: this.username,
           password: tools.sha3(this.password),
           nickname: this.nickname
         }
-        this.iswaitting = true
-        fetch({
-          method: 'Post',
-          url: this.$store.state.host+ '/singUp',
-          data: JSON.stringify(con)
+        this.iswaitting = true;
+        tools.easyfetch(tools.Api.SingUp, con).then( res => {
+          if (res.data.code === "100") {
+            this.$Notice.success({
+              title: "Sing up Success",
+              desc: this.nickname
+            });
+          } else {
+            this.$Notice.warning({
+              title: "Sing up Failed",
+              desc: "please try other username"
+            })
+          }
+          this.iswaitting = false
         })
-          .then(res => {
-            if (res.data.code === '100') {
-              this.$Notice.success({
-                    title: 'Sing up Success',
-                    desc:  this.nickname
-                });
-            } else {
-               this.$Notice.warning({
-                    title: 'Sing up Failed',
-                    desc:  'please try other username'
-                });
-            }
-            this.iswaitting = false
-          })
-          .catch()
       }
     }
   }

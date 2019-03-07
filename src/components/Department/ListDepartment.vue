@@ -46,7 +46,7 @@
 </template>
 <script>
 import router from '@/router'
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -57,14 +57,9 @@ export default {
   },
   methods: {
     getInfo() {
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/department/list",
-        data: JSON.stringify(this.search)
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.ListDepartment,this.search)
+      .then(res => {
           this.departments = res.data.info;
-           this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },
@@ -75,20 +70,10 @@ export default {
     delClicked(id,index) {
       let da = { id: id };
       this.departments.list.splice(index, 1)
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/department/deleteDepartment",
-        data: JSON.stringify(da)
-      })
-        .then()
-        .catch();
+      tools.easyfetch(tools.Api.DelDepartment,da).then()
     },
     searchClicked() {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === "") {
-          delete this.search[key];
-        }
-      }
+      this.search=tools.removeEmptyKey(this.search)
       this.getInfo();
     },
     moClicked (id){

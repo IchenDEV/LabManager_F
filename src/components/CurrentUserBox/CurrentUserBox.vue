@@ -135,7 +135,7 @@
 </template>
 <script>
 import languageSwitch from "@/components/Language/LanguageSwitch";
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 import router from "@/router";
 import stringCK from "@/util/stringCK.js";
 import UpdateCurrentPassword from "@/components/CurrentUserBox/UpdateCurrentPassword";
@@ -178,10 +178,7 @@ export default {
     getinfo() {
       if (this.$store.state.hasSingin === true) {
         this.iswaitting = true;
-        fetch({
-          method: "Post",
-          url: this.$store.state.host + "/login/getInfo"
-        })
+         tools.easyfetch(tools.Api.UserInfo,null)
           .then(res => {
             if (res.data.code === "100") {
               this.nickname = res.data.info.userPermission.nickname;
@@ -194,9 +191,7 @@ export default {
               this.reputation=res.data.info.userPermission.reputation;
               this.$store.state.currentUser.id = this.id;
               this.$store.state.currentUser.reputation = this.reputation;
-            } else {
-              this.$store.commit("onDataReached", res.data,this); 
-            }
+            } 
             this.getDpinfo();
             this.getGpinfo();
             this.iswaitting = false;
@@ -207,42 +202,24 @@ export default {
     getDpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
       this.iswaitting = true;
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/user/listDepartment",
-        data: JSON.stringify(conp)
-      })
+      tools.easyfetch(tools.Api.ListUserDepartment,conp)
         .then(res => {
           if (res.data.code === "100") {
-            //this.showSuccessMsg({ title: this.nickname });
             this.dpinfo = res.data.info;
           }
           this.iswaitting = false;
         })
-        .catch(function() {
-         
-        });
     },
     getGpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
       this.iswaitting = true;
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/user/listGroup",
-        data: JSON.stringify(conp)
-      })
+      tools.easyfetch(tools.Api.ListUserDepartment,conp)
         .then(res => {
           if (res.data.code === "100") {
-            //this.showSuccessMsg({ title: this.nickname });
             this.gpinfo = res.data.info;
-          } else {
-            //this.showErrorMsg({ title: res.data.msg });
-          }
+          } 
           this.iswaitting = false;
         })
-        .catch(function() {
-          //that.showErrorMsg();
-        });
     },
     updateinfo() {
       this.iswaitting = true;
@@ -253,11 +230,7 @@ export default {
         address: this.address,
         email: this.email
       };
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/login/updateInfo",
-        data: JSON.stringify(con)
-      })
+      tools.easyfetch(tools.Api.UpdateInfo,con)
         .then(res => {
           if (res.data.code === "100") {
             this.$Notice.success({
@@ -266,12 +239,9 @@ export default {
                 });
             this.moString = this.$t("message.modify");
             this.mo = true;
-          } else {
-            //this.showErrorMsg({ title: res.data.msg });
-          }
+          } 
           this.iswaitting = false;
         })
-        .catch();
     },
     mohandle() {
       if (this.mo) {
@@ -293,10 +263,7 @@ export default {
     },
     logouthandle() {
       this.iswaitting = true;
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/login/logout"
-      })
+      tools.easyfetch(tools.Api.Logout,null)
         .then(res => {
           if (res.data.code === "100") {
             this.$store.commit("cleanInfo");
@@ -308,9 +275,6 @@ export default {
           }
           this.iswaitting = false;
         })
-        .catch(function() {
-          //that.showErrorMsg();
-        });
     }
   },
   mounted() {
@@ -335,7 +299,7 @@ export default {
   padding: 10px;
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
-  width: 150px; /* 让过渡表现良好。（从/到'width:auto'的过渡
+  width: 100px; /* 让过渡表现良好。（从/到'width:auto'的过渡
                       至少在 Gecko 和 Webkit 上是有 bug 的。
                       更多信息参见 http://bugzil.la/731886 ） */
 

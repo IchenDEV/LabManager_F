@@ -2,7 +2,7 @@
     <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">{{$t('message.backup')}}</ui-button>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   data () {
     return {
@@ -12,15 +12,10 @@ export default {
   methods: {
     backupClicked () {
       this.iswaitting = true
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/backup/now',
-        data: JSON.stringify('{}')
-      })
+      tools.easyfetch(tools.Api.BackupNow,null)
         .then(() => {
           this.iswaitting = false
         })
-        .catch()
     }
   }
 }

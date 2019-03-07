@@ -72,9 +72,6 @@ export default {
 html {
   font-size: 100%;
 }
-body {
-  margin: 0;
-}
 #pop {
   position: absolute;
   display: none;

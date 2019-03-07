@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   data () {
     return {
@@ -32,17 +32,11 @@ export default {
   },
   methods: {
     getInfo () {
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/log/list',
-        data: JSON.stringify(this.conp)
-      })
+      tools.easyfetch(tools.Api.ListLog,this.conp)
         .then(res => {
           this.logs = res.data.info
           this.totalPage = res.data.info.totalCount
-          this.$store.commit("onDataReached", res.data,this); 
         })
-        .catch()
     },
     onPageChange (page) {
       this.conp.pageNum = page

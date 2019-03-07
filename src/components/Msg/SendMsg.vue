@@ -13,7 +13,7 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 import userSelector from "@/components/User/UserSelector";
 export default {
   components: { userSelector },
@@ -43,12 +43,8 @@ export default {
       } else {
         this.con.receiver = this.s.id;
       }
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/msg/addMsg",
-        data: JSON.stringify(this.con)
-      })
-        .then(() => {
+      tools.easyfetch(tools.Api.AddMsg,this.con)
+       .then(() => {
           this.iswaitting = false;
           this.$emit('send')
         })

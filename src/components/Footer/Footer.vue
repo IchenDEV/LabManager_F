@@ -19,5 +19,6 @@ export default {}
   padding: 1.5rem;
   padding-bottom: 5rem;
   z-index: -1;
+  border-radius: 2rem 2rem 0 0;
 }
 </style>

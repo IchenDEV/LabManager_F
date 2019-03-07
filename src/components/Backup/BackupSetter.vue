@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -23,27 +23,16 @@ export default {
   methods: {
     backupClicked() {
       this.iswaitting = true;
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/backup/setSchedule",
-        data: JSON.stringify(this.data)
-      })
-        .then(() => {
-          this.iswaitting = false;
-        })
-        .catch();
+      tools.easyfetch(tools.Api.SetBackupSchedule,this.data)
+      this.iswaitting = false;
     },
     backupGtClicked() {
       this.iswaitting = true;
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/backup/getSchedule"
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.GetBackupSchedule,this.data)
+      .then(res => {
           this.data.schedule = res.data.info.cron
           this.data.lastBackupTime=res.data.info.lastBackupTime
           this.iswaitting = false;
-          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     }

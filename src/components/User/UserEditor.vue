@@ -49,9 +49,8 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
 import tools from '@/util/tools.js'
-import stringCK from "@/util/stringCK.js";
+import stringCK from "@/util/stringCK.js"
 export default {
   data() {
     return {
@@ -79,11 +78,7 @@ export default {
           delete this.search[key];
         }
       }
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/user/list",
-        data: JSON.stringify(this.search)
-      })
+      tools.easyfetch(tools.Api.ListUser,this.search)
         .then(res => {
           this.item = res.data.info.list[0];
           this.sex = this.sexString[this.item.sex];
@@ -126,13 +121,9 @@ export default {
           delete this.item[key];
         }
       }
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/user/updateUser",
-        data: JSON.stringify(this.item)
-      })
-        .then((res)=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();this.$store.commit("onDataReached",res.data); })
-        .catch();
+      tools.easyfetch(tools.Api.UpdateUser,this.item)
+      .then((res)=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();this.$store.commit("onDataReached",res.data); })
+      .catch()
     }
   },
   mounted() {

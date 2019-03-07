@@ -24,7 +24,7 @@
 </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -39,31 +39,18 @@ export default {
   },
   methods: {
     getInfo() {
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/announcement/list",
-        data: JSON.stringify(this.conp)
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.ListAnnouncement,this.conp)
+      .then(res => {
           this.msgs = res.data.info;
           this.totalPage = res.data.info.totalCount;
-          this.$store.commit("onDataReached", res.data,this); 
-        })
-        .catch();
+      })
     },
     getAnnouncement(id) {
       let da = { id: id ,pageRow: 10,pageNum: 0};
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/announcement/get",
-        data: JSON.stringify(da)
-      })
-        .then(res => {
-          //this.selectMsg = res.data.info;
+      tools.easyfetch(tools.Api.GetAnnouncement,da)
+      .then(res => {
           document.getElementById("modelAN").innerHTML= res.data.info.msg;
-          this.$store.commit("onDataReached", res.data,this); 
-        })
-        .catch();
+      })
     },
     onPageChange(page) {
       this.conp.pageNum = page;
@@ -76,16 +63,10 @@ export default {
     },
     del(id){
       let da = { id: id };
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/announcement/deleteAnnouncement",
-        data: JSON.stringify(da)
-      })
-        .then(res => {
-          this.getInfo();
-          this.$store.commit("onDataReached", res.data,this); 
+      tools.easyfetch(tools.Api.DelAnnouncement,da)
+        .then(() => {
+          this.getInfo()
         })
-        .catch();
     }
   },
   mounted() {

@@ -81,7 +81,7 @@ export default {
       let cons = {user: this.s.id,department: this.$route.params.id,status:1}
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/department/addDepartmentUser',
+        url: this.$store.state.host + '/department/addUser',
         data: JSON.stringify(cons)
       })
         .then(()=>{this.iswaitting = false;this.reloadAdmin})
@@ -92,7 +92,7 @@ export default {
       let cons = {id:id}
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/department/deleteDepartmentUser',
+        url: this.$store.state.host + '/department/deleteUser',
         data: JSON.stringify(cons)
       })
       .then(()=>{this.iswaitting = false;this.reloadAdmin})
@@ -106,7 +106,7 @@ export default {
       this.iswaitting = true
       fetch({
         method: 'Post',
-        url: this.$store.state.host + '/department/updateDepartment',
+        url: this.$store.state.host + '/department/update',
         data: JSON.stringify(this.item)
       })
       .then(()=>{this.iswaitting = false;this.reloadAdmin})

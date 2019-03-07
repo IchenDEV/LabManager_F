@@ -25,7 +25,7 @@
 </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -41,34 +41,23 @@ export default {
   },
   methods: {
     getInfo() {
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/msg/list",
-        data: JSON.stringify(this.conp)
-      })
+      tools.easyfetch(tools.Api.ListMsg,this.conp)
         .then(res => {
-          this.msgs = res.data.info;
-          this.totalPage = res.data.info.totalCount;
-          this.$store.commit("onDataReached", res.data,this); 
+          this.msgs = res.data.info
+          this.totalPage = res.data.info.totalCount
         })
         .catch();
     },
     readMsg(id) {
       let cp = { id: id };
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/msg/readMsg",
-        data: JSON.stringify(cp)
-      })
-        .then()
-        .catch();
+      tools.easyfetch(tools.Api.ReadMsg,cp) .then()
     },
     onPageChange(page) {
       this.conp.pageNum = page;
       this.getInfo();
     },
     msgcli(id, index) {
-      if(this.msgs.list[index]==false){
+      if(this.msgs.list[index].hasRead==false){
       this.msgs.list[index].hasRead = true
       this.msgs.unread--
       this.readMsg(id);
@@ -90,6 +79,7 @@ export default {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+  min-height: 3rem;
 }
 .fab {
   position: absolute;

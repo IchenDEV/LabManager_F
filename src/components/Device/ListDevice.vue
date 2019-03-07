@@ -77,7 +77,7 @@
 </template>
 <script>
 import router from "@/router";
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   props: { admin: { default: false } },
   data() {
@@ -101,34 +101,20 @@ export default {
       router.push("device/" + i);
     },
     getDeviceInfo() {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === "") {
-          delete this.search[key];
-        }
-      }
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/device/list",
-        data: JSON.stringify(this.search)
-      })
+      tools.removeEmptyKey(this.search)
+      tools.easyfetch(tools.Api.ListDevice,this.search)
         .then(res => {
           this.info = res.data.info;
-           this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },
     getLabInfo() {
-      let conp = { pageRow: 100, offSet: 0 };
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/lab/list",
-        data: JSON.stringify(conp)
-      })
+      let conp = { pageRow: 100, offSet: 0 }
+      tools.easyfetch(tools.Api.ListLab,conp)
         .then(res => {
           this.labInfo = res.data.info;
           var temp = { name: "All", id: -1 };
           this.labInfo.list.splice(0, 0, temp);
-          
         })
         .catch();
     },
@@ -147,13 +133,7 @@ export default {
     delClicked(id, index) {
       let da = { id: id };
       this.info.list.splice(index, 1);
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/device/deleteDevice",
-        data: JSON.stringify(da)
-      })
-        .then()
-        .catch();
+      tools.easyfetch(tools.Api.DelDevice,da).then()
     }
   },
   mounted() {

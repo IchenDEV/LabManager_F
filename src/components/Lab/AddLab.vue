@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   data () {
     return {
@@ -29,17 +29,9 @@ export default {
   methods: {
     addClicked () {
       this.iswaitting = true
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host + '/lab/addLab',
-        data: JSON.stringify(this.con)
-      })
-        .then((res) => {
-          this.iswaitting = false
-          this.$store.commit("onDataReached", res.data,this); 
-          this.$emit('added')
-        })
-        .catch()
+      tools.easyfetch(tools.Api.AddLab,this.con)
+      this.iswaitting = false
+      this.$emit('added')
     }
   }
 }

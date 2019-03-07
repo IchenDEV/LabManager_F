@@ -45,7 +45,7 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -65,28 +65,17 @@ export default {
           delete this.search[key];
         }
       }
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/project/list",
-        data: JSON.stringify(this.search)
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.ListProject,this.search)
+      .then(res => {
           this.item = res.data.info.list[0];
         })
-        .catch();
     },
     updateClick() {
       this.iswaitting = true;
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/project/updateProject",
-        data: JSON.stringify(this.item)
-      })
-        .then((res) => {
+      tools.easyfetch(tools.Api.UpdateProject,this.item)
+      .then(() => {
           this.iswaitting = false;
-          this.$store.commit("onDataReached", res.data,this); 
         })
-        .catch();
     },
     setStatusClick(st) {
       this.item.status = st;

@@ -8,6 +8,7 @@
       <project-selector v-model="project" :label="$t('message.project')"></project-selector>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+    <ui-button color="primary" icon="search" @click="exportExcel">{{$t('message.export')}}</ui-button>
     </Card>
     <div class="flex-panel">
       <Card v-for="(item,index) in books.list" :key="index">
@@ -42,7 +43,7 @@
   </div>
 </template>
 <script>
-import fetch from "@/util/fetch.js";
+import tools from "@/util/tools.js";
 import userSelector from "@/components/User/UserSelector";
 import projectSelector from "@/components/Project/ProjectSelector";
 export default {
@@ -57,6 +58,26 @@ export default {
     };
   },
   methods: {
+    exportExcel(){
+      tools.fetchFile(tools.Api.ListAnnouncement,this.search)
+        .then(res => {
+          this.download(res.data)
+        })
+        .catch();
+    },
+     download (data) {
+        if (!data) {
+            return
+        }
+        let url = window.URL.createObjectURL(new Blob([data]))
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = url
+        link.setAttribute('download', 'export.xlsx')
+
+        document.body.appendChild(link)
+        link.click()
+    },
     getInfo() {
       if (this.user != null) {
         this.search.applicant = this.user.id;
@@ -64,14 +85,9 @@ export default {
       if (this.project != null) {
         this.search.project = this.project.id;
       }
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/book/list",
-        data: JSON.stringify(this.search)
-      })
-        .then(res => {
+      tools.easyfetch(tools.Api.ListBook,this.search)
+      .then(res => {
           this.books = res.data.info;
-          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },
@@ -80,22 +96,12 @@ export default {
       this.getInfo();
     },
     delClicked(id, index) {
-      let da = { id: id };
-      this.books.list.splice(index, 1);
-      fetch({
-        method: "Post",
-        url: this.$store.state.host + "/book/deleteBook",
-        data: JSON.stringify(da)
-      })
-        .then()
-        .catch();
+      let da = { id: id }
+      this.books.list.splice(index, 1)
+      tools.easyfetch(tools.Api.DelBook,da)
     },
     searchClicked() {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === "") {
-          delete this.search[key];
-        }
-      }
+      this.search=tools.removeEmptyKey(this.search)
       this.getInfo();
     }
   },

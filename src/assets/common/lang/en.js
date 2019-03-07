@@ -85,7 +85,16 @@ export const message = {
   inputNewSuperPassword:'Please input Super Admin new password',
   inputCurrentSuperPassword:'Please input your Super Admin password',
   useRate:'Use Rate',
-  requireReputation:'需要信誉度',
-  reputation:'信誉度',
-  Announcement:'Announcement'
+  requireReputation:'Required Reputation',
+  reputation:'Reputation',
+  announcement:'Announcement',
+  title:'Title',
+  summary:'Summary',
+  totalUseRate:'总体利用率',
+  counts:'数量',
+  func:'Function',
+  links:'友情链接',
+  hot:'Hot',
+  requireReputationD:"信誉度不足",
+  export:"导出"
 }
