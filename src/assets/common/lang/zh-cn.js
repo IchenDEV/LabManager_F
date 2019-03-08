@@ -96,5 +96,6 @@ export const message = {
   links:'友情链接',
   hot:'热门',
   requireReputationD:"信誉度不足",
-  export:"导出"
+  export:"导出",
+  book:'预约'
 }

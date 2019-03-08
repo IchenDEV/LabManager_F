@@ -1,7 +1,9 @@
 <template>
   <div :class="{'col-panel':mobileView,'row-panel':!mobileView}" >
     <admin-menu></admin-menu>
+    <transition name="slide-fade" mode="out-in">
     <router-view :class="{'center':!mobileView}" v-if="isRouterAlive"/>
+    </transition>
   </div>
 </template>
 <script>

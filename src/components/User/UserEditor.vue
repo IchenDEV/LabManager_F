@@ -83,7 +83,6 @@ export default {
           this.item = res.data.info.list[0];
           this.sex = this.sexString[this.item.sex];
           this.role = this.roleString[this.item.roleId - 1];
-          this.$store.commit("onDataReached", res.data,this); 
         })
         .catch();
     },
@@ -110,19 +109,14 @@ export default {
       if (this.item.password != null && this.item.password !='') {
         this.item.password = tools.sha3(this.item.password);
       }
-
       if (this.item.superPassword != null && this.item.superPassword != '') {
         this.item.superPassword = tools.sha3(this.item.superPassword);
       }
 
       delete this.item["permissionList"];
-      for (var key in this.item) {
-        if (this.item[key] === null || this.item[key] === "") {
-          delete this.item[key];
-        }
-      }
+      tools.removeEmptyKey(this.item)
       tools.easyfetch(tools.Api.UpdateUser,this.item)
-      .then((res)=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();this.$store.commit("onDataReached",res.data); })
+      .then(()=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();})
       .catch()
     }
   },

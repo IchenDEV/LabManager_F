@@ -1,5 +1,6 @@
 import fetchx from "@/util/fetch.js";
 export default {
+  Host:process.env.VUE_APP_SERVER_HOST,
   Api: {
     AddDevice: '/device/add',
     ListDevice: '/device/list',
@@ -7,7 +8,7 @@ export default {
     DelDevice: '/device/delete',
 
     HotDevice:'/book/getHot',
-    AddBook:'/book//\book/add',
+    AddBook:'/book/add',
     BookExport:'/book/export',
     ListBook:'/book/list',
     UpdateBook:'/book/update',
@@ -20,7 +21,7 @@ export default {
 
     
     TotalUseRate: '/analyse/totalUseRate',
-    Counts: 'analyse/count',
+    Counts: '/analyse/count',
 
     UserInfo: '/login/getInfo',
     UpdateInfo:'/login/updateInfo',
@@ -99,7 +100,7 @@ export default {
     return new Promise((resolve) => {
       fetchx({
           method: 'Post',
-          url: '//localhost:8080/' + api,
+          url: this.Host + api,
           data: fx
         })
         .then(res => {
@@ -116,7 +117,7 @@ export default {
     return new Promise((resolve) => {
       fetchx({
           method: 'Post',
-          url: '//localhost:8080/' + api,
+          url: this.Host + api,
           data: fx,
           responseType: 'blob'
         })

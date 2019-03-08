@@ -56,14 +56,17 @@ import router from '@/router'
 export default {
   data() {
     return {
-      projects: {},
+      projects: '',
       search: { pageRow: 10 },
       iswaitting: false
     };
   },
   methods: {
     getInfo() {
-      tools.easyfetch(tools.Api.ListProject,this.search).then(res=>{this.projects=res.info})
+      tools.easyfetch(tools.Api.ListProject,this.search)
+        .then(res=>{
+          this.projects=res.data.info
+          })
     },
     onPageChange(page) {
       this.search.pageNum = page;

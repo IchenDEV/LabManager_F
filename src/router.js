@@ -1,34 +1,34 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import myView from '@/view/myView'
-import View404 from '@/view/404'
-import loginView from '@/view/loginView'
-import bookView from '@/view/bookView'
-import findView from '@/view/findView'
-import homeView from '@/view/homeView'
-import deviceView from '@/view/Public/deviceView'
+const myView  = () => import ('@/view/myView')
+const View404 =()=>import(/* webpackChunkName: "V404" */'@/view/404')
+const loginView =()=> import('@/view/loginView')
+const bookView =()=> import ('@/view/bookView')
+const findView =()=> import ('@/view/findView')
+const homeView =()=> import ('@/view/homeView')
+const deviceView =()=> import ('@/view/Public/deviceView')
 
-import departmentAdmin from '@/view/Admin/MgrEachPage/departmentAdmin'
-import groupAdmin from '@/view/Admin/MgrEachPage/groupAdmin'
-import userAdmin from '@/view/Admin/MgrEachPage/userAdmin'
-import projectAdmin from '@/view/Admin/MgrEachPage/projectAdmin'
-import deviceAdmin from '@/view/Admin/MgrEachPage/deviceAdmin'
-import labAdmin from '@/view/Admin/MgrEachPage/labAdmin'
+const departmentAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/departmentAdmin')
+const groupAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/groupAdmin')
+const userAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/userAdmin')
+const projectAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/projectAdmin')
+const deviceAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/deviceAdmin')
+const labAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/labAdmin')
 
-import announcement from '@/view/Admin/MgrPage/announcement'
-import device from '@/view/Admin/MgrPage/device'
-import log from '@/view/Admin/MgrPage/log'
-import book from '@/view/Admin/MgrPage/book'
-import lab from '@/view/Admin/MgrPage/lab'
-import project from '@/view/Admin/MgrPage/project'
-import user from '@/view/Admin/MgrPage/user'
-import group from '@/view/Admin/MgrPage/group'
-import backup from '@/view/Admin/MgrPage/backup'
-import statistics from '@/view/Admin/MgrPage/statistics'
-import department from '@/view/Admin/MgrPage/department'
+const announcement =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/announcement')
+const device =()=>import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/device')
+const log =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/log')
+const book =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/book')
+const lab =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/lab')
+const project =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/project')
+const user =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/user')
+const group =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/group')
+const backup =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/backup')
+const statistics =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/statistics')
+const department =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/department')
 
-import adminView from '@/view/Admin/adminView'
+const adminView =()=> import ('@/view/Admin/adminView')
 
 Vue.use(Router)
 export default new Router({

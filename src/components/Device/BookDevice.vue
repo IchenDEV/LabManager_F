@@ -18,11 +18,13 @@
         <h3>{{$t('message.scheduledTime')}}</h3>
         <Timeline>
           <TimelineItem v-for="(item,index) in bookInfo.list" :key="index">
+            <p>
             <a @click="openModel(item.applicant,item.applicantNickname)">
               <Tooltip
                 :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
               >{{item.beginTime}} ~ {{item.endTime}}</Tooltip>
             </a>
+            </p>
           </TimelineItem>
         </Timeline>
       </Card>

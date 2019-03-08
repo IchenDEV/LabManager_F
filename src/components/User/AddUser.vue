@@ -73,8 +73,7 @@ export default {
   methods: {
     addClicked() {
       this.iswaitting = true;
-      let code = tools.sha3(this.con.password)
-      this.con.password = code;
+      this.con.password = tools.sha3(this.con.password);
       this.con.roleId = this.roleString.indexOf(this.role) + 1;
       tools.easyfetch(tools.Api.AddUser, this.con).then(() => {
         this.iswaitting = false;
@@ -84,5 +83,3 @@ export default {
   }
 };
 </script>
-<style>
-</style>

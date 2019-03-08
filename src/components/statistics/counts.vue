@@ -15,9 +15,8 @@ export default {
         metrics: ['value']
       }
       return {
-        
         barData: {
-          columns: ['item', 'value'],
+          columns: ['name', 'value'],
           rows: []
         }
       }

@@ -12,10 +12,10 @@ export default {
   data() {
     this.chartSettings = {
       dataType: {
-        占比: "percent"
+        percent: "percent"
       },
       seriesMap: {
-        占比: {
+        percent: {
           min: 0,
           max: 1
         }
@@ -25,7 +25,7 @@ export default {
       iswaitting: false,
       chartData: {
         columns: ["type", "value"],
-        rows: [{ type: "占比", value: 0.8 }]
+        rows: [{ type: "percent", value: 0.8 }]
       }
     };
   },
@@ -41,3 +41,9 @@ export default {
   }
 };
 </script>
+<style>
+.gauge {
+  min-width: 400px;
+  min-height: 400px;
+}
+</style>

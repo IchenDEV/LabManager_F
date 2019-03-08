@@ -1,8 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" :style="{backgroundImage: 'url(' +bg + ')'}">
     <NavBar></NavBar>
     <header style="height:80px;"></header>
-    <router-view v-if="isRouterAlive"/>
+    <transition name="slide-fade" mode="out-in">
+      <router-view v-if="isRouterAlive"/>
+    </transition>
     <BackTop></BackTop>
     <my-footer></my-footer>
   </div>
@@ -20,7 +22,8 @@ export default {
   },
   data() {
     return {
-      isRouterAlive: true
+      isRouterAlive: true,
+      bg:require('@/assets/image.jpg')
     };
   },
   methods: {
@@ -62,6 +65,12 @@ export default {
 </script>
 <style>
 #app {
+  background:url();
+  background-color: #efefef !important;
+  background-position: center;
+  background-size: cover; 
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   font-family: "Avenir", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -71,15 +80,5 @@ export default {
 }
 html {
   font-size: 100%;
-}
-#pop {
-  position: absolute;
-  display: none;
-}
-.ui-tabs {
-  margin-bottom: 0 !important;
-}
-.ui-tabs__body {
-  display: none !important;
 }
 </style>

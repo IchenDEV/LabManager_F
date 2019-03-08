@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import '@babel/polyfill'
 import App from './App'
 import {
   Card,
@@ -19,24 +20,35 @@ import {
   Icon,
   Submenu
 } from 'iview'
+import {
+  UiButton,
+  UiFab,
+  UiIcon,
+  UiModal,
+  UiTabs,
+  UiTab,
+  UiMenu,
+  UiSelect,
+  UiTextbox,
+  UiAlert,
+  UiDatepicker
+} from 'keen-ui'
 import router from './router'
-import KeenUI from 'keen-ui'
-import 'keen-ui/dist/keen-ui.css'
-import 'url-search-params-polyfill'
+
 import Vuex from 'vuex'
 import tools from '@/util/tools.js'
-import 'iview/dist/styles/iview.css'
-import '@babel/polyfill'
 import VueI18n from 'vue-i18n'
 import en from 'iview/dist/locale/en-US'
 import zh from 'iview/dist/locale/zh-CN'
 import VueQuillEditor from 'vue-quill-editor'
-// require styles 引入样式
+
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
+import '@/assets/public_css.css'
+import 'keen-ui/dist/keen-ui.css'
+import 'iview/dist/styles/iview.css'
+
 Vue.use(VueQuillEditor)
-Vue.use(KeenUI)
 Vue.use(Vuex)
 Vue.use(VueI18n)
 Vue.locale = () => {};
@@ -56,10 +68,22 @@ Vue.component('Submenu', Submenu)
 Vue.component('Icon', Icon)
 Vue.prototype.$Notice = Notice
 Vue.config.productionTip = false
+
+Vue.component('UiButton', UiButton)
+Vue.component('UiFab', UiFab)
+Vue.component('UiIcon', UiIcon)
+Vue.component('UiModal', UiModal)
+Vue.component('UiTabs', UiTabs)
+Vue.component('UiTab', UiTab)
+Vue.component('UiSelect', UiSelect)
+Vue.component('UiAlert', UiAlert)
+Vue.component('UiTextbox', UiTextbox)
+Vue.component('UiDatepicker', UiDatepicker)
+Vue.component('UiMenu', UiMenu)
+
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    host:'//localhost:8080/',
     currentUser: {
       username: '',
       nickname: '',
@@ -102,17 +126,6 @@ const store = new Vuex.Store({
       state.currentUser.username = ''
       state.currentUser.id = ''
       state.isAdmin = false
-    },
-    /* eslint-disable */
-    onDataReached(st, da, that) {
-      let state = this.state
-      if (da.code == '20011' && state.hasSingin == true) {
-        state.hasSingin == false
-        that.$Notice.warning({
-          title: 'Login Expired'
-        });
-        this.cleanInfo()
-      }
     }
   }
 })
@@ -138,7 +151,6 @@ new Vue({
   mounted() {
     this.$store.dispatch('getInfo')
     document.title = this.$t('message.productName')
-    // 删除加载动画demo
     if (document.getElementById('nb-global-spinner')) {
       document.body.removeChild(document.getElementById('nb-global-spinner'));
     }

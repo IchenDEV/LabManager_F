@@ -10,15 +10,9 @@
   </div>
 </template>
 <script>
-import rate from "@/components/Statistics/rate";
+import rate from "@/components/Statistics/totalUseRate";
 import counts from "@/components/Statistics/counts";
 export default {
   components: { rate, counts }
 };
 </script>
-<style>
-.gauge {
-  min-width: 400px;
-  min-height: 400px;
-}
-</style>

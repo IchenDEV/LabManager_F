@@ -76,7 +76,7 @@ export const message = {
   noBackup: 'No backup',
   setBackupSchedule: 'Set backup cycle',
   footerAlert: 'You can add % to start fuzzy search in Search items',
-  productName: 'Lab equipment management system',
+  productName: 'Lab Equipment Management System',
   devBy:'Developed by xxx',
   add:'add',
   restart:'restart',

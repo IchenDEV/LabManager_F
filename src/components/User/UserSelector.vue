@@ -31,9 +31,7 @@ export default {
         })
         .catch()
     },
-    /* eslint-disable */
     vs (){
-        //this.selected = this.select  
         this.$emit('change', this.select)
     }
   },

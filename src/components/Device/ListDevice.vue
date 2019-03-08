@@ -51,7 +51,7 @@
             v-if="admin"
             color="primary"
             icon="delete"
-            @click="bookClicked(item.id)"
+            @click="modifyClicked(item.id)"
           >{{$t('message.modify')}}</ui-button>
           <ui-button
             v-if="admin"
