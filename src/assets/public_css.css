@@ -21,6 +21,7 @@ body {
 }
 .ui-menu{
   background-color: rgba(255, 255, 255, 0.8) !important;
+  margin: auto !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }

@@ -1,6 +1,6 @@
 <template>
   <div :class="{'col-panel':mobileView,'row-panel':!mobileView}" >
-    <admin-menu class='mx'></admin-menu>
+    <admin-menu :class="{'mx':!mobileView}"></admin-menu>
     <transition name="slide-fade" mode="out-in">
     <router-view :class="{'center':!mobileView}" v-if="isRouterAlive"/>
     </transition>
@@ -33,7 +33,7 @@ export default {
 </script>
 <style>
 .mx{
-  margin-left: 10px;
+ padding-left: 10px;
 }
 </style>
 
