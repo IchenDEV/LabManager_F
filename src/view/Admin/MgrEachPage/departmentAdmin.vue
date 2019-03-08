@@ -66,13 +66,13 @@ export default {
   },
   methods: {
     getDepartmentInfo() {
-      tools.esayfetch(tools.Api.ListDepartment, this.search).then(res => {
+      tools.easyfetch(tools.Api.ListDepartment, this.search).then(res => {
         this.item = res.data.info.list[0];
       });
       this.getDepartmentUserInfo();
     },
     getDepartmentUserInfo() {
-      tools.esayfetch(tools.Api.ListDepartmentUser, this.search2).then(res => {
+      tools.easyfetch(tools.Api.ListDepartmentUser, this.search2).then(res => {
         this.userInfo = res.data.info;
       });
     },
@@ -83,7 +83,7 @@ export default {
         department: this.$route.params.id,
         status: 1
       };
-      tools.esayfetch(tools.Api.AddDepartmentUser, con).then(() => {
+      tools.easyfetch(tools.Api.AddDepartmentUser, con).then(() => {
         this.iswaitting = false;
         this.getDepartmentInfo;
       });
@@ -91,7 +91,7 @@ export default {
     deleteUserClick(id) {
       this.iswaitting = true;
       let con = { id: id };
-      tools.esayfetch(tools.Api.DelDepartmentUser, con).then(() => {
+      tools.easyfetch(tools.Api.DelDepartmentUser, con).then(() => {
         this.iswaitting = false;
         this.getDepartmentInfo;
       });
@@ -102,7 +102,7 @@ export default {
     },
     updateClick() {
       this.iswaitting = true;
-      tools.esayfetch(tools.Api.UpdateDepartment, this.item).then(() => {
+      tools.easyfetch(tools.Api.UpdateDepartment, this.item).then(() => {
         this.iswaitting = false;
         this.getDepartmentInfo;
       });

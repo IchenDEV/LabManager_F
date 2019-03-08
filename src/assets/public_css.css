@@ -3,8 +3,11 @@ body {
   background-color: #f2f2f2 !important;
 }
 .max-w{
-  min-width: 200px;
-  max-height: 40%;
+  max-width: 400px;
+  max-height: 80%;
+}
+.ui-tabs__header-items{
+  overflow: scroll
 }
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */
@@ -25,6 +28,10 @@ body {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+.ivu-menu{
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 .ui-tabs {
   margin-bottom: 0 !important;
 }
@@ -38,6 +45,7 @@ img{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   /* background-color: white */
 }
 .flex-panel>div {

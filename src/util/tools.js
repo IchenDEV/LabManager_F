@@ -63,6 +63,7 @@ export default {
     ListUser:'/user/list',
     ListUserDepartment:'/user/listDepartment',
     ListUserGroup:'/user/listGroup',
+    ListUserProject:'/user/listProject',
     DelUser:'/user/delete',
     UpdateUser:'/user/update',
     AddUser:'/user/add',

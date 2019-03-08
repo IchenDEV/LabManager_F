@@ -1,51 +1,60 @@
 <template>
-    <ui-select
-      has-search
-      :label='label'
-      :options='projectInfo.list'
-      :keys='keys'
-      v-model='select'
-      @select="vs"
-    ></ui-select>
+  <ui-select
+    has-search
+    :label="label"
+    :options="projectInfo.list"
+    :keys="keys"
+    v-model="select"
+    @select="vs"
+  ></ui-select>
 </template>
 <script>
-import tools from '@/util/tools.js'
+import tools from "@/util/tools.js";
 export default {
-  props: { label: { default: '' }, selected:{ default: null },isWorking:{ default: false },user:{default: null}},
-  model: {
-    prop: 'selected',
-    event: 'change'
+  props: {
+    label: { default: "" },
+    selected: { default: null },
+    isWorking: { default: false },
+    user: { default: null }
   },
-  data () {
+  model: {
+    prop: "selected",
+    event: "change"
+  },
+  data() {
     return {
-      search:{},
+      search: {},
       projectInfo: { list: [] },
       iswaitting: false,
-      select: '',
-      keys:{ label: "name", value: "id" }
-    }
+      select: "",
+      keys: { label: "name", value: "id" }
+    };
   },
   methods: {
-    getProjectInfo () {
-      if(this.isWorking){
-        this.search.status = 1
+    getProjectInfo() {
+      if (this.isWorking) {
+        this.search.status = 1;
       }
-      if(this.user!=null){
-        this.search.user=this.user
+      if (this.user != null) {
+        this.search.id = this.user;
+        this.keys.label="projectName";
+        tools.easyfetch(tools.Api.ListUserProject, this.search).then(res => {
+        this.projectInfo = res.data.info;
+        });
+      } else {
+        tools.easyfetch(tools.Api.ListProject, this.search).then(res => {
+          this.projectInfo = res.data.info;
+        });
       }
-        tools.easyfetch(tools.Api.ListProject,this.search)
-        .then(res => {
-          this.projectInfo = res.data.info
-        })
     },
-    vs (){
-        this.$emit('change', this.select)
+    vs() {
+      this.$emit("change", this.select);
     }
   },
-  mounted () {
+  mounted() {
     if (this.$store.state.hasSingin === true) {
-        this.getProjectInfo()
+      this.getProjectInfo();
     }
   }
-}
+};
 </script>

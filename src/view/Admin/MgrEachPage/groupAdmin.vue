@@ -127,7 +127,7 @@ export default {
     addUserClick() {
       this.iswaitting = true;
       let con = { user: this.s.id, group: this.$route.params.id, status: 1 };
-      tools.esayfetch(tools.Api.AddGroupUser, con).then(() => {
+      tools.easyfetch(tools.Api.AddGroupUser, con).then(() => {
         this.iswaitting = false;
         this.getGroupInfo();
       });
@@ -149,6 +149,7 @@ export default {
       let con = { id: id };
       tools.easyfetch(tools.Api.DelGroupUser, con).then(() => {
         this.getGroupInfo();
+        this.iswaitting = false;
       });
     },
     deleteProjectClick(id) {

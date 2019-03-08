@@ -29,7 +29,7 @@
         </span>
         <span v-if="!simple">
           <h3>{{$t("message.email")}}</h3>
-          <p>{{email}}</p>
+          <span style="word-wrap: anywhere;">{{email}}</span>
         </span>
         <span v-if="!simple">
           <h3>{{$t("message.address")}}</h3>
