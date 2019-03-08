@@ -16,7 +16,7 @@
       </ui-tab>
       <ui-tab id='home'  icon='home'  title='Home'    @select='tabChange'>
         <div slot="header" class="my-custom-tab-header">
-            <img class="center" slot="icon" src="favicon.ico" alt="logo"/> 
+            <img class="center cx" slot="icon" src="favicon.ico" alt="logo"/> 
         </div>
       </ui-tab>
       <ui-tab id='my'  @select='tabChange' v-if="$store.state.hasSingin">
@@ -70,5 +70,10 @@ export default {
 }
 .my-custom-tab-header >p{
   margin: auto;
+}
+.cx{
+margin-bottom: -20px;
+height: 60px;
+z-index: 999;
 }
 </style>

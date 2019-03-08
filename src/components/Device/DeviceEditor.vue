@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card :bordered="false" >
       <h2>{{$t('message.modify')}} {{$t('message.device')}}</h2>
       <div class="flex-panel">
         <ui-textbox icon="person" floating-label :label="$t('message.No')" v-model="item.No"></ui-textbox>
@@ -65,7 +65,6 @@ export default {
         })
     },
     getDeviceInfo() {
-      this.search=tools.removeEmptyKey(this.search)
       tools.easyfetch(tools.Api.ListDevice,this.search)
       .then(res => {
           this.item = res.data.info.list[0];

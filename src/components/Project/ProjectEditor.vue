@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card :bordered="false" >
       <h2>{{$t('message.modify')}} {{$t('message.project')}}</h2>
       <Tag color="success" v-if="item.status===1">{{$t('message.working')}}</Tag>
       <Tag color="error" v-if="item.status===0">{{$t('message.done')}}</Tag>
@@ -60,11 +60,6 @@ export default {
   },
   methods: {
     getInfo() {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === "") {
-          delete this.search[key];
-        }
-      }
       tools.easyfetch(tools.Api.ListProject,this.search)
       .then(res => {
           this.item = res.data.info.list[0];

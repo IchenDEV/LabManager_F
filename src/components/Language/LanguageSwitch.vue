@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ui-button color="primary" has-dropdown ref="dropdownButton">
+    <ui-button icon='g_translate' color="primary" has-dropdown ref="dropdownButton">
       <ui-menu
         contain-focus
         has-icons

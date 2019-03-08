@@ -2,7 +2,7 @@
   <section class="htmleaf-container">
     <div class="search-wrapper" :class="{'active':isActive}">
       <div class="input-holder">
-        <input type="text" class="search-input" :placeholder="placeholder" v-model="content">
+        <input type="text" class="search-input" :placeholder="placeholder" v-model="content" @keyup.enter="searchToggle">
         <button class="search-icon" @click="searchToggle">
           <span></span>
         </button>

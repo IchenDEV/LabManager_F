@@ -1,21 +1,20 @@
 <template>
   <div class="flex-panel warp">
-    <Card class="card">
-      <add-department @added='rel'></add-department>
+    <Card :bordered="false"  class="card max-w">
+      <add-department @added="rel"></add-department>
     </Card>
-      <list-department></list-department>
+    <list-department ref="departmentList"></list-department>
   </div>
 </template>
 <script>
-import AddDepartment from '@/components/Department/AddDepartment'
-import ListDepartment from '@/components/Department/ListDepartment'
+import AddDepartment from "@/components/Department/AddDepartment";
+import ListDepartment from "@/components/Department/ListDepartment";
 export default {
   components: { AddDepartment, ListDepartment },
-  inject:  ['reloadAdmin'],
-  methods:{
-    rel (){
-      this.reloadAdmin
+  methods: {
+    rel() {
+      this.$refs.departmentList.getInfo();
     }
   }
-}
+};
 </script>

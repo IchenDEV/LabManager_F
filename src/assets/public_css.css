@@ -2,13 +2,17 @@ body {
   margin: 0;
   background-color: #f2f2f2 !important;
 }
+.max-w{
+  min-width: 200px;
+  max-height: 40%;
+}
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */
 .slide-fade-enter-active {
   transition: all .3s ease;
 }
 .slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active for below version 2.1.8 */ {
@@ -17,6 +21,8 @@ body {
 }
 .ui-menu{
   background-color: rgba(255, 255, 255, 0.8) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 .ui-tabs {
   margin-bottom: 0 !important;
@@ -101,24 +107,25 @@ box-shadow: 0px 2px 2px rgba(0,0,0,0.2)
 }
 .ivu-card{
   border-radius: 2rem !important;
-  background: rgba(255, 255, 255, 0.85)!important;
+  background: rgba(255, 255, 255, 0.7)!important;
 }
 .ivu-card:hover{
-  box-shadow: 2px 10px 10px rgba(0,0,0,.4) !important;
+  box-shadow: 5px 15px 15px rgba(0,0,0,.5) !important;
+  background: rgba(255, 255, 255, 0.6)!important;
 }
 .ui-modal__mask {
-  background-color: rgba(255, 255, 255, .6) !important;
+  background-color: rgba(255, 255, 255, .5) !important;
   z-index: 9999 !important;
 }
 .ui-select__dropdown {
-  background-color: rgba(255, 255, 255,.6) !important
+  background-color: rgba(255, 255, 255,.7) !important
 }
 .ui-select__options {
-  background-color: rgba(255, 255, 255,.7) !important;
+  background-color: rgba(255, 255, 255,.5) !important;
 }
 
 .ui-calendar__body {
-  background-color: rgba(255, 255, 255,.7) !important;
+  background-color: rgba(255, 255, 255,.2) !important;
 }
 
 .ui-popover {
@@ -130,7 +137,7 @@ box-shadow: 0px 2px 2px rgba(0,0,0,0.2)
   backdrop-filter: blur(10px)
 }
 .ui-calendar__header {
-  opacity: .9
+  opacity: .7
 }
 .ui-modal__header {
   box-shadow: 0 0 0 !important;

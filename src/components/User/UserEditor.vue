@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card :bordered="false" >
       <h2>{{$t('message.modify')}} {{$t('message.user')}}</h2>
       <div class="flex-panel">
         <ui-textbox icon="person" floating-label :label="$t('message.Uname')" v-model="item.nickname"></ui-textbox>
@@ -18,9 +18,9 @@
           :error="$t('message.wrongEmail')"
         ></ui-textbox>
       </div>
-      <ui-button color="primary" icon="update" @click="updatePassword" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
+      <ui-button color="primary" icon="fingerprint" @click="updatePassword" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
       <ui-button v-if="item.roleId===1" color="primary" icon="update" @click="updateSuperPassword" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.superPassword')}}</ui-button>
-      <ui-button color="primary" icon="update" @click="inputSuper" :loading="iswaitting">{{$t('message.update')}}</ui-button>
+      <ui-button color="primary" icon="fingerprint" @click="inputSuper" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
     <ui-modal ref="SuperPasswordmModal" :title="$t('message.inputCurrentSuperPassword')">
       <ui-textbox
@@ -73,11 +73,6 @@ export default {
   },
   methods: {
     getUserInfo() {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === "") {
-          delete this.search[key];
-        }
-      }
       tools.easyfetch(tools.Api.ListUser,this.search)
         .then(res => {
           this.item = res.data.info.list[0];
@@ -114,7 +109,6 @@ export default {
       }
 
       delete this.item["permissionList"];
-      tools.removeEmptyKey(this.item)
       tools.easyfetch(tools.Api.UpdateUser,this.item)
       .then(()=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();})
       .catch()

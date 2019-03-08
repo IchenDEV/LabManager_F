@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card :bordered="false" >
     <h1>{{$t('message.appointment')}} {{$t('message.list')}}</h1>  
     <div class="flex-panel">
       <ui-textbox icon="person" floating-label label="id" v-model="search.id"></ui-textbox>
@@ -8,10 +8,10 @@
       <project-selector v-model="project" :label="$t('message.project')"></project-selector>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
-    <ui-button color="primary" icon="search" @click="exportExcel">{{$t('message.export')}}</ui-button>
+    <ui-button color="primary" icon="cloud_download" @click="exportExcel">{{$t('message.export')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card v-for="(item,index) in books.list" :key="index">
+      <Card :bordered="false"  v-for="(item,index) in books.list" :key="index">
         <p slot="title">{{item.applicantNickname}}</p>
         <p>{{item.id}}</p>
         <p>{{item.projectName}}</p>
@@ -28,7 +28,7 @@
           >{{$t('message.delete')}}</ui-button>
         </span>
       </Card>
-      <Card v-if="books.totalCount===0">
+      <Card :bordered="false"  v-if="books.totalCount===0">
         <div>{{$t('message.findless')}} {{$t('message.appointment')}}</div>
       </Card>
     </div>
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     exportExcel(){
-      tools.fetchFile(tools.Api.ListAnnouncement,this.search)
+      tools.fetchFile(tools.Api.ExportBook,this.search)
         .then(res => {
           this.download(res.data)
         })
@@ -101,7 +101,6 @@ export default {
       tools.easyfetch(tools.Api.DelBook,da)
     },
     searchClicked() {
-      this.search=tools.removeEmptyKey(this.search)
       this.getInfo();
     }
   },

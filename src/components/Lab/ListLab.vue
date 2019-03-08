@@ -1,16 +1,16 @@
 <template>
 <div>
-  <Card>
+  <Card :bordered="false" >
   <h2>{{$t('message.lab')}} {{$t('message.list')}}</h2>
   <div class="flex-panel">
       <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
-      <ui-textbox icon="location_on" floating-label :label="$t('message.location')" v-model="search.location"></ui-textbox>
+      <ui-textbox icon="not_listed_location" floating-label :label="$t('message.location')" v-model="search.location"></ui-textbox>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
   </Card>
   <div class="flex-panel">
-    <Card v-for="(item,index) in labs.list" :key="index">
+    <Card :bordered="false"  v-for="(item,index) in labs.list" :key="index">
       <p slot="title">{{item.name}}</p>
       <p>id: {{item.id}}</p>
       <p>{{$t('message.location')}} {{item.location}}</p>
@@ -21,7 +21,7 @@
       <ui-button color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
       </span>
     </Card>
-    <Card v-if="labs.totalCount===0">
+    <Card :bordered="false"  v-if="labs.totalCount===0">
         <div>
          {{$t('message.findless')}}{{$t('message.lab')}}
         </div>
@@ -60,7 +60,6 @@ export default {
         .catch()
     },
     searchClicked() {
-      this.search=tools.removeEmptyKey(this.search)
       this.getInfo();
     },
     moClicked (id){

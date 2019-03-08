@@ -1,6 +1,6 @@
 <template>
   <div :class="{'col-panel':mobileView,'row-panel':!mobileView}" >
-    <admin-menu></admin-menu>
+    <admin-menu class='mx'></admin-menu>
     <transition name="slide-fade" mode="out-in">
     <router-view :class="{'center':!mobileView}" v-if="isRouterAlive"/>
     </transition>
@@ -10,11 +10,6 @@
 import AdminMenu from "@/components/Menu/Menu"
 export default {
   components :{AdminMenu},
-  provide() {
-    return {
-      reloadAdmin: this.reloadAdmin
-    };
-  },
   data() {
     return {
       screenWidth: document.body.clientWidth,
@@ -33,12 +28,12 @@ export default {
         that.screenWidth = document.body.clientWidth;
       })();
     };
-  },
-  methods: {
-    reloadAdmin() {
-      this.isRouterAlive = false;
-      this.$nextTick(() => (this.isRouterAlive = true));
-    }
   }
 };
 </script>
+<style>
+.mx{
+  margin-left: 10px;
+}
+</style>
+

@@ -18,7 +18,8 @@ import {
   Badge,
   Notice,
   Icon,
-  Submenu
+  Submenu,
+  TimelineItem
 } from 'iview'
 import {
   UiButton,
@@ -42,8 +43,7 @@ import en from 'iview/dist/locale/en-US'
 import zh from 'iview/dist/locale/zh-CN'
 import VueQuillEditor from 'vue-quill-editor'
 
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
+
 import '@/assets/public_css.css'
 import 'keen-ui/dist/keen-ui.css'
 import 'iview/dist/styles/iview.css'
@@ -54,6 +54,7 @@ Vue.use(VueI18n)
 Vue.locale = () => {};
 Vue.component('Card', Card)
 Vue.component('Page', Page)
+Vue.component('TimelineItem', TimelineItem)
 Vue.component('Tag', Tag)
 Vue.component('Time', Time)
 Vue.component('Timeline', Timeline)

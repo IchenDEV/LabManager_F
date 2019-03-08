@@ -29,7 +29,6 @@ export default {
         .then(res => {
           this.userInfo = res.data.info
         })
-        .catch()
     },
     vs (){
         this.$emit('change', this.select)

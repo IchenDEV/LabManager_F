@@ -7,6 +7,7 @@
       :label="$t('message.password')"
       v-model="password"
       type="password"
+      @keyup.enter="LonginClicked"
     ></ui-textbox>
     <ui-button
       color="primary"

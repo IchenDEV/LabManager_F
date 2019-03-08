@@ -4,7 +4,7 @@
       <div>
         <ui-textbox icon="lock" floating-label :label="$t('message.password')" v-model="password" type="password"></ui-textbox>
       </div>
-      <ui-button color="primary" icon="adjust" @click="mohandle" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
+      <ui-button color="primary" icon="fingerprint" @click="mohandle" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
     </div>
   </div>
 </template>

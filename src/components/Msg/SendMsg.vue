@@ -5,7 +5,7 @@
     <ui-textbox icon="lock" floating-label :label="$t('message.message')" v-model="con.msg"></ui-textbox>
     <ui-button
       color="primary"
-      icon="check"
+      icon="send"
       @click="addClicked"
       :loading="iswaitting"
       :disabled="con.msg===''||con.msg===null||(s==null&&quickid==null)"

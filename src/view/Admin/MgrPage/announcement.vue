@@ -3,7 +3,10 @@
     <Card class="card">
       <add-announcement @added='rel'></add-announcement>
     </Card>
-      <announcement-list></announcement-list>
+   <Card :bordered="false">
+       <p slot="title">{{$t('message.announcement')}}</p>
+       <Announcement-list></Announcement-list>
+    </Card>
   </div>
 </template>
 <script>
@@ -11,10 +14,9 @@ import AddAnnouncement from '@/components/Announcement/AddAnnouncement'
 import AnnouncementList from '@/components/Announcement/AnnouncementList'
 export default {
   components: { AddAnnouncement, AnnouncementList},
-  inject:  ['reloadAdmin'],
   methods:{
     rel (){
-      this.reloadAdmin
+      this.$$refs.announcementList.getInfo()
     }
   }
 }

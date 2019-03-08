@@ -2,7 +2,7 @@
   <div>
     <h1>{{$t('message.appointment')}}</h1>
     <div class="flex-panel">
-      <Card>
+      <Card :bordered="false" >
         <div>
           <h2>{{$t('message.device')}} {{item.id}}</h2>
           <p>{{$t('message.name')}} {{item.name}}</p>
@@ -28,7 +28,7 @@
           </TimelineItem>
         </Timeline>
       </Card>
-      <Card>
+      <Card :bordered="false" >
         <div>
           <h2>{{$t('message.appointment')}}</h2>
           <project-selector

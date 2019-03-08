@@ -1,9 +1,9 @@
 <template>
-  <div class="add-lab">
+  <div>
     <h2>{{$t('message.create')}} {{$t('message.lab')}}</h2>
     <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
     <ui-textbox icon="lock" floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
-    <ui-textbox icon="lock" floating-label :label="$t('message.location')" v-model="con.location"></ui-textbox>
+    <ui-textbox icon="not_listed_location" floating-label :label="$t('message.location')" v-model="con.location"></ui-textbox>
     <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">{{$t('message.create')}}</ui-button>
   </div>
 </template>
@@ -36,5 +36,3 @@ export default {
   }
 }
 </script>
-<style>
-</style>

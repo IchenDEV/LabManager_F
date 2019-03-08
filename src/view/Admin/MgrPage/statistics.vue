@@ -1,12 +1,14 @@
 <template>
   <div>
     <h1>{{$t('message.statistics')}}</h1>
-    <Card>
+     <div class="flex-panel">
+    <Card :bordered="false" >
       <rate></rate>
     </Card>
-    <Card style="margin-top:20px;">
+    <Card :bordered="false" >
       <counts></counts>
     </Card>
+     </div>
   </div>
 </template>
 <script>

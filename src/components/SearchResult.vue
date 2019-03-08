@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex-panel">
-      <Card v-for="(item,index) in data.info.list" :key="index">
+      <Card :bordered="false"  v-for="(item,index) in data.info.list" :key="index">
         <div>
           <Tag>{{$t('message.'+item.type)}}</Tag>
           <p>{{$t('message.name')}} {{item.name}}</p>
@@ -14,7 +14,7 @@
           @click="bookClicked(item.id)"
         >{{$t('message.appointment')}}</ui-button>
       </Card>
-      <Card v-if="data.info.totalCount===0">
+      <Card :bordered="false"  v-if="data.info.totalCount===0">
         <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
     </div>

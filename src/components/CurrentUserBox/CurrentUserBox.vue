@@ -90,7 +90,7 @@
       <ui-button
         v-if="!simple"
         color="primary"
-        icon="adjust"
+        icon="exit_to_app"
         @click="logouthandle"
         :loading="iswaitting"
       >{{$t("message.logout")}}</ui-button>
@@ -104,7 +104,7 @@
       <ui-button
         v-if="!simple"
         color="primary"
-        icon="adjust"
+        icon="fingerprint"
         @click="passwordhandle"
         :loading="iswaitting"
       >{{$t("message.modifyPass")}}</ui-button>

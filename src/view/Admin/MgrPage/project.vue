@@ -1,10 +1,10 @@
 <template>
 <div>
   <div class="flex-panel warp">
-    <Card class="card">
+    <Card :bordered="false"  class="card max-w">
       <add-project @added='rel'/>
     </Card>
-    <list-project></list-project>
+    <list-project ref="projectList"></list-project>
   </div>
 </div>
 </template>
@@ -13,10 +13,9 @@ import AddProject from '@/components/Project/AddProject'
 import ListProject from '@/components/Project/ListProject'
 export default {
   components: { AddProject, ListProject },
-  inject:  ['reloadAdmin'],
   methods:{
     rel (){
-      this.reloadAdmin
+      this.$refs.projectList.getInfo()
     }
   }
 }

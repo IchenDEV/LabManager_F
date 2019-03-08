@@ -1,10 +1,10 @@
 <template>
 <div>
-  <div class="flex-panel warp">
-    <Card  v-if="$store.state.isSuperAdmin" class="card">
+  <div class="flex-panel warp ">
+    <Card :bordered="false"   v-if="$store.state.isSuperAdmin" class="card max-w">
       <add-user @added='rel'/>
     </Card>
-   <list-user></list-user>
+   <list-user ref="userList"></list-user>
   </div>
 </div>
 </template>
@@ -13,10 +13,9 @@ import AddUser from '@/components/User/AddUser'
 import ListUser from '@/components/User/ListUser'
 export default {
   components: { AddUser, ListUser },
-  inject:  ['reloadAdmin'],
   methods:{
     rel (){
-      this.reloadAdmin
+      this.$refs.userList.getInfo()
     }
   }
 }

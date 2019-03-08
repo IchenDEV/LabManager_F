@@ -1,5 +1,5 @@
 # labmgr
-
+[![Build Status](https://dev.azure.com/TeamDEVLab/LabManager_F/_apis/build/status/LabManager_F?branchName=master)](https://dev.azure.com/TeamDEVLab/LabManager_F/_build/latest?definitionId=1&branchName=master)
 ## Project setup
 ```
 npm install

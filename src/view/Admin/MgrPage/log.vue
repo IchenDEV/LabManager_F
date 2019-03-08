@@ -1,7 +1,8 @@
 <template>
   <div>
+    <Card :bordered="false" >
     <h1>{{$t('message.log')}}</h1>
-    <Card>
+    
   <table class="table">
   <tr >
     <th>{{$t('message.operator')}}</th>
@@ -48,8 +49,3 @@ export default {
   }
 }
 </script>
-<style>
-.table{
-  text-align: center;
-}
-</style>

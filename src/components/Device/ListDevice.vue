@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card :bordered="false" >
     <h1>{{$t('message.device')}} {{$t('message.list')}}</h1> 
     <div class="flex-panel">
       <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
@@ -22,7 +22,7 @@
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card v-for="(item,index) in info.list" :key="index">
+      <Card :bordered="false"  v-for="(item,index) in info.list" :key="index">
         <div>
           <span>
             <h2>{{$t('message.device')}} {{item.id}}</h2>
@@ -61,7 +61,7 @@
           >{{$t('message.delete')}}</ui-button>
         </div>
       </Card>
-      <Card v-if="info.totalCount===0">
+      <Card :bordered="false"  v-if="info.totalCount===0">
         <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
     </div>
@@ -100,8 +100,7 @@ export default {
     bookClicked(i) {
       router.push("device/" + i);
     },
-    getDeviceInfo() {
-      tools.removeEmptyKey(this.search)
+    getInfo() {
       tools.easyfetch(tools.Api.ListDevice,this.search)
         .then(res => {
           this.info = res.data.info;
@@ -138,7 +137,7 @@ export default {
   },
   mounted() {
     if (this.$store.state.hasSingin === true) {
-      this.getDeviceInfo();
+      this.getInfo();
       this.getLabInfo();
     }
   }

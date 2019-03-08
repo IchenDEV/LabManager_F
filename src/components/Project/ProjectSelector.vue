@@ -9,7 +9,7 @@
     ></ui-select>
 </template>
 <script>
-import fetch from '@/util/fetch.js'
+import tools from '@/util/tools.js'
 export default {
   props: { label: { default: '' }, selected:{ default: null },isWorking:{ default: false },user:{default: null}},
   model: {
@@ -27,24 +27,16 @@ export default {
   },
   methods: {
     getProjectInfo () {
-      let fetchPath='/project/list';
       if(this.isWorking){
         this.search.status = 1
       }
       if(this.user!=null){
-        this.search.id=this.user
-        fetchPath='/user/list'
-        this.keys.label="projectName"
+        this.search.user=this.user
       }
-      fetch({
-        method: 'Post',
-        url: this.$store.state.host +fetchPath ,
-        data: JSON.stringify(this.search)
-      })
+        tools.easyfetch(tools.Api.ListProject,this.search)
         .then(res => {
           this.projectInfo = res.data.info
         })
-        .catch()
     },
     vs (){
         this.$emit('change', this.select)

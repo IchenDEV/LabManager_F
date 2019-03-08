@@ -9,7 +9,7 @@ export default {
 
     HotDevice:'/book/getHot',
     AddBook:'/book/add',
-    BookExport:'/book/export',
+    ExportBook:'/book/export',
     ListBook:'/book/list',
     UpdateBook:'/book/update',
     DelBook:'/book/delete',
@@ -50,7 +50,14 @@ export default {
     AddLab:'/lab/add',
 
     ListGroup:'/group/list',
+    ListGroupUser:'/group/listUser',
+    ListGroupProject:'/group/listProject',
+    AddGroupUser:'/group/addUser',
+    DelGroupUser:'/group/deleteUser',
+    AddGroupProject:'/group/addProject',
+    DelGroupProject:'/group/deleteProject',
     AddGroup:'/group/add',
+    UpdateGroup:'/group/update',
     DeleteGroup:'/group/delete',
 
     ListUser:'/user/list',
@@ -62,7 +69,11 @@ export default {
 
     AddDepartment:'/department/add',
     ListDepartment:'/department/list',
+    ListDepartmentUser:'/department/listUser',
+    AddDepartmentUser:'/department/listUser',
+    DelDepartmentUser:'/department/deleteUser',
     DelDepartment:'/department/delete',
+    UpdateDepartment:'/department/delete',
 
     ListLog:'/log/list'
   },
@@ -95,6 +106,7 @@ export default {
   easyfetch(api, data) {
     let fx = '{}'
     if (data != null) {
+      this.removeEmptyKey(data)
       fx=JSON.stringify(data)
     }
     return new Promise((resolve) => {

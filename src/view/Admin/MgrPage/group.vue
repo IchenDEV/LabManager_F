@@ -1,9 +1,9 @@
 <template>
   <div class="flex-panel warp">
-    <Card class="card">
+    <Card :bordered="false"  class="card max-w">
       <add-group @added='rel'></add-group>
     </Card>
-      <list-group></list-group>
+      <list-group ref="groupList"></list-group>
   </div>
 </template>
 <script>
@@ -11,10 +11,9 @@ import AddGroup from '@/components/Group/AddGroup'
 import ListGroup from '@/components/Group/ListGroup'
 export default {
   components: { AddGroup, ListGroup },
-  inject:  ['reloadAdmin'],
   methods:{
     rel (){
-      this.reloadAdmin
+      this.$refs.groupList.getInfo()
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card>
+    <Card :bordered="false" >
     <h2>{{$t('message.project')}} {{$t('message.list')}}</h2>
     <div class="flex-panel">
       <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
@@ -9,14 +9,14 @@
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card v-for="(item,index) in projects.list" :key="index">
+      <Card :bordered="false"  v-for="(item,index) in projects.list" :key="index">
         <p slot="title">
           {{item.name}}
           <Tag color="success" v-if="item.status===1">{{$t('message.working')}}</Tag>
           <Tag color="error" v-if="item.status===0">{{$t('message.done')}}</Tag>
           <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
         </p>
-        <p>id：{{item.id}}</p>
+        <p>idï¼š{{item.id}}</p>
         <p>{{$t('message.description')}} {{item.description}}</p>
         <p>{{$t('message.createTime')}} {{item.createTime}}</p>
         <p>{{$t('message.beginTime')}} {{item.beginTime}}</p>
@@ -36,7 +36,7 @@
           >{{$t('message.delete')}}</ui-button>
         </span>
       </Card>
-      <Card v-if="projects.totalCount===0">
+      <Card :bordered="false"  v-if="projects.totalCount===0">
         <div>{{$t('message.findless')}} {{$t('message.project')}} </div>
       </Card>
     </div>
@@ -78,11 +78,6 @@ export default {
       tools.easyfetch(tools.Api.DelProject,data)
     },
     searchClicked() {
-      for (var key in this.search) {
-        if (this.search[key] === null || this.search[key] === "") {
-          delete this.search[key];
-        }
-      }
       this.getInfo();
     },
     moClicked (id){
