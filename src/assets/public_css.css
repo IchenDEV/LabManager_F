@@ -2,6 +2,9 @@ body {
   margin: 0;
   background-color: #f2f2f2 !important;
 }
+.ivu-input {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
 .max-w{
   max-width: 400px;
   max-height: 80%;
@@ -12,10 +15,10 @@ body {
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .2s ease;
 }
 .slide-fade-leave-active {
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active for below version 2.1.8 */ {

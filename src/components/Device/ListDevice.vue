@@ -190,11 +190,11 @@ export default {
       } else {
         this.search.location = this.search.device.id;
       }
-      this.getDeviceInfo();
+      this.getInfo();
     },
     onPageChange(page) {
       this.search.pageNum = page;
-      this.getDeviceInfo();
+      this.getInfo();
     },
     delClicked(id, index) {
       let da = { id: id };
