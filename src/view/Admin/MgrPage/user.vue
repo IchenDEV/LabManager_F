@@ -1,12 +1,16 @@
 <template>
-<div>
-  <div class="flex-panel warp ">
-    <Card :bordered="false"   v-if="$store.state.isSuperAdmin" class="card max-w">
-      <add-user @added='rel'/>
-    </Card>
-   <list-user ref="userList"></list-user>
+  <div>
+    <div class="flex-panel warp ">
+      <Card
+        v-if="$store.state.isSuperAdmin"
+        :bordered="false"
+        class="card max-w"
+      >
+        <add-user @added="rel" />
+      </Card>
+      <list-user ref="userList" />
+    </div>
   </div>
-</div>
 </template>
 <script>
 import AddUser from '@/components/User/AddUser'

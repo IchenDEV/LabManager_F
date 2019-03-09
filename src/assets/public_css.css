@@ -7,7 +7,7 @@ body {
   max-height: 80%;
 }
 .ui-tabs__header-items{
-  overflow: scroll
+  overflow: auto
 }
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */

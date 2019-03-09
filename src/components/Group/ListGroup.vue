@@ -1,32 +1,74 @@
 <template>
-<div>
-  <Card :bordered="false" >
-  <h2>{{$t('message.group')}} {{$t('message.list')}}</h2>
-  <div class="flex-panel">
-      <ui-textbox icon="group" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
-      <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
-    </div>
-    <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
-  </Card>
-  <div class="flex-panel">
-    <Card :bordered="false"  v-for="(item,index) in groups.list" :key="index">
-      <p slot="title">{{item.name}}</p>
-      <p>{{item.id}}</p>
-      <p>{{item.description}}</p>
-      <p>{{item.createTime}}</p>
-      <span>
-      <ui-button color="primary" icon="delete" @click="moClicked(item.id)" :loading="iswaitting">{{$t('message.modify')}}</ui-button>
-      <ui-button color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
-      </span>
+  <div>
+    <Card :bordered="false">
+      <h2>{{ $t('message.group') }} {{ $t('message.list') }}</h2>
+      <div class="flex-panel">
+        <ui-textbox
+          v-model="search.name"
+          icon="group"
+          floating-label
+          :label="$t('message.name')"
+        />
+        <ui-textbox
+          v-model="search.id"
+          icon="code"
+          floating-label
+          label="id"
+        />
+      </div>
+      <ui-button
+        color="primary"
+        icon="search"
+        @click="searchClicked"
+      >
+        {{ $t('message.search') }}
+      </ui-button>
     </Card>
-    <Card :bordered="false"  v-if="groups.totalCount===0">
+    <div class="flex-panel">
+      <Card
+        v-for="(item,index) in groups.list"
+        :key="index"
+        :bordered="false"
+      >
+        <p slot="title">
+          {{ item.name }}
+        </p>
+        <p>{{ item.id }}</p>
+        <p>{{ item.description }}</p>
+        <p>{{ item.createTime }}</p>
+        <span>
+          <ui-button
+            color="primary"
+            icon="delete"
+            :loading="iswaitting"
+            @click="moClicked(item.id)"
+          >{{ $t('message.modify') }}</ui-button>
+          <ui-button
+            color="primary"
+            icon="delete"
+            :loading="iswaitting"
+            @click="delClicked(item.id,index)"
+          >{{ $t('message.delete') }}</ui-button>
+        </span>
+      </Card>
+      <Card
+        v-if="groups.totalCount===0"
+        :bordered="false"
+      >
         <div>
-         {{$t('message.findless')}}{{$t('message.group')}}
+          {{ $t('message.findless') }}{{ $t('message.group') }}
         </div>
       </Card>
+    </div>
+    <Page
+      v-if="groups.totalPage>1"
+      size="small"
+      :total="groups.totalPage"
+      :page-size="search.pageRow"
+      show-elevator
+      @on-change="onPageChange"
+    />
   </div>
-  <Page size="small" v-if="groups.totalPage>1" :total="groups.totalPage" :page-size="search.pageRow" show-elevator @on-change="onPageChange"/>
-</div>
 </template>
 <script>
 import tools from '@/util/tools.js'
@@ -38,6 +80,9 @@ export default {
       search: { pageRow: 10 ,pageNum: 1},
       iswaitting: false
     }
+  },
+  mounted () {
+    this.getInfo()
   },
   methods: {
     getInfo () {
@@ -61,9 +106,6 @@ export default {
     moClicked (id){
       router.push("group/"+id.toString())
     }
-  },
-  mounted () {
-    this.getInfo()
   }
 }
 </script>

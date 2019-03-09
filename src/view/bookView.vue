@@ -1,7 +1,7 @@
 <template>
   <div class="row-panel warp">
-    <hot-device-box class="hdb"></hot-device-box>
-    <device-box style="min-width:300px;margin:1.5rem;"></device-box>
+    <hot-device-box class="hdb" />
+    <device-box style="min-width:300px;margin:1.5rem;" />
   </div>
 </template>
 <script>

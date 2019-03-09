@@ -1,25 +1,25 @@
 <template>
   <ui-select
+    v-model="select"
     has-search
     :label="label"
     :options="projectInfo.list"
     :keys="keys"
-    v-model="select"
     @select="vs"
-  ></ui-select>
+  />
 </template>
 <script>
 import tools from "@/util/tools.js";
 export default {
+  model: {
+    prop: "selected",
+    event: "change"
+  },
   props: {
     label: { default: "" },
     selected: { default: null },
     isWorking: { default: false },
     user: { default: null }
-  },
-  model: {
-    prop: "selected",
-    event: "change"
   },
   data() {
     return {
@@ -29,6 +29,11 @@ export default {
       select: "",
       keys: { label: "name", value: "id" }
     };
+  },
+  mounted() {
+    if (this.$store.state.hasSingin === true) {
+      this.getProjectInfo();
+    }
   },
   methods: {
     getProjectInfo() {
@@ -49,11 +54,6 @@ export default {
     },
     vs() {
       this.$emit("change", this.select);
-    }
-  },
-  mounted() {
-    if (this.$store.state.hasSingin === true) {
-      this.getProjectInfo();
     }
   }
 };

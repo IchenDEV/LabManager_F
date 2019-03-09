@@ -1,9 +1,15 @@
 <template>
   <div class="flex-panel warp">
-    <Card :bordered="false"  class="card max-w">
-      <add-device @added='rel'></add-device>
+    <Card
+      :bordered="false"
+      class="card max-w"
+    >
+      <add-device @added="rel" />
     </Card>
-      <list-device admin="true" ref="deviceList"></list-device>
+    <list-device
+      ref="deviceList"
+      admin="true"
+    />
   </div>
 </template>
 <script>

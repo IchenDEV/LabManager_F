@@ -1,46 +1,94 @@
 <template>
   <div>
-    <Card :bordered="false" >
-      <h2>{{$t('message.modify')}} {{$t('message.device')}}</h2>
+    <Card :bordered="false">
+      <h2>{{ $t('message.modify') }} {{ $t('message.device') }}</h2>
       <div class="flex-panel">
-        <ui-textbox icon="person" floating-label :label="$t('message.No')" v-model="item.No"></ui-textbox>
-        <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
-        <ui-textbox icon="lock" floating-label :label="$t('message.description')" v-model="item.description"></ui-textbox>
-        <ui-textbox icon="person" floating-label :label="$t('message.model')" v-model="item.model"></ui-textbox>
-        <ui-textbox icon="person" floating-label :label="$t('message.band')" v-model="item.bands"></ui-textbox>
-        <ui-textbox icon="person" floating-label :label="$t('message.func')" v-model="item.func"></ui-textbox>
-        <ui-textbox icon="person" floating-label :label="$t('message.requireReputation')" v-model="item.requireReputation"></ui-textbox>
+        <ui-textbox
+          v-model="item.No"
+          icon="person"
+          floating-label
+          :label="$t('message.No')"
+        />
+        <ui-textbox
+          v-model="item.name"
+          icon="person"
+          floating-label
+          :label="$t('message.name')"
+        />
+        <ui-textbox
+          v-model="item.description"
+          icon="lock"
+          floating-label
+          :label="$t('message.description')"
+        />
+        <ui-textbox
+          v-model="item.model"
+          icon="person"
+          floating-label
+          :label="$t('message.model')"
+        />
+        <ui-textbox
+          v-model="item.bands"
+          icon="person"
+          floating-label
+          :label="$t('message.band')"
+        />
+        <ui-textbox
+          v-model="item.func"
+          icon="person"
+          floating-label
+          :label="$t('message.func')"
+        />
+        <ui-textbox
+          v-model="item.requireReputation"
+          icon="person"
+          floating-label
+          :label="$t('message.requireReputation')"
+        />
         <ui-select
+          v-model="lab"
           has-search
           :label="$t('message.lab')"
           type="image"
           :options="labInfo.list"
           :keys="{ label: 'name', value: 'id' }"
-          v-model="lab"
-        ></ui-select>
+        />
       </div>
       <ui-button
         v-if="this.item.status !== 3"
         color="primary"
         icon="pause"
-        @click="pauseClick"
         :loading="iswaitting"
-      >{{$t('message.pause')}}</ui-button>
+        @click="pauseClick"
+      >
+        {{ $t('message.pause') }}
+      </ui-button>
       <ui-button
         v-if="this.item.status !== 4"
         color="primary"
         icon="warning"
-        @click="brokenClick"
         :loading="iswaitting"
-      >{{$t('message.error')}}</ui-button>
+        @click="brokenClick"
+      >
+        {{ $t('message.error') }}
+      </ui-button>
       <ui-button
         v-if="this.item.status !== 1"
         color="primary"
         icon="update"
-        @click="restartClick"
         :loading="iswaitting"
-      >{{$t('message.restart')}}</ui-button>
-      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
+        @click="restartClick"
+      >
+        {{ $t('message.restart') }}
+      </ui-button>
+      <ui-button
+        color="primary"
+        icon="update"
+        :loading="iswaitting"
+        @click="updateClick"
+      >
+        {{ $t('message.update') }}
+      </ui-button>
     </Card>
   </div>
 </template>
@@ -55,6 +103,10 @@ export default {
       labInfo: {},
       lab: ""
     };
+  },
+  mounted() {
+    this.getLabInfo();
+    this.getDeviceInfo();
   },
   methods: {
     getLabInfo() {
@@ -91,10 +143,6 @@ export default {
       this.item.status = 4;
       this.updateClick()
     }
-  },
-  mounted() {
-    this.getLabInfo();
-    this.getDeviceInfo();
   }
 };
 </script>

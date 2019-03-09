@@ -1,9 +1,12 @@
 <template>
   <div class="flex-panel warp">
-    <Card :bordered="false"  class="card max-w">
-      <add-group @added='rel'></add-group>
+    <Card
+      :bordered="false"
+      class="card max-w"
+    >
+      <add-group @added="rel" />
     </Card>
-      <list-group ref="groupList"></list-group>
+    <list-group ref="groupList" />
   </div>
 </template>
 <script>

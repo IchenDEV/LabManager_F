@@ -2,9 +2,22 @@
   <div>
     <div v-if="hasSingin">
       <div>
-        <ui-textbox icon="lock" floating-label :label="$t('message.password')" v-model="password" type="password"></ui-textbox>
+        <ui-textbox
+          v-model="password"
+          icon="lock"
+          floating-label
+          :label="$t('message.password')"
+          type="password"
+        />
       </div>
-      <ui-button color="primary" icon="fingerprint" @click="mohandle" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
+      <ui-button
+        color="primary"
+        icon="fingerprint"
+        :loading="iswaitting"
+        @click="mohandle"
+      >
+        {{ $t('message.modify') }} {{ $t('message.password') }}
+      </ui-button>
     </div>
   </div>
 </template>

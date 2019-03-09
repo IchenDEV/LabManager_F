@@ -1,47 +1,70 @@
 <template>
   <div>
-    <Card :bordered="false" >
-      <h2>{{$t('message.modify')}} {{$t('message.department')}}</h2>
+    <Card :bordered="false">
+      <h2>{{ $t('message.modify') }} {{ $t('message.department') }}</h2>
       <div class="flex-panel">
-        <ui-textbox icon="phone" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
         <ui-textbox
+          v-model="item.name"
+          icon="phone"
+          floating-label
+          :label="$t('message.name')"
+        />
+        <ui-textbox
+          v-model="item.description"
           icon="phone"
           floating-label
           :label="$t('message.description')"
-          v-model="item.description"
-        ></ui-textbox>
+        />
       </div>
       <ui-button
         color="primary"
         icon="update"
-        @click="updateClick"
         :loading="iswaitting"
-      >{{$t('message.update')}}</ui-button>
+        @click="updateClick"
+      >
+        {{ $t('message.update') }}
+      </ui-button>
     </Card>
     <div class="flex-panel">
-      <Card :bordered="false" >
+      <Card :bordered="false">
         <div>
-          <h2>{{$t('message.add')}} {{$t('message.user')}}</h2>
-          <user-selector v-model="s" :label="$t('message.user')"></user-selector>
-          <ui-button color="primary" icon="add" @click="addUserClick" :loading="iswaitting">添�</ui-button>
+          <h2>{{ $t('message.add') }} {{ $t('message.user') }}</h2>
+          <user-selector
+            v-model="s"
+            :label="$t('message.user')"
+          />
+          <ui-button
+            color="primary"
+            icon="add"
+            :loading="iswaitting"
+            @click="addUserClick"
+          >
+            添�
+          </ui-button>
         </div>
       </Card>
-      <Card :bordered="false"  v-for="(item,index) in userInfo.list" :key="index">
+      <Card
+        v-for="(item,index) in userInfo.list"
+        :key="index"
+        :bordered="false"
+      >
         <div>
-          <h2>{{$t('message.user')}} {{item.user}}</h2>
-          <p>{{$t('message.Uname')}} {{item.nickname}}</p>
+          <h2>{{ $t('message.user') }} {{ item.user }}</h2>
+          <p>{{ $t('message.Uname') }} {{ item.nickname }}</p>
           <ui-button
             color="primary"
             icon="delete"
-            @click="deleteUserClick(item.id)"
             :loading="iswaitting"
-          >{{$t('message.delete')}}</ui-button>
+            @click="deleteUserClick(item.id)"
+          >
+            {{ $t('message.delete') }}
+          </ui-button>
         </div>
       </Card>
     </div>
     <Page
-      size="small"
       v-if="userInfo.totalPage>1"
+      size="small"
       :total="userInfo.totalPage"
       :page-size="search2.pageRow"
       show-elevator
@@ -63,6 +86,9 @@ export default {
       s: {},
       iswaitting: false
     };
+  },
+  mounted() {
+    this.getDepartmentInfo();
   },
   methods: {
     getDepartmentInfo() {
@@ -107,9 +133,6 @@ export default {
         this.getDepartmentInfo;
       });
     }
-  },
-  mounted() {
-    this.getDepartmentInfo();
   }
 };
 </script>

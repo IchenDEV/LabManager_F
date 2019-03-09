@@ -1,26 +1,31 @@
 <template>
-    <ui-select
-      has-search
-      :label='label'
-      :options='userInfo.list'
-      :keys='{ label: "nickname", value: "id" }'
-      v-model='select'
-      @select="vs"
-    ></ui-select>
+  <ui-select
+    v-model="select"
+    has-search
+    :label="label"
+    :options="userInfo.list"
+    :keys="{ label: &quot;nickname&quot;, value: &quot;id&quot; }"
+    @select="vs"
+  />
 </template>
 <script>
 import tools from '@/util/tools.js'
 export default {
-  props: { label: { default: '' }, selected:{ default: null }},
   model: {
     prop: 'selected',
     event: 'change'
   },
+  props: { label: { default: '' }, selected:{ default: null }},
   data () {
     return {
       userInfo: { list: [] },
       iswaitting: false,
       select: ''
+    }
+  },
+  mounted () {
+    if (this.$store.state.hasSingin === true) {
+        this.getUserInfo()
     }
   },
   methods: {
@@ -32,11 +37,6 @@ export default {
     },
     vs (){
         this.$emit('change', this.select)
-    }
-  },
-  mounted () {
-    if (this.$store.state.hasSingin === true) {
-        this.getUserInfo()
     }
   }
 }

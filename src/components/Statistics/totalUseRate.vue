@@ -1,37 +1,47 @@
 <template>
   <div>
-    <h2>{{$t('message.totalUseRate')}}</h2>
-     <span>
-            <ui-datepicker
-              icon="events"
-              floating-label
-              v-model="beginDate"
-            >{{$t('message.beginDate')}}</ui-datepicker>
-            <TimePicker
-              class="timepick"
-              style="display:block"
-              type="time"
-              placeholder="Select time"
-              v-model="beginTime"
-            ></TimePicker>
-          </span>
-          <span style="margin-buttom:20px;">
-            <ui-datepicker icon="events" floating-label v-model="endDate">{{$t('message.endDate')}}</ui-datepicker>
-            <TimePicker
-              style="display:block"
-              class="timepick"
-              type="time"
-              placeholder="Select time"
-              v-model="endTime"
-            ></TimePicker>
-          </span>
-          <ui-button
-            color="primary"
-            icon="adjust"
-            @click="bookClick"
-            :loading="iswaitting"
-          >{{$t('message.search')}}</ui-button>
-    <ve-gauge class="gauge" :data="chartData" :settings="chartSettings"></ve-gauge>
+    <h2>{{ $t('message.totalUseRate') }}</h2>
+    <span>
+      <ui-datepicker
+        v-model="beginDate"
+        icon="events"
+        floating-label
+      >{{ $t('message.beginDate') }}</ui-datepicker>
+      <TimePicker
+        v-model="beginTime"
+        class="timepick"
+        style="display:block"
+        type="time"
+        placeholder="Select time"
+      />
+    </span>
+    <span style="margin-buttom:20px;">
+      <ui-datepicker
+        v-model="endDate"
+        icon="events"
+        floating-label
+      >{{ $t('message.endDate') }}</ui-datepicker>
+      <TimePicker
+        v-model="endTime"
+        style="display:block"
+        class="timepick"
+        type="time"
+        placeholder="Select time"
+      />
+    </span>
+    <ui-button
+      color="primary"
+      icon="adjust"
+      :loading="iswaitting"
+      @click="bookClick"
+    >
+      {{ $t('message.search') }}
+    </ui-button>
+    <ve-gauge
+      class="gauge"
+      :data="chartData"
+      :settings="chartSettings"
+    />
   </div>
 </template>
 <script>
@@ -68,6 +78,9 @@ export default {
       },
     };
   },
+  mounted() {
+    this.getInfo();
+  },
   methods: {
     getInfo() {
       tools.easyfetch(tools.Api.TotalUseRate,this.con).then(res => {
@@ -79,9 +92,6 @@ export default {
       this.con.endTime = tools.timeBuilder(this.endDate, this.endTime);
       this.getInfo();
     }
-  },
-  mounted() {
-    this.getInfo();
   }
 };
 </script>

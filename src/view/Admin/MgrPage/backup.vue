@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Card :bordered="false" >
-    <h1>{{$t('message.backup')}}</h1>
+    <Card :bordered="false">
+      <h1>{{ $t('message.backup') }}</h1>
       <div class="flex-panel col-panel">
-        <backup-now></backup-now>
-        <backup-setter></backup-setter>
+        <backup-now />
+        <backup-setter />
       </div>
     </Card>
   </div>

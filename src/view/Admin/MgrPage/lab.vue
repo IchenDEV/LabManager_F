@@ -1,10 +1,13 @@
 <template>
   <div>
     <div class="flex-panel warp">
-      <Card :bordered="false"  class="card max-w">
-        <add-lab @added='rel'/>
+      <Card
+        :bordered="false"
+        class="card max-w"
+      >
+        <add-lab @added="rel" />
       </Card>
-      <list-lab ref="labList"></list-lab>
+      <list-lab ref="labList" />
     </div>
   </div>
 </template>

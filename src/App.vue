@@ -1,12 +1,18 @@
 <template>
-  <div id="app" :style="{backgroundImage: 'url(' +bg + ')'}">
-    <NavBar></NavBar>
-    <header style="height:80px;"></header>
-    <transition name="slide-fade" mode="out-in">
-      <router-view v-if="isRouterAlive"/>
+  <div
+    id="app"
+    :style="{backgroundImage: 'url(' +bg + ')'}"
+  >
+    <NavBar />
+    <header style="height:80px;" />
+    <transition
+      name="slide-fade"
+      mode="out-in"
+    >
+      <router-view v-if="isRouterAlive" />
     </transition>
-    <BackTop></BackTop>
-    <my-footer></my-footer>
+    <BackTop />
+    <my-footer />
   </div>
 </template>
 <script>
@@ -25,12 +31,6 @@ export default {
       isRouterAlive: true,
       bg:require('@/assets/image.jpg')
     };
-  },
-  methods: {
-    reload() {
-      this.isRouterAlive = false;
-      this.$nextTick(() => (this.isRouterAlive = true));
-    }
   },
   mounted() {
     /* eslint-disable */
@@ -59,6 +59,12 @@ export default {
           });
         }
       });
+    }
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(() => (this.isRouterAlive = true));
     }
   }
 };

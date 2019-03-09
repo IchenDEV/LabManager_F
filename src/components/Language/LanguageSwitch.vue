@@ -1,17 +1,22 @@
 <template>
   <div>
-    <ui-button icon='g_translate' color="primary" has-dropdown ref="dropdownButton">
+    <ui-button
+      ref="dropdownButton"
+      icon="g_translate"
+      color="primary"
+      has-dropdown
+    >
       <ui-menu
+        slot="dropdown"
         contain-focus
         has-icons
         has-secondary-text
-        slot="dropdown"
         :options="langOptions"
         :keys="{ label: 'friendlyName', value: 'id' }"
         @close="$refs.dropdownButton.closeDropdown()"
         @select="langChange"
-      ></ui-menu>
-      {{$t("message.currentLanguage")}}
+      />
+      {{ $t("message.currentLanguage") }}
     </ui-button>
   </div>
 </template>

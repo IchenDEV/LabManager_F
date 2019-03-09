@@ -1,27 +1,35 @@
 <template>
-<div>
-      <table class="table">
-        <tr v-for="(item,index) in msgs.list" :key="index">
-          <th>{{item.authorNickName}}</th>
-          <a @click="msgcli(item.id,index)">{{item.title}}</a>
-          <th >{{item.summary}}</th>
-          <th>{{item.createTime}}</th>
-          <a v-if="$store.state.isAdmin" @click="del(item.id)">X</a>
-        </tr>
-      </table>
+  <div>
+    <table class="table">
+      <tr
+        v-for="(item,index) in msgs.list"
+        :key="index"
+      >
+        <th>{{ item.authorNickName }}</th>
+        <a @click="msgcli(item.id,index)">{{ item.title }}</a>
+        <th>{{ item.summary }}</th>
+        <th>{{ item.createTime }}</th>
+        <a
+          v-if="$store.state.isAdmin"
+          @click="del(item.id)"
+        >X</a>
+      </tr>
+    </table>
     <Page
-      size="small"
       v-if="msgs.totalPage>1"
+      size="small"
       :total="totalPage"
       :page-size="conp.pageRow"
       show-elevator
       @on-change="onPageChange"
     />
-    <ui-modal  ref="msgmodal" :title="selectMsg.title">
-      <div id="modelAN">
-      </div>
-      </ui-modal>
-</div>
+    <ui-modal
+      ref="msgmodal"
+      :title="selectMsg.title"
+    >
+      <div id="modelAN" />
+    </ui-modal>
+  </div>
 </template>
 <script>
 import tools from "@/util/tools.js";
@@ -36,6 +44,11 @@ export default {
         pageNum: 0
       }
     };
+  },
+  mounted() {
+    if (this.$store.state.hasSingin === true) {
+      this.getInfo();
+    }
   },
   methods: {
     getInfo() {
@@ -67,11 +80,6 @@ export default {
         .then(() => {
           this.getInfo()
         })
-    }
-  },
-  mounted() {
-    if (this.$store.state.hasSingin === true) {
-      this.getInfo();
     }
   }
 };

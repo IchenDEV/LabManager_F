@@ -1,48 +1,86 @@
 <template>
   <div>
-    <Card :bordered="false" >
-    <h2>{{$t('message.project')}} {{$t('message.list')}}</h2>
-    <div class="flex-panel">
-      <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
-      <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
-    </div>
-    <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+    <Card :bordered="false">
+      <h2>{{ $t('message.project') }} {{ $t('message.list') }}</h2>
+      <div class="flex-panel">
+        <ui-textbox
+          v-model="search.name"
+          icon="person"
+          floating-label
+          :label="$t('message.name')"
+        />
+        <ui-textbox
+          v-model="search.id"
+          icon="code"
+          floating-label
+          label="id"
+        />
+      </div>
+      <ui-button
+        color="primary"
+        icon="search"
+        @click="searchClicked"
+      >
+        {{ $t('message.search') }}
+      </ui-button>
     </Card>
     <div class="flex-panel">
-      <Card :bordered="false"  v-for="(item,index) in projects.list" :key="index">
+      <Card
+        v-for="(item,index) in projects.list"
+        :key="index"
+        :bordered="false"
+      >
         <p slot="title">
-          {{item.name}}
-          <Tag color="success" v-if="item.status===1">{{$t('message.working')}}</Tag>
-          <Tag color="error" v-if="item.status===0">{{$t('message.done')}}</Tag>
-          <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
+          {{ item.name }}
+          <Tag
+            v-if="item.status===1"
+            color="success"
+          >
+            {{ $t('message.working') }}
+          </Tag>
+          <Tag
+            v-if="item.status===0"
+            color="error"
+          >
+            {{ $t('message.done') }}
+          </Tag>
+          <Tag
+            v-if="item.status===3"
+            color="warning"
+          >
+            {{ $t('message.pause') }}
+          </Tag>
         </p>
-        <p>idï¼š{{item.id}}</p>
-        <p>{{$t('message.description')}} {{item.description}}</p>
-        <p>{{$t('message.createTime')}} {{item.createTime}}</p>
-        <p>{{$t('message.beginTime')}} {{item.beginTime}}</p>
-        <p>{{$t('message.endTime')}} {{item.endTime}}</p>
+        <p>idï¼š{{ item.id }}</p>
+        <p>{{ $t('message.description') }} {{ item.description }}</p>
+        <p>{{ $t('message.createTime') }} {{ item.createTime }}</p>
+        <p>{{ $t('message.beginTime') }} {{ item.beginTime }}</p>
+        <p>{{ $t('message.endTime') }} {{ item.endTime }}</p>
         <span>
           <ui-button
             color="primary"
             icon="adjust"
-            @click="moClicked(item.id)"
             :loading="iswaitting"
-          >{{$t('message.modify')}}</ui-button>
+            @click="moClicked(item.id)"
+          >{{ $t('message.modify') }}</ui-button>
           <ui-button
             color="primary"
             icon="delete"
-            @click="delClicked(item.id,index)"
             :loading="iswaitting"
-          >{{$t('message.delete')}}</ui-button>
+            @click="delClicked(item.id,index)"
+          >{{ $t('message.delete') }}</ui-button>
         </span>
       </Card>
-      <Card :bordered="false"  v-if="projects.totalCount===0">
-        <div>{{$t('message.findless')}} {{$t('message.project')}} </div>
+      <Card
+        v-if="projects.totalCount===0"
+        :bordered="false"
+      >
+        <div>{{ $t('message.findless') }} {{ $t('message.project') }} </div>
       </Card>
     </div>
     <Page
-      size="small"
       v-if="projects.totalPage>1"
+      size="small"
       :total="projects.totalPage"
       :page-size="search.pageRow"
       show-elevator
@@ -60,6 +98,9 @@ export default {
       search: { pageRow: 10 },
       iswaitting: false
     };
+  },
+  mounted() {
+    this.getInfo();
   },
   methods: {
     getInfo() {
@@ -83,9 +124,6 @@ export default {
     moClicked (id){
       router.push("project/"+id.toString())
     }
-  },
-  mounted() {
-    this.getInfo();
   }
 };
 </script>

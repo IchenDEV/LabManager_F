@@ -1,21 +1,46 @@
 <template>
-<div>
-  <h2>{{$t('message.user')}} {{$t('message.list')}}</h2>
-  <div class="flex-panel">
-    <Card :bordered="false"  v-for="(item,index) in users.list" :key="index">
-      <p slot="title">{{$t('message.username')}} {{item.username}}</p>
-      <p>{{$t('message.user')}} id {{item.id}}</p>
-      <p>{{$t('message.Uname')}} {{item.nickname}}</p>
-      <p>{{$t('message.role')}} {{item.roleName}}</p>
-      <p>{{$t('message.sex')}} {{sexString[item.sex]}}</p>
-      <span>
-      <ui-button v-if="item.id!==10003&&$store.state.isSuperAdmin" color="primary" icon="adjust" @click="moClicked(item.id)" :loading="iswaitting">{{$t('message.modify')}}</ui-button>
-      <ui-button v-if="item.id!==10003&&$store.state.isSuperAdmin" color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
-      </span>
-    </Card>
+  <div>
+    <h2>{{ $t('message.user') }} {{ $t('message.list') }}</h2>
+    <div class="flex-panel">
+      <Card
+        v-for="(item,index) in users.list"
+        :key="index"
+        :bordered="false"
+      >
+        <p slot="title">
+          {{ $t('message.username') }} {{ item.username }}
+        </p>
+        <p>{{ $t('message.user') }} id {{ item.id }}</p>
+        <p>{{ $t('message.Uname') }} {{ item.nickname }}</p>
+        <p>{{ $t('message.role') }} {{ item.roleName }}</p>
+        <p>{{ $t('message.sex') }} {{ sexString[item.sex] }}</p>
+        <span>
+          <ui-button
+            v-if="item.id!==10003&&$store.state.isSuperAdmin"
+            color="primary"
+            icon="adjust"
+            :loading="iswaitting"
+            @click="moClicked(item.id)"
+          >{{ $t('message.modify') }}</ui-button>
+          <ui-button
+            v-if="item.id!==10003&&$store.state.isSuperAdmin"
+            color="primary"
+            icon="delete"
+            :loading="iswaitting"
+            @click="delClicked(item.id,index)"
+          >{{ $t('message.delete') }}</ui-button>
+        </span>
+      </Card>
+    </div>
+    <Page
+      v-if="users.totalPage>1"
+      size="small"
+      :total="users.totalPage"
+      :page-size="conp.pageRow"
+      show-elevator
+      @on-change="onPageChange"
+    />
   </div>
-  <Page size="small" v-if="users.totalPage>1" :total="users.totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
-</div>
 </template>
 <script>
 import tools from '@/util/tools.js'
@@ -28,6 +53,9 @@ export default {
       iswaitting: false,
       sexString: [this.$t('message.unknow'),this.$t('message.male'), this.$t('message.female'), this.$t('message.other')],  
     }
+  },
+  mounted () {
+    this.getInfo()
   },
   methods: {
     getInfo () {
@@ -51,9 +79,6 @@ export default {
     moClicked (id){
       router.push("user/"+id.toString())
     }
-  },
-  mounted () {
-    this.getInfo()
   }
 }
 </script>

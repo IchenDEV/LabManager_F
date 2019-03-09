@@ -1,16 +1,32 @@
 <template>
   <div class="add-announcement">
-    <h2>{{$t('message.create')}} {{$t('message.announcement')}}</h2>
-    <ui-textbox icon="person" floating-label :label="$t('message.title')" v-model="con.title"></ui-textbox>
-    <ui-textbox icon="lock" floating-label :label="$t('message.summary')" v-model="con.summary"></ui-textbox>
-    <quill-editor v-model="con.msg" ref="myQuillEditor" :options="editorOption"></quill-editor>
+    <h2>{{ $t('message.create') }} {{ $t('message.announcement') }}</h2>
+    <ui-textbox
+      v-model="con.title"
+      icon="person"
+      floating-label
+      :label="$t('message.title')"
+    />
+    <ui-textbox
+      v-model="con.summary"
+      icon="lock"
+      floating-label
+      :label="$t('message.summary')"
+    />
+    <quill-editor
+      ref="myQuillEditor"
+      v-model="con.msg"
+      :options="editorOption"
+    />
     <ui-button
       color="primary"
       icon="check"
-      @click="addClicked"
       :disabled="disable"
       :loading="iswaitting"
-    >{{$t('message.create')}}</ui-button>
+      @click="addClicked"
+    >
+      {{ $t('message.create') }}
+    </ui-button>
   </div>
 </template>
 <script>

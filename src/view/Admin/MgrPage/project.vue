@@ -1,12 +1,15 @@
 <template>
-<div>
-  <div class="flex-panel warp">
-    <Card :bordered="false"  class="card max-w">
-      <add-project @added='rel'/>
-    </Card>
-    <list-project ref="projectList"></list-project>
+  <div>
+    <div class="flex-panel warp">
+      <Card
+        :bordered="false"
+        class="card max-w"
+      >
+        <add-project @added="rel" />
+      </Card>
+      <list-project ref="projectList" />
+    </div>
   </div>
-</div>
 </template>
 <script>
 import AddProject from '@/components/Project/AddProject'

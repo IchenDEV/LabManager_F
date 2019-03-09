@@ -1,7 +1,10 @@
 <template>
   <div>
-    <h2>{{$t('message.counts')}}</h2>
-  <ve-bar :data="barData" :settings="barSettings"></ve-bar>
+    <h2>{{ $t('message.counts') }}</h2>
+    <ve-bar
+      :data="barData"
+      :settings="barSettings"
+    />
   </div>
 </template>
 <script>
@@ -21,6 +24,9 @@ export default {
         }
       }
   },
+  mounted() {
+    this.getInfo();
+  },
   methods: {
     getInfo() {
       tools.easyfetch(tools.Api.Counts,null).then(res=>{
@@ -33,9 +39,6 @@ export default {
           this.barData.rows.push({name:this.$t('message.department'),value:res.data.info.departments});
       })
     }
-  },
-  mounted() {
-    this.getInfo();
   }
 };
 </script>

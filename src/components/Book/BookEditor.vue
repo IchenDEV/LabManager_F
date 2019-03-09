@@ -1,11 +1,29 @@
 <template>
   <div>
-    <Card :bordered="false" >
-      <h2>{{$t('message.modify')}} {{$t('message.book')}}</h2>
+    <Card :bordered="false">
+      <h2>{{ $t('message.modify') }} {{ $t('message.book') }}</h2>
       <div class="flex-panel">
-        <ui-textbox icon="person" floating-label :label="$t('message.device')" v-model="item.device"></ui-textbox>
-        <ui-textbox icon="lock" floating-label   :label="$t('message.project')" v-model="item.project"></ui-textbox>
-      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
+        <ui-textbox
+          v-model="item.device"
+          icon="person"
+          floating-label
+          :label="$t('message.device')"
+        />
+        <ui-textbox
+          v-model="item.project"
+          icon="lock"
+          floating-label
+          :label="$t('message.project')"
+        />
+        <ui-button
+          color="primary"
+          icon="update"
+          :loading="iswaitting"
+          @click="updateClick"
+        >
+          {{ $t('message.update') }}
+        </ui-button>
+      </div>
     </Card>
   </div>
 </template>
@@ -18,6 +36,9 @@ export default {
       item: {},
       iswaitting: false
     };
+  },
+  mounted() {
+
   },
   methods: {
     updateClick() {
@@ -34,9 +55,6 @@ export default {
           this.item = res.data.info.list[0];
         })
     },
-  },
-  mounted() {
-
   }
 };
 </script>

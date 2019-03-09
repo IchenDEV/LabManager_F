@@ -1,23 +1,33 @@
 <template>
   <div>
-    <Card :bordered="false" >
-    <h1>{{$t('message.log')}}</h1>
+    <Card :bordered="false">
+      <h1>{{ $t('message.log') }}</h1>
     
-  <table class="table">
-  <tr >
-    <th>{{$t('message.operator')}}</th>
-    <th>{{$t('message.operation')}}</th>
-    <th>{{$t('message.targer')}}</th>
-    <th>{{$t('message.time')}}</th>
-  </tr>
-  <tr v-for="(item,index) in logs.list" :key="index">
-    <th>{{item.user}}</th>
-    <th>{{item.operation}}</th>
-    <th>{{item.targer}}</th>
-    <th>{{item.createTime}}</th>
-  </tr>
-  </table>
-  <Page size="small" v-if="logs.totalPage>1" :total="totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
+      <table class="table">
+        <tr>
+          <th>{{ $t('message.operator') }}</th>
+          <th>{{ $t('message.operation') }}</th>
+          <th>{{ $t('message.targer') }}</th>
+          <th>{{ $t('message.time') }}</th>
+        </tr>
+        <tr
+          v-for="(item,index) in logs.list"
+          :key="index"
+        >
+          <th>{{ item.user }}</th>
+          <th>{{ item.operation }}</th>
+          <th>{{ item.targer }}</th>
+          <th>{{ item.createTime }}</th>
+        </tr>
+      </table>
+      <Page
+        v-if="logs.totalPage>1"
+        size="small"
+        :total="totalPage"
+        :page-size="conp.pageRow"
+        show-elevator
+        @on-change="onPageChange"
+      />
     </Card>
   </div>
 </template>
@@ -31,6 +41,9 @@ export default {
       conp: { pageRow: 25, pageNum: 0 }
     }
   },
+  mounted () {
+    this.getInfo()
+  },
   methods: {
     getInfo () {
       tools.easyfetch(tools.Api.ListLog,this.conp)
@@ -43,9 +56,6 @@ export default {
       this.conp.pageNum = page
       this.getInfo()
     }
-  },
-  mounted () {
-    this.getInfo()
   }
 }
 </script>

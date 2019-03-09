@@ -1,10 +1,22 @@
 <template>
   <section class="htmleaf-container">
-    <div class="search-wrapper" :class="{'active':isActive}">
+    <div
+      class="search-wrapper"
+      :class="{'active':isActive}"
+    >
       <div class="input-holder">
-        <input type="text" class="search-input" :placeholder="placeholder" v-model="content" @keyup.enter="searchToggle">
-        <button class="search-icon" @click="searchToggle">
-          <span></span>
+        <input
+          v-model="content"
+          type="text"
+          class="search-input"
+          :placeholder="placeholder"
+          @keyup.enter="searchToggle"
+        >
+        <button
+          class="search-icon"
+          @click="searchToggle"
+        >
+          <span />
         </button>
       </div>
     </div>
@@ -13,11 +25,11 @@
 <script>
 import tools from "@/util/tools.js";
 export default {
-  props: { placeholder: { default: 'Type to search' }, selected:{ default: null }},
   model: {
     prop: 'selected',
     event: 'change'
   },
+  props: { placeholder: { default: 'Type to search' }, selected:{ default: null }},
   data() {
     return {
       isActive: false,

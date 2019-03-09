@@ -1,9 +1,12 @@
 <template>
   <div class="flex-panel warp">
-    <Card :bordered="false"  class="card max-w">
-      <add-department @added="rel"></add-department>
+    <Card
+      :bordered="false"
+      class="card max-w"
+    >
+      <add-department @added="rel" />
     </Card>
-    <list-department ref="departmentList"></list-department>
+    <list-department ref="departmentList" />
   </div>
 </template>
 <script>

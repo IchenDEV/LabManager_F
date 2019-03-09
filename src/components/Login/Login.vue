@@ -1,21 +1,28 @@
 <template>
   <div>
-    <ui-textbox icon="person" floating-label :label="$t('message.username')" v-model="username"></ui-textbox>
     <ui-textbox
+      v-model="username"
+      icon="person"
+      floating-label
+      :label="$t('message.username')"
+    />
+    <ui-textbox
+      v-model="password"
       icon="lock"
       floating-label
       :label="$t('message.password')"
-      v-model="password"
       type="password"
       @keyup.enter="LonginClicked"
-    ></ui-textbox>
+    />
     <ui-button
       color="primary"
       icon="check"
-      @click="LonginClicked"
       :loading="iswaitting"
       :disabled="showLoginBt"
-    >{{$t('message.login')}}</ui-button>
+      @click="LonginClicked"
+    >
+      {{ $t('message.login') }}
+    </ui-button>
   </div>
 </template>
 <script>

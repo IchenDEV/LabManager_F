@@ -1,11 +1,29 @@
 <template>
   <div>
-    <h2>{{$t('message.lastBackupTime')}}</h2>
-    <p v-if="data.lastBackupTime == null">{{$t('message.noBackup')}}</p>
-    <Time v-else :time="data.lastBackupTime" :interval="1"/>
-    <h2>{{$t('message.setBackupSchedule')}}</h2>
-    <ui-textbox icon="access_time" floating-label label="cron" v-model="data.schedule"></ui-textbox>
-    <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">{{$t('message.set')}}</ui-button>
+    <h2>{{ $t('message.lastBackupTime') }}</h2>
+    <p v-if="data.lastBackupTime == null">
+      {{ $t('message.noBackup') }}
+    </p>
+    <Time
+      v-else
+      :time="data.lastBackupTime"
+      :interval="1"
+    />
+    <h2>{{ $t('message.setBackupSchedule') }}</h2>
+    <ui-textbox
+      v-model="data.schedule"
+      icon="access_time"
+      floating-label
+      label="cron"
+    />
+    <ui-button
+      color="primary"
+      icon="backup"
+      :loading="iswaitting"
+      @click="backupClicked"
+    >
+      {{ $t('message.set') }}
+    </ui-button>
   </div>
 </template>
 <script>
@@ -19,6 +37,9 @@ export default {
         lastBackupTime:new Date()
       }
     };
+  },
+  mounted() {
+    this.backupGtClicked();
   },
   methods: {
     backupClicked() {
@@ -36,9 +57,6 @@ export default {
         })
         .catch();
     }
-  },
-  mounted() {
-    this.backupGtClicked();
   }
 };
 </script>

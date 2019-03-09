@@ -16,7 +16,7 @@ const projectAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Ad
 const deviceAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/deviceAdmin')
 const labAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/labAdmin')
 
-const announcement =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/announcement')
+const announcement =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/announcement')
 const device =()=>import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/device')
 const log =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/log')
 const book =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/book')
