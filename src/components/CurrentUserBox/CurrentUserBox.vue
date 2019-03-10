@@ -1,162 +1,135 @@
 <template>
   <div>
-    <language-switch />
+    <language-switch></language-switch>
     <div v-if="hasSingin">
-      <div
-        v-if="mo"
-        class="user-panel"
-      >
+      <div v-if="mo" class="user-panel">
         <span>
-          <h3>{{ $t("message.Uname") }}</h3>
-          <p>{{ nickname }}</p>
+          <h3>{{$t("message.Uname")}}</h3>
+          <p>{{nickname}}</p>
         </span>
         <span>
           <h3>id</h3>
-          <p>{{ id }}</p>
+          <p>{{id}}</p>
         </span>
         <span>
-          <h3>{{ $t("message.sex") }}</h3>
-          <p>{{ sex }}</p>
+          <h3>{{$t("message.sex")}}</h3>
+          <p>{{sex}}</p>
         </span>
         <span>
-          <h3>{{ $t("message.reputation") }}</h3>
-          <p>{{ reputation }}</p>
+          <h3>{{$t("message.reputation")}}</h3>
+          <p>{{reputation}}</p>
         </span>
         <span>
-          <h3>{{ $t("message.role") }}</h3>
-          <p>{{ roleName }}</p>
+          <h3>{{$t("message.role")}}</h3>
+          <p>{{roleName}}</p>
         </span>
         <span v-if="!simple">
-          <h3>{{ $t("message.phone") }}</h3>
-          <p>{{ phone }}</p>
+          <h3>{{$t("message.phone")}}</h3>
+          <p>{{phone}}</p>
         </span>
         <span v-if="!simple">
-          <h3>{{ $t("message.email") }}</h3>
-          <span style="word-wrap: anywhere;">{{ email }}</span>
+          <h3>{{$t("message.email")}}</h3>
+          <span style="word-wrap: anywhere;">{{email}}</span>
         </span>
         <span v-if="!simple">
-          <h3>{{ $t("message.address") }}</h3>
-          <p>{{ address }}</p>
+          <h3>{{$t("message.address")}}</h3>
+          <p>{{address}}</p>
         </span>
         <span>
-          <h3>{{ $t("message.department") }}</h3>
-          <div
-            v-for="(item,index) in dpinfo.list"
-            :key="index"
-          >{{ item.departmentName }}</div>
+          <h3>{{$t("message.department")}}</h3>
+          <div v-for="(item,index) in dpinfo.list" :key="index">{{item.departmentName}}</div>
         </span>
         <span>
-          <h3>{{ $t("message.group") }}</h3>
-          <div
-            v-for="(item,index) in gpinfo.list"
-            :key="index"
-          >{{ item.groupName }}</div>
+          <h3>{{$t("message.group")}}</h3>
+          <div v-for="(item,index) in gpinfo.list" :key="index">{{item.groupName}}</div>
         </span>
       </div>
-      <div
-        v-else
-        class="user-panel"
-      >
+      <div v-else class="user-panel">
         <ui-textbox
-          v-model="nickname"
           class="user-itme"
           icon="person"
           :invalid="nickname.length === 0"
           floating-label
           :label="$t('message.Uname')"
+          v-model="nickname"
           required
           error="This field is required"
-        />
+        ></ui-textbox>
         <ui-select
-          v-model="sex"
           class="user-itme"
           icon="person"
           floating-label
           :label="$t('message.sex')"
           :options="sexString"
-        />
+          v-model="sex"
+        ></ui-select>
         <ui-textbox
-          v-model="phone"
           class="user-itme"
           icon="phone"
           floating-label
           :label="$t('message.phone')"
-        />
+          v-model="phone"
+        ></ui-textbox>
         <ui-textbox
-          v-model="email"
           class="user-itme"
           icon="mail"
           :invalid="ismail === false&&email.length>0"
           floating-label
           :label="$t('message.email')"
+          v-model="email"
           :error="$t('message.wrongEmail')"
-        />
+        ></ui-textbox>
         <ui-textbox
-          v-model="address"
           class="user-itme"
           icon="home"
           floating-label
           :label="$t('message.address')"
-        />
+          v-model="address"
+        ></ui-textbox>
       </div>
       <ui-button
         v-if="!simple"
         color="primary"
         icon="exit_to_app"
-        :loading="iswaitting"
         @click="logouthandle"
-      >
-        {{ $t("message.logout") }}
-      </ui-button>
+        :loading="iswaitting"
+      >{{$t("message.logout")}}</ui-button>
       <ui-button
         v-if="mo&&!simple"
         color="primary"
         icon="adjust"
-        :loading="iswaitting"
         @click="mohandle"
-      >
-        {{ moString }}
-      </ui-button>
+        :loading="iswaitting"
+      >{{moString}}</ui-button>
       <ui-button
         v-if="!simple"
         color="primary"
         icon="fingerprint"
-        :loading="iswaitting"
         @click="passwordhandle"
-      >
-        {{ $t("message.modifyPass") }}
-      </ui-button>
+        :loading="iswaitting"
+      >{{$t("message.modifyPass")}}</ui-button>
       <span v-if="!mo">
         <ui-button
           v-if="!simple"
           color="primary"
           icon="update"
-          :loading="iswaitting"
           @click="updateinfo"
-        >{{ $t("message.update") }}</ui-button>
+          :loading="iswaitting"
+        >{{$t("message.update")}}</ui-button>
         <ui-button
           v-if="!simple"
           color="primary"
           icon="cancel"
-          :loading="iswaitting"
           @click="mohandle"
-        >{{ moString }}</ui-button>
+          :loading="iswaitting"
+        >{{moString}}</ui-button>
       </span>
     </div>
     <div v-else>
-      <ui-button
-        color="primary"
-        icon="adjust"
-        @click="loginhandle"
-      >
-        {{ $t("message.pleaseLogin") }}
-      </ui-button>
+      <ui-button color="primary" icon="adjust" @click="loginhandle">{{$t("message.pleaseLogin")}}</ui-button>
     </div>
-    <ui-modal
-      ref="passmodal"
-      :title="$t('message.modifyPass')"
-    >
-      <update-current-password @close="closepass" />
+    <ui-modal ref="passmodal" :title="$t('message.modifyPass')">
+      <update-current-password @close="closepass"></update-current-password>
     </ui-modal>
   </div>
 </template>
@@ -200,14 +173,6 @@ export default {
     hasSingin() {
       return this.$store.state.hasSingin;
     }
-  },
-  watch: {
-    hasSingin() {
-      this.getinfo();
-    }
-  },
-  mounted() {
-    this.getinfo();
   },
   methods: {
     getinfo() {
@@ -310,6 +275,14 @@ export default {
           }
           this.iswaitting = false;
         })
+    }
+  },
+  mounted() {
+    this.getinfo();
+  },
+  watch: {
+    hasSingin() {
+      this.getinfo();
     }
   }
 };

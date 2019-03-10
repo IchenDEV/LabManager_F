@@ -1,27 +1,10 @@
 <template>
   <div class="add-department">
-    <h2>{{ $t('message.create') }} {{ $t('message.department') }}</h2>
-    <ui-textbox
-      v-model="con.name"
-      icon="person"
-      floating-label
-      :label="$t('message.name')"
-    />
-    <ui-textbox
-      v-model="con.description"
-      icon="lock"
-      floating-label
-      :label="$t('message.description')"
-    />
-    <ui-button
-      color="primary"
-      icon="check"
-      :disabled="disable"
-      :loading="iswaitting"
-      @click="addClicked"
-    >
-      {{ $t('message.create') }}
-    </ui-button>
+    <h2>{{$t('message.create')}} {{$t('message.department')}}</h2>
+    <!--将管理页面中部门页面的名称和描述图标改为info_outline-->
+    <ui-textbox icon="info_outlinen" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
+    <ui-textbox icon="info_outline" floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
+    <ui-button color="primary" icon="check" @click="addClicked" :disabled="disable" :loading="iswaitting">{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>

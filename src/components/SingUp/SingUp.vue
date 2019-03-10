@@ -1,41 +1,29 @@
 <template>
   <div>
+    <ui-textbox icon="person" floating-label :label="$t('message.username')" v-model="username"></ui-textbox>
+    <ui-textbox icon="person" floating-label :label="$t('message.Uname')" v-model="nickname"></ui-textbox>
     <ui-textbox
-      v-model="username"
-      icon="person"
+      icon="lock"
       floating-label
-      :label="$t('message.username')"
-    />
-    <ui-textbox
-      v-model="nickname"
-      icon="person"
-      floating-label
-      :label="$t('message.Uname')"
-    />
-    <ui-textbox
+      :label="$t('message.password')"
       v-model="password"
-      icon="lock"
-      floating-label
-      :label="$t('message.password')"
       type="password"
-    />
+    ></ui-textbox>
     <ui-textbox
-      v-model="password2"
       icon="lock"
       floating-label
       :label="$t('message.password')"
+      v-model="password2"
       :invalid="password2!=password"
       type="password"
-    />
+    ></ui-textbox>
     <ui-button
       color="primary"
       icon="check"
+      @click="SingUpClicked"
       :loading="iswaitting"
       :disabled="!isFullInputed"
-      @click="SingUpClicked"
-    >
-      {{ $t('message.singup') }}
-    </ui-button>
+    >{{$t('message.singup')}}</ui-button>
   </div>
 </template>
 <script>

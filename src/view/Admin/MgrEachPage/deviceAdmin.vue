@@ -1,5 +1,5 @@
 <template>
-  <device-editor />
+  <device-editor></device-editor>
 </template>
 <script>
 import DeviceEditor from "@/components/Device/DeviceEditor";

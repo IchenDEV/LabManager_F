@@ -1,114 +1,85 @@
 <template>
   <div>
-    <Card :bordered="false">
-      <h2>{{ $t('message.modify') }} {{ $t('message.group') }}</h2>
+    <Card :bordered="false" >
+      <h2>{{$t('message.modify')}} {{$t('message.group')}}</h2>
       <div class="flex-panel">
+        <ui-textbox icon="phone" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
         <ui-textbox
-          v-model="item.name"
-          icon="phone"
-          floating-label
-          :label="$t('message.name')"
-        />
-        <ui-textbox
-          v-model="item.description"
           icon="phone"
           floating-label
           :label="$t('message.description')"
-        />
+          v-model="item.description"
+        ></ui-textbox>
       </div>
       <ui-button
         color="primary"
         icon="update"
-        :loading="iswaitting"
         @click="updateClick"
-      >
-        {{ $t('message.update') }}
-      </ui-button>
+        :loading="iswaitting"
+      >{{$t('message.update')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card :bordered="false">
+      <Card :bordered="false" >
         <div>
-          <h2>{{ $t('message.add') }} {{ $t('message.project') }}</h2>
-          <project-selector
-            v-model="p"
-            :label="$t('message.project')"
-          />
+          <h2>{{$t('message.add')}} {{$t('message.project')}}</h2>
+          <project-selector v-model="p" :label="$t('message.project')"></project-selector>
           <ui-button
             color="primary"
             icon="add"
-            :loading="iswaitting"
             @click="addProjectClick"
-          >
-            {{ $t('message.add') }}
-          </ui-button>
+            :loading="iswaitting"
+          >{{$t('message.add')}}</ui-button>
         </div>
       </Card>
-      <Card
-        v-for="(item,index) in projectInfo.list"
-        :key="index"
-        :bordered="false"
-      >
+      <Card :bordered="false"  v-for="(item,index) in projectInfo.list" :key="index">
         <div>
-          <h2>{{ $t('message.project') }} {{ item.name }}</h2>
+          <h2>{{$t('message.project')}} {{item.name}}</h2>
           <ui-button
             color="primary"
             icon="delete"
-            :loading="iswaitting"
             @click="deleteProjectClick(item.id)"
-          >
-            {{ $t('message.delete') }}
-          </ui-button>
+            :loading="iswaitting"
+          >{{$t('message.delete')}}</ui-button>
         </div>
       </Card>
     </div>
     <Page
-      v-if="projectInfo.totalPage>1"
       size="small"
+      v-if="projectInfo.totalPage>1"
       :total="projectInfo.totalPage"
       :page-size="search3.pageRow"
       show-elevator
       @on-change="onPageChange2"
     />
     <div class="flex-panel">
-      <Card :bordered="false">
+      <Card :bordered="false" >
         <div>
-          <h2>{{ $t('message.add') }} {{ $t('message.user') }}</h2>
-          <user-selector
-            v-model="s"
-            :label="$t('message.user')"
-          />
+          <h2>{{$t('message.add')}} {{$t('message.user')}}</h2>
+          <user-selector v-model="s" :label="$t('message.user')"></user-selector>
           <ui-button
             color="primary"
             icon="add"
-            :loading="iswaitting"
             @click="addUserClick"
-          >
-            {{ $t('message.add') }}
-          </ui-button>
+            :loading="iswaitting"
+          >{{$t('message.add')}}</ui-button>
         </div>
       </Card>
-      <Card
-        v-for="(item,index) in userInfo.list"
-        :key="index"
-        :bordered="false"
-      >
+      <Card :bordered="false"  v-for="(item,index) in userInfo.list" :key="index">
         <div>
-          <h2>{{ $t('message.user') }} {{ item.user }}</h2>
-          <p>{{ $t('message.Uname') }} {{ item.nickname }}</p>
+          <h2>{{$t('message.user')}} {{item.user}}</h2>
+          <p>{{$t('message.Uname')}} {{item.nickname}}</p>
           <ui-button
             color="primary"
             icon="delete"
-            :loading="iswaitting"
             @click="deleteUserClick(item.id)"
-          >
-            {{ $t('message.delete') }}
-          </ui-button>
+            :loading="iswaitting"
+          >{{$t('message.delete')}}</ui-button>
         </div>
       </Card>
     </div>
     <Page
-      v-if="userInfo.totalPage>1"
       size="small"
+      v-if="userInfo.totalPage>1"
       :total="userInfo.totalPage"
       :page-size="search2.pageRow"
       show-elevator
@@ -134,9 +105,6 @@ export default {
       p: {},
       iswaitting: false
     };
-  },
-  mounted() {
-    this.getGroupInfo();
   },
   methods: {
     getGroupInfo() {
@@ -209,6 +177,9 @@ export default {
         this.getGroupInfo();
       });
     }
+  },
+  mounted() {
+    this.getGroupInfo();
   }
 };
 </script>

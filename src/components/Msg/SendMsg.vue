@@ -1,28 +1,16 @@
 <template>
   <div class="add-department">
-    <user-selector
-      v-if="quickid===null"
-      v-model="s"
-      :label="label"
-    />
-    <h2 v-if="quickname!=null">
-      {{ $t('message.send') }} {{ quickname }}
-    </h2>
-    <ui-textbox
-      v-model="con.msg"
-      icon="lock"
-      floating-label
-      :label="$t('message.message')"
-    />
+    <user-selector v-if="quickid===null" v-model="s" :label="label"></user-selector>
+    <h2 v-if="quickname!=null">{{$t('message.send')}} {{quickname}}</h2>
+    <ui-textbox icon="lock" floating-label :label="$t('message.message')" v-model="con.msg"></ui-textbox>
+    <!--上面的lock锁图标可以换成发送信息的图标-->
     <ui-button
       color="primary"
       icon="send"
+      @click="addClicked"
       :loading="iswaitting"
       :disabled="con.msg===''||con.msg===null||(s==null&&quickid==null)"
-      @click="addClicked"
-    >
-      {{ $t('message.send') }}
-    </ui-button>
+    >{{$t('message.send')}}</ui-button>
   </div>
 </template>
 <script>

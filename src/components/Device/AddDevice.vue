@@ -1,67 +1,24 @@
 <template>
   <div class="add-group">
-    <h2>{{ $t('message.create') }} {{ $t('message.device') }}</h2>
+    <h2>{{$t('message.create')}} {{$t('message.device')}}</h2>
     <div class="flex-panel">
-      <ui-textbox
-        v-model="con.No"
-        icon="person"
-        floating-label
-        :label="$t('message.No')"
-      />
-      <ui-textbox
-        v-model="con.name"
-        icon="person"
-        floating-label
-        :label="$t('message.name')"
-      />
-      <ui-textbox
-        v-model="con.func"
-        icon="person"
-        floating-label
-        :label="$t('message.func')"
-      />
-      <ui-textbox
-        v-model="con.requireReputation"
-        icon="person"
-        floating-label
-        :label="$t('message.requireReputation')"
-      />
-      <ui-select
-        v-model="search.device"
-        has-search
-        :label="$t('message.lab')"
-        :options="labInfo.list"
-        :keys="{ label: &quot;name&quot;, value: &quot;id&quot; }"
-      />
-      <ui-textbox
-        v-model="con.description"
-        icon="lock"
-        floating-label
-        :label="$t('message.description')"
-      />
-      <ui-textbox
-        v-model="con.model"
-        icon="person"
-        floating-label
-        :label="$t('message.model')"
-      />
-      <ui-textbox
-        v-model="con.band"
-        icon="person"
-        floating-label
-        :label="$t('message.band')"
-      />
+      <!--将管理页面的新加设备的图标修改全部改为info_outline-->
+    <ui-textbox icon="info_outline" floating-label :label="$t('message.No')" v-model="con.No"></ui-textbox>
+    <ui-textbox icon="info_outline" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
+    <ui-textbox icon="info_outline" floating-label :label="$t('message.func')" v-model="con.func"></ui-textbox>
+    <ui-textbox icon="info_outline" floating-label :label="$t('message.requireReputation')" v-model="con.requireReputation"></ui-textbox>
+     <ui-select
+      has-search
+      :label="$t('message.lab')"
+      :options='labInfo.list'
+      :keys='{ label: "name", value: "id" }'
+      v-model='search.device'
+    ></ui-select>
+    <ui-textbox icon="info_outline"   floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
+    <ui-textbox icon="info_outline" floating-label :label="$t('message.model')" v-model="con.model"></ui-textbox>
+    <ui-textbox icon="info_outline" floating-label :label="$t('message.band')" v-model="con.band"></ui-textbox>
     </div>
-    <ui-button
-      :disabled="disable"
-      color="primary"
-      icon="check"
-      :loading="iswaitting"
-      @click="addClicked"
-      @touch="getLabInfo"
-    >
-      {{ $t('message.create') }}
-    </ui-button>
+    <ui-button :disabled="disable" color="primary" icon="check" @click="addClicked" :loading="iswaitting" @touch="getLabInfo">{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>
@@ -98,9 +55,6 @@ export default {
       return this.con.No==''||this.con.name==''||this.con.band==''||this.con.model==''||this.con.description==''||this.search.device==null||this.search.device==1
     }
   },
-  mounted () {
-    this.getLabInfo()
-  },
   methods: {
     addClicked () {
       this.con.location = this.search.device.id
@@ -118,6 +72,9 @@ export default {
           this.labInfo = res.data.info
         })
     }
+  },
+  mounted () {
+    this.getLabInfo()
   }
 }
 </script>

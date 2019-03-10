@@ -1,27 +1,9 @@
 <template>
   <div class="add-group">
-    <h2>{{ $t('message.create') }} {{ $t('message.group') }}</h2>
-    <ui-textbox
-      v-model="con.name"
-      icon="person"
-      floating-label
-      :label="$t('message.name')"
-    />
-    <ui-textbox
-      v-model="con.description"
-      icon="lock"
-      floating-label
-      :label="$t('message.description')"
-    />
-    <ui-button
-      color="primary"
-      icon="check"
-      :disabled="disable"
-      :loading="iswaitting"
-      @click="addClicked"
-    >
-      {{ $t('message.create') }}
-    </ui-button>
+    <h2>{{$t('message.create')}} {{$t('message.group')}}</h2>
+    <ui-textbox icon="person" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
+    <ui-textbox icon="lock" floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
+    <ui-button color="primary" icon="check" @click="addClicked" :disabled="disable" :loading="iswaitting">{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>

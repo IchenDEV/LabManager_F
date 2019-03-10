@@ -1,57 +1,38 @@
 <template>
   <div>
-    <table class="table">
-      <tr
-        v-for="(item,index) in books.list"
-        :key="index"
-      >
-        <th>
-          <a @click="devicecli(item.id,index)">{{ item.deviceName }}</a>
-        </th>
-        <th>
-          <a @click="projectcli(item.id,index)">{{ item.projectName }}</a>
-        </th>
-        <th>
-          <Badge
-            v-if="item.hasRead===0"
-            status="error"
-          />
-        </th>
-        <th>{{ item.createTime }}</th>
-      </tr>
-    </table>
-    <Page
-      v-if="books.totalPage>1"
-      size="small"
-      :total="totalPage"
-      :page-size="conp.pageRow"
-      show-elevator
-      @on-change="onPageChange"
-    />
-    <ui-fab
-      icon="refresh"
-      class="fab"
-      tooltip-position="right"
-      @click="getInfo"
-    />
-    <ui-modal
-      ref="devicemodal"
-      :title="selectBook.deviceName"
-    >
-      <p>{{ selectBook.device }}</p>
-      <p>{{ selectBook.deviceName }}</p>
-      <p>{{ selectBook.deviceNo }}</p>
-      <p>{{ selectBook.deviceModel }}</p>
-      <p>{{ selectBook.deviceBand }}</p>
-      <p>{{ selectBook.deviceDescription }}</p>
+  <table class="table">
+  <tr v-for="(item,index) in books.list" :key="index">
+    <th>
+    <a @click="devicecli(item.id,index)">{{item.deviceName}}</a>
+    </th>
+    <th>
+    <a @click="projectcli(item.id,index)">{{item.projectName}}</a>
+    </th>
+    <th>
+    <Badge v-if="item.hasRead===0" status="error" />
+    </th>
+    <th>{{item.createTime}}</th>
+  </tr>
+  </table>
+  <Page size="small" v-if="books.totalPage>1" :total="totalPage" :page-size="conp.pageRow" show-elevator @on-change="onPageChange"/>
+  <ui-fab
+    icon="refresh"
+    class="fab"
+    tooltip-position="right"
+    @click="getInfo"
+  ></ui-fab>
+    <ui-modal ref="devicemodal" :title="selectBook.deviceName">
+        <p>{{selectBook.device}}</p>
+        <p>{{selectBook.deviceName}}</p>
+        <p>{{selectBook.deviceNo}}</p>
+        <p>{{selectBook.deviceModel}}</p>
+        <p>{{selectBook.deviceBand}}</p>
+        <p>{{selectBook.deviceDescription}}</p>
     </ui-modal>
-    <ui-modal
-      ref="projectmodal"
-      :title="selectBook.projectName"
-    >
-      <p>{{ selectBook.project }}</p>
-      <p>{{ selectBook.projectName }}</p>
-      <p>{{ selectBook.projectDescription }}</p>
+    <ui-modal ref="projectmodal" :title="selectBook.projectName">
+        <p>{{selectBook.project}}</p>
+        <p>{{selectBook.projectName}}</p>
+        <p>{{selectBook.projectDescription}}</p>
     </ui-modal>
   </div>
 </template>
@@ -64,11 +45,6 @@ export default {
       selectBook: {},
       totalPage: 0,
       conp: { pageRow: 10, pageNum: 0 ,applicant: this.$store.state.currentUser.id}
-    }
-  },
-  mounted () {
-    if (this.$store.state.hasSingin === true) {
-      this.getInfo()
     }
   },
   methods: {
@@ -90,6 +66,11 @@ export default {
     devicecli (id,index) {
       this.selectBook = this.books.list[index]
       this.$refs['devicemodal'].open()
+    }
+  },
+  mounted () {
+    if (this.$store.state.hasSingin === true) {
+      this.getInfo()
     }
   }
 }

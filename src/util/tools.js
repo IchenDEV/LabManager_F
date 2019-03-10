@@ -71,7 +71,7 @@ export default {
     AddDepartment:'/department/add',
     ListDepartment:'/department/list',
     ListDepartmentUser:'/department/listUser',
-    AddDepartmentUser:'/department/listUser',
+    AddDepartmentUser:'/department/addUser',
     DelDepartmentUser:'/department/deleteUser',
     DelDepartment:'/department/delete',
     UpdateDepartment:'/department/delete',

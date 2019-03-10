@@ -1,35 +1,13 @@
 <template>
   <div>
-    <Card :bordered="false">
-      <h2>{{ $t('message.modify') }} {{ $t('message.lab') }}</h2>
-      <div class="flex-panel">
-        <ui-textbox
-          v-model="item.name"
-          icon="phone"
-          floating-label
-          :label="$t('message.name')"
-        />
-        <ui-textbox
-          v-model="item.description"
-          icon="phone"
-          floating-label
-          :label="$t('message.description')"
-        />
-        <ui-textbox
-          v-model="item.location"
-          icon="not_listed_location"
-          floating-label
-          :label="$t('message.location')"
-        />
-      </div>
-      <ui-button
-        color="primary"
-        icon="update"
-        :loading="iswaitting"
-        @click="updateClick"
-      >
-        {{ $t('message.update') }}
-      </ui-button>
+    <Card :bordered="false" >
+      <h2>{{$t('message.modify')}} {{$t('message.lab')}}</h2>
+        <div class="flex-panel">
+          <ui-textbox icon='phone' floating-label :label="$t('message.name')" v-model='item.name'></ui-textbox>
+          <ui-textbox icon='phone' floating-label :label="$t('message.description')" v-model='item.description'></ui-textbox>
+          <ui-textbox icon='not_listed_location' floating-label :label="$t('message.location')" v-model='item.location'></ui-textbox>
+        </div>
+        <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
   </div>
 </template>
@@ -42,9 +20,6 @@ export default {
       item: {},
       iswaitting: false
     }
-  },
-  mounted () {
-    this.getLabInfo()
   },
   methods: {
     getLabInfo () {
@@ -60,6 +35,9 @@ export default {
       .then(()=>{this.iswaitting = false;this.getLabInfo()})
       .catch()
     }
+  },
+  mounted () {
+    this.getLabInfo()
   }
 }
 </script>

@@ -1,45 +1,43 @@
 <template>
   <div>
-    <h2>{{ $t('message.create') }} {{ $t('message.user') }}</h2>
+    <h2>{{$t('message.create')}} {{$t('message.user')}}</h2>
     <ui-textbox
-      v-model="con.username"
       icon="person"
       floating-label
       :label="$t('message.username')"
+      v-model="con.username"
       autocomplete="off"
-    />
+    ></ui-textbox>
     <ui-textbox
-      v-model="con.password"
       icon="lock"
       floating-label
       :label="$t('message.password')"
       type="password"
       placeholder="password"
+      v-model="con.password"
       autocomplete="off"
-    />
+    ></ui-textbox>
     <ui-textbox
-      v-model="con.nickname"
       icon="lock"
       floating-label
       :label="$t('message.Uname')"
+      v-model="con.nickname"
       autocomplete="off"
-    />
+    ></ui-textbox>
     <ui-select
-      v-model="role"
       icon="person"
       floating-label
       :label="$t('message.role')"
       :options="roleString"
-    />
+      v-model="role"
+    ></ui-select>
     <ui-button
       color="primary"
       icon="check"
+      @click="addClicked"
       :loading="iswaitting"
       :disabled="disable"
-      @click="addClicked"
-    >
-      {{ $t('message.create') }}
-    </ui-button>
+    >{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>

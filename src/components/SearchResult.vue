@@ -1,35 +1,26 @@
 <template>
   <div>
     <div class="flex-panel">
-      <Card
-        v-for="(item,index) in data.info.list"
-        :key="index"
-        :bordered="false"
-      >
+      <Card :bordered="false"  v-for="(item,index) in data.info.list" :key="index">
         <div>
-          <Tag>{{ $t('message.'+item.type) }}</Tag>
-          <p>{{ $t('message.name') }} {{ item.name }}</p>
-          <p>{{ $t('message.description') }} {{ item.description }}</p>
+          <Tag>{{$t('message.'+item.type)}}</Tag>
+          <p>{{$t('message.name')}} {{item.name}}</p>
+          <p>{{$t('message.description')}} {{item.description}}</p>
         </div>
         <ui-button
           v-if="item.type=='device'"
           color="primary"
           icon="book"
           @click="bookClicked(item.id)"
-        >
-          {{ $t('message.appointment') }}
-        </ui-button>
+        >{{$t('message.appointment')}}</ui-button>
       </Card>
-      <Card
-        v-if="data.info.totalCount===0"
-        :bordered="false"
-      >
-        <div>{{ $t('message.findless') }}{{ $t('message.device') }}</div>
+      <Card :bordered="false"  v-if="data.info.totalCount===0">
+        <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
     </div>
     <Page
-      v-if="data.info.totalPage>1"
       size="small"
+      v-if="data.info.totalPage>1"
       :total="data.info.totalCount"
       page-size="10"
       show-elevator

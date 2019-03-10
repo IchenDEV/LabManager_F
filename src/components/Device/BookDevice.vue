@@ -1,94 +1,78 @@
 <template>
   <div>
-    <h1>{{ $t('message.appointment') }}</h1>
+    <h1>{{$t('message.appointment')}}</h1>
     <div class="flex-panel">
-      <Card :bordered="false">
+      <Card :bordered="false" >
         <div>
-          <h2>{{ $t('message.device') }} {{ item.id }}</h2>
-          <p>{{ $t('message.name') }} {{ item.name }}</p>
-          <p>{{ $t('message.No') }} {{ item.No }}</p>
-          <p>{{ $t('message.band') }} {{ item.bands }}</p>
-          <p>{{ $t('message.description') }} {{ item.description }}</p>
-          <p>{{ $t('message.model') }} {{ item.model }}</p>
-          <p>{{ $t('message.lab') }} {{ item.locationName }}</p>
-          <p>{{ item.locationDescription }}</p>
-          <p>{{ $t('message.address') }} {{ item.locationAddress }}</p>
-          <p>{{ $t('message.useRate') }} {{ useRate }} %</p>
+          <h2>{{$t('message.device')}} {{item.id}}</h2>
+          <p>{{$t('message.name')}} {{item.name}}</p>
+          <p>{{$t('message.No')}} {{item.No}}</p>
+          <p>{{$t('message.band')}} {{item.bands}}</p>
+          <p>{{$t('message.description')}} {{item.description}}</p>
+          <p>{{$t('message.model')}} {{item.model}}</p>
+          <p>{{$t('message.lab')}} {{item.locationName}}</p>
+          <p>{{item.locationDescription}}</p>
+          <p>{{$t('message.address')}} {{item.locationAddress}}</p>
+          <p>{{$t('message.useRate')}} {{useRate}} %</p>
         </div>
-        <h3>{{ $t('message.scheduledTime') }}</h3>
+        <h3>{{$t('message.scheduledTime')}}</h3>
         <Timeline>
-          <TimelineItem
-            v-for="(item,index) in bookInfo.list"
-            :key="index"
-          >
+          <TimelineItem v-for="(item,index) in bookInfo.list" :key="index">
             <p>
-              <a @click="openModel(item.applicant,item.applicantNickname)">
-                <Tooltip
-                  :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
-                >{{ item.beginTime }} ~ {{ item.endTime }}</Tooltip>
-              </a>
+            <a @click="openModel(item.applicant,item.applicantNickname)">
+              <Tooltip
+                :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
+              >{{item.beginTime}} ~ {{item.endTime}}</Tooltip>
+            </a>
             </p>
           </TimelineItem>
         </Timeline>
       </Card>
-      <Card :bordered="false">
+      <Card :bordered="false" >
         <div>
-          <h2>{{ $t('message.appointment') }}</h2>
+          <h2>{{$t('message.appointment')}}</h2>
           <project-selector
+            isWorking="true"
             v-model="p"
-            is-working="true"
             :label="$t('message.project')"
             :user="$store.state.currentUser.id"
-          />
+          ></project-selector>
           <span>
             <ui-datepicker
-              v-model="beginDate"
               icon="events"
               floating-label
-            >{{ $t('message.beginDate') }}</ui-datepicker>
+              v-model="beginDate"
+            >{{$t('message.beginDate')}}</ui-datepicker>
             <TimePicker
-              v-model="beginTime"
               class="timepick"
               style="display:block"
               type="time"
               placeholder="Select time"
-            />
+              v-model="beginTime"
+            ></TimePicker>
           </span>
           <span style="margin-buttom:20px;">
-            <ui-datepicker
-              v-model="endDate"
-              icon="events"
-              floating-label
-            >{{ $t('message.endDate') }}</ui-datepicker>
+            <ui-datepicker icon="events" floating-label v-model="endDate">{{$t('message.endDate')}}</ui-datepicker>
             <TimePicker
-              v-model="endTime"
               style="display:block"
               class="timepick"
               type="time"
               placeholder="Select time"
-            />
+              v-model="endTime"
+            ></TimePicker>
           </span>
           <ui-button
             color="primary"
             icon="adjust"
+            @click="bookClick"
             :loading="iswaitting"
             :disabled="!canOrder"
-            @click="bookClick"
-          >
-            {{ $t('message.appointment') }}
-          </ui-button>
+          >{{$t('message.appointment')}}</ui-button>
         </div>
       </Card>
     </div>
-    <ui-modal
-      ref="sendMsg"
-      :title="$t('message.sendMsg')"
-    >
-      <send-msg
-        :quickid="quickid"
-        :quickname="quickname"
-        @send="closeModel"
-      />
+    <ui-modal ref="sendMsg" :title="$t('message.sendMsg')">
+      <send-msg @send="closeModel" :quickid="quickid" :quickname="quickname"></send-msg>
     </ui-modal>
   </div>
 </template>
@@ -97,8 +81,8 @@ import tools from "@/util/tools.js";
 import projectSelector from "@/components/Project/ProjectSelector";
 import SendMsg from "@/components/Msg/SendMsg";
 export default {
-  components: { projectSelector, SendMsg },
   props: { device: String },
+  components: { projectSelector, SendMsg },
   data() {
     return {
       search: { device: this.device, pageRow: 10, offSet: 0 },

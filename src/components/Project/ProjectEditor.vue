@@ -1,74 +1,46 @@
 <template>
   <div>
-    <Card :bordered="false">
-      <h2>{{ $t('message.modify') }} {{ $t('message.project') }}</h2>
-      <Tag
-        v-if="item.status===1"
-        color="success"
-      >
-        {{ $t('message.working') }}
-      </Tag>
-      <Tag
-        v-if="item.status===0"
-        color="error"
-      >
-        {{ $t('message.done') }}
-      </Tag>
-      <Tag
-        v-if="item.status===3"
-        color="warning"
-      >
-        {{ $t('message.pause') }}
-      </Tag>
+    <Card :bordered="false" >
+      <h2>{{$t('message.modify')}} {{$t('message.project')}}</h2>
+      <Tag color="success" v-if="item.status===1">{{$t('message.working')}}</Tag>
+      <Tag color="error" v-if="item.status===0">{{$t('message.done')}}</Tag>
+      <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
       <div class="flex-panel">
+        <ui-textbox icon="phone" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
         <ui-textbox
-          v-model="item.name"
-          icon="phone"
-          floating-label
-          :label="$t('message.name')"
-        />
-        <ui-textbox
-          v-model="item.description"
           icon="phone"
           floating-label
           :label="$t('message.description')"
-        />
+          v-model="item.description"
+        ></ui-textbox>
       </div>
       <ui-button
-        v-if="item.status===1"
         color="primary"
+        v-if="item.status===1"
         icon="update"
-        :loading="iswaitting"
         @click="setStatusClick(0)"
-      >
-        {{ $t('message.done') }}
-      </ui-button>
+        :loading="iswaitting"
+      >{{$t('message.done')}}</ui-button>
       <ui-button
+        color="primary"
         v-if="item.status===3"
-        color="primary"
         icon="update"
-        :loading="iswaitting"
         @click="setStatusClick(1)"
-      >
-        {{ $t('message.restart') }}
-      </ui-button>
+        :loading="iswaitting"
+      >{{$t('message.restart')}}</ui-button>
       <ui-button
+        color="primary"
         v-if="item.status===1"
-        color="primary"
         icon="update"
-        :loading="iswaitting"
         @click="setStatusClick(3)"
-      >
-        {{ $t('message.pause') }}
-      </ui-button>
+        :loading="iswaitting"
+      >{{$t('message.pause')}}</ui-button>
       <ui-button
         color="primary"
         icon="update"
-        :loading="iswaitting"
         @click="updateClick"
-      >
-        {{ $t('message.update') }}
-      </ui-button>
+        :loading="iswaitting"
+      >{{$t('message.update')}}</ui-button>
     </Card>
   </div>
 </template>
@@ -85,9 +57,6 @@ export default {
       p: {},
       iswaitting: false
     };
-  },
-  mounted() {
-    this.getInfo();
   },
   methods: {
     getInfo() {
@@ -107,6 +76,9 @@ export default {
       this.item.status = st;
       this.updateClick();
     }
+  },
+  mounted() {
+    this.getInfo();
   }
 };
 </script>

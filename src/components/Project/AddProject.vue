@@ -1,55 +1,26 @@
 <template>
   <div class="add-project">
-    <h2>{{ $t('message.create') }} {{ $t('message.project') }}</h2>
-    <ui-textbox
-      v-model="con.name"
-      icon="person"
-      floating-label
-      :label="$t('message.name')"
-    />
-    <ui-textbox
-      v-model="con.description"
-      icon="dock"
-      floating-label
-      :label="$t('message.description')"
-    />
+    <h2>{{$t('message.create')}} {{$t('message.project')}}</h2>
+    <!--将名称的图标进行修改为info_outline-->
+    <ui-textbox icon="info_outline" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
+    <ui-textbox icon="dock" floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
     <span>
-      <ui-datepicker
-        v-model="beginDate"
-        icon="events"
-        floating-label
-      >{{ $t('message.beginDate') }}</ui-datepicker>
-      <TimePicker
-        v-model="beginTime"
-        class="timepick"
-        style="display:block"
-        type="time"
-        placeholder="Select time"
-      />
+    <ui-datepicker
+                icon="events"
+                floating-label
+                v-model="beginDate"
+            >{{$t('message.beginDate')}}</ui-datepicker>
+    <TimePicker class="timepick" style="display:block" type="time" placeholder="Select time" v-model="beginTime"></TimePicker>
     </span>
     <span style="margin-buttom:20px;">
-      <ui-datepicker
-        v-model="endDate"
-        icon="events"
-        floating-label
-      >{{ $t('message.endDate') }}</ui-datepicker>
-      <TimePicker
-        v-model="endTime"
-        style="display:block"
-        class="timepick"
-        type="time"
-        placeholder="Select time"
-      />
+    <ui-datepicker
+                icon="events"
+                floating-label
+                v-model="endDate"
+            >{{$t('message.endDate')}}</ui-datepicker>
+    <TimePicker style="display:block" class="timepick" type="time" placeholder="Select time" v-model="endTime" ></TimePicker>
     </span>
-    <ui-button
-      color="primary"
-      icon="check"
-      :loading="iswaitting"
-      :disabled="disable"
-      @click="addClicked"
-    >
-      {{ $t('message.create') }}
-    </ui-button>
+    <ui-button color="primary" icon="check" @click="addClicked" :loading="iswaitting" :disabled="disable">{{$t('message.create')}}</ui-button>
   </div>
 </template>
 <script>

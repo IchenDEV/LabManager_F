@@ -1,44 +1,28 @@
 <template>
-  <div>
-    <Badge :count="msgs.unread">
+<div>
+ <Badge :count="msgs.unread">
       <table class="table">
-        <tr
-          v-for="(item,index) in msgs.list"
-          :key="index"
-        >
-          <th>{{ item.authorNickName }}</th>
-          <a @click="msgcli(item.id,index)">{{ item.msg }}</a>
+        <tr v-for="(item,index) in msgs.list" :key="index">
+          <th>{{item.authorNickName}}</th>
+          <a @click="msgcli(item.id,index)">{{item.msg}}</a>
           <th>
-            <Badge
-              v-if="item.hasRead===0"
-              status="error"
-            />
+            <Badge v-if="item.hasRead===0" status="error"/>
           </th>
-          <th>{{ item.createTime }}</th>
+          <th>{{item.createTime}}</th>
         </tr>
       </table>
-    </Badge>
+  </Badge>
     <Page
-      v-if="msgs.totalPage>1"
       size="small"
+      v-if="msgs.totalPage>1"
       :total="totalPage"
       :page-size="conp.pageRow"
       show-elevator
       @on-change="onPageChange"
     />
-    <ui-fab
-      icon="refresh"
-      class="fab"
-      tooltip-position="right"
-      @click="getInfo"
-    />
-    <ui-modal
-      ref="msgmodal"
-      :title="selectMsg.authorNickName"
-    >
-      {{ selectMsg.msg }}
-    </ui-modal>
-  </div>
+    <ui-fab icon="refresh" class="fab" tooltip-position="right" @click="getInfo"></ui-fab>
+    <ui-modal ref="msgmodal" :title="selectMsg.authorNickName">{{selectMsg.msg}}</ui-modal>
+</div>
 </template>
 <script>
 import tools from "@/util/tools.js";
@@ -54,11 +38,6 @@ export default {
         receiver: this.$store.state.currentUser.id
       }
     };
-  },
-  mounted() {
-    if (this.$store.state.hasSingin === true) {
-      this.getInfo();
-    }
   },
   methods: {
     getInfo() {
@@ -86,6 +65,11 @@ export default {
       this.selectMsg = this.msgs.list[index];
       this.$refs["msgmodal"].open();
       
+    }
+  },
+  mounted() {
+    if (this.$store.state.hasSingin === true) {
+      this.getInfo();
     }
   }
 };

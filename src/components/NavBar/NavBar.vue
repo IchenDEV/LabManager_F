@@ -1,105 +1,48 @@
 <template>
-  <div>
-    <div class="tabs">
-      <ui-tabs
-        fullwidth
-        raised
-      >
-        <ui-tab
-          v-if="$store.state.hasSingin"
-          id="find"
-          @select="tabChange"
-        >
-          <div
-            slot="header"
-            class="my-custom-tab-header"
-          >
-            <ui-icon
-              slot="icon"
-              class="center"
-              icon="find_in_page"
-            /> 
-            <p>{{ $t('message.search') }}</p>
-          </div>
-        </ui-tab>
-        <ui-tab
-          v-if="$store.state.hasSingin"
-          id="book"
-          @select="tabChange"
-        >
-          <div
-            slot="header"
-            class="my-custom-tab-header"
-          >
-            <ui-icon
-              slot="icon"
-              class="center"
-              icon="book"
-            /> 
-            <p>{{ $t('message.appointment') }}</p>
-          </div>
-        </ui-tab>
-        <ui-tab
-          id="home"
-          icon="home"
-          title="Home"
-          @select="tabChange"
-        >
-          <div
-            slot="header"
-            class="my-custom-tab-header"
-          >
-            <img
-              slot="icon"
-              class="center"
-              src="favicon.ico"
-              alt="logo"
-            > 
-          </div>
-        </ui-tab>
-        <ui-tab
-          v-if="$store.state.hasSingin"
-          id="my"
-          @select="tabChange"
-        >
-          <div
-            slot="header"
-            class="my-custom-tab-header"
-          >
-            <ui-icon
-              slot="icon"
-              class="center"
-              icon="person"
-            /> 
-            <p class="center">
-              {{ $t('message.my') }}
-            </p>
-          </div>
-        </ui-tab>
-        <ui-tab
-          v-if="isAdmin&&$store.state.hasSingin"
-          id="admin"
-          @select="tabChange"
-        >
-          <div
-            slot="header"
-            class="my-custom-tab-header"
-          >
-            <ui-icon
-              slot="icon"
-              class="center"
-              icon="person"
-            /> 
-            <p>{{ $t('message.admin') }}</p>
-          </div>
-        </ui-tab>
-      </ui-tabs>
-    </div>
+<div>
+  <div class='tabs' >
+    <ui-tabs  fullwidth raised>
+      <ui-tab id='find'  @select='tabChange' v-if="$store.state.hasSingin">
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="find_in_page"></ui-icon> 
+            <p>{{$t('message.search')}}</p>
+        </div>
+      </ui-tab>
+      <ui-tab id='book'  @select='tabChange' v-if="$store.state.hasSingin">
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="book"></ui-icon> 
+            <p>{{$t('message.appointment')}}</p>
+        </div>
+      </ui-tab>
+      <ui-tab id='home'  icon='home'  title='Home'    @select='tabChange'>
+        <div slot="header" class="my-custom-tab-header">
+            <img class="center" slot="icon" src="favicon.ico" alt="logo"/> 
+        </div>
+      </ui-tab>
+      <ui-tab id='my'  @select='tabChange' v-if="$store.state.hasSingin">
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="person"></ui-icon> 
+            <p class="center">{{$t('message.my')}}</p>
+        </div>
+      </ui-tab>
+      <ui-tab v-if="isAdmin&&$store.state.hasSingin" id='admin'  @select='tabChange'>
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="person"></ui-icon> 
+            <p>{{$t('message.admin')}}</p>
+        </div>
+      </ui-tab>
+    </ui-tabs>
   </div>
+</div>
 </template>
 <script>
 import router from '@/router'
 export default {
+  methods: {
+    tabChange (event) {
+      router.push('../../' + event)
+    }
+  },
   computed: {
     isAdmin () {
       return this.$store.state.isAdmin
@@ -107,11 +50,6 @@ export default {
   },
   mounted () {
     document.getElementsByClassName('ui-tabs__body')[0].style.display = 'none'
-  },
-  methods: {
-    tabChange (event) {
-      router.push('../../' + event)
-    }
   }
 }
 </script>

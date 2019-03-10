@@ -1,5 +1,5 @@
 <template>
-  <user-editor />
+  <user-editor></user-editor>
 </template>
 <script>
 import UserEditor from "@/components/User/UserEditor";

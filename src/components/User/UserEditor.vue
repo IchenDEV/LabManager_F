@@ -1,140 +1,50 @@
 <template>
   <div>
-    <Card :bordered="false">
-      <h2>{{ $t('message.modify') }} {{ $t('message.user') }}</h2>
+    <Card :bordered="false" >
+      <h2>{{$t('message.modify')}} {{$t('message.user')}}</h2>
       <div class="flex-panel">
+        <ui-textbox icon="person" floating-label :label="$t('message.Uname')" v-model="item.nickname"></ui-textbox>
+        <ui-textbox icon="phone" floating-label :label="$t('message.phone')" v-model="item.phone"></ui-textbox>
+        <ui-textbox icon="phone" floating-label :label="$t('message.address')" v-model="item.address"></ui-textbox>
+        <ui-textbox icon="phone" floating-label :label="$t('message.reputation')" v-model="item.reputation"></ui-textbox>
+        <ui-select icon="person" floating-label :label="$t('message.sex')" :options="sexString" v-model="sex"></ui-select>
+        <ui-select icon="person" floating-label :label="$t('message.role')" :options="roleString" v-model="role"></ui-select>
         <ui-textbox
-          v-model="item.nickname"
-          icon="person"
-          floating-label
-          :label="$t('message.Uname')"
-        />
-        <ui-textbox
-          v-model="item.phone"
-          icon="phone"
-          floating-label
-          :label="$t('message.phone')"
-        />
-        <ui-textbox
-          v-model="item.address"
-          icon="phone"
-          floating-label
-          :label="$t('message.address')"
-        />
-        <ui-textbox
-          v-model="item.reputation"
-          icon="phone"
-          floating-label
-          :label="$t('message.reputation')"
-        />
-        <ui-select
-          v-model="sex"
-          icon="person"
-          floating-label
-          :label="$t('message.sex')"
-          :options="sexString"
-        />
-        <ui-select
-          v-model="role"
-          icon="person"
-          floating-label
-          :label="$t('message.role')"
-          :options="roleString"
-        />
-        <ui-textbox
-          v-model="item.email"
           icon="mail"
           :invalid="ismail === false"
           floating-label
           :label="$t('message.email')"
+          v-model="item.email"
           :error="$t('message.wrongEmail')"
-        />
+        ></ui-textbox>
       </div>
-      <ui-button
-        color="primary"
-        icon="fingerprint"
-        :loading="iswaitting"
-        @click="updatePassword"
-      >
-        {{ $t('message.modify') }} {{ $t('message.password') }}
-      </ui-button>
-      <ui-button
-        v-if="item.roleId===1"
-        color="primary"
-        icon="update"
-        :loading="iswaitting"
-        @click="updateSuperPassword"
-      >
-        {{ $t('message.modify') }} {{ $t('message.superPassword') }}
-      </ui-button>
-      <ui-button
-        color="primary"
-        icon="fingerprint"
-        :loading="iswaitting"
-        @click="inputSuper"
-      >
-        {{ $t('message.update') }}
-      </ui-button>
+      <ui-button color="primary" icon="fingerprint" @click="updatePassword" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
+      <ui-button v-if="item.roleId===1" color="primary" icon="update" @click="updateSuperPassword" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.superPassword')}}</ui-button>
+      <ui-button color="primary" icon="fingerprint" @click="inputSuper" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
-    <ui-modal
-      ref="SuperPasswordmModal"
-      :title="$t('message.inputCurrentSuperPassword')"
-    >
+    <ui-modal ref="SuperPasswordmModal" :title="$t('message.inputCurrentSuperPassword')">
       <ui-textbox
-        v-model="item.adminSuperPassword"
         icon="phone"
         floating-label
         :label="$t('message.superPassword')"
         type="password"
-      />
-      <ui-button
-        color="primary"
-        icon="update"
-        :loading="iswaitting"
-        @click="updateClick"
-      >
-        {{ $t('message.update') }}
-      </ui-button>
+        v-model="item.adminSuperPassword"
+      ></ui-textbox>
+      <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </ui-modal>
-    <ui-modal
-      ref="PasswordmModal"
-      :title="$t('message.inputNewPassword')"
-    >
+    <ui-modal ref="PasswordmModal" :title="$t('message.inputNewPassword')">
+      <ui-textbox icon="lock" floating-label :label="$t('message.password')" type="password" v-model="item.password"></ui-textbox>
+    <ui-button color="primary" icon="update" @click="doneClick" :loading="iswaitting">{{$t('message.done')}}</ui-button>
+    </ui-modal>
+    <ui-modal ref="PasswordmModal2" :title="$t('message.inputNewSuperPassword')">
       <ui-textbox
-        v-model="item.password"
         icon="lock"
         floating-label
         :label="$t('message.password')"
         type="password"
-      />
-      <ui-button
-        color="primary"
-        icon="update"
-        :loading="iswaitting"
-        @click="doneClick"
-      >
-        {{ $t('message.done') }}
-      </ui-button>
-    </ui-modal>
-    <ui-modal
-      ref="PasswordmModal2"
-      :title="$t('message.inputNewSuperPassword')"
-    >
-      <ui-textbox
         v-model="item.superPassword"
-        icon="lock"
-        floating-label
-        :label="$t('message.password')"
-        type="password"
-      />
-      <ui-button
-        color="primary"
-        icon="update"
-        :loading="iswaitting"
-        @click="doneClick"
-      >
-        {{ $t('message.done') }}
-      </ui-button>
+      ></ui-textbox>
+      <ui-button color="primary" icon="update" @click="doneClick" :loading="iswaitting">{{$t('message.done')}}</ui-button>
     </ui-modal>
   </div>
 </template>
@@ -160,9 +70,6 @@ export default {
     hasSingin() {
       return this.$store.state.hasSingin;
     }
-  },
-  mounted() {
-    this.getUserInfo();
   },
   methods: {
     getUserInfo() {
@@ -206,6 +113,9 @@ export default {
       .then(()=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();})
       .catch()
     }
+  },
+  mounted() {
+    this.getUserInfo();
   }
 };
 </script>

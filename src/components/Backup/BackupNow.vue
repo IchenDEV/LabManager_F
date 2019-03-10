@@ -1,12 +1,5 @@
 <template>
-  <ui-button
-    color="primary"
-    icon="backup"
-    :loading="iswaitting"
-    @click="backupClicked"
-  >
-    {{ $t('message.backup') }}
-  </ui-button>
+    <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">{{$t('message.backup')}}</ui-button>
 </template>
 <script>
 import tools from '@/util/tools.js'

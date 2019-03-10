@@ -1,20 +1,8 @@
 <template>
   <div>
-    <video
-      id="v"
-      :class="{blur:isBlur}"
-      autoplay
-    />
-    <canvas
-      id="qr-canvas"
-      width="600"
-      height="600"
-      style="display:none;"
-    />
-    <div
-      v-show="showRes"
-      id="result"
-    />
+    <video :class="{blur:isBlur}" id="v" autoplay ></video>
+    <canvas id="qr-canvas" width="600" height="600" style="display:none;"></canvas>
+    <div id="result" v-show="showRes"></div>
   </div>
 </template>
 <script>

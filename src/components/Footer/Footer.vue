@@ -1,12 +1,10 @@
 <template>
   <footer class="footer">
-    <ui-alert :dismissible="false">
-      {{ $t('message.footerAlert') }}
-    </ui-alert>
-    <h2>{{ $t('message.productName') }}</h2>
-    <p>{{ $t('message.devBy') }}</p>
+    <ui-alert :dismissible="false">{{$t('message.footerAlert')}}</ui-alert>
+    <h2>{{$t('message.productName')}}</h2>
+    <p>{{$t('message.devBy')}}</p>
     <p>Beta</p>
-    <a href="https://www.perficient.com">{{ $t("message.links") }}</a>
+    <a href="https://www.perficient.com">{{$t("message.links")}}</a>
   </footer>
 </template>
 <script>
