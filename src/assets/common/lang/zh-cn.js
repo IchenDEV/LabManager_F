@@ -91,6 +91,7 @@ export const message = {
   title:'标题',
   summary:'概要',
   totalUseRate:'总体利用率',
+  UseRate:'利用率',
   counts:'数量',
   func:'功能',
   links:'友情链接',

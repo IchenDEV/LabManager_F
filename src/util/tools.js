@@ -4,6 +4,8 @@ export default {
   Api: {
     AddDevice: '/device/add',
     ListDevice: '/device/list',
+    ListDeviceUseRate: '/device/listUseRate',
+    ExportDevice:'/device/export',
     UpdateDevice: '/device/update',
     DelDevice: '/device/delete',
 

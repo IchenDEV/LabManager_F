@@ -17,7 +17,7 @@
           <Tag color="error" v-if="item.status===0">{{$t('message.done')}}</Tag>
           <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
         </p>
-        <p>idï¼š{{item.id}}</p>
+        <p>id {{item.id}}</p>
         <p>{{$t('message.description')}} {{item.description}}</p>
         <p>{{$t('message.createTime')}} {{item.createTime}}</p>
         <p>{{$t('message.beginTime')}} {{item.beginTime}}</p>

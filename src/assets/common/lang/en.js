@@ -91,6 +91,7 @@ export const message = {
   title: 'Title',
   summary: 'Outline',
   totalUseRate: 'Overall Utilization',
+  UseRate:'Utilization',
   counts: 'Count',
   func: 'Function',
   links: 'Related Links',
