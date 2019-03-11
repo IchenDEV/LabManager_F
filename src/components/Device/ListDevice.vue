@@ -3,11 +3,11 @@
     <Card :bordered="false" >
     <h1>{{$t('message.device')}} {{$t('message.list')}}</h1> 
     <div class="flex-panel">
-      <!--将预约页面的设备列表的图标从person全部改为info_outline，更精确的图标有待寻找-->
+      <!--将预约页面的设备列表的图标从person全部改为info_outline，更精确的图标有待寻找，品牌改为devices-->
       <ui-textbox icon="info_outline" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="info_outline" floating-label :label="$t('message.No')" v-model="search.No"></ui-textbox>
       <ui-textbox icon="info_outline" floating-label :label="$t('message.model')" v-model="search.model"></ui-textbox>
-      <ui-textbox icon="info_outline" floating-label :label="$t('message.band')" v-model="search.bands"></ui-textbox>
+      <ui-textbox icon="devices" floating-label :label="$t('message.band')" v-model="search.bands"></ui-textbox>
       <ui-textbox icon="info_outline" floating-label :label="$t('message.requireReputation')" v-model="search.requireReputation"></ui-textbox>
       <ui-textbox icon="info_outline" floating-label :label="$t('message.func')" v-model="search.func"></ui-textbox>
       <ui-select

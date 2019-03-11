@@ -1,11 +1,12 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <!--添加首页的图标-->
+    <h1><ui-icon class="center" slot="icon" icon="home"></ui-icon>Home</h1>
     <div class="flex-panel">
       <Card
         v-if="$store.state.hasSingin"
         :bordered="false"
-      >
+      >  
         <p slot="title">
           {{ $t('message.announcement') }}
         </p>

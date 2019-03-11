@@ -1,9 +1,9 @@
 <template>
   <div class="add-project">
     <h2>{{$t('message.create')}} {{$t('message.project')}}</h2>
-    <!--将名称的图标进行修改为info_outline-->
+    <!--将名称的图标进行修改为info_outline，描述图标修改-->
     <ui-textbox icon="info_outline" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
-    <ui-textbox icon="dock" floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
+    <ui-textbox icon="description" floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
     <span>
     <ui-datepicker
                 icon="events"

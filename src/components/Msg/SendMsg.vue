@@ -2,8 +2,8 @@
   <div class="add-department">
     <user-selector v-if="quickid===null" v-model="s" :label="label"></user-selector>
     <h2 v-if="quickname!=null">{{$t('message.send')}} {{quickname}}</h2>
-    <ui-textbox icon="lock" floating-label :label="$t('message.message')" v-model="con.msg"></ui-textbox>
-    <!--上面的lock锁图标可以换成发送信息的图标-->
+    <ui-textbox icon="email" floating-label :label="$t('message.message')" v-model="con.msg"></ui-textbox>
+    <!--上面的首页发送信息lock锁图标换成发送信息的图标email-->
     <ui-button
       color="primary"
       icon="send"

@@ -2,7 +2,7 @@
   <div class="add-group">
     <h2>{{$t('message.create')}} {{$t('message.device')}}</h2>
     <div class="flex-panel">
-      <!--将管理页面的新加设备的图标修改全部改为info_outline-->
+      <!--将管理页面的新加设备的图标修改全部改为info_outline，描述改为description，品牌改为devices-->
     <ui-textbox icon="info_outline" floating-label :label="$t('message.No')" v-model="con.No"></ui-textbox>
     <ui-textbox icon="info_outline" floating-label :label="$t('message.name')" v-model="con.name"></ui-textbox>
     <ui-textbox icon="info_outline" floating-label :label="$t('message.func')" v-model="con.func"></ui-textbox>
@@ -14,9 +14,9 @@
       :keys='{ label: "name", value: "id" }'
       v-model='search.device'
     ></ui-select>
-    <ui-textbox icon="info_outline"   floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
+    <ui-textbox icon="description"   floating-label :label="$t('message.description')" v-model="con.description"></ui-textbox>
     <ui-textbox icon="info_outline" floating-label :label="$t('message.model')" v-model="con.model"></ui-textbox>
-    <ui-textbox icon="info_outline" floating-label :label="$t('message.band')" v-model="con.band"></ui-textbox>
+    <ui-textbox icon="devices" floating-label :label="$t('message.band')" v-model="con.band"></ui-textbox>
     </div>
     <ui-button :disabled="disable" color="primary" icon="check" @click="addClicked" :loading="iswaitting" @touch="getLabInfo">{{$t('message.create')}}</ui-button>
   </div>

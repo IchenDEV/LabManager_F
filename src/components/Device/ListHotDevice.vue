@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--在预定页面的热门设备标题可以添加像火花的图标-->
-    <h1>{{$t('message.hot')}} {{$t('message.device')}} {{$t('message.list')}}</h1>
+    <h1><ui-icon class="center" slot="icon" icon="whatshot"></ui-icon>{{$t('message.hot')}} {{$t('message.device')}} {{$t('message.list')}}</h1>
     <div class="flex-panel">
       <Card :bordered="false"  v-for="(item,index) in info.list" :key="index" class="small-card">
         <div>
