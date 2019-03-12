@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :bordered="false">
+    <Card :class="{'modelCard':$store.state.modal}" :bordered="false">
       <h1>{{ $t('message.log') }}</h1>
     
       <table class="table">

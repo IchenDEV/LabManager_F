@@ -27,9 +27,9 @@
           <h3>{{$t("message.phone")}}</h3>
           <p>{{phone}}</p>
         </span>
-        <span v-if="!simple">
+        <span v-if="!simple" >
           <h3>{{$t("message.email")}}</h3>
-          <span style="word-wrap: anywhere;">{{email}}</span>
+          <span style="word-wrap:break-word;">{{email}}</span>
         </span>
         <span v-if="!simple">
           <h3>{{$t("message.address")}}</h3>
@@ -73,6 +73,7 @@
         <ui-textbox
           class="user-itme"
           icon="mail"
+          style="word-wrap:anywhere;"
           :invalid="ismail === false&&email.length>0"
           floating-label
           :label="$t('message.email')"
@@ -128,7 +129,7 @@
     <div v-else>
       <ui-button color="primary" icon="adjust" @click="loginhandle">{{$t("message.pleaseLogin")}}</ui-button>
     </div>
-    <ui-modal ref="passmodal" :title="$t('message.modifyPass')">
+    <ui-modal ref="passmodal" :title="$t('message.modifyPass')" @close="modalClose">
       <update-current-password @close="closepass"></update-current-password>
     </ui-modal>
   </div>
@@ -213,7 +214,7 @@ export default {
     getGpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
       this.iswaitting = true;
-      tools.easyfetch(tools.Api.ListUserDepartment,conp)
+      tools.easyfetch(tools.Api.ListUserGroup,conp)
         .then(res => {
           if (res.data.code === "100") {
             this.gpinfo = res.data.info;
@@ -253,9 +254,11 @@ export default {
       this.mo = !this.mo;
     },
     closepass() {
+      this.$store.state.modal=false
       this.$refs["passmodal"].close();
     },
     passwordhandle() {
+      this.$store.state.modal=true
       this.$refs["passmodal"].open();
     },
     loginhandle() {
@@ -275,6 +278,9 @@ export default {
           }
           this.iswaitting = false;
         })
+    },
+    modalClose(){
+      this.$store.state.modal=false
     }
   },
   mounted() {

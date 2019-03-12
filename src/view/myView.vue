@@ -7,7 +7,7 @@
       qid="testid"
       style="border-radius:10px;"
     />
-    <Card
+    <Card :class="{'modelCard':$store.state.modal}"
       :bordered="false"
       class="margin10"
     >

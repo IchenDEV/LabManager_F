@@ -2,13 +2,13 @@
   <div>
     <h1>{{ $t('message.statistics') }}</h1>
     <div class="flex-panel">
-      <Card :bordered="false" style="min-inline-size:350px;">
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false" style="min-inline-size:350px;">
         <total-use-rate />
       </Card>
-      <Card :bordered="false">
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false">
         <counts />
       </Card>
-      <Card :bordered="false">
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false">
         <rate />
       </Card>
     </div>

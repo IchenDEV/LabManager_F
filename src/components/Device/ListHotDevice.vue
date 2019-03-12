@@ -3,7 +3,7 @@
     <!--在预定页面的热门设备标题可以添加像火花的图标-->
     <h1><ui-icon class="center" slot="icon" icon="whatshot"></ui-icon>{{$t('message.hot')}} {{$t('message.device')}} {{$t('message.list')}}</h1>
     <div class="flex-panel">
-      <Card :bordered="false"  v-for="(item,index) in info.list" :key="index" class="small-card">
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-for="(item,index) in info.list" :key="index" class="small-Card">
         <div>
           <span>
             <h2>{{$t('message.device')}} {{item.id}}</h2>
@@ -24,7 +24,7 @@
           >{{$t('message.appointment')}}</ui-button>
         </div>
       </Card>
-      <Card :bordered="false"  v-if="info.totalCount===0">
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-if="info.totalCount===0">
         <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
     </div>
@@ -61,7 +61,7 @@ export default {
 };
 </script>
 <style>
-.small-card{
+.small-Card{
 min-width: 80px !important;
 margin-left: 0.2rem !important;
 margin-right: 0.2rem !important;

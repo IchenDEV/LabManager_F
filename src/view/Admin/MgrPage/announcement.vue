@@ -1,9 +1,9 @@
 <template>
   <div class="flex-panel warp">
-    <Card class="card">
+    <Card :class="{'modelCard':$store.state.modal}" class="Card">
       <add-announcement @added="rel" />
     </Card>
-    <Card :bordered="false">
+    <Card :class="{'modelCard':$store.state.modal}" :bordered="false">
       <p slot="title">
         {{ $t('message.announcement') }}
       </p>

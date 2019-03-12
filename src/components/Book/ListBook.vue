@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :bordered="false" >
+    <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
     <h1>{{$t('message.appointment')}} {{$t('message.list')}}</h1>  
     <div class="flex-panel">
       <!--将id的图标进行修改为code-->
@@ -12,7 +12,7 @@
     <ui-button color="primary" icon="cloud_download" @click="exportExcel">{{$t('message.export')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card :bordered="false"  v-for="(item,index) in books.list" :key="index">
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-for="(item,index) in books.list" :key="index">
         <p slot="title">{{item.applicantNickname}}</p>
         <p>{{item.id}}</p>
         <p>{{item.projectName}}</p>
@@ -29,7 +29,7 @@
           >{{$t('message.delete')}}</ui-button>
         </span>
       </Card>
-      <Card :bordered="false"  v-if="books.totalCount===0">
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-if="books.totalCount===0">
         <div>{{$t('message.findless')}} {{$t('message.appointment')}}</div>
       </Card>
     </div>

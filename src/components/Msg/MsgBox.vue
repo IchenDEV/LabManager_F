@@ -21,7 +21,7 @@
       @on-change="onPageChange"
     />
     <ui-fab icon="refresh" class="fab" tooltip-position="right" @click="getInfo"></ui-fab>
-    <ui-modal ref="msgmodal" :title="selectMsg.authorNickName">{{selectMsg.msg}}</ui-modal>
+    <ui-modal ref="msgmodal" :title="selectMsg.authorNickName" @close="modalClose">{{selectMsg.msg}}</ui-modal>
 </div>
 </template>
 <script>
@@ -57,6 +57,7 @@ export default {
       this.getInfo();
     },
     msgcli(id, index) {
+      this.$store.state.modal=true
       if(this.msgs.list[index].hasRead==false){
       this.msgs.list[index].hasRead = true
       this.msgs.unread--
@@ -65,6 +66,9 @@ export default {
       this.selectMsg = this.msgs.list[index];
       this.$refs["msgmodal"].open();
       
+    },
+    modalClose(){
+      this.$store.state.modal=false
     }
   },
   mounted() {

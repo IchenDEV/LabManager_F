@@ -91,6 +91,7 @@ const store = new Vuex.Store({
       reputation: 0,
       id: 0
     },
+    modal:false,
     hasSingin: false,
     isAdmin: false,
     isSuperAdmin: false

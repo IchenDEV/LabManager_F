@@ -3,7 +3,7 @@
     <!--添加首页的图标-->
     <h1><ui-icon class="center" slot="icon" icon="home"></ui-icon>Home</h1>
     <div class="flex-panel">
-      <Card
+      <Card :class="{'modelCard':$store.state.modal}"
         v-if="$store.state.hasSingin"
         :bordered="false"
       >  
@@ -12,7 +12,7 @@
         </p>
         <Announcement-list />
       </Card>
-      <Card
+      <Card :class="{'modelCard':$store.state.modal}"
         v-if="$store.state.hasSingin"
         :bordered="false"
       >
@@ -21,7 +21,7 @@
         </p>
         <book-box />
       </Card>
-      <Card
+      <Card :class="{'modelCard':$store.state.modal}"
         v-if="$store.state.hasSingin"
         :bordered="false"
       >
@@ -30,7 +30,7 @@
         </p>
         <msg-box />
       </Card>
-      <Card
+      <Card :class="{'modelCard':$store.state.modal}"
         v-if="$store.state.hasSingin"
         :bordered="false"
       >
@@ -39,7 +39,7 @@
         </p>
         <send-msg :label="$t('message.receiver')" />
       </Card>
-      <Card
+      <Card :class="{'modelCard':$store.state.modal}"
         :bordered="false"
         style="width:70%;"
       >

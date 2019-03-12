@@ -21,7 +21,7 @@
     tooltip-position="right"
     @click="getInfo"
   ></ui-fab>
-    <ui-modal ref="devicemodal" :title="selectBook.deviceName">
+    <ui-modal ref="devicemodal" :title="selectBook.deviceName" @close="modalClose">
         <p>{{selectBook.device}}</p>
         <p>{{selectBook.deviceName}}</p>
         <p>{{selectBook.deviceNo}}</p>
@@ -29,7 +29,7 @@
         <p>{{selectBook.deviceBand}}</p>
         <p>{{selectBook.deviceDescription}}</p>
     </ui-modal>
-    <ui-modal ref="projectmodal" :title="selectBook.projectName">
+    <ui-modal ref="projectmodal" :title="selectBook.projectName" @close="modalClose">
         <p>{{selectBook.project}}</p>
         <p>{{selectBook.projectName}}</p>
         <p>{{selectBook.projectDescription}}</p>
@@ -60,12 +60,17 @@ export default {
       this.getInfo()
     },
     projectcli (id,index) {
+      this.$store.state.modal=true
       this.selectBook = this.books.list[index]
       this.$refs['projectmodal'].open()
     },
     devicecli (id,index) {
+      this.$store.state.modal=true
       this.selectBook = this.books.list[index]
       this.$refs['devicemodal'].open()
+    },
+    modalClose(){
+      this.$store.state.modal=false
     }
   },
   mounted () {

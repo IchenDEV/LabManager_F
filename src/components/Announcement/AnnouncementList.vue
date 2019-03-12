@@ -17,7 +17,7 @@
       show-elevator
       @on-change="onPageChange"
     />
-    <ui-modal  ref="msgmodal" :title="selectMsg.title">
+    <ui-modal  ref="msgmodal" :title="selectMsg.title" @close="modalClose">
       <div id="modelAN">
       </div>
       </ui-modal>
@@ -57,9 +57,10 @@ export default {
       this.getInfo();
     },
     msgcli(id, index) {
+      this.$store.state.modal=true
       this.selectMsg = this.msgs.list[index];
       this.getAnnouncement(id)
-      this.$refs["msgmodal"].open();  
+      this.$refs["msgmodal"].open();
     },
     del(id){
       let da = { id: id };
@@ -67,6 +68,9 @@ export default {
         .then(() => {
           this.getInfo()
         })
+    },
+    modalClose(){
+      this.$store.state.modal=false
     }
   },
   mounted() {

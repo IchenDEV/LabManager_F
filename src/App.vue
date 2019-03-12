@@ -9,7 +9,7 @@
       name="slide-fade"
       mode="out-in"
     >
-      <router-view v-if="isRouterAlive" />
+      <router-view style="-webkit-transform: translateZ(0);-moz-transform: translateZ(0);-ms-transform: translateZ(0);-o-transform: translateZ(0);transform: translateZ(0);"/>
     </transition>
     <BackTop />
     <my-footer />

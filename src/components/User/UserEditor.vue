@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :bordered="false" >
+    <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
       <h2>{{$t('message.modify')}} {{$t('message.user')}}</h2>
       <div class="flex-panel">
         <ui-textbox icon="person" floating-label :label="$t('message.Uname')" v-model="item.nickname"></ui-textbox>
@@ -22,7 +22,7 @@
       <ui-button v-if="item.roleId===1" color="primary" icon="update" @click="updateSuperPassword" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.superPassword')}}</ui-button>
       <ui-button color="primary" icon="fingerprint" @click="inputSuper" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </Card>
-    <ui-modal ref="SuperPasswordmModal" :title="$t('message.inputCurrentSuperPassword')">
+    <ui-modal ref="SuperPasswordmModal" :title="$t('message.inputCurrentSuperPassword')" @close="modalClose">
       <ui-textbox
         icon="phone"
         floating-label
@@ -32,11 +32,11 @@
       ></ui-textbox>
       <ui-button color="primary" icon="update" @click="updateClick" :loading="iswaitting">{{$t('message.update')}}</ui-button>
     </ui-modal>
-    <ui-modal ref="PasswordmModal" :title="$t('message.inputNewPassword')">
+    <ui-modal ref="PasswordmModal" :title="$t('message.inputNewPassword')" @close="modalClose">
       <ui-textbox icon="lock" floating-label :label="$t('message.password')" type="password" v-model="item.password"></ui-textbox>
     <ui-button color="primary" icon="update" @click="doneClick" :loading="iswaitting">{{$t('message.done')}}</ui-button>
     </ui-modal>
-    <ui-modal ref="PasswordmModal2" :title="$t('message.inputNewSuperPassword')">
+    <ui-modal ref="PasswordmModal2" :title="$t('message.inputNewSuperPassword')" @close="modalClose">
       <ui-textbox
         icon="lock"
         floating-label
@@ -82,17 +82,21 @@ export default {
         .catch();
     },
     inputSuper() {
+      this.$store.state.modal=true
       this.$refs["SuperPasswordmModal"].open();
     },
     updatePassword() {
+      this.$store.state.modal=true
       this.$refs["PasswordmModal"].open();
     },
     updateSuperPassword() {
+      this.$store.state.modal=true
       this.$refs["PasswordmModal2"].open();
     },
     doneClick () {
       this.$refs["PasswordmModal2"].close();
       this.$refs["PasswordmModal"].close();
+      this.$store.state.modal=false
     },
     updateClick() {
       this.item.adminSuperPassword = tools.sha3(this.item.adminSuperPassword.toString())
@@ -112,6 +116,9 @@ export default {
       tools.easyfetch(tools.Api.UpdateUser,this.item)
       .then(()=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();})
       .catch()
+    },
+    modalClose(){
+      this.$store.state.modal=false
     }
   },
   mounted() {

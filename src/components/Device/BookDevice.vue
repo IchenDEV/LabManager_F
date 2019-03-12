@@ -2,7 +2,7 @@
   <div>
     <h1>{{$t('message.appointment')}}</h1>
     <div class="flex-panel">
-      <Card :bordered="false" >
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
         <div>
           <h2>{{$t('message.device')}} {{item.id}}</h2>
           <p>{{$t('message.name')}} {{item.name}}</p>
@@ -28,7 +28,7 @@
           </TimelineItem>
         </Timeline>
       </Card>
-      <Card :bordered="false" >
+      <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
         <div>
           <h2>{{$t('message.appointment')}}</h2>
           <project-selector
@@ -71,7 +71,7 @@
         </div>
       </Card>
     </div>
-    <ui-modal ref="sendMsg" :title="$t('message.sendMsg')">
+    <ui-modal ref="sendMsg" :title="$t('message.sendMsg')" @close="modalClose">
       <send-msg @send="closeModel" :quickid="quickid" :quickname="quickname"></send-msg>
     </ui-modal>
   </div>
@@ -135,11 +135,13 @@ export default {
   },
   methods: {
     closeModel() {
+      this.$store.state.modal=false
       this.$refs["sendMsg"].close();
     },
     openModel(a, b) {
       this.quickid = a;
       this.quickname = b;
+      this.$store.state.modal=true
       this.$refs["sendMsg"].open();
     },
 
@@ -170,6 +172,9 @@ export default {
     },
     stringCat(a, b, c) {
       return a + " " + b + " " + c;
+    },
+    modalClose(){
+      this.$store.state.modal=false
     }
   },
   mounted() {

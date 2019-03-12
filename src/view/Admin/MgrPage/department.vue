@@ -1,8 +1,8 @@
 <template>
   <div class="flex-panel warp">
-    <Card
+    <Card :class="{'modelCard':$store.state.modal}"
       :bordered="false"
-      class="card max-w"
+      class="Card max-w"
     >
       <add-department @added="rel" />
     </Card>
