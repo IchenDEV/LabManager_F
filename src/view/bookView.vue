@@ -5,10 +5,10 @@
   </div>
 </template>
 <script>
-import DeviceBox from '@/components/Device/ListDevice'
-import HotDeviceBox from '@/components/Device/ListHotDevice'
+import deviceBox from '@/components/device/deviceList'
+import hotDeviceBox from '@/components/device/hotDeviceList'
 export default {
-  components: { DeviceBox,HotDeviceBox }
+  components: { deviceBox,hotDeviceBox }
 }
 </script>
 <style>

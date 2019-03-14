@@ -1,5 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
+//#region import
 import Vue from 'vue'
 import '@babel/polyfill'
 import App from './App'
@@ -81,6 +83,7 @@ Vue.component('UiAlert', UiAlert)
 Vue.component('UiTextbox', UiTextbox)
 Vue.component('UiDatepicker', UiDatepicker)
 Vue.component('UiMenu', UiMenu)
+//#endregion
 
 /* eslint-disable no-new */
 const store = new Vuex.Store({
@@ -128,11 +131,17 @@ const store = new Vuex.Store({
       state.currentUser.username = ''
       state.currentUser.id = ''
       state.isAdmin = false
+    },
+    removeLoadingAmi() {
+      if (document.getElementById('nb-global-spinner')) {
+        document.body.removeChild(document.getElementById('nb-global-spinner'));
+      }
     }
   }
 })
 
-function getlang() {
+//#region mutilanguage
+function getLocalLang() {
   if (navigator.language.toLowerCase() == 'zh-cn') {
     return navigator.language.toLowerCase()
   } else {
@@ -140,22 +149,23 @@ function getlang() {
   }
 }
 const i18n = new VueI18n({
-  locale: getlang(), // 语言标识
+  locale: getLocalLang(), 
   messages: {
-    'zh-cn': Object.assign(require('./assets/common/lang/zh-cn'), zh), // 中文语言包
-    'en': Object.assign(require('./assets/common/lang/en'), en) // 英文语言包
+    'zh-cn': Object.assign(require('@/assets/common/lang/zh-cn'), zh), 
+    'en': Object.assign(require('@/assets/common/lang/en'), en)
   },
 })
+//#endregion
+
+
+
 new Vue({
   router,
   store,
   i18n,
   mounted() {
     this.$store.dispatch('getInfo')
-    document.title = this.$t('message.productName')
-    if (document.getElementById('nb-global-spinner')) {
-      document.body.removeChild(document.getElementById('nb-global-spinner'));
-    }
+    this.$store.commit('removeLoadingAmi')
   },
   render: h => h(App)
 }).$mount('#app')

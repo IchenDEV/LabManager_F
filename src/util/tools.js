@@ -106,6 +106,16 @@ export default {
   stringCat(a, b, c) {
     return a + " " + b + " " + c;
   },
+  isEmail(str) {
+    try {
+      if (str !== null && str.length > 0) {
+        var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/
+        return reg.test(str)
+      }
+    } catch (e) {
+      return true
+    }
+  },
   easyfetch(api, data) {
     let fx = '{}'
     if (data != null) {
@@ -141,5 +151,5 @@ export default {
         })
         .catch()
     })
-  },
+  }
 }
