@@ -62,15 +62,12 @@ export default {
       tools.easyfetch(tools.Api.AddDevice,this.con).then(()=>{
         this.iswaitting = false
         this.$emit('added')
-      })
-      
+      }) 
     },
     getLabInfo () {
-      let conp = { pageRow: 1000, offSet: 0 }
+      let conp = { pageRow: 10000, offSet: 0 }
       tools.easyfetch(tools.Api.ListLab,conp)
-        .then(res => {
-          this.labInfo = res.data.info
-        })
+        .then(res => {this.labInfo = res.data.info})
     }
   },
   mounted () {
@@ -78,5 +75,3 @@ export default {
   }
 }
 </script>
-<style>
-</style>

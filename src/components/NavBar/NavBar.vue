@@ -2,6 +2,12 @@
 <div>
   <div class='tabs' >
     <ui-tabs  fullwidth raised>
+      <ui-tab id='test'  @select='tabChange' v-if="$store.state.hasSingin">
+        <div slot="header" class="my-custom-tab-header">
+            <ui-icon class="center" slot="icon" icon="find_in_page"></ui-icon> 
+            <p>{{$t('message.search')}}</p>
+        </div>
+      </ui-tab>
       <ui-tab id='find'  @select='tabChange' v-if="$store.state.hasSingin">
         <div slot="header" class="my-custom-tab-header">
             <ui-icon class="center" slot="icon" icon="find_in_page"></ui-icon> 

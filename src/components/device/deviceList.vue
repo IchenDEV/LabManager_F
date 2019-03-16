@@ -21,8 +21,10 @@
       ></ui-select>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+    <ui-button color="primary" icon="delete" @click="listModeClicked">MODE</ui-button>
     </Card>
-    <div class="flex-panel">
+    
+    <div v-if="listMode" class="flex-panel">
       <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-for="(item,index) in info.list" :key="index">
         <div>
           <span>
@@ -67,6 +69,45 @@
         <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
     </div>
+    <Card v-else :class="{'modelCard':$store.state.modal}" :bordered="false">
+      <table>
+      <tr v-for="(item,index) in info.list" :key="index">
+          <th>
+            <h2> {{item.id}}</h2>
+            <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
+            <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
+            <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
+            <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
+            <Tag color="success">{{item.func}}</Tag>
+          </th>
+          <th> {{item.name}}</th>
+          <th> {{item.No}}</th>
+          <th> {{item.bands}}</th>
+          <th> {{item.description}}</th>
+          <th>{{item.model}}</th>
+          <th> {{item.locationName}}</th> 
+          <ui-button
+            v-if="!admin&&item.status===1"
+            color="primary"
+            icon="book"
+            @click="bookClicked(item.id)"
+          >{{$t('message.appointment')}}</ui-button>
+          <!--将修改前面的图标改为attach_file，更精确的有待寻找-->
+          <ui-button
+            v-if="admin"
+            color="primary"
+            icon="attach_file"
+            @click="modifyClicked(item.id)"
+          >{{$t('message.modify')}}</ui-button>
+          <ui-button
+            v-if="admin"
+            color="primary"
+            icon="delete"
+            @click="delClicked(item.id,index)"
+          >{{$t('message.delete')}}</ui-button>
+      </tr>
+      </table>
+    </Card>
     <Page
       size="small"
       v-if="info.totalPage>1"
@@ -94,11 +135,15 @@ export default {
         requireReputation:"",
         device: -1,
         pageRow: 10,
-        pageNum: 1
-      }
+        pageNum: 1,
+      },
+      listMode: true
     };
   },
   methods: {
+    listModeClicked(){
+      this.listMode=!this.listMode
+    },
     bookClicked(i) {
       router.push("device/" + i);
     },
@@ -125,11 +170,11 @@ export default {
       } else {
         this.search.location = this.search.device.id;
       }
-      this.getDeviceInfo();
+      this.getInfo();
     },
     onPageChange(page) {
       this.search.pageNum = page;
-      this.getDeviceInfo();
+      this.getInfo();
     },
     delClicked(id, index) {
       let da = { id: id };

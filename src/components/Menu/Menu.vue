@@ -35,6 +35,16 @@
 <script>
 import router from "@/router";
 export default {
+  data() {
+    return {
+      showMenu: false
+    };
+  },
+  computed: {
+    mobileView() {
+      return document.body.clientWidth <= 600;
+    }
+  },
   methods: {
     menuChangeHandle(name) {
       if (this.mobileView == true) {
@@ -44,16 +54,6 @@ export default {
     },
     meBTcli() {
       this.showMenu = !this.showMenu;
-    }
-  },
-  data() {
-    return {
-      showMenu: false
-    };
-  },
-  computed: {
-    mobileView() {
-      return document.body.clientWidth <= 600;
     }
   }
 };

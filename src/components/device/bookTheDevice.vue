@@ -144,7 +144,6 @@ export default {
       this.$store.state.modal=true
       this.$refs["sendMsg"].open();
     },
-
     getDeviceBookInfo() {
       tools.easyfetch(tools.Api.ListBook,this.search)
         .then(res => {

@@ -63,22 +63,8 @@ export default {
     exportExcel(){
       tools.fetchFile(tools.Api.ExportBook,this.search)
         .then(res => {
-          this.download(res.data)
+          this.$store.commit('download',res.data);
         })
-        .catch();
-    },
-     download (data) {
-        if (!data) {
-            return
-        }
-        let url = window.URL.createObjectURL(new Blob([data]))
-        let link = document.createElement('a')
-        link.style.display = 'none'
-        link.href = url
-        link.setAttribute('download', 'export.xlsx')
-
-        document.body.appendChild(link)
-        link.click()
     },
     getInfo() {
       if (this.user != null) {
@@ -91,7 +77,6 @@ export default {
       .then(res => {
           this.books = res.data.info;
         })
-        .catch();
     },
     onPageChange(page) {
       this.search.pageNum = page;

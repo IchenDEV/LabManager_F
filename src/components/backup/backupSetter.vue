@@ -4,13 +4,10 @@
     <p v-if="data.lastBackupTime == null">{{$t('message.noBackup')}}</p>
     <Time v-else :time="data.lastBackupTime" :interval="1"/>
     <h2>{{$t('message.setBackupSchedule')}}</h2>
-    <ui-textbox icon="access_time" floating-label label="cron" v-model="data.schedule"></ui-textbox>
-    <ui-button
-      color="primary"
-      icon="backup"
-      @click="backupClicked"
-      :loading="iswaitting"
-    >{{$t('message.set')}}</ui-button>
+    <ui-textbox icon="access_time" floating-label label="cron" v-model="data.schedule"/>
+    <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">
+      {{$t('message.set')}}
+    </ui-button>
   </div>
 </template>
 <script>

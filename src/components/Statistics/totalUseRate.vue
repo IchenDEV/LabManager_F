@@ -1,36 +1,32 @@
 <template>
   <div>
     <h2>{{$t('message.totalUseRate')}}</h2>
-     <span>
-            <ui-datepicker
-              icon="events"
-              floating-label
-              v-model="beginDate"
-            >{{$t('message.beginDate')}}</ui-datepicker>
-            <TimePicker
-              class="timepick"
-              style="display:block"
-              type="time"
-              placeholder="Select time"
-              v-model="beginTime"
-            ></TimePicker>
-          </span>
-          <span style="margin-buttom:20px;">
-            <ui-datepicker icon="events" floating-label v-model="endDate">{{$t('message.endDate')}}</ui-datepicker>
-            <TimePicker
-              style="display:block"
-              class="timepick"
-              type="time"
-              placeholder="Select time"
-              v-model="endTime"
-            ></TimePicker>
-          </span>
-          <ui-button
-            color="primary"
-            icon="adjust"
-            @click="bookClick"
-            :loading="iswaitting"
-          >{{$t('message.search')}}</ui-button>
+    <span>
+      <ui-datepicker icon="events" floating-label v-model="beginDate">{{$t('message.beginDate')}}</ui-datepicker>
+      <TimePicker
+        class="timepick"
+        style="display:block"
+        type="time"
+        placeholder="Select time"
+        v-model="beginTime"
+      ></TimePicker>
+    </span>
+    <span style="margin-buttom:20px;">
+      <ui-datepicker icon="events" floating-label v-model="endDate">{{$t('message.endDate')}}</ui-datepicker>
+      <TimePicker
+        style="display:block"
+        class="timepick"
+        type="time"
+        placeholder="Select time"
+        v-model="endTime"
+      ></TimePicker>
+    </span>
+    <ui-button
+      color="primary"
+      icon="adjust"
+      @click="bookClick"
+      :loading="iswaitting"
+    >{{$t('message.search')}}</ui-button>
     <ve-gauge class="gauge" :data="chartData" :settings="chartSettings"></ve-gauge>
   </div>
 </template>
@@ -38,7 +34,7 @@
 import VeGauge from "v-charts/lib/gauge.common";
 import tools from "@/util/tools.js";
 export default {
-  components:{VeGauge},
+  components: { VeGauge },
   data() {
     this.chartSettings = {
       dataType: {
@@ -65,12 +61,12 @@ export default {
         beginTime: null,
         endTime: null,
         status: 1
-      },
+      }
     };
   },
   methods: {
     getInfo() {
-      tools.easyfetch(tools.Api.TotalUseRate,this.con).then(res => {
+      tools.easyfetch(tools.Api.TotalUseRate, this.con).then(res => {
         this.chartData.rows[0].value = res.data.info.TotalUseRate;
       });
     },

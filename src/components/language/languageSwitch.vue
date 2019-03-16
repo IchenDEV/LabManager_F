@@ -10,7 +10,7 @@
         :keys="{ label: 'friendlyName', value: 'id' }"
         @close="$refs.dropdownButton.closeDropdown()"
         @select="langChange"
-      ></ui-menu>
+      />
       {{$t("message.currentLanguage")}}
     </ui-button>
   </div>

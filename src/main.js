@@ -94,7 +94,7 @@ const store = new Vuex.Store({
       reputation: 0,
       id: 0
     },
-    modal:false,
+    modal: false,
     hasSingin: false,
     isAdmin: false,
     isSuperAdmin: false
@@ -136,6 +136,18 @@ const store = new Vuex.Store({
       if (document.getElementById('nb-global-spinner')) {
         document.body.removeChild(document.getElementById('nb-global-spinner'));
       }
+    },
+    download(data) {
+      if (!data) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([data]));
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", "export.xlsx");
+      document.body.appendChild(link);
+      link.click();
     }
   }
 })
@@ -149,9 +161,9 @@ function getLocalLang() {
   }
 }
 const i18n = new VueI18n({
-  locale: getLocalLang(), 
+  locale: getLocalLang(),
   messages: {
-    'zh-cn': Object.assign(require('@/assets/common/lang/zh-cn'), zh), 
+    'zh-cn': Object.assign(require('@/assets/common/lang/zh-cn'), zh),
     'en': Object.assign(require('@/assets/common/lang/en'), en)
   },
 })

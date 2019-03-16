@@ -1,17 +1,17 @@
 <template>
-<div>
- <Badge :count="msgs.unread">
+  <div>
+    <Badge :count="msgs.unread">
       <table class="table">
         <tr v-for="(item,index) in msgs.list" :key="index">
           <th>{{item.authorNickName}}</th>
           <a @click="msgcli(item.id,index)">{{item.msg}}</a>
           <th>
-            <Badge v-if="item.hasRead===0" status="error"/>
+            <Badge v-if="item.hasRead==0" status="error"/>
           </th>
           <th>{{item.createTime}}</th>
         </tr>
       </table>
-  </Badge>
+    </Badge>
     <Page
       size="small"
       v-if="msgs.totalPage>1"
@@ -22,7 +22,7 @@
     />
     <ui-fab icon="refresh" class="fab" tooltip-position="right" @click="getInfo"></ui-fab>
     <ui-modal ref="msgmodal" :title="selectMsg.authorNickName" @close="modalClose">{{selectMsg.msg}}</ui-modal>
-</div>
+  </div>
 </template>
 <script>
 import tools from "@/util/tools.js";
@@ -41,34 +41,31 @@ export default {
   },
   methods: {
     getInfo() {
-      tools.easyfetch(tools.Api.ListMsg,this.conp)
-        .then(res => {
-          this.msgs = res.data.info
-          this.totalPage = res.data.info.totalCount
-        })
-        .catch();
+      tools.easyfetch(tools.Api.ListMsg, this.conp).then(res => {
+        this.msgs = res.data.info;
+        this.totalPage = res.data.info.totalCount;
+      });
     },
     readMsg(id) {
       let cp = { id: id };
-      tools.easyfetch(tools.Api.ReadMsg,cp) .then()
+      tools.easyfetch(tools.Api.ReadMsg, cp).then();
     },
     onPageChange(page) {
       this.conp.pageNum = page;
       this.getInfo();
     },
     msgcli(id, index) {
-      this.$store.state.modal=true
-      if(this.msgs.list[index].hasRead==false){
-      this.msgs.list[index].hasRead = true
-      this.msgs.unread--
-      this.readMsg(id);
+      this.$store.state.modal = true;
+      if (this.msgs.list[index].hasRead == false) {
+        this.msgs.list[index].hasRead = true;
+        this.msgs.unread--;
+        this.readMsg(id);
       }
       this.selectMsg = this.msgs.list[index];
       this.$refs["msgmodal"].open();
-      
     },
-    modalClose(){
-      this.$store.state.modal=false
+    modalClose() {
+      this.$store.state.modal = false;
     }
   },
   mounted() {

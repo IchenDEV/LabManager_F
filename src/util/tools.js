@@ -43,8 +43,8 @@ export default {
     BackupNow:'/backup/now',
 
     ListMsg:'/msg/list',
-    AddMsg:'/msg/addMsg',
-    ReadMsg:'/msg/readMsg',
+    AddMsg:'/msg/add',
+    ReadMsg:'/msg/read',
 
     DelLab:'/lab/delete',
     ListLab:'/lab/list',
