@@ -7,7 +7,7 @@
     </transition>
     <BackTop/>
     <!-- 用于硬件加速 -->
-    <my-footer style="-webkit-transform: translateZ(0);-moz-transform: translateZ(0);-ms-transform: translateZ(0);transform: translateZ(0);"/>
+    <my-footer />
   </div>
 </template>
 <script>
@@ -23,7 +23,7 @@ export default {
 </script>
 <style>
 #app {
-  background-color: #efefef !important;
+  background-color: #dfdfdf !important;
   background-position: center;
   background-size: cover;
   background-attachment: fixed;

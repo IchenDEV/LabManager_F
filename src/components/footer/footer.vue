@@ -13,11 +13,12 @@ export default {}
 <style>
 .footer {
   margin-top: 100px;
-  background: #f2f2f2;
+  background: #ffffff;
   font-size: 0.9rem;
   padding: 1.5rem;
   padding-bottom: 5rem;
   z-index: -1;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: .5rem .5rem 0 0;
+  -webkit-transform: translateZ(10);-moz-transform: translateZ(10);-ms-transform: translateZ(10);transform: translateZ(10);
 }
 </style>
