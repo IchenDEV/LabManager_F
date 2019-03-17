@@ -2,7 +2,7 @@
   <div>
     <h1>{{ $t('message.personalInfo') }}</h1>
     <vue-qr v-if="qrid!=0" :text="qrid" qid="testid" style="border-radius:10px;"/>
-    <Card :class="{'modelCard':$store.state.modal}" :bordered="false">
+    <Card :class="{'modelCard':$store.state.modal}" >
       <current-user-box/>
     </Card>
   </div>

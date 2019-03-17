@@ -3,7 +3,7 @@
     <Card :class="{'modelCard':$store.state.modal}" >
       <add-announcement @added="refresh" />
     </Card>
-    <Card :class="{'modelCard':$store.state.modal}" :bordered="false">
+    <Card :class="{'modelCard':$store.state.modal}" >
       <p slot="title">
         {{ $t('message.announcement') }}
       </p>

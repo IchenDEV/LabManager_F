@@ -2,7 +2,7 @@
 <div>
   <h2>{{$t('message.user')}} {{$t('message.list')}}</h2>
   <div class="flex-panel">
-    <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-for="(item,index) in users.list" :key="index">
+    <Card :class="{'modelCard':$store.state.modal}"   v-for="(item,index) in users.list" :key="index">
       <p slot="title">{{$t('message.username')}} {{item.username}}</p>
       <p>{{$t('message.user')}} id {{item.id}}</p>
       <p>{{$t('message.Uname')}} {{item.nickname}}</p>

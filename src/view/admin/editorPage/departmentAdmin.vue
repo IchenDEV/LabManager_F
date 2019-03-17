@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
+    <Card :class="{'modelCard':$store.state.modal}"  >
       <h2>{{$t('message.modify')}} {{$t('message.department')}}</h2>
       <div class="flex-panel">
         <ui-textbox icon="phone" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
@@ -19,14 +19,14 @@
       >{{$t('message.update')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
+      <Card :class="{'modelCard':$store.state.modal}"  >
         <div>
           <h2>{{$t('message.add')}} {{$t('message.user')}}</h2>
           <user-selector v-model="s" :label="$t('message.user')"></user-selector>
           <ui-button color="primary" icon="add" @click="addUserClick" :loading="iswaitting">{{$t('message.add')}}</ui-button>
         </div>
       </Card>
-      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-for="(item,index) in userInfo.list" :key="index">
+      <Card :class="{'modelCard':$store.state.modal}"   v-for="(item,index) in userInfo.list" :key="index">
         <div>
           <h2>{{$t('message.user')}} {{item.user}}</h2>
           <p>{{$t('message.Uname')}} {{item.nickname}}</p>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="{backgroundImage: 'url(' +backgroungImg + ')'}">
+  <div id="app" >
     <nav-bar/>
     <header style="height:80px;"/>
     <transition name="slide-fade" mode="out-in">
@@ -16,11 +16,6 @@ import myFooter from "./components/footer/footer";
 export default {
   name: "App",
   components: { navBar, myFooter },
-  data() {
-    return {
-      backgroungImg: require("@/assets/image.jpg")
-    };
-  },
   mounted(){
     document.title = this.$t('message.productName');
   }
@@ -28,7 +23,6 @@ export default {
 </script>
 <style>
 #app {
-  background: url();
   background-color: #efefef !important;
   background-position: center;
   background-size: cover;

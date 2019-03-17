@@ -88,7 +88,17 @@ export default {
     }
     return search
   },
+  /* eslint-disable */
   timeBuilder(beginDate, beginTime) {
+    return beginDate.getFullYear() +
+      "-" +
+      (new Number(beginDate.getMonth()) + 1) +
+      "-" +
+      beginDate.getDate() +
+      " " +
+      beginTime;
+  },
+  timeBuilder(beginDate, beginTime,during) {
     return beginDate.getFullYear() +
       "-" +
       (new Number(beginDate.getMonth()) + 1) +

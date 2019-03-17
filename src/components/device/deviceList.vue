@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
+    <Card :class="{'modelCard':$store.state.modal}"  >
     <h1>{{$t('message.device')}} {{$t('message.list')}}</h1> 
     <div class="flex-panel">
       <!--将预约页面的设备列表的图标从person全部改为info_outline，更精确的图标有待寻找，品牌改为devices-->
@@ -25,7 +25,7 @@
     </Card>
     
     <div v-if="listMode" class="flex-panel">
-      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-for="(item,index) in info.list" :key="index">
+      <Card :class="{'modelCard':$store.state.modal}"   v-for="(item,index) in info.list" :key="index">
         <div>
           <span>
             <h2>{{$t('message.device')}} {{item.id}}</h2>
@@ -65,11 +65,11 @@
           >{{$t('message.delete')}}</ui-button>
         </div>
       </Card>
-      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-if="info.totalCount===0">
+      <Card :class="{'modelCard':$store.state.modal}"   v-if="info.totalCount===0">
         <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
     </div>
-    <Card v-else :class="{'modelCard':$store.state.modal}" :bordered="false">
+    <Card v-else :class="{'modelCard':$store.state.modal}" >
       <table>
       <tr v-for="(item,index) in info.list" :key="index">
           <th>

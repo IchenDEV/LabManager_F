@@ -17,10 +17,12 @@
     "v-charts": "^1.19.0",
     "vue": "^2.6.8",
     "vue-calendar-component": "^2.8.2",
+    "vue-fullcalendar": "^1.0.9",
     "vue-i18n": "^8.9.0",
     "vue-qr": "^1.5.2",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.2",
+    "vue-simple-calendar": "^4.2.1",
     "vuex": "^3.1.0"
   },
   "devDependencies": {

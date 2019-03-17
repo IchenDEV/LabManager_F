@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
+    <Card :class="{'modelCard':$store.state.modal}"  >
       <h2>{{$t('message.modify')}} {{$t('message.user')}}</h2>
       <div class="flex-panel">
         <ui-textbox icon="person" floating-label :label="$t('message.Uname')" v-model="item.nickname"></ui-textbox>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex-panel warp">
-      <Card :class="{'modelCard':$store.state.modal}" :bordered="false" class="max-w" >
+      <Card :class="{'modelCard':$store.state.modal}"  class="max-w" >
         <add-lab @added="refresh" />
       </Card>
       <lab-list ref="labList" />

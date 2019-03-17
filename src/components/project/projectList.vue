@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :class="{'modelCard':$store.state.modal}" :bordered="false" >
+    <Card :class="{'modelCard':$store.state.modal}"  >
     <h2>{{$t('message.project')}} {{$t('message.list')}}</h2>
     <div class="flex-panel">
       <!--将名称的图标进行修改为info_outline-->
@@ -10,7 +10,7 @@
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-for="(item,index) in projects.list" :key="index">
+      <Card :class="{'modelCard':$store.state.modal}"   v-for="(item,index) in projects.list" :key="index">
         <p slot="title">
           {{item.name}}
           <Tag color="success" v-if="item.status===1">{{$t('message.working')}}</Tag>
@@ -37,7 +37,7 @@
           >{{$t('message.delete')}}</ui-button>
         </span>
       </Card>
-      <Card :class="{'modelCard':$store.state.modal}" :bordered="false"  v-if="projects.totalCount===0">
+      <Card :class="{'modelCard':$store.state.modal}"   v-if="projects.totalCount===0">
         <div>{{$t('message.findless')}} {{$t('message.project')}} </div>
       </Card>
     </div>

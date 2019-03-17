@@ -1,6 +1,6 @@
 <template>
   <div class="flex-panel warp">
-    <Card :class="{'modelCard':$store.state.modal}" :bordered="false" class="max-w">
+    <Card :class="{'modelCard':$store.state.modal}"  class="max-w">
       <add-group @added="refresh" />
     </Card>
     <group-list ref="groupList" />
