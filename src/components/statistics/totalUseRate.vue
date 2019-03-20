@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{$t('message.totalUseRate')}}</h2>
+    <h2 slot="title">{{$t('message.totalUseRate')}}</h2>
     <span>
       <ui-datepicker icon="events" floating-label v-model="beginDate">{{$t('message.beginDate')}}</ui-datepicker>
       <TimePicker
@@ -81,3 +81,10 @@ export default {
   }
 };
 </script>
+<style>
+.gauge > div{
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+

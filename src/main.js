@@ -24,6 +24,7 @@ import {
   TimelineItem
 } from 'iview'
 import {
+  UiTooltip,
   UiButton,
   UiFab,
   UiIcon,
@@ -80,6 +81,7 @@ Vue.component('UiTabs', UiTabs)
 Vue.component('UiTab', UiTab)
 Vue.component('UiSelect', UiSelect)
 Vue.component('UiAlert', UiAlert)
+Vue.component('UiTooltip', UiTooltip)
 Vue.component('UiTextbox', UiTextbox)
 Vue.component('UiDatepicker', UiDatepicker)
 Vue.component('UiMenu', UiMenu)
@@ -94,6 +96,7 @@ const store = new Vuex.Store({
       reputation: 0,
       id: 0
     },
+    path:'',
     modal: false,
     hasSingin: false,
     isAdmin: false,
@@ -168,8 +171,15 @@ const i18n = new VueI18n({
   },
 })
 //#endregion
-
-
+/* eslint-disable */
+router.afterEach((to) => {
+  if(to.name==null&&to.path=='/'){
+    router.push("/home");
+    return;
+  }
+  store.state.path=to.name;
+  console.log(to);
+})
 
 new Vue({
   router,

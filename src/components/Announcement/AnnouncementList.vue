@@ -70,9 +70,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$store.state.hasSingin === true) {
       this.getInfo();
-    }
   }
 };
 </script>

@@ -1,85 +1,69 @@
 <template>
   <div>
     <div class="flex-panel">
-      <Card :class="{'modelCard':$store.state.modal}" style="width:40%">
-        <div class="flex-panel">
-          <ui-textbox
-            icon="info_outline"
-            floating-label
-            :label="$t('message.name')"
-            v-model="search.name"
-          ></ui-textbox>
-          <ui-textbox
-            icon="info_outline"
-            floating-label
-            :label="$t('message.No')"
-            v-model="search.No"
-          ></ui-textbox>
-          <ui-textbox
-            icon="info_outline"
-            floating-label
-            :label="$t('message.model')"
-            v-model="search.model"
-          ></ui-textbox>
-          <ui-textbox
-            icon="devices"
-            floating-label
-            :label="$t('message.band')"
-            v-model="search.bands"
-          ></ui-textbox>
-          <ui-textbox
-            icon="info_outline"
-            floating-label
-            :label="$t('message.requireReputation')"
-            v-model="search.requireReputation"
-          ></ui-textbox>
-          <ui-textbox
-            icon="info_outline"
-            floating-label
-            :label="$t('message.func')"
-            v-model="search.func"
-          ></ui-textbox>
-          <ui-textbox icon="info_outline" floating-label label="预约时长（min）" v-model="search.min"></ui-textbox>
-        </div>
-        <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+      <div style="width:50%">
+        <Card>
+            <ui-textbox
+              icon="info_outline"
+              floating-label
+              :label="$t('message.name')"
+              v-model="search.name"
+            ></ui-textbox>
+            <ui-textbox
+              icon="info_outline"
+              floating-label
+              :label="$t('message.func')"
+              v-model="search.func"
+            ></ui-textbox>
+             <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+          </Card>
+         
+       <Card :class="{'modelCard':$store.state.modal}" v-if="info.list!=null">
+        <table style="text-align:left;">
+          <tr v-for="(item,index) in info.list" :key="index">
+            <th>
+              <h2>{{item.id}} {{item.name}}</h2>
+              <ui-tooltip position="bottom">{{ item.No }}</ui-tooltip>
+            </th>
+            <th>
+              <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
+              <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
+              <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
+              <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
+            </th>
+            <th>
+              <Tag color="success">{{item.func}}</Tag>
+            </th>
+            <th>
+              <ui-button
+                v-if="item.status===1"
+                color="primary"
+                icon="book"
+                @click="bookClicked(item)"
+              >{{$t('message.appointment')}}</ui-button>
+            </th>
+          </tr>
+        </table>
+        <Page
+          size="small"
+          v-if="info.totalPage>1"
+          :total="info.totalPage"
+          :page-size="search.pageRow"
+          show-elevator
+          @on-change="onPageChange"
+        />
       </Card>
-      <Card :class="{'modelCard':$store.state.modal}" style="width:50%">
+      </div>
+      <Card :class="{'modelCard':$store.state.modal}" style="width:40%">
         <full-calendar
           :events="fcEvents"
-          changeMonth="changeMonth"
+          @view-render="changeMonth"
           locale="zh"
-          @dayClick="clickDay"
+          :config="config"
+          @day-click="clickDay"
         ></full-calendar>
       </Card>
     </div>
-    <Card :class="{'modelCard':$store.state.modal}" >
-      <h1>{{search.beginTime}}</h1>
-      <table> 
-        <tr v-for="(item,index) in info.list" :key="index">  
-          <th><h2>{{item.id}}{{item.name}}</h2>
-            <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
-            <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
-            <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
-            <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
-          </th>
-          <th>{{item.No}}</th>
-          <th>{{item.description}}</th>
-          <th>{{item.model}}</th>
-          <th>
-          <ui-button
-            v-if="item.status===1"
-            color="primary"
-            icon="book"
-            @click="bookClicked(item)"
-          >{{$t('message.appointment')}}</ui-button>
-          </th>
-          <th>
-            <h2> {{item.rate}}%</h2>
-            <Tag color="success">{{item.func}}</Tag>
-          </th>
-        </tr>
-      </table>
-    </Card>
     <ui-modal ref="bookitmodal" :title="selectBook.name">
       <p>{{selectBook.name}}</p>
       <p>{{selectBook.No}}</p>
@@ -116,13 +100,20 @@
 </template>
 <script>
 import tools from "@/util/tools.js";
-import fullCalendar from "vue-fullcalendar";
+import { FullCalendar } from "vue-full-calendar";
+import "fullcalendar/dist/fullcalendar.css";
 import projectSelector from "@/components/project/projectSelector";
+import "fullcalendar/dist/locale/zh-cn";
 export default {
-  components: { fullCalendar, projectSelector },
+  components: { FullCalendar, projectSelector },
   data() {
     return {
       books: {},
+      config: {
+        locale: "zh-cn",
+        height: "auto",
+        editable: false
+      },
       beginDate: new Date(),
       endDate: new Date(),
       beginTime: new Date(),
@@ -149,6 +140,10 @@ export default {
     };
   },
   methods: {
+    onPageChange(page) {
+      this.search.pageNum = page;
+      this.getInfo();
+    },
     bookitClicked() {
       this.iswaitting = true;
       this.con.project = this.p.projectId;
@@ -175,8 +170,8 @@ export default {
         this.books = res.data.info;
         this.fcEvents.splice(0, this.fcEvents.length);
         for (let item of this.books.list) {
-          let begin = item.beginTime;
-          let end = item.endTime;
+          let begin = new Date(item.beginTime);
+          let end = new Date(item.endTime);
           let obj = {
             end: end,
             start: begin,
@@ -196,7 +191,7 @@ export default {
     },
     clickDay(dax) {
       console.log(dax);
-      var day =new Date(dax.getTime());
+      var day = new Date(dax._d);
       day.setDate(day.getDate());
       this.search.beginTime = day;
       day.setMinutes(day.getMinutes());

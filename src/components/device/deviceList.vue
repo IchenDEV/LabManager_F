@@ -3,7 +3,6 @@
     <Card :class="{'modelCard':$store.state.modal}"  >
     <h1>{{$t('message.device')}} {{$t('message.list')}}</h1> 
     <div class="flex-panel">
-      <!--将预约页面的设备列表的图标从person全部改为info_outline，更精确的图标有待寻找，品牌改为devices-->
       <ui-textbox icon="info_outline" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
       <ui-textbox icon="info_outline" floating-label :label="$t('message.No')" v-model="search.No"></ui-textbox>
       <ui-textbox icon="info_outline" floating-label :label="$t('message.model')" v-model="search.model"></ui-textbox>
@@ -21,7 +20,7 @@
       ></ui-select>
     </div>
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
-    <ui-button color="primary" icon="delete" @click="listModeClicked">MODE</ui-button>
+    <ui-button color="primary" icon="mode" @click="listModeClicked">MODE</ui-button>
     </Card>
     
     <div v-if="listMode" class="flex-panel">
@@ -72,18 +71,17 @@
     <Card v-else :class="{'modelCard':$store.state.modal}" >
       <table>
       <tr v-for="(item,index) in info.list" :key="index">
-          <th>
-            <h2> {{item.id}}</h2>
+          <th style="min-width:5rem;"> <h2>{{item.name}}</h2></th>
+          <th style="min-width:5rem;">
             <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
             <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
             <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
             <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
             <Tag color="success">{{item.func}}</Tag>
           </th>
-          <th> {{item.name}}</th>
           <th> {{item.No}}</th>
           <th> {{item.bands}}</th>
-          <th> {{item.description}}</th>
+          <th style="min-width:20rem;"> {{item.description.slice(0,20)}}...</th>
           <th>{{item.model}}</th>
           <th> {{item.locationName}}</th> 
           <ui-button
@@ -137,7 +135,7 @@ export default {
         pageRow: 10,
         pageNum: 1,
       },
-      listMode: true
+      listMode: false
     };
   },
   methods: {

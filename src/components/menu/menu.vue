@@ -60,10 +60,11 @@ export default {
 </script>
 <style>
 .sider {
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 6px;
+  background-color: rgb(255, 255, 255) !important;
   text-align: left;
   margin: 5px;
+  box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.14);
 }
 </style>
 

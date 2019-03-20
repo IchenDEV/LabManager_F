@@ -3,8 +3,13 @@
     <h1>
       <ui-icon class="center" slot="icon" icon="home"></ui-icon>Home
     </h1>
+    
     <div class="flex-panel">
-      <Card v-if="$store.state.hasSingin" :class="{'modelCard':$store.state.modal}" >
+      <hot-device-box v-if="$store.state.hasSingin" class="hdb" />
+      <Card :class="{'modelCard':$store.state.modal}" v-if="$store.state.hasSingin&&$store.state.isAdmin" >
+        <total-use-rate />
+      </Card>
+      <Card  :class="{'modelCard':$store.state.modal}" >
         <p slot="title">{{ $t('message.announcement') }}</p>
         <announcement-list/>
       </Card>
@@ -32,8 +37,18 @@ import currentUserBox from "@/components/currentUserBox/currentUserBox";
 import currentMsgBox from "@/components/msg/currentMsgBox";
 import currentBookInfoBox from "@/components/book/currentBookInfoBox";
 import announcementList from "@/components/announcement/announcementList";
+import hotDeviceBox from '@/components/device/hotDeviceList'
 import msgSender from "@/components/msg/msgSender";
+import totalUseRate from "@/components/statistics/totalUseRate";
 export default {
-  components: { currentUserBox,currentMsgBox, msgSender,currentBookInfoBox, announcementList }
+  components: { currentUserBox,currentMsgBox, msgSender,currentBookInfoBox, announcementList,hotDeviceBox,totalUseRate }
 };
 </script>
+<style>
+.hdb{
+min-width: 100px;
+width: 70%;
+margin-left: auto;
+margin-right: auto;
+}
+</style>

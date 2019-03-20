@@ -7,7 +7,7 @@ const loginView =()=> import('@/view/loginView')
 const bookView =()=> import ('@/view/bookView')
 const findView =()=> import ('@/view/findView')
 const homeView =()=> import ('@/view/homeView')
-const testView =()=> import ('@/view/testView')
+const calendarView =()=> import ('@/view/calendarView')
 const deviceView =()=> import ('@/view/public/deviceView')
 
 const departmentAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/departmentAdmin')
@@ -38,10 +38,11 @@ export default new Router({
       name: 'homeView',
       component: homeView
     },
+    {path: '/', redirect: '/home',name: 'redict'},
     {
-      path: '/test',
-      name: 'testView',
-      component: testView
+      path: '/calendar',
+      name: 'calendarView',
+      component: calendarView
     },
     {
       path: '/my',
@@ -65,11 +66,13 @@ export default new Router({
     },
     {
       path: '/device/:id',
+      name: 'device',
       component: deviceView
     },
     {
       path: '/admin/',
       redirect: '/admin/device',
+      name: 'adminView',
       component: adminView,
       children: [{
           path: 'department',

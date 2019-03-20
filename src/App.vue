@@ -1,7 +1,6 @@
 <template>
   <div id="app" >
     <nav-bar/>
-    <header style="height:80px;"/>
     <transition name="slide-fade" mode="out-in">
       <router-view/>
     </transition>
@@ -23,7 +22,7 @@ export default {
 </script>
 <style>
 #app {
-  background-color: #dfdfdf !important;
+  background-color: #f5f5f5 !important;
   background-position: center;
   background-size: cover;
   background-attachment: fixed;

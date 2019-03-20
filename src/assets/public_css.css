@@ -3,20 +3,27 @@ html {
 }
 body {
   margin: 0;
-  background-color: #f0f0f0 !important;
 }
+html, body, h1, h2, h3, h4, h5, h6, p, img, ol, ul, li, form, table, tr, th, td, blockquote{
+border:0;
+border-collapse: collapse;
+border-spacing: 0;
+list-style: none;
+margin: 0;
+padding: 0;
+}
+h1, h2, .b_focusLabel, .b_secondaryFocus, .b_groupLabel{
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: normal;
+}
+
 .ivu-input {
   background-color: rgba(255, 255, 255, 0.5) !important;
-}
-.max-w{
-  max-width: 400px;
-  max-height: 80%;
 }
 .ui-tabs__header-items{
   overflow: auto
 }
-/* 可以设置不同的进入和离开动画 */
-/* 设置持续时间和动画函数 */
 .slide-fade-enter-active {
   transition: all .3s ease;
 }
@@ -24,7 +31,7 @@ body {
   transition: all .3s ease-out;
 }
 .slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */ {
+{
   opacity: 0;
 }
 .ui-menu{
@@ -39,12 +46,13 @@ body {
 }
 .ui-tabs {
   margin-bottom: 0 !important;
+  background-color: rgb(255, 255, 255) !important;
 }
 .ui-tabs__body {
   display: none !important;
 }
 img{
-  border-radius: 10px;
+  border-radius: 6px;
 }
 .flex-panel {
   display: flex;
@@ -57,8 +65,8 @@ img{
   min-width: 250px;
   flex: 1 1 auto;
   transition: all .7s ease-out;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
   margin-top: .5rem
 }
 .col-panel {
@@ -92,6 +100,7 @@ img{
   margin-right: auto
 }
 .ui-tabs--background-color-default .ui-tabs__header{
+  background-color: #ffffff !important;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px)
 }
@@ -100,7 +109,7 @@ img{
   backdrop-filter: blur(10px)
 }
 .ivu-tag{
-box-shadow: 0px 2px 2px rgba(0,0,0,0.2)
+  box-shadow: 0px 2px 2px rgba(0,0,0,0.2)
 }
 .ivu-notice-notice{
   -webkit-backdrop-filter: blur(10px);
@@ -110,17 +119,17 @@ box-shadow: 0px 2px 2px rgba(0,0,0,0.2)
   font-size: 2rem;
 }
 .ivu-card{
+  border-radius: 6px !important;
   min-height: 50px;
+  box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.14);
   height: auto;
   margin: 5px;
-  transition: all .8s!important;
 }
 .ivu-card:hover{
-  box-shadow: 5px 15px 15px rgba(0,0,0,.5) !important;
-  transform:  translateY(-0.03rem);
+  box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.3);
 }
-.modelCard:hover{
-  transform: none !important;
+.modelCard{
+ max-width: 100% !important;
 }
 .ui-modal__mask {
   z-index: 9999 !important;
