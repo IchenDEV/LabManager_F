@@ -1,6 +1,5 @@
 <template>
   <footer class="footer">
-    <ui-alert :dismissible="false">{{$t('message.footerAlert')}}</ui-alert>
     <h2>{{$t('message.productName')}}</h2>
     <p>{{$t('message.devBy')}}</p>
     <p>Beta</p>

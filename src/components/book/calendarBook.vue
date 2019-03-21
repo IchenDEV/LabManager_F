@@ -120,9 +120,9 @@ export default {
       beginTime: new Date(),
       endTime: new Date(),
       search: {
-        pageRow: 10,
-        beginTime: new Date(new Date().setDate(-8)),
-        endTime: new Date(new Date().setDate(38))
+        pageRow: 100,
+        beginTime: new Date(new Date().setDate(-64)),
+        endTime: new Date(new Date().setDate(64))
       },
       p: "",
       iswaitting: false,
@@ -160,15 +160,19 @@ export default {
       this.selectBook = item;
       this.$refs["bookitmodal"].open();
     },
-    changeMonth(a, b, month) {
-      this.search.beginTime = new Date(new Date(month).setDate(-7));
-      this.search.endTime = new Date(new Date(month).setDate(38));
+    changeMonth(month) {
+      /* eslint-disable */
+      console.log("Das")
+      console.log(month.start._d)
+      this.search.beginTime = new Date(new Date(month.start).setDate(-64));
+      this.search.endTime = new Date(new Date(month.start).setDate(64));
       this.getInfo();
     },
     getInfo() {
       /* eslint-disable */
-       this.fcEvents.splice(0, this.fcEvents.length);
+      this.fcEvents.splice(0, this.fcEvents.length);
       tools.easyfetch(tools.Api.ListBook, this.search).then(res => {
+        this.fcEvents.splice(0, this.fcEvents.length);
         this.books = res.data.info;
         for (let item of this.books.list) {
           let begin = new Date(item.beginTime);
@@ -176,7 +180,9 @@ export default {
           let obj = {
             end: end,
             start: begin,
-            title: item.device + "*" + item.deviceName
+            title: item.device + "*" + item.deviceName,
+            classNames:['free'],
+            backgroundColor:tools.getRandomColor()
           };
           this.fcEvents.push(obj);
         }
