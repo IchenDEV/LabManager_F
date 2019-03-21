@@ -7,28 +7,29 @@ const loginView =()=> import('@/view/loginView')
 const bookView =()=> import ('@/view/bookView')
 const findView =()=> import ('@/view/findView')
 const homeView =()=> import ('@/view/homeView')
-const deviceView =()=> import ('@/view/Public/deviceView')
+const calendarView =()=> import ('@/view/calendarView')
+const deviceView =()=> import ('@/view/public/deviceView')
 
-const departmentAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/departmentAdmin')
-const groupAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/groupAdmin')
-const userAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/userAdmin')
-const projectAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/projectAdmin')
-const deviceAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/deviceAdmin')
-const labAdmin =()=> import (/* webpackChunkName: "MgrEachPage" */'@/view/Admin/MgrEachPage/labAdmin')
+const departmentAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/departmentAdmin')
+const groupAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/groupAdmin')
+const userAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/userAdmin')
+const projectAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/projectAdmin')
+const deviceAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/deviceAdmin')
+const labAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/labAdmin')
 
-const announcement =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/announcement')
-const device =()=>import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/device')
-const log =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/log')
-const book =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/book')
-const lab =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/lab')
-const project =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/project')
-const user =()=> import (/* webpackChunkName: "MgrPageA" */'@/view/Admin/MgrPage/user')
-const group =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/group')
-const backup =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/backup')
-const statistics =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/statistics')
-const department =()=> import (/* webpackChunkName: "MgrPage" */'@/view/Admin/MgrPage/department')
+const announcement =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/announcement')
+const device =()=>import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/device')
+const log =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/log')
+const book =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/book')
+const lab =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/lab')
+const project =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/project')
+const user =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/user')
+const group =()=> import (/* webpackChunkName: "infoListPage" */'@/view/admin/infoListPage/group')
+const backup =()=> import (/* webpackChunkName: "infoListPage" */'@/view/admin/infoListPage/backup')
+const statistics =()=> import (/* webpackChunkName: "infoListPage" */'@/view/admin/infoListPage/statistics')
+const department =()=> import (/* webpackChunkName: "infoListPage" */'@/view/admin/infoListPage/department')
 
-const adminView =()=> import ('@/view/Admin/adminView')
+const adminView =()=> import ('@/view/admin/adminView')
 
 Vue.use(Router)
 export default new Router({
@@ -36,6 +37,12 @@ export default new Router({
       path: '/home',
       name: 'homeView',
       component: homeView
+    },
+    {path: '/', redirect: '/home',name: 'redict'},
+    {
+      path: '/calendar',
+      name: 'calendarView',
+      component: calendarView
     },
     {
       path: '/my',
@@ -59,11 +66,13 @@ export default new Router({
     },
     {
       path: '/device/:id',
+      name: 'device',
       component: deviceView
     },
     {
       path: '/admin/',
       redirect: '/admin/device',
+      name: 'adminView',
       component: adminView,
       children: [{
           path: 'department',

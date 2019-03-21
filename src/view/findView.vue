@@ -3,14 +3,13 @@
     <h1>{{ $t('message.search') }}</h1>
     <search-bar v-model="data" />
     <search-result :data="data" />
-    <!-- <list-book></list-book> -->
   </div>
 </template>
 <script>
-import SearchBar from '@/components/SearchBar'
-import SearchResult from '@/components/SearchResult'
+import searchBar from '@/components/search/searchBar'
+import searchResult from '@/components/search/searchResult'
 export default {
-  components: { SearchBar,SearchResult},
+  components: { searchBar,searchResult},
   data (){
     return{
       data:{info:{list:[]}}

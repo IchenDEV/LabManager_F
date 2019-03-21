@@ -24,17 +24,13 @@ service.interceptors.request.use(
     return config
   },
   error => {
-    // 错误处理代码
-
     return Promise.reject(error)
   }
 )
 
 // response拦截器
-/* eslint-disable */
 service.interceptors.response.use(
   response => {
-
     // 数据响应之后，要做的业务
     return response
   },
@@ -42,5 +38,4 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
 export default service

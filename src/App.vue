@@ -1,80 +1,29 @@
 <template>
-  <div
-    id="app"
-    :style="{backgroundImage: 'url(' +bg + ')'}"
-  >
-    <NavBar />
-    <header style="height:80px;" />
-    <transition
-      name="slide-fade"
-      mode="out-in"
-    >
-      <router-view style="-webkit-transform: translateZ(0);-moz-transform: translateZ(0);-ms-transform: translateZ(0);-o-transform: translateZ(0);transform: translateZ(0);"/>
+  <div id="app" >
+    <nav-bar/>
+    <transition name="slide-fade" mode="out-in">
+      <router-view class="center" style="max-width:1180px;"/>
     </transition>
-    <BackTop />
+    <BackTop/>
     <my-footer />
   </div>
 </template>
 <script>
-import NavBar from "./components/NavBar/NavBar";
-import myFooter from "./components/Footer/Footer";
+import navBar from "./components/navBar/navBar";
+import myFooter from "./components/footer/footer";
 export default {
   name: "App",
-  components: { NavBar, myFooter },
-  provide() {
-    return {
-      reload: this.reload
-    };
-  },
-  data() {
-    return {
-      isRouterAlive: true,
-      bg:require('@/assets/image.jpg')
-    };
-  },
-  mounted() {
-    /* eslint-disable */
-    if (window.Notification && Notification.permission !== "granted") {
-      Notification.requestPermission(function(status) {
-        if (Notification.permission !== status) {
-          Notification.permission = status;
-        }
-      });
-    }
-    if (window.Notification && Notification.permission === "granted") {
-      var n = new Notification("北京第三交通委提醒您：", {
-        body: "道路千万条，安全第一条\r\n行车不规范，亲人两行泪",
-        icon: "safe.jpg"
-      });
-    } else if (window.Notification && Notification.permission !== "denied") {
-      Notification.requestPermission(function(status) {
-        if (Notification.permission !== status) {
-          Notification.permission = status;
-        }
-        // 如果用户同意了
-        if (status === "granted") {
-          var n = new Notification("北京第三交通委提醒您：", {
-            body: "道路千万条，安全第一条\r\n行车不规范，亲人两行泪",
-            icon: "safe.jpg"
-          });
-        }
-      });
-    }
-  },
-  methods: {
-    reload() {
-      this.isRouterAlive = false;
-      this.$nextTick(() => (this.isRouterAlive = true));
-    }
+  components: { navBar, myFooter },
+  mounted(){
+    document.title = this.$t('message.productName');
   }
-};
+}
 </script>
 <style>
 #app {
-  background:url();
-  background-color: #efefef !important;
+  background-color: #f5f5f5 !important;
   background-position: center;
-  background-size: cover; 
+  background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   font-family: "Avenir", Arial, sans-serif;
@@ -84,7 +33,5 @@ export default {
   color: #2c3e50;
   width: 100%;
 }
-html {
-  font-size: 100%;
-}
+
 </style>

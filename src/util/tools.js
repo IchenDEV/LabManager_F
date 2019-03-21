@@ -4,6 +4,7 @@ export default {
   Api: {
     AddDevice: '/device/add',
     ListDevice: '/device/list',
+    ListRecommendDevice: '/device/listRecommend',
     ListDeviceUseRate: '/device/listUseRate',
     ExportDevice:'/device/export',
     UpdateDevice: '/device/update',
@@ -23,6 +24,7 @@ export default {
 
     
     TotalUseRate: '/analyse/totalUseRate',
+    ListMonthCount: '/analyse/listMonthCount',
     Counts: '/analyse/count',
 
     UserInfo: '/login/getInfo',
@@ -43,8 +45,8 @@ export default {
     BackupNow:'/backup/now',
 
     ListMsg:'/msg/list',
-    AddMsg:'/msg/addMsg',
-    ReadMsg:'/msg/readMsg',
+    AddMsg:'/msg/add',
+    ReadMsg:'/msg/read',
 
     DelLab:'/lab/delete',
     ListLab:'/lab/list',
@@ -88,7 +90,17 @@ export default {
     }
     return search
   },
+  /* eslint-disable */
   timeBuilder(beginDate, beginTime) {
+    return beginDate.getFullYear() +
+      "-" +
+      (new Number(beginDate.getMonth()) + 1) +
+      "-" +
+      beginDate.getDate() +
+      " " +
+      beginTime;
+  },
+  timeBuilder(beginDate, beginTime,during) {
     return beginDate.getFullYear() +
       "-" +
       (new Number(beginDate.getMonth()) + 1) +
@@ -105,6 +117,16 @@ export default {
   },
   stringCat(a, b, c) {
     return a + " " + b + " " + c;
+  },
+  isEmail(str) {
+    try {
+      if (str !== null && str.length > 0) {
+        var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/
+        return reg.test(str)
+      }
+    } catch (e) {
+      return true
+    }
   },
   easyfetch(api, data) {
     let fx = '{}'
@@ -141,5 +163,5 @@ export default {
         })
         .catch()
     })
-  },
+  }
 }

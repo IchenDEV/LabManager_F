@@ -1,5 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
+//#region import
 import Vue from 'vue'
 import '@babel/polyfill'
 import App from './App'
@@ -22,6 +24,7 @@ import {
   TimelineItem
 } from 'iview'
 import {
+  UiTooltip,
   UiButton,
   UiFab,
   UiIcon,
@@ -78,9 +81,11 @@ Vue.component('UiTabs', UiTabs)
 Vue.component('UiTab', UiTab)
 Vue.component('UiSelect', UiSelect)
 Vue.component('UiAlert', UiAlert)
+Vue.component('UiTooltip', UiTooltip)
 Vue.component('UiTextbox', UiTextbox)
 Vue.component('UiDatepicker', UiDatepicker)
 Vue.component('UiMenu', UiMenu)
+//#endregion
 
 /* eslint-disable no-new */
 const store = new Vuex.Store({
@@ -91,7 +96,8 @@ const store = new Vuex.Store({
       reputation: 0,
       id: 0
     },
-    modal:false,
+    path:'',
+    modal: false,
     hasSingin: false,
     isAdmin: false,
     isSuperAdmin: false
@@ -128,11 +134,29 @@ const store = new Vuex.Store({
       state.currentUser.username = ''
       state.currentUser.id = ''
       state.isAdmin = false
+    },
+    removeLoadingAmi() {
+      if (document.getElementById('nb-global-spinner')) {
+        document.body.removeChild(document.getElementById('nb-global-spinner'));
+      }
+    },
+    download(data) {
+      if (!data) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([data]));
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", "export.xlsx");
+      document.body.appendChild(link);
+      link.click();
     }
   }
 })
 
-function getlang() {
+//#region mutilanguage
+function getLocalLang() {
   if (navigator.language.toLowerCase() == 'zh-cn') {
     return navigator.language.toLowerCase()
   } else {
@@ -140,22 +164,30 @@ function getlang() {
   }
 }
 const i18n = new VueI18n({
-  locale: getlang(), // 语言标识
+  locale: getLocalLang(),
   messages: {
-    'zh-cn': Object.assign(require('./assets/common/lang/zh-cn'), zh), // 中文语言包
-    'en': Object.assign(require('./assets/common/lang/en'), en) // 英文语言包
+    'zh-cn': Object.assign(require('@/assets/common/lang/zh-cn'), zh),
+    'en': Object.assign(require('@/assets/common/lang/en'), en)
   },
 })
+//#endregion
+/* eslint-disable */
+router.afterEach((to) => {
+  if(to.name==null&&to.path=='/'){
+    router.push("/home");
+    return;
+  }
+  store.state.path=to.name;
+  console.log(to);
+})
+
 new Vue({
   router,
   store,
   i18n,
   mounted() {
     this.$store.dispatch('getInfo')
-    document.title = this.$t('message.productName')
-    if (document.getElementById('nb-global-spinner')) {
-      document.body.removeChild(document.getElementById('nb-global-spinner'));
-    }
+    this.$store.commit('removeLoadingAmi')
   },
   render: h => h(App)
 }).$mount('#app')
