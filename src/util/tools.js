@@ -24,6 +24,7 @@ export default {
 
     
     TotalUseRate: '/analyse/totalUseRate',
+    ListMonthCount: '/analyse/listMonthCount',
     Counts: '/analyse/count',
 
     UserInfo: '/login/getInfo',

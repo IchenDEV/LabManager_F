@@ -4,7 +4,11 @@ html {
 body {
   margin: 0;
 }
-html, body, h1, h2, h3, h4, h5, h6, p, img, ol, ul, li, form, table, tr, th, td, blockquote{
+table  tr{
+ margin: 5px;
+}
+
+html, body, h1, h2, h3, h4, h5, h6, p, img, ol, ul, li, form, table, tr, td, blockquote{
 border:0;
 border-collapse: collapse;
 border-spacing: 0;
@@ -12,6 +16,11 @@ list-style: none;
 margin: 0;
 padding: 0;
 }
+th{
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
 h1, h2, .b_focusLabel, .b_secondaryFocus, .b_groupLabel{
   font-size: 18px;
   line-height: 22px;

@@ -56,6 +56,7 @@
       </div>
       <Card :class="{'modelCard':$store.state.modal}" style="width:40%">
         <full-calendar
+          defaultView="month"
           :events="fcEvents"
           @view-render="changeMonth"
           locale="zh"
@@ -166,9 +167,9 @@ export default {
     },
     getInfo() {
       /* eslint-disable */
+       this.fcEvents.splice(0, this.fcEvents.length);
       tools.easyfetch(tools.Api.ListBook, this.search).then(res => {
         this.books = res.data.info;
-        this.fcEvents.splice(0, this.fcEvents.length);
         for (let item of this.books.list) {
           let begin = new Date(item.beginTime);
           let end = new Date(item.endTime);

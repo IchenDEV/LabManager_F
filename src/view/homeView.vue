@@ -9,6 +9,9 @@
       <Card :class="{'modelCard':$store.state.modal}" v-if="$store.state.hasSingin&&$store.state.isAdmin" >
         <total-use-rate />
       </Card>
+      <Card :class="{'modelCard':$store.state.modal}" v-if="$store.state.hasSingin&&$store.state.isAdmin" >
+        <monthly-rate />
+      </Card>
       <Card  :class="{'modelCard':$store.state.modal}" >
         <p slot="title">{{ $t('message.announcement') }}</p>
         <announcement-list/>
@@ -40,8 +43,9 @@ import announcementList from "@/components/announcement/announcementList";
 import hotDeviceBox from '@/components/device/hotDeviceList'
 import msgSender from "@/components/msg/msgSender";
 import totalUseRate from "@/components/statistics/totalUseRate";
+import monthlyRate from "@/components/statistics/monthlyRate";
 export default {
-  components: { currentUserBox,currentMsgBox, msgSender,currentBookInfoBox, announcementList,hotDeviceBox,totalUseRate }
+  components: { currentUserBox,currentMsgBox, msgSender,currentBookInfoBox, announcementList,hotDeviceBox,totalUseRate,monthlyRate }
 };
 </script>
 <style>

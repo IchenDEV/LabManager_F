@@ -2,10 +2,9 @@
   <div id="app" >
     <nav-bar/>
     <transition name="slide-fade" mode="out-in">
-      <router-view/>
+      <router-view class="center" style="max-width:1180px;"/>
     </transition>
     <BackTop/>
-    <!-- 用于硬件加速 -->
     <my-footer />
   </div>
 </template>

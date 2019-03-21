@@ -100,7 +100,8 @@ export default {
   overflow: auto;
   text-align: left;
   height: 100%;
-  padding-right: 20px;
+  padding-right: 50px;
+  margin-left: 10%;
 }
 .nav-bar li {
   text-transform: uppercase;
@@ -116,7 +117,6 @@ export default {
   -moz-box-flex: 1;
   -webkit-flex: 1 0 0;
   flex: 1 0 0;
-
   line-height: 36px;
   margin-bottom: 0px;
   overflow: hidden;
@@ -138,6 +138,6 @@ export default {
 }
 .header {
   background-color: #f0f0f0;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 </style>

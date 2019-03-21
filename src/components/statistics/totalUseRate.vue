@@ -27,7 +27,7 @@
       @click="bookClick"
       :loading="iswaitting"
     >{{$t('message.search')}}</ui-button>
-    <ve-gauge class="gauge" :data="chartData" :settings="chartSettings"></ve-gauge>
+    <ve-gauge class="gauge" :data="chartData" :settings="chartSettings" style="width:400px;"></ve-gauge>
   </div>
 </template>
 <script>
@@ -85,6 +85,7 @@ export default {
 .gauge > div{
   margin-left: auto;
   margin-right: auto;
+  width: 400px;
 }
 </style>
 

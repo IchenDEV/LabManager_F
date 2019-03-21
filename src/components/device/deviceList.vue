@@ -80,10 +80,8 @@
             <Tag color="success">{{item.func}}</Tag>
           </th>
           <th> {{item.No}}</th>
-          <th> {{item.bands}}</th>
-          <th style="min-width:20rem;"> {{item.description.slice(0,20)}}...</th>
+          <th style="min-width:10rem;"> {{item.description.slice(0,10)}}...</th>
           <th>{{item.model}}</th>
-          <th> {{item.locationName}}</th> 
           <ui-button
             v-if="!admin&&item.status===1"
             color="primary"
