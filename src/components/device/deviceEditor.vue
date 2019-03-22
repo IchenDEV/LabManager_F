@@ -71,11 +71,11 @@ export default {
         })
     },
     updateClick() {
-      this.iswaitting = true;
+      this.$Loading.start();
       this.item.location = this.lab.id;
       tools.easyfetch(tools.Api.UpdateDevice,this.item)
         .then(() => {
-          this.iswaitting = false;
+          this.$Loading.finish();
           this.getDeviceInfo();
         })
     },

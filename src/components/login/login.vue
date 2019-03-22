@@ -39,7 +39,7 @@ export default {
     LonginClicked() {
       let code = tools.sha3(this.password);
       let con = { username: this.username, password: code };
-      this.iswaitting = true;
+      this.$Loading.start();
       tools.easyfetch(tools.Api.Login, con).then(res => {
         if (res.data.info.loginCode === 0) {
           this.$Notice.success({
@@ -54,7 +54,7 @@ export default {
             desc: "Wrong Password or Username"
           });
         }
-        this.iswaitting = false;
+        this.$Loading.finish();
       });
     }
   }

@@ -36,8 +36,8 @@ export default {
   },
   methods: {
     addClicked() {
-      this.iswaitting = true;
-      tools.easyfetch(tools.Api.AddAnnouncement,this.con).then(()=>{this.iswaitting = false;this.$emit("added");})
+      this.$Loading.start();
+      tools.easyfetch(tools.Api.AddAnnouncement,this.con).then(()=>{this.$Loading.finish();this.$emit("added");})
     }
   }
 }

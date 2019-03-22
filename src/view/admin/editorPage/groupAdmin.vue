@@ -125,39 +125,39 @@ export default {
       });
     },
     addUserClick() {
-      this.iswaitting = true;
+      this.$Loading.start();
       let con = { user: this.s.id, group: this.$route.params.id, status: 1 };
       tools.easyfetch(tools.Api.AddGroupUser, con).then(() => {
-        this.iswaitting = false;
+        this.$Loading.finish();
         this.getGroupInfo();
       });
     },
     addProjectClick() {
-      this.iswaitting = true;
+      this.$Loading.start();
       let con = {
         project: this.p.id,
         group: this.$route.params.id,
         status: 1
       };
       tools.easyfetch(tools.Api.AddGroupProject, con).then(() => {
-        this.iswaitting = false;
+        this.$Loading.finish();
         this.getGroupInfo();
       });
     },
     deleteUserClick(id) {
-      this.iswaitting = true;
+      this.$Loading.start();
       let con = { id: id };
       tools.easyfetch(tools.Api.DelGroupUser, con).then(() => {
         this.getGroupInfo();
-        this.iswaitting = false;
+        this.$Loading.finish();
       });
     },
     deleteProjectClick(id) {
-      this.iswaitting = true;
+      this.$Loading.start();
       let con = { id: id };
       tools.easyfetch(tools.Api.DelGroupProject, con)
         .then(() => {
-          this.iswaitting = false;
+          this.$Loading.finish();
           this.getGroupInfo();
         })
         .catch();
@@ -171,9 +171,9 @@ export default {
       this.getGroupProjectInfo();
     },
     updateClick() {
-      this.iswaitting = true;
+      this.$Loading.start();
       tools.easyfetch(tools.Api.UpdateGroup, this.item).then(() => {
-        this.iswaitting = false;
+        this.$Loading.finish();
         this.getGroupInfo();
       });
     }

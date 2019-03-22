@@ -60,8 +60,8 @@ export default {
 <style>
 .person-nav {
   position: absolute;
-  right: 10px;
-  top: 5px;
+  right: 20px;
+  top: 20px;
 }
 .nav-bar ul {
   list-style: none;

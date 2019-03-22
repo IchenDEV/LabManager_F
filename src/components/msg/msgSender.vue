@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     addClicked() {
-      this.iswaitting = true;
+      this.$Loading.start();
       /* eslint-disable */
       if (this.quickid != null) {
         this.con.receiver = this.quickid;
@@ -46,7 +46,7 @@ export default {
       }
       tools.easyfetch(tools.Api.AddMsg,this.con)
        .then(() => {
-          this.iswaitting = false;
+          this.$Loading.finish();
           this.$emit('send')
         })
         .catch();

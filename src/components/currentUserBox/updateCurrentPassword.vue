@@ -49,7 +49,7 @@ export default {
             if (res.data.code === "100") {
               this.$emit("close");
             }
-            this.iswaitting = false;
+            this.$Loading.finish();
           })
           .catch();
       }

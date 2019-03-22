@@ -1,5 +1,5 @@
 <template>
-  <div style="height:300px;width:500px;">
+  <div>
     <ui-select
     :options="years"
     v-model="search.year"

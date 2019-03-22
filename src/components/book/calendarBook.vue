@@ -146,13 +146,13 @@ export default {
       this.getInfo();
     },
     bookitClicked() {
-      this.iswaitting = true;
+      this.$Loading.start();
       this.con.project = this.p.projectId;
       this.con.beginTime = tools.timeBuilder(this.beginDate, this.beginTime);
       this.con.endTime = tools.timeBuilder(this.endDate, this.endTime);
       this.con.device = this.selectBook.id;
       tools.easyfetch(tools.Api.AddBook, this.con).then(() => {
-        this.iswaitting = false;
+        this.$Loading.finish();
         this.$refs["bookitmodal"].close();
       });
     },
@@ -182,7 +182,8 @@ export default {
             start: begin,
             title: item.device + "*" + item.deviceName,
             classNames:['free'],
-            backgroundColor:tools.getRandomColor()
+            backgroundColor:tools.getRandomColor(),
+            borderColor:'transparent'
           };
           this.fcEvents.push(obj);
         }

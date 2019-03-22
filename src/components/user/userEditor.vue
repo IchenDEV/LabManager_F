@@ -99,7 +99,7 @@ export default {
     },
     updateClick() {
       this.item.adminSuperPassword = tools.sha3(this.item.adminSuperPassword.toString())
-      this.iswaitting = true;
+      this.$Loading.start();
       this.item.sex = this.sexString.indexOf(this.sex);
       this.item.roleId = this.roleString.indexOf(this.role)+1;
       this.item.adminId = this.$store.state.currentUser.id;
@@ -113,7 +113,7 @@ export default {
 
       delete this.item["permissionList"];
       tools.easyfetch(tools.Api.UpdateUser,this.item)
-      .then(()=>{this.iswaitting = false;this.getUserInfo();this.$refs["SuperPasswordmModal"].close();})
+      .then(()=>{this.$Loading.finish();this.getUserInfo();this.$refs["SuperPasswordmModal"].close();})
       .catch()
     },
     modalClose(){

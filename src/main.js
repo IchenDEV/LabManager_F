@@ -6,25 +6,6 @@ import Vue from 'vue'
 import '@babel/polyfill'
 import App from './App'
 import {
-  Divider,
-  Card,
-  Page,
-  Timeline,
-  TimePicker,
-  Tooltip,
-  Menu,
-  MenuItem,
-  Time,
-  Tag,
-  Modal,
-  BackTop,
-  Badge,
-  Notice,
-  Icon,
-  Submenu,
-  TimelineItem
-} from 'iview'
-import {
   UiCollapsible,
   UiTooltip,
   UiButton,
@@ -53,30 +34,15 @@ import '@/assets/public_css.css'
 import 'keen-ui/dist/keen-ui.css'
 import 'iview/dist/styles/iview.css'
 
+import iView from 'iview'
+Vue.use(iView)
+
 Vue.use(VueQuillEditor)
 Vue.use(Vuex)
 Vue.use(VueI18n)
 Vue.locale = () => {};
-Vue.component('Card', Card)
-Vue.component('Divider', Divider)
-Vue.component('Page', Page)
-Vue.component('TimelineItem', TimelineItem)
-Vue.component('Tag', Tag)
-Vue.component('Time', Time)
-Vue.component('Timeline', Timeline)
-Vue.component('TimePicker', TimePicker)
-Vue.component('Tooltip', Tooltip)
-Vue.component('Menu', Menu)
-Vue.component('MenuItem', MenuItem)
-Vue.component('Modal', Modal)
-Vue.component('BackTop', BackTop)
-Vue.component('Badge', Badge)
-Vue.component('Submenu', Submenu)
-Vue.component('Icon', Icon)
-Vue.component('UiCollapsible', UiCollapsible)
-Vue.prototype.$Notice = Notice
-Vue.config.productionTip = false
 
+Vue.component('UiCollapsible', UiCollapsible)
 Vue.component('UiButton', UiButton)
 Vue.component('UiFab', UiFab)
 Vue.component('UiIcon', UiIcon)
@@ -100,7 +66,7 @@ const store = new Vuex.Store({
       reputation: 0,
       id: 0
     },
-    path:'',
+    path:'homeView',
     modal: false,
     hasSingin: false,
     isAdmin: false,
@@ -176,13 +142,22 @@ const i18n = new VueI18n({
 })
 //#endregion
 /* eslint-disable */
+router.beforeEach((to, from, next) => {
+  iView.LoadingBar.start();
+  next();
+});
+
 router.afterEach((to) => {
+  iView.LoadingBar.finish();
   if(to.name==null&&to.path=='/'){
     router.push("/home");
     return;
   }
+  if(!store.state.hasSingin&&to.path!='/login'){
+    router.push("/home");
+    return;
+  }
   store.state.path=to.name;
-  console.log(to);
 })
 
 new Vue({

@@ -21,11 +21,11 @@ export default {
   },
   methods: {
     updateClick() {
-      this.iswaitting = true;
+      this.$Loading.start();
       this.item.location = this.lab.id;
       tools.easyfetch(tools.Api.UpdateBook,this.item)
       .then(() => {
-          this.iswaitting = false;
+          this.$Loading.finish();
         })
     },
     getBookInfo() {

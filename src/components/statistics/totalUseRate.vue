@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2 slot="title">{{$t('message.totalUseRate')}}</h2>
     <span>
       <ui-datepicker icon="events" floating-label v-model="beginDate">{{$t('message.beginDate')}}</ui-datepicker>
       <TimePicker
@@ -27,7 +26,7 @@
       @click="bookClick"
       :loading="iswaitting"
     >{{$t('message.search')}}</ui-button>
-    <ve-gauge class="gauge" :data="chartData" :settings="chartSettings" style="width:400px;"></ve-gauge>
+    <ve-gauge class="gauge" :data="chartData" :settings="chartSettings" ></ve-gauge>
   </div>
 </template>
 <script>
@@ -85,7 +84,6 @@ export default {
 .gauge > div{
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
 }
 </style>
 

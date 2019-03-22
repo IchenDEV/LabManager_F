@@ -177,7 +177,7 @@ export default {
   methods: {
     getinfo() {
       if (this.$store.state.hasSingin === true) {
-        this.iswaitting = true;
+        this.$Loading.start();
          tools.easyfetch(tools.Api.UserInfo,null)
           .then(res => {
             if (res.data.code === "100") {
@@ -194,35 +194,35 @@ export default {
             } 
             this.getDpinfo();
             this.getGpinfo();
-            this.iswaitting = false;
+            this.$Loading.finish();
           })
           .catch();
       }
     },
     getDpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
-      this.iswaitting = true;
+      this.$Loading.start();
       tools.easyfetch(tools.Api.ListUserDepartment,conp)
         .then(res => {
           if (res.data.code === "100") {
             this.dpinfo = res.data.info;
           }
-          this.iswaitting = false;
+          this.$Loading.finish();
         })
     },
     getGpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
-      this.iswaitting = true;
+      this.$Loading.start();
       tools.easyfetch(tools.Api.ListUserGroup,conp)
         .then(res => {
           if (res.data.code === "100") {
             this.gpinfo = res.data.info;
           } 
-          this.iswaitting = false;
+          this.$Loading.finish();
         })
     },
     updateinfo() {
-      this.iswaitting = true;
+      this.$Loading.start();
       let con = {
         nickname: this.nickname,
         phone: this.phone,
@@ -240,7 +240,7 @@ export default {
             this.moString = this.$t("message.modify");
             this.mo = true;
           } 
-          this.iswaitting = false;
+          this.$Loading.finish();
         })
     },
     mohandle() {
@@ -264,7 +264,7 @@ export default {
       router.push("../login");
     },
     logouthandle() {
-      this.iswaitting = true;
+      this.$Loading.start();
       tools.easyfetch(tools.Api.Logout,null)
         .then(res => {
           if (res.data.code === "100") {
@@ -275,7 +275,7 @@ export default {
               title: res.data.msg
             });
           }
-          this.iswaitting = false;
+          this.$Loading.finish();
         })
     },
     modalClose(){

@@ -32,7 +32,7 @@ export default {
    updateClick () {
       this.iswaitting = true
       tools.easyfetch(tools.Api.UpdateLab,this.item)
-      .then(()=>{this.iswaitting = false;this.getLabInfo()})
+      .then(()=>{this.$Loading.finish();this.getLabInfo()})
       .catch()
     }
   },

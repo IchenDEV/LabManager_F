@@ -57,7 +57,7 @@ export default {
           password: tools.sha3(this.password),
           nickname: this.nickname
         }
-        this.iswaitting = true;
+        this.$Loading.start();
         tools.easyfetch(tools.Api.SingUp, con).then( res => {
           if (res.data.code === "100") {
             this.$Notice.success({

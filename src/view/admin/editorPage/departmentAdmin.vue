@@ -77,22 +77,22 @@ export default {
       });
     },
     addUserClick() {
-      this.iswaitting = true;
+      this.$Loading.start();
       let con = {
         user: this.s.id,
         department: this.$route.params.id,
         status: 1
       };
       tools.easyfetch(tools.Api.AddDepartmentUser, con).then(() => {
-        this.iswaitting = false;
+        this.$Loading.finish();
         this.getDepartmentInfo();
       });
     },
     deleteUserClick(id) {
-      this.iswaitting = true;
+      this.$Loading.start();
       let con = { id: id };
       tools.easyfetch(tools.Api.DelDepartmentUser, con).then(() => {
-        this.iswaitting = false;
+        this.$Loading.finish();
         this.getDepartmentInfo();
       });
     },
@@ -101,9 +101,9 @@ export default {
       this.getDepartmentUserInfo();
     },
     updateClick() {
-      this.iswaitting = true;
+      this.$Loading.start();
       tools.easyfetch(tools.Api.UpdateDepartment, this.item).then(() => {
-        this.iswaitting = false;
+        this.$Loading.finish();
         this.getDepartmentInfo();
       });
     }

@@ -24,18 +24,18 @@ export default {
   },
   methods: {
     backupClicked() {
-      this.iswaitting = true;
+      this.$Loading.start();
       tools.easyfetch(tools.Api.SetBackupSchedule, this.data);
-      this.iswaitting = false;
+      this.$Loading.finish();
     },
     backupGtClicked() {
-      this.iswaitting = true;
+      this.$Loading.start();
       tools
         .easyfetch(tools.Api.GetBackupSchedule, this.data)
         .then(res => {
           this.data.schedule = res.data.info.cron;
           this.data.lastBackupTime = res.data.info.lastBackupTime;
-          this.iswaitting = false;
+          this.$Loading.finish();
         })
         .catch();
     }

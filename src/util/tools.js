@@ -167,7 +167,7 @@ export default {
   getRandomColor() {
     var color="#";
     for(var i=0;i<6;i++){
-      color += (Math.random()*16 | 0).toString(16);
+      color += (Math.random()*12 +4 | 0).toString(16);
     }
     return color;
   }

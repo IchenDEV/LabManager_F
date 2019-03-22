@@ -66,10 +66,10 @@ export default {
         })
     },
     updateClick() {
-      this.iswaitting = true;
+      this.$Loading.start();
       tools.easyfetch(tools.Api.UpdateProject,this.item)
       .then(() => {
-          this.iswaitting = false;
+          this.$Loading.finish();
         })
     },
     setStatusClick(st) {

@@ -72,11 +72,11 @@ export default {
   },
   methods: {
     addClicked() {
-      this.iswaitting = true;
+      this.$Loading.start();
       this.con.password = tools.sha3(this.con.password);
       this.con.roleId = this.roleString.indexOf(this.role) + 1;
       tools.easyfetch(tools.Api.AddUser, this.con).then(() => {
-        this.iswaitting = false;
+        this.$Loading.finish();
         this.$emit("added");
       });
     }

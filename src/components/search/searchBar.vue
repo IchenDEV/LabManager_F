@@ -28,7 +28,7 @@ export default {
     searchToggle() {
       if (this.isActive && this.content != "") {
         let data={search:this.content}
-        tools.easyfetch(tools.Api.HyperSearch,data).then((res)=>{this.iswaitting = false;this.$emit('change', res.data)})
+        tools.easyfetch(tools.Api.HyperSearch,data).then((res)=>{this.$Loading.finish();this.$emit('change', res.data)})
       }
       this.isActive = !this.isActive;
     }

@@ -1,29 +1,39 @@
 <template>
-  <div>
-    <h1>
-      <ui-icon class="center" slot="icon" icon="home"></ui-icon>Home
-    </h1>
+<div>
+  <Anchor show-ink class="anchor" v-if="$store.state.hasSingin">
+        <AnchorLink href="#quick_reserve" title="快速预约" >
+            <AnchorLink href="#hot" title="热门" />
+            <AnchorLink href="#my_reserve" title="我的预约" />
+        </AnchorLink>
+        <AnchorLink href="#message" title="信息服务" >
+          <AnchorLink href="#announcement" title="公告" />
+          <AnchorLink href="#my_message" title="我的信息" />
+          <AnchorLink href="#send_message" title="发送信息" />
+        </AnchorLink>
+        <AnchorLink href="#data" title="数据" v-if="$store.state.hasSingin&&$store.state.isAdmin"/>
+    </Anchor>
+  <div class="home">
     <div>
-      <Divider>快速预约服务</Divider>
-      <hot-device-box v-if="$store.state.hasSingin" class="hdb" />
-      <Card  v-if="$store.state.hasSingin" >
+      <Divider v-if="$store.state.hasSingin" id="quick_reserve">快速预约服务</Divider>
+      <hot-device-box id="hot" v-if="$store.state.hasSingin" class="hdb" />
+      <Card id="my_reserve" v-if="$store.state.hasSingin" >
         <p slot="title">{{ $t('message.myBookInfo') }}</p>
         <current-book-info-box/>
       </Card> 
-      <Divider>信息服务</Divider>
-      <Card >
+      <Divider id="message">信息服务</Divider>
+      <Card id="announcement" >
         <p slot="title">{{ $t('message.announcement') }}</p>
         <announcement-list/>
       </Card>
-      <Card  v-if="$store.state.hasSingin" >
+      <Card id="my_message" v-if="$store.state.hasSingin" >
         <p slot="title">{{ $t('message.message') }}</p>
         <current-msg-box/>
       </Card>
-      <Card  v-if="$store.state.hasSingin" >
+      <Card  v-if="$store.state.hasSingin"  id="send_message">
         <p slot="title">{{ $t('message.sendMsg') }}</p>
         <msg-sender :label="$t('message.receiver')"/>
       </Card>  
-      <Divider>数据分析服务</Divider>
+      <Divider id="data" v-if="$store.state.hasSingin&&$store.state.isAdmin">数据分析服务</Divider>
       <Card  v-if="$store.state.hasSingin&&$store.state.isAdmin" >
         <total-use-rate />
       </Card>
@@ -32,6 +42,7 @@
       </Card>
     </div>
   </div>
+</div>
 </template>
 <script>
 import currentMsgBox from "@/components/msg/currentMsgBox";
@@ -51,5 +62,14 @@ min-width: 100px;
 width: 70%;
 margin-left: auto;
 margin-right: auto;
+}
+.anchor{
+  position: absolute;
+  max-width: 100px;
+  margin-left: -50px;
+  text-align: left;
+}
+.home{
+  margin-left: 50px;
 }
 </style>
