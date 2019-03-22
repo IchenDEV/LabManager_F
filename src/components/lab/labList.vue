@@ -1,6 +1,6 @@
 <template>
 <div>
-  <Card :class="{'modelCard':$store.state.modal}"  >
+  <Card   >
   <h2>{{$t('message.lab')}} {{$t('message.list')}}</h2>
   <div class="flex-panel">
     <!--将名称的图标进行修改为info_outline-->
@@ -11,7 +11,7 @@
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
   </Card>
   <div class="flex-panel">
-    <Card :class="{'modelCard':$store.state.modal}"   v-for="(item,index) in labs.list" :key="index">
+    <Card    v-for="(item,index) in labs.list" :key="index">
       <p slot="title">{{item.name}}</p>
       <p>id: {{item.id}}</p>
       <p>{{$t('message.location')}} {{item.location}}</p>
@@ -22,7 +22,7 @@
       <ui-button color="primary" icon="delete" @click="delClicked(item.id,index)" :loading="iswaitting">{{$t('message.delete')}}</ui-button>
       </span>
     </Card>
-    <Card :class="{'modelCard':$store.state.modal}"   v-if="labs.totalCount===0">
+    <Card    v-if="labs.totalCount===0">
         <div>
          {{$t('message.findless')}}{{$t('message.lab')}}
         </div>

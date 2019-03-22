@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :class="{'modelCard':$store.state.modal}"  >
+    <Card   >
     <h1>{{$t('message.device')}} {{$t('message.list')}}</h1> 
     <div class="flex-panel">
       <ui-textbox icon="info_outline" floating-label :label="$t('message.name')" v-model="search.name"></ui-textbox>
@@ -24,7 +24,7 @@
     </Card>
     
     <div v-if="listMode" class="flex-panel">
-      <Card :class="{'modelCard':$store.state.modal}"   v-for="(item,index) in info.list" :key="index">
+      <Card    v-for="(item,index) in info.list" :key="index">
         <div>
           <span>
             <h2>{{$t('message.device')}} {{item.id}}</h2>
@@ -64,15 +64,15 @@
           >{{$t('message.delete')}}</ui-button>
         </div>
       </Card>
-      <Card :class="{'modelCard':$store.state.modal}"   v-if="info.totalCount===0">
+      <Card    v-if="info.totalCount===0">
         <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
     </div>
-    <Card v-else :class="{'modelCard':$store.state.modal}" >
+    <Card v-else  >
       <table>
       <tr v-for="(item,index) in info.list" :key="index">
-          <th style="min-width:5rem;"> <h2>{{item.name}}</h2></th>
-          <th style="min-width:5rem;">
+          <th style="min-width:2rem;"> <h2>{{item.name}}</h2></th>
+          <th style="min-width:2rem;">
             <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
             <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
             <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
@@ -80,7 +80,7 @@
             <Tag color="success">{{item.func}}</Tag>
           </th>
           <th> {{item.No}}</th>
-          <th style="min-width:10rem;"> {{item.description.slice(0,10)}}...</th>
+          <th style="min-width:6rem;"> {{item.description.slice(0,10)}}...</th>
           <th>{{item.model}}</th>
           <ui-button
             v-if="!admin&&item.status===1"

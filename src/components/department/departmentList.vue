@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :class="{'modelCard':$store.state.modal}"  >
+    <Card   >
     <h2>{{$t('message.department')}} {{$t('message.list')}}</h2>
     <div class="flex-panel">
       <!--将管理页面中部门页面的名称图标改为info_outline，id图标暂时为code-->
@@ -10,7 +10,7 @@
     <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card :class="{'modelCard':$store.state.modal}"   v-for="(item,index) in departments.list" :key="index">
+      <Card    v-for="(item,index) in departments.list" :key="index">
         <p slot="title">{{item.name}}</p>
         <p>{{item.id}}</p>
         <p>{{item.description}}</p>
@@ -31,7 +31,7 @@
           >{{$t('message.delete')}}</ui-button>
         </span>
       </Card>
-      <Card :class="{'modelCard':$store.state.modal}"   v-if="departments.totalCount===0">
+      <Card    v-if="departments.totalCount===0">
         <div>
          {{$t('message.findless')}} {{$t('message.department')}}
         </div>

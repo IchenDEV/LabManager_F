@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :class="{'modelCard':$store.state.modal}" >
+    <Card  >
       <h1>{{ $t('message.backup') }}</h1>
       <div class="flex-panel col-panel">
         <backup-now />

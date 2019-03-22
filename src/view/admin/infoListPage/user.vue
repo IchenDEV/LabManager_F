@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex-panel warp ">
-      <Card :class="{'modelCard':$store.state.modal}" v-if="$store.state.isSuperAdmin"  class="Card max-w"
+      <Card  v-if="$store.state.isSuperAdmin"  class="Card max-w"
       >
         <add-user @added="refresh" />
       </Card>

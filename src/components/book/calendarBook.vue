@@ -18,7 +18,7 @@
              <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
           </Card>
          
-       <Card :class="{'modelCard':$store.state.modal}" v-if="info.list!=null">
+       <Card  v-if="info.list!=null">
         <table style="text-align:left;">
           <tr v-for="(item,index) in info.list" :key="index">
             <th>
@@ -54,7 +54,7 @@
         />
       </Card>
       </div>
-      <Card :class="{'modelCard':$store.state.modal}" style="width:40%">
+      <Card  style="width:40%">
         <full-calendar
           defaultView="month"
           :events="fcEvents"

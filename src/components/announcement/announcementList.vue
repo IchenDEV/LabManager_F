@@ -2,11 +2,11 @@
   <div>
     <table class="table">
       <tr v-for="(item,index) in msgs.list" :key="index">
-        <th>{{item.authorNickName}}</th>
         <a @click="msgcli(item.id,index)">{{item.title}}</a>
         <th>{{item.summary}}</th>
+        <th>{{item.authorNickName}}</th>
         <th>{{item.createTime}}</th>
-        <a v-if="$store.state.isAdmin" @click="del(item.id)">X</a>
+        <a v-if="$store.state.isAdmin" @click="del(item.id)"> X</a>
       </tr>
     </table>
     <Page

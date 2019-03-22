@@ -6,6 +6,7 @@ import Vue from 'vue'
 import '@babel/polyfill'
 import App from './App'
 import {
+  Divider,
   Card,
   Page,
   Timeline,
@@ -24,6 +25,7 @@ import {
   TimelineItem
 } from 'iview'
 import {
+  UiCollapsible,
   UiTooltip,
   UiButton,
   UiFab,
@@ -56,6 +58,7 @@ Vue.use(Vuex)
 Vue.use(VueI18n)
 Vue.locale = () => {};
 Vue.component('Card', Card)
+Vue.component('Divider', Divider)
 Vue.component('Page', Page)
 Vue.component('TimelineItem', TimelineItem)
 Vue.component('Tag', Tag)
@@ -70,6 +73,7 @@ Vue.component('BackTop', BackTop)
 Vue.component('Badge', Badge)
 Vue.component('Submenu', Submenu)
 Vue.component('Icon', Icon)
+Vue.component('UiCollapsible', UiCollapsible)
 Vue.prototype.$Notice = Notice
 Vue.config.productionTip = false
 

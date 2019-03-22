@@ -1,6 +1,6 @@
 <template>
   <div class="flex-panel warp">
-    <Card :class="{'modelCard':$store.state.modal}"  class="max-w">
+    <Card   class="max-w">
       <add-department @added="refresh" />
     </Card>
     <department-list ref="departmentList" />

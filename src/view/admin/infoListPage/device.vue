@@ -1,6 +1,6 @@
 <template>
   <div class="flex-panel warp">
-    <Card :class="{'modelCard':$store.state.modal}"  class="Card" style="max-width:400px;">
+    <Card   class="Card" style="max-width:400px;">
       <add-device @added="refresh" />
     </Card>
     <device-box ref="deviceList" admin="true"/>

@@ -1,44 +1,14 @@
 <template>
   <div class="header">
-    <!-- <div class="tabs" style="clear:both">
-      <ui-tabs fullwidth raised>
-        <ui-tab id="test" @select="tabChange" v-if="$store.state.hasSingin">
-          <div slot="header" class="my-custom-tab-header">
-            <ui-icon class="center" slot="icon" icon="find_in_page"></ui-icon>
-            <p>{{$t('message.search')}}</p>
-          </div>
-        </ui-tab>
-        <ui-tab id="find" @select="tabChange" v-if="$store.state.hasSingin">
-          <div slot="header" class="my-custom-tab-header">
-            <ui-icon class="center" slot="icon" icon="find_in_page"></ui-icon>
-            <p>{{$t('message.search')}}</p>
-          </div>
-        </ui-tab>
-        <ui-tab id="book" @select="tabChange" v-if="$store.state.hasSingin">
-          <div slot="header" class="my-custom-tab-header">
-            <ui-icon class="center" slot="icon" icon="book"></ui-icon>
-            <p>{{$t('message.appointment')}}</p>
-          </div>
-        </ui-tab>
-        <ui-tab id="home" icon="home" title="Home" @select="tabChange">
-          <div slot="header" class="my-custom-tab-header">
-            <img class="center" slot="icon" src="favicon.ico" alt="logo">
-          </div>
-        </ui-tab>
-        <ui-tab id="my" @select="tabChange" v-if="$store.state.hasSingin">
-          <div slot="header" class="my-custom-tab-header">
-            <ui-icon class="center" slot="icon" icon="person"></ui-icon>
-            <p class="center">{{$t('message.my')}}</p>
-          </div>
-        </ui-tab>
-        <ui-tab v-if="isAdmin&&$store.state.hasSingin" id="admin" @select="tabChange">
-          <div slot="header" class="my-custom-tab-header">
-            <ui-icon class="center" slot="icon" icon="person"></ui-icon>
-            <p>{{$t('message.admin')}}</p>
-          </div>
-        </ui-tab>
-      </ui-tabs>
-    </div>-->
+    <div class="person-nav">
+      <ui-button
+        v-if="!$store.state.hasSingin"
+        color="primary"
+        icon="adjust"
+        @click="loginhandle"
+      >{{$t("message.pleaseLogin")}}</ui-button>
+      <router-link v-else to="/my">{{$store.state.currentUser.nickname}}</router-link>
+    </div>
     <img
       style="margin-top:15px;margin-button:5px;"
       width="30"
@@ -50,7 +20,7 @@
     >
     <nav class="nav-bar">
       <ul style="list-style:none;">
-        <li :class="{'b_active':$store.state.path=='homeView'}" >
+        <li :class="{'b_active':$store.state.path=='homeView'}">
           <router-link to="/home">Home</router-link>
         </li>
         <li :class="{'b_active':$store.state.path=='calendarView'}" v-if="$store.state.hasSingin">
@@ -62,7 +32,10 @@
         <li :class="{'b_active':$store.state.path=='myView'}" v-if="$store.state.hasSingin">
           <router-link to="/my">{{$t('message.my')}}</router-link>
         </li>
-        <li :class="{'b_active':$store.state.path=='adminView'}" v-if="isAdmin&&$store.state.hasSingin">
+        <li
+          :class="{'b_active':$store.state.path=='adminView'}"
+          v-if="isAdmin&&$store.state.hasSingin"
+        >
           <router-link to="/admin">{{$t('message.admin')}}</router-link>
         </li>
       </ul>
@@ -70,27 +43,25 @@
   </div>
 </template>
 <script>
+import router from "@/router";
 export default {
   computed: {
     isAdmin() {
       return this.$store.state.isAdmin;
     }
+  },
+  methods: {
+    loginhandle() {
+      router.push("../login");
+    }
   }
 };
 </script>
 <style>
-.tabs {
-  width: 100%;
-  font-size: 20px;
-  background-color: rgb(255, 255, 255) !important;
-}
-.my-custom-tab-header {
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-}
-.my-custom-tab-header > p {
-  margin: auto;
+.person-nav {
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 .nav-bar ul {
   list-style: none;
