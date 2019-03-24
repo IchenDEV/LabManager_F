@@ -2,7 +2,7 @@
   <div>
     <h1><ui-icon class="center" slot="icon" icon="whatshot"></ui-icon>{{$t('message.hot')}} {{$t('message.device')}} {{$t('message.list')}}</h1>
     <div class="flex-panel">
-      <Card    v-for="(item,index) in info.list" :key="index" class="small-Card">
+      <Card class="ms-depth-16 small-Card"    v-for="(item,index) in info.list" :key="index">
         <div>
           <span>
             <h2>{{$t('message.device')}} {{item.id}}</h2>
@@ -23,7 +23,7 @@
           >{{$t('message.appointment')}}</ui-button>
         </div>
       </Card>
-      <Card    v-if="info.totalCount===0">
+      <Card class="ms-depth-16"    v-if="info.totalCount===0">
         <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
     </div>

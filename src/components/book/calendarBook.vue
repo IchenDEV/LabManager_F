@@ -2,7 +2,7 @@
   <div>
     <div class="flex-panel">
       <div style="width:50%">
-        <Card>
+        <Card class="ms-depth-16">
             <ui-textbox
               icon="info_outline"
               floating-label
@@ -18,7 +18,7 @@
              <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
           </Card>
          
-       <Card  v-if="info.list!=null">
+       <Card class="ms-depth-16"  v-if="info.list!=null">
         <table style="text-align:left;">
           <tr v-for="(item,index) in info.list" :key="index">
             <th>
@@ -54,7 +54,7 @@
         />
       </Card>
       </div>
-      <Card  style="width:40%">
+      <Card class="ms-depth-16"  style="width:40%">
         <full-calendar
           defaultView="month"
           :events="fcEvents"

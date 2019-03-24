@@ -31,9 +31,12 @@ import VueQuillEditor from 'vue-quill-editor'
 
 
 import '@/assets/public_css.css'
+import 'office-ui-fabric-core/dist/css/fabric.min.css'
 import 'keen-ui/dist/keen-ui.css'
 import 'iview/dist/styles/iview.css'
-
+import OfficeUIFabricVue from 'office-ui-fabric-vue';
+  // import css style
+import 'office-ui-fabric-vue/dist/index.css';
 import iView from 'iview'
 Vue.use(iView)
 
@@ -55,11 +58,15 @@ Vue.component('UiTooltip', UiTooltip)
 Vue.component('UiTextbox', UiTextbox)
 Vue.component('UiDatepicker', UiDatepicker)
 Vue.component('UiMenu', UiMenu)
+
+
+  Vue.use(OfficeUIFabricVue);
 //#endregion
 
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
+    screenWidth:222,
     currentUser: {
       username: '',
       nickname: '',
@@ -80,7 +87,7 @@ const store = new Vuex.Store({
           if (res.data.code === '100') {
             state.hasSingin = true
             state.currentUser.nickname = res.data.info.userPermission.nickname
-            state.currentUser.username = this.username
+            state.currentUser.username = res.data.info.userPermission.username
             state.currentUser.id = res.data.info.userPermission.id
             state.currentUser.reputation = res.data.info.userPermission.reputation
             if (res.data.info.userPermission.roleId === 1) {
@@ -166,7 +173,14 @@ new Vue({
   i18n,
   mounted() {
     this.$store.dispatch('getInfo')
-    this.$store.commit('removeLoadingAmi')
+    this.$store.commit('removeLoadingAmi');
+    const that = this;
+    that.$store.state.screenWidth = document.body.clientWidth;
+    window.onresize = () => {
+      return (() => {
+        that.$store.state.screenWidth = document.body.clientWidth;
+      })();
+    };
   },
   render: h => h(App)
 }).$mount('#app')

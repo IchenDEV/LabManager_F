@@ -1,6 +1,6 @@
 <template>
   <div class="flex-panel warp">
-    <Card   class="max-w">
+    <Card class="ms-depth-16 max-w">
       <add-group @added="refresh" />
     </Card>
     <group-list ref="groupList" />

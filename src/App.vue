@@ -2,7 +2,7 @@
   <div id="app" >
     <nav-bar/>
     <transition name="slide-fade" mode="out-in">
-      <router-view class="center" style="max-width:1180px;"/>
+      <router-view class="center" style="max-width:1108px;"/>
     </transition>
     <BackTop/>
     <my-footer />

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card   >
+    <Card class="ms-depth-16"   >
       <h2>{{$t('message.modify')}} {{$t('message.project')}}</h2>
       <Tag color="success" v-if="item.status===1">{{$t('message.working')}}</Tag>
       <Tag color="error" v-if="item.status===0">{{$t('message.done')}}</Tag>

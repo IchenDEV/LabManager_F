@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex-panel warp">
-      <Card   class="max-w" >
+      <Card class="ms-depth-16 max-w">
         <add-lab @added="refresh" />
       </Card>
       <lab-list ref="labList" />

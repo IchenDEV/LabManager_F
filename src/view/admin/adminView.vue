@@ -10,23 +10,10 @@
 import adminMenu from "@/components/menu/menu"
 export default {
   components :{adminMenu},
-  data() {
-    return {
-      screenWidth: document.body.clientWidth,
-    };
-  },
   computed:{
     mobileView (){
-      return this.screenWidth<=600;
+      return this.$store.state.screenWidth<=600;
     }
-  },
-  mounted() {
-    const that = this;
-    window.onresize = () => {
-      return (() => {
-        that.screenWidth = document.body.clientWidth;
-      })();
-    };
   }
 };
 </script>

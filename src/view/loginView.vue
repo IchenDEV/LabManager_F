@@ -1,10 +1,10 @@
 <template>
   <div class="flex-panel">
-    <Card  >
+    <Card class="ms-depth-16"  >
       <h1>{{ $t('message.login') }}</h1>
       <login />
     </Card>
-    <Card  >
+    <Card class="ms-depth-16"  >
       <h1>{{ $t('message.or') }} {{ $t('message.singup') }}</h1>
       <sing-up />
     </Card>

@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <h1>{{$t('message.appointment')}}</h1>
+  <div style="padding-bottom: 50px;">
     <div class="flex-panel">
-      <Card   >
+      <Card class="ms-depth-16">
+      <monthly-rate  :device="device"/>
+    </Card>
+      <Card class="ms-depth-16" style="text-align: center">
         <div>
           <h2>{{$t('message.device')}} {{item.id}}</h2>
           <p>{{$t('message.name')}} {{item.name}}</p>
@@ -28,7 +30,7 @@
           </TimelineItem>
         </Timeline>
       </Card>
-      <Card   >
+      <Card class="ms-depth-16" style="text-align: center;"  >
         <div>
           <h2>{{$t('message.appointment')}}</h2>
           <project-selector
@@ -79,10 +81,11 @@
 <script>
 import tools from "@/util/tools.js";
 import projectSelector from "@/components/project/projectSelector";
+import monthlyRate from "@/components/statistics/monthlyRate";
 import msgSender from "@/components/msg/msgSender";
 export default {
   props: { device: String },
-  components: { projectSelector, msgSender },
+  components: { projectSelector, msgSender,monthlyRate },
   data() {
     return {
       search: { device: this.device, pageRow: 10, offSet: 0 },

@@ -1,9 +1,9 @@
 <template>
   <div class="flex-panel warp">
-    <Card  >
+    <Card class="ms-depth-16"  >
       <add-announcement @added="refresh" />
     </Card>
-    <Card  >
+    <Card class="ms-depth-16"  >
       <p slot="title">
         {{ $t('message.announcement') }}
       </p>

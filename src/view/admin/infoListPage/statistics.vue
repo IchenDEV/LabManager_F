@@ -2,16 +2,16 @@
   <div>
     <h1>{{ $t('message.statistics') }}</h1>
     <div class="flex-panel">
-      <Card   style="min-inline-size:350px;">
+      <Card class="ms-depth-16">
         <total-use-rate />
       </Card>
-      <Card  >
+      <Card class="ms-depth-16"  >
         <counts />
       </Card>
-      <Card  >
+      <Card class="ms-depth-16"  >
         <rate />
       </Card>
-      <Card  >
+      <Card class="ms-depth-16"  >
         <monthly-rate />
       </Card>
     </div>

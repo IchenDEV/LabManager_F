@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     mobileView() {
-      return document.body.clientWidth <= 600;
+      return this.$store.state.screenWidth <= 600;
     }
   },
   methods: {

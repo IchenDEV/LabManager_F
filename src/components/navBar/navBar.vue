@@ -1,13 +1,33 @@
 <template>
   <div class="header">
     <div class="person-nav">
-      <ui-button
+      <ou-button
         v-if="!$store.state.hasSingin"
-        color="primary"
-        icon="adjust"
+        type="hero"
+        icon="AddFriend"
         @click="loginhandle"
-      >{{$t("message.pleaseLogin")}}</ui-button>
-      <router-link v-else to="/my">{{$store.state.currentUser.nickname}}</router-link>
+      >{{$t("message.pleaseLogin")}}</ou-button>
+      <ou-callout v-else type="OOBE" :title="$store.state.currentUser.nickname">
+        <div slot="actions">
+          <ou-button type="primary" @click="my">More</ou-button>
+          <ou-button>Got it</ou-button>
+        </div>
+        <div slot="content" class="flex-panel">
+          <span>
+            <h3>{{$t("message.Uname")}}</h3>
+            <p>{{$store.state.currentUser.nickname}}</p>
+          </span>
+          <span>
+            <h3>id</h3>
+            <p>{{$store.state.currentUser.id}}</p>
+          </span>
+          <span>
+            <h3>{{$t("message.reputation")}}</h3>
+            <p>{{$store.state.currentUser.reputation}}</p>
+          </span>
+        </div>
+        <ou-button><i class="ms-Icon ms-Icon--AccountManagement" aria-hidden="true"></i>{{$store.state.currentUser.nickname}}</ou-button>
+      </ou-callout>
     </div>
     <img
       style="margin-top:15px;margin-button:5px;"
@@ -53,6 +73,9 @@ export default {
   methods: {
     loginhandle() {
       router.push("../login");
+    },
+    my() {
+      router.push("../../my");
     }
   }
 };

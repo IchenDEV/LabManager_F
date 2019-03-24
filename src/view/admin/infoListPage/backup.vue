@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card  >
+    <Card class="ms-depth-16"  >
       <h1>{{ $t('message.backup') }}</h1>
       <div class="flex-panel col-panel">
         <backup-now />

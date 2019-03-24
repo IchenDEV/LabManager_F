@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="flex-panel warp ">
-      <Card  v-if="$store.state.isSuperAdmin"  class="Card max-w"
-      >
+      <Card class="ms-depth-16 max-w"  v-if="$store.state.isSuperAdmin">
         <add-user @added="refresh" />
       </Card>
       <user-list ref="userList" />
