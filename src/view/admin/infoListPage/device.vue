@@ -1,9 +1,9 @@
 <template>
-  <div class="flex-panel warp">
-    <device-box ref="deviceList" admin="true" style="max-width:750px;"/>
-    <Card class="ms-depth-16">
+  <div class="col-panel">
+    <Card class="ms-depth-16" style="min-width:350px;">
       <add-device @added="refresh" />
     </Card>
+    <device-box ref="deviceList" admin="true" />
   </div>
 </template>
 <script>

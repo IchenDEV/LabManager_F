@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="max-width: 1108px;">
     <Card class="ms-depth-16">
       <h1>{{$t('message.device')}} {{$t('message.list')}}</h1>
       <div class="flex-panel">
@@ -50,29 +50,32 @@
         ></ui-select>
       </div>
       <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
-      <ui-button color="primary" icon="mode" @click="listModeClicked">MODE</ui-button>
     </Card>
-    <Card class="ms-depth-16" v-if="listMode">
+    <Card class="ms-depth-16" v-if="$store.state.isListMode">
       <ou-list>
         <ou-list-item
           v-for="(item,index) in info.list"
           :key="index"
           isSelectable
-          :primaryText="item.name"
-          :secondaryText="item.No"
-          :tertiaryText="item.description"
+          :primaryText="item.id+' '+item.name+' '+item.No"
           :metaText="item.locationName"
         >
           <ou-list-actions>
             <ou-list-action-item icon="Add" @click="bookClicked(item.id)"></ou-list-action-item>
-            <ou-list-action-item icon="Delete"></ou-list-action-item>
-            <ou-list-action-item icon="Flag"></ou-list-action-item>
+            <ou-list-action-item icon="Delete" v-if="admin" @click="delClicked(item.id,index)"></ou-list-action-item>
+            <ou-list-action-item icon="Flag" v-if="admin" @click="modifyClicked(item.id)"></ou-list-action-item>
           </ou-list-actions>
+          <span style="margin-left:-1rem;">
+            <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
+            <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
+            <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
+            <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
+            <Tag color="success">{{item.func}}</Tag>
+          </span>
         </ou-list-item>
       </ou-list>
     </Card>
-
-    <div v-else  class="flex-panel">
+    <div v-else class="flex-panel">
       <Card class="ms-depth-16" v-for="(item,index) in info.list" :key="index">
         <div>
           <span>
@@ -98,7 +101,6 @@
             icon="book"
             @click="bookClicked(item.id)"
           >{{$t('message.appointment')}}</ui-button>
-          <!--将修改前面的图标改为attach_file，更精确的有待寻找-->
           <ui-button
             v-if="admin"
             color="primary"
@@ -127,7 +129,7 @@
     />
     <ou-panel title="预约" size="lg" v-model="showPanel">
       <span class="ms-font-m">
-        <book-the-device :device="panelDeviceId" />
+        <book-the-device :device="panelDeviceId"/>
       </span>
     </ou-panel>
   </div>
@@ -138,7 +140,7 @@ import tools from "@/util/tools.js";
 import bookTheDevice from "@/components/device/bookTheDevice";
 export default {
   props: { admin: { default: false } },
-  components: {bookTheDevice},
+  components: { bookTheDevice },
   data() {
     return {
       labInfo: { list: [] },
@@ -154,17 +156,14 @@ export default {
         pageNum: 1
       },
       listMode: false,
-      showPanel:false,
-      panelDeviceId:''
+      showPanel: false,
+      panelDeviceId: ""
     };
   },
   methods: {
-    listModeClicked() {
-      this.listMode = !this.listMode;
-    },
     bookClicked(i) {
-      this.panelDeviceId=i.toString();
-      this.showPanel=true;
+      this.panelDeviceId = i.toString();
+      this.showPanel = true;
       //router.push("device/" + i);
     },
     getInfo() {

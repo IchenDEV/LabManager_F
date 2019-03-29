@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html dir="ltr">
+
 <head>
   <meta charset="utf-8">
   <meta name="renderer" content="webkit|ie-comp|ie-stand">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Loading</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="LEMS">
+  <link rel="apple-touch-icon" href="img/144.png">
+  <meta name="application-name" content="LEMS" />
+  <meta name="msapplication-TileColor" content="#eee">
+  <meta name="msapplication-square70x70logo" content="img/72.png" />
+  <meta name="msapplication-square150x150logo" content="img/144.png" />
+  <meta name="msapplication-square310x310logo" content="img/256.png" />
   <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
 </head>
+
 <body>
   <div id="nb-global-spinner" class="spinner">
     <div class="blob blob-0"></div>
@@ -17,6 +29,8 @@
     <div class="blob blob-5"></div>
   </div>
   <div id="app"></div>
+  <script type="text/javascript" src="./base64util.js"></script>
+  <script type="text/javascript" src="./push.js"></script>
 </body>
 
 </html>

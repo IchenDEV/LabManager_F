@@ -59,6 +59,12 @@ export default {
       });
     }
   },
+  watch:{
+    device(){
+      if(this.device!='0'){this.search.device=this.device}
+      this.getInfo();
+    }
+  },
   mounted() {
     this.getInfo();
   }

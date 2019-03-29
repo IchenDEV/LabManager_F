@@ -77,7 +77,7 @@ export const message = {
   setBackupSchedule: 'Set backup cycle',
   footerAlert: 'You can add % to start fuzzy search in Search items',
   productName: 'Lab Equipment Management System',
-  devBy: 'Developed by xxx',
+  devBy: 'Developed by idevlab',
   add: 'Add',
   restart: 'Restart',
   superPassword: 'Super Admin password',

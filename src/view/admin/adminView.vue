@@ -2,7 +2,7 @@
   <div :class="{'col-panel':mobileView,'row-panel':!mobileView}">
     <admin-menu :class="{'mx':!mobileView}" />
     <transition name="slide-fade" mode="out-in" >
-      <router-view :class="{'center':!mobileView}"/>
+      <router-view :class="{'center':!mobileView}" style="flex:1;"/>
     </transition>
   </div>
 </template>

@@ -77,7 +77,7 @@ export const message = {
   setBackupSchedule:'设定备份周期',
   footerAlert:'可以在搜索项添加%启动模糊搜索',
   productName: '实验室设备管理系统',
-  devBy:'由XXX开发',
+  devBy:'由idevlab开发',
   add:'添加',
   restart:'重新启用',
   superPassword:'超级管理员密码',

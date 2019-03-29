@@ -1,9 +1,6 @@
 <template>
   <div style="padding-bottom: 50px;">
     <div class="flex-panel">
-      <Card class="ms-depth-16">
-      <monthly-rate  :device="device"/>
-    </Card>
       <Card class="ms-depth-16" style="text-align: center">
         <div>
           <h2>{{$t('message.device')}} {{item.id}}</h2>
@@ -21,16 +18,19 @@
         <Timeline>
           <TimelineItem v-for="(item,index) in bookInfo.list" :key="index">
             <p>
-            <a @click="openModel(item.applicant,item.applicantNickname)">
-              <Tooltip
-                :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
-              >{{item.beginTime}} ~ {{item.endTime}}</Tooltip>
-            </a>
+              <a @click="openModel(item.applicant,item.applicantNickname)">
+                <Tooltip
+                  :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
+                >{{item.beginTime}} ~ {{item.endTime}}</Tooltip>
+              </a>
             </p>
           </TimelineItem>
         </Timeline>
       </Card>
-      <Card class="ms-depth-16" style="text-align: center;"  >
+      <Card class="ms-depth-16">
+        <monthly-rate :device="device"/>
+      </Card>
+      <Card class="ms-depth-16" style="text-align: center;">
         <div>
           <h2>{{$t('message.appointment')}}</h2>
           <project-selector
@@ -84,14 +84,14 @@ import projectSelector from "@/components/project/projectSelector";
 import monthlyRate from "@/components/statistics/monthlyRate";
 import msgSender from "@/components/msg/msgSender";
 export default {
-  props: { device: String },
-  components: { projectSelector, msgSender,monthlyRate },
+  props: { device: { default: "0" } },
+  components: { projectSelector, msgSender, monthlyRate },
   data() {
     return {
       search: { device: this.device, pageRow: 10, offSet: 0 },
       search2: { id: this.device, pageRow: 1, offSet: 0 },
       bookInfo: {},
-      item: {},
+      item: { rp: 0 },
       beginDate: null,
       endDate: null,
       beginTime: null,
@@ -112,24 +112,35 @@ export default {
   },
   computed: {
     useRate() {
-      /* eslint-disable */
-      var dt = new Date(this.item.createTime)      
-      return  Number((this.bookInfo.totalBookedTime/((this.now.getTime()-dt.getTime())/1000) )* 100).toFixed(2)
+      if (this.item != null) {
+        /* eslint-disable */
+        var dt = new Date(this.item.createTime);
+        return Number(
+          (this.bookInfo.totalBookedTime /
+            ((this.now.getTime() - dt.getTime()) / 1000)) *
+            100
+        ).toFixed(2);
+      }
+      return 0;
     },
-    now(){
-      return new Date
+    now() {
+      return new Date();
     },
     canOrder() {
-      if (
-        this.p != null &&
-        this.beginTime != null &&
-        this.endDate != null &&
-        this.endDate != null &&
-        this.endTime != null && this.item.requireReputation<=this.$store.state.currentUser.reputation
-      ) {
-        if (Date(this.beginDate) <= Date(this.endDate)) {
-          if (this.beginTime < this.endTime) {
-            return true;
+      if (this.item != null) {
+        if (
+          this.p != null &&
+          this.beginTime != null &&
+          this.endDate != null &&
+          this.endDate != null &&
+          this.endTime != null &&
+          this.item.requireReputation <=
+            this.$store.state.currentUser.reputation
+        ) {
+          if (Date(this.beginDate) <= Date(this.endDate)) {
+            if (this.beginTime < this.endTime) {
+              return true;
+            }
           }
         }
       }
@@ -138,50 +149,59 @@ export default {
   },
   methods: {
     closeModel() {
-      this.$store.state.modal=false
+      this.$store.state.modal = false;
       this.$refs["sendMsg"].close();
     },
     openModel(a, b) {
       this.quickid = a;
       this.quickname = b;
-      this.$store.state.modal=true
+      this.$store.state.modal = true;
       this.$refs["sendMsg"].open();
     },
     getDeviceBookInfo() {
-      tools.easyfetch(tools.Api.ListBook,this.search)
-        .then(res => {
-          this.bookInfo = res.data.info;
-        })
+      tools.easyfetch(tools.Api.ListBook, this.search).then(res => {
+        this.bookInfo = res.data.info;
+      });
     },
     getDeviceInfo() {
-      tools.easyfetch(tools.Api.ListDevice,this.search2)
-      .then(res => {
-          this.item = res.data.info.list[0];
-          if(this.item.requireReputation>this.$store.state.currentUser.reputation){
-            this.$Notice.warning({
-              title: this.$t('message.requireReputationD')
-            });
+      tools.easyfetch(tools.Api.ListDevice, this.search2).then(res => {
+        this.item = res.data.info.list[0];
+        if (
+          this.item.requireReputation > this.$store.state.currentUser.reputation
+        ) {
+          this.$Notice.warning({
+            title: this.$t("message.requireReputationD")
+          });
         }
-        })
+      });
     },
     bookClick() {
-      this.iswaitting=true
+      this.iswaitting = true;
       this.con.project = this.p.projectId;
       this.con.beginTime = tools.timeBuilder(this.beginDate, this.beginTime);
       this.con.endTime = tools.timeBuilder(this.endDate, this.endTime);
-      tools.easyfetch(tools.Api.AddBook,this.con)
-        .then(()=>{ this.iswaitting=false})
+      tools.easyfetch(tools.Api.AddBook, this.con).then(() => {
+        this.iswaitting = false;
+      });
     },
     stringCat(a, b, c) {
       return a + " " + b + " " + c;
     },
-    modalClose(){
-      this.$store.state.modal=false
+    modalClose() {
+      this.$store.state.modal = false;
     }
   },
   mounted() {
     this.getDeviceBookInfo();
     this.getDeviceInfo();
+  },
+  watch: {
+    device() {
+      this.search.device = this.device;
+      this.search2.id = this.device;
+      this.getDeviceBookInfo();
+      this.getDeviceInfo();
+    }
   }
 };
 </script>

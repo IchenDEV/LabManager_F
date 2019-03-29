@@ -12,7 +12,7 @@
         </AnchorLink>
         <AnchorLink href="#data" title="数据" v-if="$store.state.hasSingin&&$store.state.isAdmin"/>
     </Anchor>
-  <div class="home">
+  <div :class="{'home':!mobileView&&$store.state.hasSingin}">
     <div>
       <Divider v-if="$store.state.hasSingin" id="quick_reserve">快速预约服务</Divider>
       <hot-device-box id="hot" v-if="$store.state.hasSingin" class="hdb" />

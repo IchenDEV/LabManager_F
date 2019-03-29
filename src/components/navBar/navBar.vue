@@ -9,8 +9,8 @@
       >{{$t("message.pleaseLogin")}}</ou-button>
       <ou-callout v-else type="OOBE" :title="$store.state.currentUser.nickname">
         <div slot="actions">
+          <ui-switch v-model="$store.state.isListMode">列表模式</ui-switch>
           <ou-button type="primary" @click="my">More</ou-button>
-          <ou-button>Got it</ou-button>
         </div>
         <div slot="content" class="flex-panel">
           <span>
@@ -26,7 +26,10 @@
             <p>{{$store.state.currentUser.reputation}}</p>
           </span>
         </div>
-        <ou-button><i class="ms-Icon ms-Icon--AccountManagement" aria-hidden="true"></i>{{$store.state.currentUser.nickname}}</ou-button>
+        <ou-button>
+          <i class="ms-Icon ms-Icon--AccountManagement" aria-hidden="true"></i>
+          {{$store.state.currentUser.nickname}}
+        </ou-button>
       </ou-callout>
     </div>
     <img

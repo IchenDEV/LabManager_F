@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
@@ -10,6 +11,7 @@ import {
   UiTooltip,
   UiButton,
   UiFab,
+  UiSwitch,
   UiIcon,
   UiModal,
   UiTabs,
@@ -35,7 +37,7 @@ import 'office-ui-fabric-core/dist/css/fabric.min.css'
 import 'keen-ui/dist/keen-ui.css'
 import 'iview/dist/styles/iview.css'
 import OfficeUIFabricVue from 'office-ui-fabric-vue';
-  // import css style
+// import css style
 import 'office-ui-fabric-vue/dist/index.css';
 import iView from 'iview'
 Vue.use(iView)
@@ -47,6 +49,7 @@ Vue.locale = () => {};
 
 Vue.component('UiCollapsible', UiCollapsible)
 Vue.component('UiButton', UiButton)
+Vue.component('UiSwitch', UiSwitch)
 Vue.component('UiFab', UiFab)
 Vue.component('UiIcon', UiIcon)
 Vue.component('UiModal', UiModal)
@@ -60,20 +63,21 @@ Vue.component('UiDatepicker', UiDatepicker)
 Vue.component('UiMenu', UiMenu)
 
 
-  Vue.use(OfficeUIFabricVue);
+Vue.use(OfficeUIFabricVue);
 //#endregion
 
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    screenWidth:222,
+    screenWidth: 222,
     currentUser: {
       username: '',
       nickname: '',
       reputation: 0,
       id: 0
     },
-    path:'homeView',
+    isListMode: false,
+    path: 'homeView',
     modal: false,
     hasSingin: false,
     isAdmin: false,
@@ -86,6 +90,9 @@ const store = new Vuex.Store({
         res => {
           if (res.data.code === '100') {
             state.hasSingin = true
+            create(res.data.info.userPermission.id).then(body => {
+              tools.easyfetch(tools.Api.PushSignUp, body)
+            })
             state.currentUser.nickname = res.data.info.userPermission.nickname
             state.currentUser.username = res.data.info.userPermission.username
             state.currentUser.id = res.data.info.userPermission.id
@@ -156,15 +163,15 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to) => {
   iView.LoadingBar.finish();
-  if(to.name==null&&to.path=='/'){
+  if (to.name == null && to.path == '/') {
     router.push("/home");
     return;
   }
-  if(!store.state.hasSingin&&to.path!='/login'){
+  if (!store.state.hasSingin && to.path != '/login') {
     router.push("/home");
     return;
   }
-  store.state.path=to.name;
+  store.state.path = to.name;
 })
 
 new Vue({

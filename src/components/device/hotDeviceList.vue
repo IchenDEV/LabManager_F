@@ -1,8 +1,11 @@
 <template>
   <div>
-    <h1><ui-icon class="center" slot="icon" icon="whatshot"></ui-icon>{{$t('message.hot')}} {{$t('message.device')}} {{$t('message.list')}}</h1>
+    <h1>
+      <ui-icon class="center" slot="icon" icon="whatshot"></ui-icon>
+      {{$t('message.hot')}} {{$t('message.device')}} {{$t('message.list')}}
+    </h1>
     <div class="flex-panel">
-      <Card class="ms-depth-16 small-Card"    v-for="(item,index) in info.list" :key="index">
+      <Card class="ms-depth-16 small-Card" v-for="(item,index) in info.list" :key="index">
         <div>
           <span>
             <h2>{{$t('message.device')}} {{item.id}}</h2>
@@ -23,29 +26,39 @@
           >{{$t('message.appointment')}}</ui-button>
         </div>
       </Card>
-      <Card class="ms-depth-16"    v-if="info.totalCount===0">
+      <Card class="ms-depth-16" v-if="info.totalCount===0">
         <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
       </Card>
+      <ou-panel title="预约" size="lg" v-model="showPanel">
+        <span class="ms-font-m">
+          <book-the-device :device="panelDeviceId"/>
+        </span>
+      </ou-panel>
     </div>
   </div>
 </template>
 <script>
-import router from "@/router";
+import bookTheDevice from "@/components/device/bookTheDevice";
 import tools from "@/util/tools.js";
 export default {
+  components: { bookTheDevice },
   props: { admin: { default: false } },
   data() {
     return {
-      info: {}
+      info: {},
+      panelDeviceId: "02",
+      showPanel: false
     };
   },
   methods: {
     bookClicked(i) {
-      router.push("device/" + i);
+      this.panelDeviceId = i.toString();
+      this.showPanel = true;
     },
     getDeviceInfo() {
-      let da={}
-      tools.easyfetch(tools.Api.HotDevice,da)
+      let da = {};
+      tools
+        .easyfetch(tools.Api.HotDevice, da)
         .then(res => {
           this.info = res.data.info;
         })
@@ -60,10 +73,10 @@ export default {
 };
 </script>
 <style>
-.small-Card{
-min-width: 80px !important;
-margin-left: 0.2rem !important;
-margin-right: 0.2rem !important;
+.small-Card {
+  width: 80px !important;
+  margin-left: 0.2rem !important;
+  margin-right: 0.2rem !important;
 }
 </style>
 

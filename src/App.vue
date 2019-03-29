@@ -1,23 +1,24 @@
 <template>
-  <div id="app" >
+  <div id="app">
     <nav-bar/>
     <transition name="slide-fade" mode="out-in">
       <router-view class="center" style="max-width:1108px;"/>
     </transition>
     <BackTop/>
-    <my-footer />
+    <my-footer/>
   </div>
 </template>
 <script>
 import navBar from "./components/navBar/navBar";
 import myFooter from "./components/footer/footer";
+
 export default {
   name: "App",
   components: { navBar, myFooter },
-  mounted(){
-    document.title = this.$t('message.productName');
+  mounted() {
+    document.title = this.$t("message.productName");
   }
-}
+};
 </script>
 <style>
 #app {
@@ -33,5 +34,4 @@ export default {
   color: #2c3e50;
   width: 100%;
 }
-
 </style>

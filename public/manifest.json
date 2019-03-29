@@ -1,0 +1,21 @@
+{
+  "name": "LEMS",
+  "short_name": "LEMS",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "lab equipment mananage system",
+  "icons": [{
+    "src": "img/144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }, {
+    "src": "img/72.png",
+    "sizes": "72x72",
+    "type": "image/png"
+  }, {
+    "src": "img/256.png",
+    "sizes": "256x256",
+    "type": "image/png"
+  }]
+}

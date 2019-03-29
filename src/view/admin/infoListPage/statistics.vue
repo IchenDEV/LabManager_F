@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{ $t('message.statistics') }}</h1>
-    <div class="flex-panel">
+    <div class="col-panel">
       <Card class="ms-depth-16">
         <total-use-rate />
       </Card>
