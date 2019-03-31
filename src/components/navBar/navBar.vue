@@ -1,6 +1,10 @@
 <template>
   <div class="header">
     <div class="person-nav">
+      <ou-button v-if="$store.state.hasSingin" icon="AddFriend" @click="showPanel=!showPanel">通知中心</ou-button>
+      <ou-panel v-if="$store.state.hasSingin" title="通知中心" size="lg" v-model="showPanel">
+        <current-msg-box/>
+      </ou-panel>
       <ou-button
         v-if="!$store.state.hasSingin"
         type="hero"
@@ -66,12 +70,20 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
+import currentMsgBox from "@/components/msg/currentMsgBox";
 import router from "@/router";
 export default {
+  components: { currentMsgBox },
   computed: {
     isAdmin() {
       return this.$store.state.isAdmin;
     }
+  },
+  data() {
+    return {
+      showPanel: false
+    };
   },
   methods: {
     loginhandle() {

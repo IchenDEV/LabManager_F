@@ -1,7 +1,7 @@
 <template>
   <div style="padding-bottom: 50px;">
     <div class="flex-panel">
-      <Card class="ms-depth-16" style="text-align: center">
+      <Card v-if="device!=0" class="ms-depth-16" style="text-align: center">
         <div>
           <h2>{{$t('message.device')}} {{item.id}}</h2>
           <p>{{$t('message.name')}} {{item.name}}</p>
@@ -28,12 +28,25 @@
         </Timeline>
       </Card>
       <Card class="ms-depth-16">
-        <monthly-rate :device="device"/>
+        <full-calendar
+          defaultView="month"
+          :events="fcEvents"
+          @view-render="changeMonth"
+          @event-selected="eventSelected"
+          @event-drop="eventDrop"
+          locale="zh"
+          :config="config"
+          @day-click="clickDay"
+        ></full-calendar>
+      </Card>
+      <Card class="ms-depth-16">
+        <monthly-rate v-if="device!='0'" :device="device"/>
       </Card>
       <Card class="ms-depth-16" style="text-align: center;">
         <div>
           <h2>{{$t('message.appointment')}}</h2>
           <project-selector
+            v-if="$store.state.currentUser.id"
             isWorking="true"
             v-model="p"
             :label="$t('message.project')"
@@ -67,7 +80,6 @@
             color="primary"
             icon="adjust"
             @click="bookClick"
-            :loading="iswaitting"
             :disabled="!canOrder"
           >{{$t('message.appointment')}}</ui-button>
         </div>
@@ -82,16 +94,18 @@
 import tools from "@/util/tools.js";
 import projectSelector from "@/components/project/projectSelector";
 import monthlyRate from "@/components/statistics/monthlyRate";
+import { FullCalendar } from "vue-full-calendar";
+import "fullcalendar/dist/fullcalendar.css";
 import msgSender from "@/components/msg/msgSender";
 export default {
   props: { device: { default: "0" } },
-  components: { projectSelector, msgSender, monthlyRate },
+  components: { projectSelector, msgSender, monthlyRate, FullCalendar },
   data() {
     return {
-      search: { device: this.device, pageRow: 10, offSet: 0 },
+      search: { device: this.device },
       search2: { id: this.device, pageRow: 1, offSet: 0 },
       bookInfo: {},
-      item: { rp: 0 },
+      item: { id: "2" },
       beginDate: null,
       endDate: null,
       beginTime: null,
@@ -104,13 +118,43 @@ export default {
         endTime: null,
         status: 1
       },
+      books: {},
+      config: {
+        locale: "zh-cn",
+        height: "auto",
+        editable: false
+      },
+      selectBook: {},
+      project: null,
+      fcEvents: [],
       quickid: 0,
       quickname: null,
-      iswaitting: false,
       p: null
     };
   },
   computed: {
+    mybook() {
+      if (
+        this.beginTime != null &&
+        this.endDate != null &&
+        this.endDate != null &&
+        this.endTime != null
+      ) {
+        let begin = new Date(this.beginDate);
+        let end = new Date(this.endDate);
+        let obj = {
+          end: end,
+          start: begin,
+          title: "(预览)" + this.item.id + "*" + this.item.name,
+          classNames: ["free"],
+          backgroundColor: tools.getRandomColor(),
+          borderColor: "transparent",
+          editable: true
+        };
+        return obj;
+      }
+      return null;
+    },
     useRate() {
       if (this.item != null) {
         /* eslint-disable */
@@ -148,6 +192,16 @@ export default {
     }
   },
   methods: {
+    eventDrop(event) {
+      console.log(event);
+      this.beginDate = new Date(event.start);
+      this.endDate = new Date(event.end);
+    },
+    eventSelected(event, jsEvent, view) {
+      this.quickid = event.applicant;
+      this.$store.state.modal = true;
+      this.$refs["sendMsg"].open();
+    },
     closeModel() {
       this.$store.state.modal = false;
       this.$refs["sendMsg"].close();
@@ -157,11 +211,6 @@ export default {
       this.quickname = b;
       this.$store.state.modal = true;
       this.$refs["sendMsg"].open();
-    },
-    getDeviceBookInfo() {
-      tools.easyfetch(tools.Api.ListBook, this.search).then(res => {
-        this.bookInfo = res.data.info;
-      });
     },
     getDeviceInfo() {
       tools.easyfetch(tools.Api.ListDevice, this.search2).then(res => {
@@ -175,13 +224,22 @@ export default {
         }
       });
     },
+    clickDay(dax) {
+      var day = new Date(dax._d);
+      day.setDate(day.getDate());
+      this.search.beginTime = day;
+      day.setMinutes(day.getMinutes());
+      this.search.endTime = day;
+      this.beginDate = day;
+    },
     bookClick() {
       this.iswaitting = true;
+      this.con.device = this.device;
       this.con.project = this.p.projectId;
       this.con.beginTime = tools.timeBuilder(this.beginDate, this.beginTime);
       this.con.endTime = tools.timeBuilder(this.endDate, this.endTime);
       tools.easyfetch(tools.Api.AddBook, this.con).then(() => {
-        this.iswaitting = false;
+        this.getBookInfo();
       });
     },
     stringCat(a, b, c) {
@@ -189,18 +247,51 @@ export default {
     },
     modalClose() {
       this.$store.state.modal = false;
+    },
+    changeMonth(month) {
+      this.search.beginTime = new Date(new Date(month.start).setDate(-64));
+      this.search.endTime = new Date(new Date(month.start).setDate(64));
+      this.getBookInfo();
+    },
+    getBookInfo() {
+      this.fcEvents.splice(0, this.fcEvents.length - 1);
+      tools.easyfetch(tools.Api.ListBook, this.search).then(res => {
+        this.bookInfo = res.data.info;
+        this.fcEvents.splice(0, this.fcEvents.length - 1);
+        this.books = res.data.info;
+        for (let item of this.books.list) {
+          let begin = new Date(item.beginTime);
+          let end = new Date(item.endTime);
+          let obj = {
+            applicant: item.applicant,
+            applicantNickname: item.applicantNickname,
+            end: end,
+            start: begin,
+            title: item.device + "*" + item.deviceName,
+            classNames: ["free"],
+            backgroundColor: tools.getRandomColor(),
+            borderColor: "transparent"
+          };
+          this.fcEvents.push(obj);
+        }
+      });
     }
   },
   mounted() {
-    this.getDeviceBookInfo();
+    this.getBookInfo();
     this.getDeviceInfo();
   },
   watch: {
     device() {
       this.search.device = this.device;
       this.search2.id = this.device;
-      this.getDeviceBookInfo();
+      this.getBookInfo();
       this.getDeviceInfo();
+    },
+    canOrder() {
+      if (this.mybook != null) {
+        this.fcEvents.push(this.mybook);
+      }
     }
   }
 };

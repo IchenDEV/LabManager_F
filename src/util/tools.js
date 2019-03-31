@@ -40,6 +40,7 @@ export default {
     ListAnnouncement: "/announcement/list",
     AddAnnouncement: "/announcement/add",
     DelAnnouncement: "/announcement/delete",
+    UpdateAnnouncement: "/announcement/update",
 
     SetBackupSchedule: "/backup/setSchedule",
     GetBackupSchedule: "/backup/getSchedule",
@@ -48,6 +49,7 @@ export default {
     ListMsg: "/msg/list",
     AddMsg: "/msg/add",
     ReadMsg: "/msg/read",
+    DelMsg: "/msg/delete",
 
     DelLab: "/lab/delete",
     ListLab: "/lab/list",

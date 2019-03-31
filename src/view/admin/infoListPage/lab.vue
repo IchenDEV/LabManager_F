@@ -1,10 +1,24 @@
 <template>
   <div>
-    <div class="flex-panel warp">
+    <div>
       <Card class="ms-depth-16 max-w">
-        <add-lab @added="refresh" />
+        <ou-command-bar>
+          <template slot="main">
+            <ou-command-button icon="Add" @click="multilineDialogVisible=true">新建</ou-command-button>
+          </template>
+          <template slot="side">
+            <ou-command-button icon="CircleRing" type="noLabel"></ou-command-button>
+          </template>
+        </ou-command-bar>
       </Card>
-      <lab-list ref="labList" />
+      <ou-dialog
+        type="multiline"
+        :title="$t('message.create') +$t('message.device')"
+        v-model="multilineDialogVisible"
+      >
+        <add-lab @added="refresh"/>
+      </ou-dialog>
+      <lab-list ref="labList"/>
     </div>
   </div>
 </template>
@@ -12,10 +26,16 @@
 import AddLab from "@/components/lab/AddLab";
 import labList from "@/components/lab/labList";
 export default {
+  data() {
+    return {
+      multilineDialogVisible: false
+    };
+  },
   components: { AddLab, labList },
-  methods:{
-    refresh (){
-      this.$refs.labList.getInfo()
+  methods: {
+    refresh() {
+      this.multilineDialogVisible = false;
+      this.$refs.labList.getInfo();
     }
   }
 };

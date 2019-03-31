@@ -1,18 +1,38 @@
 <template>
   <div>
-    <Card class="ms-depth-16"   >
-    <h1>{{$t('message.appointment')}} {{$t('message.list')}}</h1>  
-    <div class="flex-panel">
-      <!--将id的图标进行修改为code-->
-      <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
-      <user-selector v-model="user" :label="$t('message.user')"></user-selector>
-      <project-selector v-model="project" :label="$t('message.project')"></project-selector>
-    </div>
-    <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
-    <ui-button color="primary" icon="cloud_download" @click="exportExcel">{{$t('message.export')}}</ui-button>
+    <Card class="ms-depth-16">
+      <h1>{{$t('message.appointment')}} {{$t('message.list')}}</h1>
+      <div class="flex-panel">
+        <ui-textbox icon="code" floating-label label="id" v-model="search.id"></ui-textbox>
+        <user-selector v-model="user" :label="$t('message.user')"></user-selector>
+        <project-selector v-model="project" :label="$t('message.project')"></project-selector>
+      </div>
+      <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
+      <ui-button color="primary" icon="cloud_download" @click="exportExcel">{{$t('message.export')}}</ui-button>
     </Card>
-    <div class="flex-panel">
-      <Card class="ms-depth-16"    v-for="(item,index) in books.list" :key="index">
+    <Card class="ms-depth-16" v-if="$store.state.isListMode">
+      <ou-list style="text-align:left;">
+        <ou-list-item
+          v-for="(item,index) in books.list"
+          :key="index"
+          isSelectable
+          :primaryText="item.applicantNickname+' '+item.deviceName+' '+item.projectName"
+          :tertiaryText="item.beginTime+ '~' +item.endTime"
+          :metaText="item.createTime"
+        >
+          <ou-list-actions>
+            <ou-list-action-item
+              icon="Delete"
+              v-if="item.applicant==$store.state.currentUser.id||$store.state.isAdmin"
+              @click="delClicked(item.id,index)"
+            ></ou-list-action-item>
+            <!-- <ou-list-action-item icon="Edit" v-if="admin" @click="modifyClicked(item.id)"></ou-list-action-item> -->
+          </ou-list-actions>
+        </ou-list-item>
+      </ou-list>
+    </Card>
+    <div v-else class="flex-panel">
+      <Card class="ms-depth-16" v-for="(item,index) in books.list" :key="index">
         <p slot="title">{{item.applicantNickname}}</p>
         <p>{{item.id}}</p>
         <p>{{item.projectName}}</p>
@@ -29,10 +49,10 @@
           >{{$t('message.delete')}}</ui-button>
         </span>
       </Card>
-      <Card class="ms-depth-16"    v-if="books.totalCount===0">
-        <div>{{$t('message.findless')}} {{$t('message.appointment')}}</div>
-      </Card>
     </div>
+    <Card class="ms-depth-16" v-if="books.totalCount===0">
+      <div>{{$t('message.findless')}} {{$t('message.appointment')}}</div>
+    </Card>
     <Page
       size="small"
       v-if="books.totalPage>1"
@@ -56,15 +76,13 @@ export default {
       iswaitting: false,
       user: null,
       project: null
-      
     };
   },
   methods: {
-    exportExcel(){
-      tools.fetchFile(tools.Api.ExportBook,this.search)
-        .then(res => {
-          this.$store.commit('download',res.data);
-        })
+    exportExcel() {
+      tools.fetchFile(tools.Api.ExportBook, this.search).then(res => {
+        this.$store.commit("download", res.data);
+      });
     },
     getInfo() {
       if (this.user != null) {
@@ -73,19 +91,18 @@ export default {
       if (this.project != null) {
         this.search.project = this.project.id;
       }
-      tools.easyfetch(tools.Api.ListBook,this.search)
-      .then(res => {
-          this.books = res.data.info;
-        })
+      tools.easyfetch(tools.Api.ListBook, this.search).then(res => {
+        this.books = res.data.info;
+      });
     },
     onPageChange(page) {
       this.search.pageNum = page;
       this.getInfo();
     },
     delClicked(id, index) {
-      let da = { id: id }
-      this.books.list.splice(index, 1)
-      tools.easyfetch(tools.Api.DelBook,da)
+      let da = { id: id };
+      this.books.list.splice(index, 1);
+      tools.easyfetch(tools.Api.DelBook, da);
     },
     searchClicked() {
       this.getInfo();

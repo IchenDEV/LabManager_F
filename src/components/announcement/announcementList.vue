@@ -1,14 +1,22 @@
 <template>
   <div>
-    <table class="table">
-      <tr v-for="(item,index) in msgs.list" :key="index">
-        <th><a @click="msgcli(item.id,index)">{{item.title}}</a></th>
-        <th>{{item.summary}}</th>
-        <th>{{item.authorNickName}}</th>
-        <th>{{item.createTime}}</th>
-        <th><a v-if="$store.state.isAdmin" @click="del(item.id)"> X</a></th>
-      </tr>
-    </table>
+    <ou-list style="text-align:left;">
+      <ou-list-item
+        v-for="(item,index) in msgs.list"
+        :key="index"
+        isSelectable
+        :primaryText="item.title"
+        :secondaryText="item.authorNickName"
+        :tertiaryText="item.summary"
+        :metaText="item.createTime"
+      >
+        <ou-list-actions>
+          <ou-list-action-item icon="Read" @click="msgcli(item.id,index)"></ou-list-action-item>
+          <ou-list-action-item icon="Delete" v-if="admin" @click="del(item.id)"></ou-list-action-item>
+          <ou-list-action-item icon="Edit" v-if="admin" @click="modifyClicked(item.id)"></ou-list-action-item>
+        </ou-list-actions>
+      </ou-list-item>
+    </ou-list>
     <Page
       size="small"
       v-if="msgs.totalPage>1"
@@ -20,14 +28,24 @@
     <ui-modal ref="msgmodal" :title="selectMsg.title" @close="modalClose">
       <div id="model"/>
     </ui-modal>
+    <ou-panel title="修改" size="xl" v-model="showPanel">
+      <span class="ms-font-m">
+        <announcement-editor ref="aeList"/>
+      </span>
+    </ou-panel>
   </div>
 </template>
 <script>
 import tools from "@/util/tools.js";
+import announcementEditor from "@/components/announcement/announcementEditor";
 export default {
+  components: { announcementEditor },
+  props: { admin: { default: false } },
   data() {
     return {
       msgs: {},
+      selectedItem: { id: 0 },
+      showPanel: false,
       selectMsg: {},
       totalPage: 0,
       conp: {
@@ -37,6 +55,10 @@ export default {
     };
   },
   methods: {
+    modifyClicked(item) {
+      this.showPanel = true;
+      this.$refs.aeList.getAnnouncement(item);
+    },
     getInfo() {
       tools.easyfetch(tools.Api.ListAnnouncement, this.conp).then(res => {
         this.msgs = res.data.info;
@@ -70,7 +92,7 @@ export default {
     }
   },
   mounted() {
-      this.getInfo();
+    this.getInfo();
   }
 };
 </script>

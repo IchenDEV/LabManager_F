@@ -1,35 +1,37 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const myView  = () => import ('@/view/myView')
-const View404 =()=>import(/* webpackChunkName: "V404" */'@/view/404')
-const loginView =()=> import('@/view/loginView')
-const bookView =()=> import ('@/view/bookView')
-const findView =()=> import ('@/view/findView')
-const homeView =()=> import ('@/view/homeView')
-const calendarView =()=> import ('@/view/calendarView')
-const deviceView =()=> import ('@/view/public/deviceView')
+const myView = () => import('@/view/myView')
+const View404 = () => import( /* webpackChunkName: "V404" */ '@/view/404')
+const loginView = () => import('@/view/loginView')
+const bookView = () => import('@/view/bookView')
+const findView = () => import('@/view/findView')
+const homeView = () => import('@/view/homeView')
+const calendarView = () => import('@/view/calendarView')
+const deviceView = () => import('@/view/public/deviceView')
+const departmentView = () => import('@/view/public/departmentView')
+const groupView = () => import('@/view/public/groupView')
 
-const departmentAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/departmentAdmin')
-const groupAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/groupAdmin')
-const userAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/userAdmin')
-const projectAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/projectAdmin')
-const deviceAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/deviceAdmin')
-const labAdmin =()=> import (/* webpackChunkName: "editorPage" */'@/view/admin/editorPage/labAdmin')
+const departmentAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/departmentAdmin')
+const groupAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/groupAdmin')
+const userAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/userAdmin')
+const projectAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/projectAdmin')
+const deviceAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/deviceAdmin')
+const labAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/labAdmin')
 
-const announcement =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/announcement')
-const device =()=>import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/device')
-const log =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/log')
-const book =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/book')
-const lab =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/lab')
-const project =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/project')
-const user =()=> import (/* webpackChunkName: "infoListPageA" */'@/view/admin/infoListPage/user')
-const group =()=> import (/* webpackChunkName: "infoListPage" */'@/view/admin/infoListPage/group')
-const backup =()=> import (/* webpackChunkName: "infoListPage" */'@/view/admin/infoListPage/backup')
-const statistics =()=> import (/* webpackChunkName: "infoListPage" */'@/view/admin/infoListPage/statistics')
-const department =()=> import (/* webpackChunkName: "infoListPage" */'@/view/admin/infoListPage/department')
+const announcement = () => import( /* webpackChunkName: "infoListPageA" */ '@/view/admin/infoListPage/announcement')
+const device = () => import( /* webpackChunkName: "infoListPageA" */ '@/view/admin/infoListPage/device')
+const log = () => import( /* webpackChunkName: "infoListPageA" */ '@/view/admin/infoListPage/log')
+const book = () => import( /* webpackChunkName: "infoListPageA" */ '@/view/admin/infoListPage/book')
+const lab = () => import( /* webpackChunkName: "infoListPageA" */ '@/view/admin/infoListPage/lab')
+const project = () => import( /* webpackChunkName: "infoListPageA" */ '@/view/admin/infoListPage/project')
+const user = () => import( /* webpackChunkName: "infoListPageA" */ '@/view/admin/infoListPage/user')
+const group = () => import( /* webpackChunkName: "infoListPage" */ '@/view/admin/infoListPage/group')
+const backup = () => import( /* webpackChunkName: "infoListPage" */ '@/view/admin/infoListPage/backup')
+const statistics = () => import( /* webpackChunkName: "infoListPage" */ '@/view/admin/infoListPage/statistics')
+const department = () => import( /* webpackChunkName: "infoListPage" */ '@/view/admin/infoListPage/department')
 
-const adminView =()=> import ('@/view/admin/adminView')
+const adminView = () => import('@/view/admin/adminView')
 
 Vue.use(Router)
 export default new Router({
@@ -38,7 +40,11 @@ export default new Router({
       name: 'homeView',
       component: homeView
     },
-    {path: '/', redirect: '/home',name: 'redict'},
+    {
+      path: '/',
+      redirect: '/home',
+      name: 'redict'
+    },
     {
       path: '/calendar',
       name: 'calendarView',
@@ -68,6 +74,16 @@ export default new Router({
       path: '/device/:id',
       name: 'device',
       component: deviceView
+    },
+    {
+      path: '/department/:id',
+      name: 'department',
+      component: departmentView
+    },
+    {
+      path: '/group/:id',
+      name: 'group',
+      component: groupView
     },
     {
       path: '/admin/',

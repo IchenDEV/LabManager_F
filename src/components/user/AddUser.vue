@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>{{$t('message.create')}} {{$t('message.user')}}</h2>
     <ui-textbox
       icon="person"
       floating-label

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card class="ms-depth-16"   >
+    <Card class="ms-depth-16">
       <h2>{{$t('message.modify')}} {{$t('message.department')}}</h2>
       <div class="flex-panel">
         <ui-textbox icon="phone" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
@@ -19,14 +19,35 @@
       >{{$t('message.update')}}</ui-button>
     </Card>
     <div class="flex-panel">
-      <Card class="ms-depth-16"   >
+      <Card class="ms-depth-16">
         <div>
           <h2>{{$t('message.add')}} {{$t('message.user')}}</h2>
           <user-selector v-model="s" :label="$t('message.user')"></user-selector>
-          <ui-button color="primary" icon="add" @click="addUserClick" :loading="iswaitting">{{$t('message.add')}}</ui-button>
+          <ui-button
+            color="primary"
+            icon="add"
+            @click="addUserClick"
+            :loading="iswaitting"
+          >{{$t('message.add')}}</ui-button>
         </div>
       </Card>
-      <Card class="ms-depth-16"    v-for="(item,index) in userInfo.list" :key="index">
+      <Card class="ms-depth-16" v-if="$store.state.isListMode">
+        <ou-list style="text-align:left;">
+          <ou-list-item
+            v-for="(item,index) in userInfo.list"
+            :key="index"
+            isSelectable
+            :primaryText="item.nickname"
+            :tertiaryText="item.user.toString()"
+            :metaText="item.createTime"
+          >
+            <ou-list-actions>
+              <ou-list-action-item icon="Delete" @click="deleteUserClick(item.id)"></ou-list-action-item>
+            </ou-list-actions>
+          </ou-list-item>
+        </ou-list>
+      </Card>
+      <Card class="ms-depth-16" v-else v-for="(item,index) in userInfo.list" :key="index">
         <div>
           <h2>{{$t('message.user')}} {{item.user}}</h2>
           <p>{{$t('message.Uname')}} {{item.nickname}}</p>

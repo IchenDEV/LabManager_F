@@ -76,7 +76,7 @@ const store = new Vuex.Store({
       reputation: 0,
       id: 0
     },
-    isListMode: false,
+    isListMode: true,
     path: 'homeView',
     modal: false,
     hasSingin: false,
@@ -88,11 +88,9 @@ const store = new Vuex.Store({
       let state = this.state
       tools.easyfetch(tools.Api.UserInfo, this.con).then(
         res => {
-          if (res.data.code === '100') {
+          if (res.data.code == '100') {
             state.hasSingin = true
-            create(res.data.info.userPermission.id).then(body => {
-              tools.easyfetch(tools.Api.PushSignUp, body)
-            })
+
             state.currentUser.nickname = res.data.info.userPermission.nickname
             state.currentUser.username = res.data.info.userPermission.username
             state.currentUser.id = res.data.info.userPermission.id
@@ -104,6 +102,9 @@ const store = new Vuex.Store({
             if (res.data.info.userPermission.roleId === 2) {
               state.isAdmin = true
             }
+            create(res.data.info.userPermission.id).then(body => {
+              tools.easyfetch(tools.Api.PushSignUp, body)
+            })
           }
           this.iswaitting = false
         })

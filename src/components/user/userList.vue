@@ -3,7 +3,7 @@
     <h2>{{$t('message.user')}} {{$t('message.list')}}</h2>
     <div class="flex-panel">
       <Card class="ms-depth-16" v-if="$store.state.isListMode">
-        <ou-list>
+        <ou-list style="text-align:left;">
           <ou-list-item
             v-for="(item,index) in users.list"
             :key="index"

@@ -4,7 +4,31 @@
       <ui-icon class="center" slot="icon" icon="whatshot"></ui-icon>
       {{$t('message.hot')}} {{$t('message.device')}} {{$t('message.list')}}
     </h1>
-    <div class="flex-panel">
+    <Card class="ms-depth-16" v-if="$store.state.isListMode">
+      <ou-list style="text-align:left;">
+        <ou-list-item
+          v-for="(item,index) in info.list"
+          :key="index"
+          isSelectable
+          :primaryText="item.id+' '+item.name+' '+item.NO"
+          :secondaryText="item.model"
+          :tertiaryText="item.description"
+          :metaText="item.locationName"
+        >
+          <ou-list-actions>
+            <span>
+              <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
+              <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
+              <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
+              <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
+              <Tag color="success">{{item.func}}</Tag>
+            </span>
+            <ou-list-action-item icon="Add" @click="bookClicked(item.id)"></ou-list-action-item>
+          </ou-list-actions>
+        </ou-list-item>
+      </ou-list>
+    </Card>
+    <div v-else class="flex-panel">
       <Card class="ms-depth-16 small-Card" v-for="(item,index) in info.list" :key="index">
         <div>
           <span>
@@ -26,15 +50,15 @@
           >{{$t('message.appointment')}}</ui-button>
         </div>
       </Card>
-      <Card class="ms-depth-16" v-if="info.totalCount===0">
-        <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
-      </Card>
-      <ou-panel title="预约" size="lg" v-model="showPanel">
-        <span class="ms-font-m">
-          <book-the-device :device="panelDeviceId"/>
-        </span>
-      </ou-panel>
     </div>
+    <Card class="ms-depth-16" v-if="info.totalCount===0">
+      <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
+    </Card>
+    <ou-panel title="预约" size="lg" v-model="showPanel">
+      <span class="ms-font-m">
+        <book-the-device :device="panelDeviceId"/>
+      </span>
+    </ou-panel>
   </div>
 </template>
 <script>

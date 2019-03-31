@@ -15,7 +15,15 @@
           <ou-button type="primary" v-if="item.status==0" @click="use(item.id)">USE</ou-button>
           <ou-button type="primary" v-if="item.status==1" @click="done(item.id)">Done</ou-button>
         </th>
-        <th>{{item.createTime}}</th>
+        <th>
+          <Tag :color="statusc(item)">{{status(item)}}</Tag>
+        </th>
+        <th>
+          <Time :time="item.beginTime" :interval="1"/>
+        </th>
+        <th>
+          <Time :time="item.endTime" :interval="1"/>
+        </th>
       </tr>
     </table>
     <Page
@@ -67,7 +75,29 @@ export default {
       }
     };
   },
+  /* eslint-disable */
+
   methods: {
+    status(item) {
+      if (new Date(item.beginTime) < new Date()) {
+        if (new Date(item.endTime) > new Date()) {
+          return "进行中";
+        } else {
+          return "已结束";
+        }
+      }
+      return "即将开始";
+    },
+    statusc(item) {
+      if (new Date(item.beginTime) < new Date()) {
+        if (new Date(item.endTime) > new Date()) {
+          return "success";
+        } else {
+          return "error";
+        }
+      }
+      return "warning";
+    },
     QrRecivedUse(data) {
       this.QRA = false;
       if (this.selectBook.id == data) {

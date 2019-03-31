@@ -1,9 +1,11 @@
 html {
   font-size: 100%;
 }
-button{
+
+button {
   border-color: transparent !important;
 }
+
 body {
   margin: 0;
 }
@@ -11,7 +13,19 @@ body {
 table tr {
   margin: 5px;
 }
-.table th{padding-right:5px;}
+
+.ms-ListItem-actions {
+  max-width: 400px !important;
+}
+
+.table th {
+  padding-right: 5px;
+}
+
+.ms-Toggle.ms-Toggle--textLeft {
+  margin-bottom: 0px !important;
+  width: auto !important;
+}
 
 html,
 body,
@@ -115,8 +129,9 @@ img {
   transition: all .7s ease-out;
   margin-left: .5rem;
   margin-right: .5rem;
-  margin-top: .5rem;  
+  margin-top: .5rem;
 }
+
 .col-panel>div {
   width: auto;
   min-width: 250px;
@@ -124,7 +139,7 @@ img {
   transition: all .7s ease-out;
   margin-left: .5rem;
   margin-right: .5rem;
-  margin-top: .5rem;  
+  margin-top: .5rem;
 }
 
 .ivu-affix {
@@ -186,6 +201,10 @@ img {
   backdrop-filter: blur(10px)
 }
 
+.ui-fab {
+  z-index: 3 !important;
+}
+
 .ivu-card-head {
   font-size: 2rem;
 }
@@ -206,6 +225,31 @@ img {
 
 .modelCard {
   max-width: 100% !important;
+}
+
+.ms-CommandBar {
+  background-color: #ffffff !important;
+  text-align: left;
+}
+
+.ms-Breadcrumb {
+  margin-top: 2px !important;
+}
+
+.ms-Dialog {
+  max-width: 600px !important;
+  z-index: 1299 !important;
+  max-height: 85%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ms-SearchBox.ms-SearchBox--commandBar.is-collapsed {
+  background-color: #ffffff !important;
+}
+
+.ms-Breadcrumb-overflowMenu.is-open {
+  z-index: 99999 !important;
 }
 
 .ui-modal__mask {

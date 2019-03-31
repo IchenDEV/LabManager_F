@@ -1,60 +1,28 @@
 <template>
   <div>
-    <div class="flex-panel">
-      <div style="width:50%">
-        <Card class="ms-depth-16">
-            <ui-textbox
-              icon="info_outline"
-              floating-label
-              :label="$t('message.name')"
+    <Card class="ms-depth-16 max-w">
+      <ou-command-bar>
+        <template slot="main">
+          <span>
+            <ou-search-box
+              type="commandBar"
+              :placeholder="$t('message.name')"
               v-model="search.name"
-            ></ui-textbox>
-            <ui-textbox
-              icon="info_outline"
-              floating-label
-              :label="$t('message.func')"
+            />
+            <ou-search-box
+              type="commandBar"
+              :placeholder="$t('message.func')"
               v-model="search.func"
-            ></ui-textbox>
-             <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
-          </Card>
-         
-       <Card class="ms-depth-16"  v-if="info.list!=null">
-        <table style="text-align:left;">
-          <tr v-for="(item,index) in info.list" :key="index">
-            <th>
-              <h2>{{item.id}} {{item.name}}</h2>
-              <ui-tooltip position="bottom">{{ item.No }}</ui-tooltip>
-            </th>
-            <th>
-              <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
-              <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
-              <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
-              <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
-            </th>
-            <th>
-              <Tag color="success">{{item.func}}</Tag>
-            </th>
-            <th>
-              <ui-button
-                v-if="item.status===1"
-                color="primary"
-                icon="book"
-                @click="bookClicked(item)"
-              >{{$t('message.appointment')}}</ui-button>
-            </th>
-          </tr>
-        </table>
-        <Page
-          size="small"
-          v-if="info.totalPage>1"
-          :total="info.totalPage"
-          :page-size="search.pageRow"
-          show-elevator
-          @on-change="onPageChange"
-        />
-      </Card>
-      </div>
-      <Card class="ms-depth-16"  style="width:40%">
+            />
+          </span>
+        </template>
+        <template slot="side">
+          <ou-command-button icon="CircleRing" @click="searchClicked">筛选</ou-command-button>
+        </template>
+      </ou-command-bar>
+    </Card>
+    <div class="flex-panel">
+      <Card class="ms-depth-16" style="width:35%">
         <full-calendar
           defaultView="month"
           :events="fcEvents"
@@ -63,6 +31,31 @@
           :config="config"
           @day-click="clickDay"
         ></full-calendar>
+      </Card>
+
+      <Card class="ms-depth-16" style="width:60%" v-if="$store.state.isListMode&&info.list!=null">
+        <ou-list style="text-align:left;">
+          <ou-list-item
+            v-for="(item,index) in info.list"
+            :key="index"
+            isSelectable
+            :primaryText="item.id+' '+item.name+' '+item.No"
+            :secondaryText="item.model"
+            :tertiaryText="item.description"
+            :metaText="item.locationName"
+          >
+            <ou-list-actions>
+              <span>
+                <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
+                <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
+                <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
+                <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
+                <Tag color="success">{{item.func}}</Tag>
+              </span>
+              <ou-list-action-item icon="Add" @click="bookClicked(item.id)"></ou-list-action-item>
+            </ou-list-actions>
+          </ou-list-item>
+        </ou-list>
       </Card>
     </div>
     <ui-modal ref="bookitmodal" :title="selectBook.name">
@@ -97,18 +90,25 @@
       </span>
       <ui-button @click="bookitClicked" color="primary" icon="book">{{$t('message.appointment')}}</ui-button>
     </ui-modal>
+    <ou-panel title="预约" size="xl" v-model="showPanel">
+      <span class="ms-font-m">
+        <book-the-device ref="btd" :device="panelDeviceId"/>
+      </span>
+    </ou-panel>
   </div>
 </template>
 <script>
 import tools from "@/util/tools.js";
 import { FullCalendar } from "vue-full-calendar";
 import "fullcalendar/dist/fullcalendar.css";
+import bookTheDevice from "@/components/device/bookTheDevice";
 import projectSelector from "@/components/project/projectSelector";
 import "fullcalendar/dist/locale/zh-cn";
 export default {
-  components: { FullCalendar, projectSelector },
+  components: { FullCalendar, projectSelector, bookTheDevice },
   data() {
     return {
+      showPanel: false,
       books: {},
       config: {
         locale: "zh-cn",
@@ -131,6 +131,7 @@ export default {
       fcEvents: [],
       info: {},
       day: 0,
+      panelDeviceId: 0,
       con: {
         project: 3,
         applicant: this.$store.state.currentUser.id,
@@ -157,13 +158,12 @@ export default {
       });
     },
     bookClicked(item) {
-      this.selectBook = item;
-      this.$refs["bookitmodal"].open();
+      this.$refs.btd.beginDate = this.beginDate;
+      this.panelDeviceId = item.toString();
+      this.showPanel = true;
     },
     changeMonth(month) {
       /* eslint-disable */
-      console.log("Das")
-      console.log(month.start._d)
       this.search.beginTime = new Date(new Date(month.start).setDate(-64));
       this.search.endTime = new Date(new Date(month.start).setDate(64));
       this.getInfo();
@@ -181,9 +181,9 @@ export default {
             end: end,
             start: begin,
             title: item.device + "*" + item.deviceName,
-            classNames:['free'],
-            backgroundColor:tools.getRandomColor(),
-            borderColor:'transparent'
+            classNames: ["free"],
+            backgroundColor: tools.getRandomColor(),
+            borderColor: "transparent"
           };
           this.fcEvents.push(obj);
         }
@@ -198,7 +198,6 @@ export default {
       this.getInfo();
     },
     clickDay(dax) {
-      console.log(dax);
       var day = new Date(dax._d);
       day.setDate(day.getDate());
       this.search.beginTime = day;

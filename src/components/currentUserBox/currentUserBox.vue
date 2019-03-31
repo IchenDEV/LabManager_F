@@ -27,7 +27,7 @@
           <h3>{{$t("message.phone")}}</h3>
           <p>{{phone}}</p>
         </span>
-        <span v-if="!simple" >
+        <span v-if="!simple">
           <h3>{{$t("message.email")}}</h3>
           <span style="word-wrap:break-word;">{{email}}</span>
         </span>
@@ -37,11 +37,19 @@
         </span>
         <span>
           <h3>{{$t("message.department")}}</h3>
-          <div v-for="(item,index) in dpinfo.list" :key="index">{{item.departmentName}}</div>
+          <router-link
+            v-for="(item,index) in dpinfo.list"
+            :key="index"
+            :to=" '/department/'+item.departmentId"
+          >{{item.departmentName}}</router-link>
         </span>
         <span>
           <h3>{{$t("message.group")}}</h3>
-          <div v-for="(item,index) in gpinfo.list" :key="index">{{item.groupName}}</div>
+          <router-link
+            v-for="(item,index) in gpinfo.list"
+            :key="index"
+            :to=" '/group/'+item.groupId"
+          >{{item.groupName}}</router-link>
         </span>
       </div>
       <div v-else class="user-panel">
@@ -154,7 +162,7 @@ export default {
       phone: "",
       email: "",
       roleName: "",
-      reputation:"",
+      reputation: "",
       id: "",
       sexString: [
         this.$t("message.unknow"),
@@ -178,7 +186,8 @@ export default {
     getinfo() {
       if (this.$store.state.hasSingin === true) {
         this.$Loading.start();
-         tools.easyfetch(tools.Api.UserInfo,null)
+        tools
+          .easyfetch(tools.Api.UserInfo, null)
           .then(res => {
             if (res.data.code === "100") {
               this.nickname = res.data.info.userPermission.nickname;
@@ -188,10 +197,10 @@ export default {
               this.sex = this.sexString[res.data.info.userPermission.sex];
               this.roleName = res.data.info.userPermission.roleName;
               this.id = res.data.info.userPermission.id;
-              this.reputation=res.data.info.userPermission.reputation;
+              this.reputation = res.data.info.userPermission.reputation;
               this.$store.state.currentUser.id = this.id;
               this.$store.state.currentUser.reputation = this.reputation;
-            } 
+            }
             this.getDpinfo();
             this.getGpinfo();
             this.$Loading.finish();
@@ -202,24 +211,22 @@ export default {
     getDpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
       this.$Loading.start();
-      tools.easyfetch(tools.Api.ListUserDepartment,conp)
-        .then(res => {
-          if (res.data.code === "100") {
-            this.dpinfo = res.data.info;
-          }
-          this.$Loading.finish();
-        })
+      tools.easyfetch(tools.Api.ListUserDepartment, conp).then(res => {
+        if (res.data.code === "100") {
+          this.dpinfo = res.data.info;
+        }
+        this.$Loading.finish();
+      });
     },
     getGpinfo() {
       let conp = { id: this.$store.state.currentUser.id };
       this.$Loading.start();
-      tools.easyfetch(tools.Api.ListUserGroup,conp)
-        .then(res => {
-          if (res.data.code === "100") {
-            this.gpinfo = res.data.info;
-          } 
-          this.$Loading.finish();
-        })
+      tools.easyfetch(tools.Api.ListUserGroup, conp).then(res => {
+        if (res.data.code === "100") {
+          this.gpinfo = res.data.info;
+        }
+        this.$Loading.finish();
+      });
     },
     updateinfo() {
       this.$Loading.start();
@@ -230,18 +237,17 @@ export default {
         address: this.address,
         email: this.email
       };
-      tools.easyfetch(tools.Api.UpdateInfo,con)
-        .then(res => {
-          if (res.data.code === "100") {
-            this.$Notice.success({
-                    title: 'Success',
-                    desc:  this.nickname
-                });
-            this.moString = this.$t("message.modify");
-            this.mo = true;
-          } 
-          this.$Loading.finish();
-        })
+      tools.easyfetch(tools.Api.UpdateInfo, con).then(res => {
+        if (res.data.code === "100") {
+          this.$Notice.success({
+            title: "Success",
+            desc: this.nickname
+          });
+          this.moString = this.$t("message.modify");
+          this.mo = true;
+        }
+        this.$Loading.finish();
+      });
     },
     mohandle() {
       if (this.mo) {
@@ -253,11 +259,11 @@ export default {
       this.mo = !this.mo;
     },
     closepass() {
-      this.$store.state.modal=false
+      this.$store.state.modal = false;
       this.$refs["passmodal"].close();
     },
     passwordhandle() {
-      this.$store.state.modal=true
+      this.$store.state.modal = true;
       this.$refs["passmodal"].open();
     },
     loginhandle() {
@@ -265,21 +271,20 @@ export default {
     },
     logouthandle() {
       this.$Loading.start();
-      tools.easyfetch(tools.Api.Logout,null)
-        .then(res => {
-          if (res.data.code === "100") {
-            this.$store.commit("cleanInfo");
-            location.reload();
-          } else {
-            this.$Notice.success({
-              title: res.data.msg
-            });
-          }
-          this.$Loading.finish();
-        })
+      tools.easyfetch(tools.Api.Logout, null).then(res => {
+        if (res.data.code === "100") {
+          this.$store.commit("cleanInfo");
+          location.reload();
+        } else {
+          this.$Notice.success({
+            title: res.data.msg
+          });
+        }
+        this.$Loading.finish();
+      });
     },
-    modalClose(){
-      this.$store.state.modal=false
+    modalClose() {
+      this.$store.state.modal = false;
     }
   },
   mounted() {

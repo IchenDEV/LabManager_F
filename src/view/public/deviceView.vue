@@ -1,6 +1,6 @@
 <template>
   <div>
-    <book-the-device :device="$route.params.id" />
+    <book-the-device :device="$route.params.id"/>
   </div>
 </template>
 <script>

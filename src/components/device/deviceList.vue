@@ -1,77 +1,29 @@
 <template>
-  <div style="max-width: 1108px;">
-    <Card class="ms-depth-16">
-      <h1>{{$t('message.device')}} {{$t('message.list')}}</h1>
-      <div class="flex-panel">
-        <ui-textbox
-          icon="info_outline"
-          floating-label
-          :label="$t('message.name')"
-          v-model="search.name"
-        ></ui-textbox>
-        <ui-textbox
-          icon="info_outline"
-          floating-label
-          :label="$t('message.No')"
-          v-model="search.No"
-        ></ui-textbox>
-        <ui-textbox
-          icon="info_outline"
-          floating-label
-          :label="$t('message.model')"
-          v-model="search.model"
-        ></ui-textbox>
-        <ui-textbox
-          icon="devices"
-          floating-label
-          :label="$t('message.band')"
-          v-model="search.bands"
-        ></ui-textbox>
-        <ui-textbox
-          icon="info_outline"
-          floating-label
-          :label="$t('message.requireReputation')"
-          v-model="search.requireReputation"
-        ></ui-textbox>
-        <ui-textbox
-          icon="info_outline"
-          floating-label
-          :label="$t('message.func')"
-          v-model="search.func"
-        ></ui-textbox>
-        <ui-select
-          has-search
-          :label="$t('message.lab')"
-          placeholder="All"
-          type="image"
-          :options="labInfo.list"
-          :keys="{ label: 'name', value: 'id' }"
-          v-model="search.device"
-        ></ui-select>
-      </div>
-      <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
-    </Card>
+  <div>
     <Card class="ms-depth-16" v-if="$store.state.isListMode">
-      <ou-list>
+      <ou-list style="text-align:left;">
         <ou-list-item
           v-for="(item,index) in info.list"
           :key="index"
           isSelectable
           :primaryText="item.id+' '+item.name+' '+item.No"
+          :secondaryText="item.model"
+          :tertiaryText="item.description"
           :metaText="item.locationName"
         >
           <ou-list-actions>
+            <span>
+              <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
+              <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
+              <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
+              <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
+              <Tag color="success">{{item.func}}</Tag>
+            </span>
+
             <ou-list-action-item icon="Add" @click="bookClicked(item.id)"></ou-list-action-item>
             <ou-list-action-item icon="Delete" v-if="admin" @click="delClicked(item.id,index)"></ou-list-action-item>
-            <ou-list-action-item icon="Flag" v-if="admin" @click="modifyClicked(item.id)"></ou-list-action-item>
+            <ou-list-action-item icon="Edit" v-if="admin" @click="modifyClicked(item.id)"></ou-list-action-item>
           </ou-list-actions>
-          <span style="margin-left:-1rem;">
-            <Tag color="success" v-if="item.status===1">{{$t('message.normal')}}</Tag>
-            <Tag color="error" v-if="item.status===4">{{$t('message.error')}}</Tag>
-            <Tag color="error" v-if="item.status===0">{{$t('message.scrap')}}</Tag>
-            <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
-            <Tag color="success">{{item.func}}</Tag>
-          </span>
         </ou-list-item>
       </ou-list>
     </Card>
@@ -127,7 +79,7 @@
       show-elevator
       @on-change="onPageChange"
     />
-    <ou-panel title="预约" size="lg" v-model="showPanel">
+    <ou-panel title="预约" size="xl" v-model="showPanel">
       <span class="ms-font-m">
         <book-the-device :device="panelDeviceId"/>
       </span>
@@ -174,25 +126,6 @@ export default {
         })
         .catch();
     },
-    getLabInfo() {
-      let conp = { pageRow: 100, offSet: 0 };
-      tools
-        .easyfetch(tools.Api.ListLab, conp)
-        .then(res => {
-          this.labInfo = res.data.info;
-          var temp = { name: "All", id: -1 };
-          this.labInfo.list.splice(0, 0, temp);
-        })
-        .catch();
-    },
-    searchClicked() {
-      if (this.search.device.id < 0) {
-        delete this.search.location;
-      } else {
-        this.search.location = this.search.device.id;
-      }
-      this.getInfo();
-    },
     onPageChange(page) {
       this.search.pageNum = page;
       this.getInfo();
@@ -209,7 +142,6 @@ export default {
   mounted() {
     if (this.$store.state.hasSingin === true) {
       this.getInfo();
-      this.getLabInfo();
     }
   }
 };

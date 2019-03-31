@@ -1,15 +1,15 @@
 <template>
-  <div class="add-announcement">
+  <div>
     <ui-textbox icon="person" floating-label :label="$t('message.title')" v-model="con.title"></ui-textbox>
     <ui-textbox icon="lock" floating-label :label="$t('message.summary')" v-model="con.summary"></ui-textbox>
     <quill-editor v-model="con.msg"></quill-editor>
     <ui-button
       color="primary"
-      icon="check"
+      icon="update"
       @click="addClicked"
       :disabled="disable"
       :loading="iswaitting"
-    >{{$t('message.create')}}</ui-button>
+    >{{$t('message.update')}}</ui-button>
   </div>
 </template>
 <script>
@@ -20,10 +20,11 @@ export default {
   data() {
     return {
       con: {
+        id: 0,
         title: "",
         summary: "",
-        status: 1,
-        author: this.$store.state.currentUser.id
+        msg: "",
+        status: 1
       },
       iswaitting: false
     };
@@ -38,19 +39,16 @@ export default {
   methods: {
     addClicked() {
       this.$Loading.start();
-      tools.easyfetch(tools.Api.AddAnnouncement, this.con).then(() => {
+      tools.easyfetch(tools.Api.UpdateAnnouncement, this.con).then(() => {
         this.$Loading.finish();
         this.$emit("added");
       });
-    }
-  },
-  watch: {
-    edit() {
-      if (this.edit != null) {
-        this.con.title = this.edit.title;
-        this.con.summary = this.edit.summary;
-        this.con.msg = this.edit.msg;
-      }
+    },
+    getAnnouncement(id) {
+      let da = { id: id, pageRow: 10, pageNum: 0 };
+      tools.easyfetch(tools.Api.GetAnnouncement, da).then(res => {
+        this.con = res.data.info;
+      });
     }
   }
 };
