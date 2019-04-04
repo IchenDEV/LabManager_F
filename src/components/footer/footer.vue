@@ -2,12 +2,11 @@
   <footer class="footer">
     <h2>{{$t('message.productName')}}</h2>
     <p>{{$t('message.devBy')}}</p>
-    <p>已弃坑</p>
     <a href="https://www.perficient.com">{{$t("message.links")}}</a>
   </footer>
 </template>
 <script>
-export default {}
+export default {};
 </script>
 <style>
 .footer {
@@ -17,7 +16,10 @@ export default {}
   padding: 1.5rem;
   padding-bottom: 5rem;
   z-index: -1;
-  border-radius: .6rem .6rem 0 0;
-  -webkit-transform: translateZ(10);-moz-transform: translateZ(10);-ms-transform: translateZ(10);transform: translateZ(10);
+  border-radius: 0.6rem 0.6rem 0 0;
+  -webkit-transform: translateZ(10);
+  -moz-transform: translateZ(10);
+  -ms-transform: translateZ(10);
+  transform: translateZ(10);
 }
 </style>

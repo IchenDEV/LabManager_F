@@ -65,7 +65,7 @@ export default {
 <style>
 .hdb {
   min-width: 100px;
-  width: 70%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
 }

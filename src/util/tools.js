@@ -21,6 +21,7 @@ export default {
 
     AddProject: "/project/add",
     ListProject: "/project/list",
+    ListProjectGroup: "/project/group",
     UpdateProject: "/project/update",
     DelProject: "/project/delete",
 
@@ -160,6 +161,7 @@ export default {
     if (data != null) {
       fx = JSON.stringify(data);
     }
+    console.log(fx);
     return new Promise(resolve => {
       fetchx({
           method: "Post",
@@ -168,6 +170,18 @@ export default {
           responseType: "blob"
         })
         .then(res => {
+          console.log(res);
+          let dax = res.data;
+          if (!dax) {
+            return
+          }
+          let url = window.URL.createObjectURL(new Blob([dax]));
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = url;
+          link.setAttribute("download", "export.xlsx");
+          document.body.appendChild(link);
+          link.click();
           resolve(res);
         })
         .catch();

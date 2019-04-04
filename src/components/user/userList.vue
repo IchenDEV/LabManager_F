@@ -21,7 +21,7 @@
               ></ou-list-action-item>
               <ou-list-action-item
                 v-if="item.id!==10003&&$store.state.isSuperAdmin"
-                icon="Flag"
+                icon="Edit"
                 @click="moClicked(item.id)"
               ></ou-list-action-item>
             </ou-list-actions>
@@ -56,7 +56,7 @@
       size="small"
       v-if="users.totalPage>1"
       :total="users.totalPage"
-      :page-size="conp.pageRow"
+      :page-size="users.pageRow"
       show-elevator
       @on-change="onPageChange"
     />

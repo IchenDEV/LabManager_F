@@ -47,11 +47,7 @@ export default {
       this.getInfo();
     },
     exportExcel() {
-      tools
-        .fetchFile(tools.Api.ExportDevice, null)
-        .then(res => {
-          this.$store.commit('download',res.data);
-        })
+      tools.fetchFile(tools.Api.ExportDevice, null).then();
     }
   },
   mounted() {

@@ -5,11 +5,11 @@
         <template slot="main">
           <ou-search-box type="commandBar" placeholder="Search" v-model="search.name"/>
           <ou-command-button icon="Add" @click="multilineDialogVisible=true">新建</ou-command-button>
-          <ou-command-button icon="filter" @click="fDialogVisible=true">筛选</ou-command-button>
-          <ou-command-button icon="Search" @click="searchClicked">开始搜索</ou-command-button>
+          <ou-command-button icon="Filter" @click="fDialogVisible=true">筛选</ou-command-button>
+          <ou-command-button icon="MSNVideos" @click="searchClicked">开始搜索</ou-command-button>
         </template>
         <template slot="side">
-          <ou-command-button icon="CircleRing" type="noLabel"></ou-command-button>
+          <ou-command-button icon="Emoji2" type="noLabel"></ou-command-button>
         </template>
       </ou-command-bar>
     </Card>

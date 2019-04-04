@@ -1,11 +1,12 @@
 <template>
   <div>
     <Card class="ms-depth-16">
-      <h2>{{$t('message.group')}} {{item.name}}</h2>
+      <h2>{{item.name}}</h2>
       <div class="flex-panel">
         <ui-textbox
           icon="phone"
           floating-label
+          disabled
           :label="$t('message.description')"
           v-model="item.description"
         ></ui-textbox>
@@ -19,10 +20,9 @@
           isSelectable
           :primaryText="item.name"
           :tertiaryText="item.description"
-          :metaText="item.createTime"
         >
           <ou-list-actions>
-            <ou-list-action-item icon="Delete" @click="deleteProjectClick(item.id)"></ou-list-action-item>
+            <ou-list-action-item icon="View" @click="projectClicked(item.projectId)"></ou-list-action-item>
           </ou-list-actions>
         </ou-list-item>
       </ou-list>
@@ -56,7 +56,7 @@
           :metaText="item.createTime"
         >
           <ou-list-actions>
-            <ou-list-action-item icon="Delete" @click="deleteUserClick(item.id)"></ou-list-action-item>
+            <ou-list-action-item icon="View" @click="viewClicked(item.userId)"></ou-list-action-item>
           </ou-list-actions>
         </ou-list-item>
       </ou-list>
@@ -85,6 +85,7 @@
 </template>
 <script>
 import tools from "@/util/tools.js";
+import router from "@/router";
 export default {
   data() {
     return {
@@ -124,6 +125,12 @@ export default {
     onPageChange2(page) {
       this.search3.pageNum = page;
       this.getGroupProjectInfo();
+    },
+    viewClicked(id) {
+      router.push("../user/" + id);
+    },
+    projectClicked(id) {
+      router.push("../project/" + id);
     }
   },
   mounted() {

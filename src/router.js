@@ -11,6 +11,8 @@ const calendarView = () => import('@/view/calendarView')
 const deviceView = () => import('@/view/public/deviceView')
 const departmentView = () => import('@/view/public/departmentView')
 const groupView = () => import('@/view/public/groupView')
+const userView = () => import('@/view/public/userView')
+const projectView = () => import('@/view/public/projectView')
 
 const departmentAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/departmentAdmin')
 const groupAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/groupAdmin')
@@ -84,6 +86,16 @@ export default new Router({
       path: '/group/:id',
       name: 'group',
       component: groupView
+    },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: userView
+    },
+    {
+      path: '/project/:id',
+      name: 'project',
+      component: projectView
     },
     {
       path: '/admin/',

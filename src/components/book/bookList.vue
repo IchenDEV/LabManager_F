@@ -79,10 +79,9 @@ export default {
     };
   },
   methods: {
+    /* eslint-disable */
     exportExcel() {
-      tools.fetchFile(tools.Api.ExportBook, this.search).then(res => {
-        this.$store.commit("download", res.data);
-      });
+      tools.fetchFile(tools.Api.ExportBook, this.search).then();
     },
     getInfo() {
       if (this.user != null) {

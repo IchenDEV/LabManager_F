@@ -14,7 +14,11 @@
           :primaryText="item.nickname"
           :tertiaryText="item.user.toString()"
           :metaText="item.createTime"
-        ></ou-list-item>
+        >
+          <ou-list-actions>
+            <ou-list-action-item icon="View" @click="viewClicked(item.user)"></ou-list-action-item>
+          </ou-list-actions>
+        </ou-list-item>
       </ou-list>
     </Card>
     <Card class="ms-depth-16" v-else v-for="(item,index) in userInfo.list" :key="index">
@@ -34,6 +38,7 @@
   </div>
 </template>
 <script>
+import router from "@/router";
 import tools from "@/util/tools.js";
 export default {
   data() {
@@ -61,6 +66,9 @@ export default {
     onPageChange(page) {
       this.search2.pageNum = page;
       this.getDepartmentUserInfo();
+    },
+    viewClicked(id) {
+      router.push("../user/" + id);
     }
   },
   mounted() {

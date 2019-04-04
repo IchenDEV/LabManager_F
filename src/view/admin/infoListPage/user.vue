@@ -11,7 +11,7 @@
             >新建</ou-command-button>
           </template>
           <template slot="side">
-            <ou-command-button icon="CircleRing" type="noLabel"></ou-command-button>
+            <ou-command-button icon="Emoji2" type="noLabel"></ou-command-button>
           </template>
         </ou-command-bar>
       </Card>

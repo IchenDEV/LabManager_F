@@ -1,8 +1,17 @@
 <template>
   <div class="header">
     <div class="person-nav">
-      <ou-button v-if="$store.state.hasSingin" icon="AddFriend" @click="showPanel=!showPanel">通知中心</ou-button>
-      <ou-panel v-if="$store.state.hasSingin" title="通知中心" size="lg" v-model="showPanel">
+      <ou-button v-if="$store.state.hasSingin" @click="showPanel=!showPanel">
+        <i class="ms-Icon ms-Icon--CreateMailRule" aria-hidden="true"></i>
+        通知中心
+      </ou-button>
+      <ou-panel
+        v-if="$store.state.hasSingin"
+        icon="CreateMailRule"
+        title="通知中心"
+        size="xl"
+        v-model="showPanel"
+      >
         <current-msg-box/>
       </ou-panel>
       <ou-button
@@ -129,6 +138,7 @@ export default {
   line-height: 36px;
   margin-bottom: 0px;
   overflow: hidden;
+  margin-right: 140px;
 }
 .nav-bar li a {
   color: #444;
@@ -147,6 +157,6 @@ export default {
 }
 .header {
   background-color: #f0f0f0;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 </style>

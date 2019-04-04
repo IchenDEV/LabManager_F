@@ -17,7 +17,7 @@
           </span>
         </template>
         <template slot="side">
-          <ou-command-button icon="CircleRing" @click="searchClicked">筛选</ou-command-button>
+          <ou-command-button icon="Emoji2" @click="searchClicked">筛选</ou-command-button>
         </template>
       </ou-command-bar>
     </Card>

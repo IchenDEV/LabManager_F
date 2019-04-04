@@ -27,6 +27,7 @@
     />
     <ui-modal ref="msgmodal" :title="selectMsg.title" @close="modalClose">
       <div id="model"/>
+      <ou-spinner v-if="isWaitting" label="Loading..." type="large"/>
     </ui-modal>
     <ou-panel title="修改" size="xl" v-model="showPanel">
       <span class="ms-font-m">
@@ -51,7 +52,8 @@ export default {
       conp: {
         pageRow: 10,
         pageNum: 0
-      }
+      },
+      isWaitting: true
     };
   },
   methods: {
@@ -67,8 +69,10 @@ export default {
     },
     getAnnouncement(id) {
       let da = { id: id, pageRow: 10, pageNum: 0 };
+      this.isWaitting = true;
       tools.easyfetch(tools.Api.GetAnnouncement, da).then(res => {
         document.getElementById("model").innerHTML = res.data.info.msg;
+        this.isWaitting = false;
       });
     },
     onPageChange(page) {

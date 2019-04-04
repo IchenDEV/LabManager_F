@@ -54,7 +54,7 @@
     <Card class="ms-depth-16" v-if="info.totalCount===0">
       <div>{{$t('message.findless')}}{{$t('message.device')}}</div>
     </Card>
-    <ou-panel title="预约" size="lg" v-model="showPanel">
+    <ou-panel title="预约" size="xl" v-model="showPanel">
       <span class="ms-font-m">
         <book-the-device :device="panelDeviceId"/>
       </span>

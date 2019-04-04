@@ -201,6 +201,14 @@ img {
   backdrop-filter: blur(10px)
 }
 
+.ms-SearchBox.ms-SearchBox--commandBar {
+  border-right: 0 !important;
+}
+
+.ms-SearchBox.ms-SearchBox--commandBar::before {
+  border-bottom: 0 !important;
+}
+
 .ui-fab {
   z-index: 3 !important;
 }
