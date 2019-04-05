@@ -103,7 +103,9 @@ const store = new Vuex.Store({
               state.isAdmin = true
             }
             create(res.data.info.userPermission.id).then(body => {
-              tools.easyfetch(tools.Api.PushSignUp, body)
+              if (body != null) {
+                tools.easyfetch(tools.Api.PushSignUp, body)
+              }
             })
           }
           this.iswaitting = false

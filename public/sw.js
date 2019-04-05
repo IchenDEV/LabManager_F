@@ -2,8 +2,8 @@
 /**
  * service worker
  */
-var cacheName = 'bs-0-4-0';
-var apiCacheName = 'api-0-2-1';
+var cacheName = 'bs-1-4-0';
+var apiCacheName = 'api3-1-2-1';
 var cacheFiles = [
   '/',
   './index.html',
@@ -57,9 +57,15 @@ self.addEventListener('fetch', function (e) {
 self.addEventListener('push', function (e) {
   var data = e.data;
   if (e.data) {
-    data = data.json();
     console.log('push的数据为：', data.text());
-    self.registration.showNotification(data.text());
+    const options = {
+      body: data.text(),
+      icon: 'img/72.png',
+      badge: 'img/72.png' //仅仅用在安卓
+    };
+    e.waitUntil(
+      self.registration.showNotification("New Message", options)
+    );
   } else {
     console.log('push没有任何数据');
   }

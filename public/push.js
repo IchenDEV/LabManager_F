@@ -10,7 +10,7 @@ function SubscribeUserToPush(registration, publicKey) {
   };
   console.log('Received PushSubscription: ', subscribeOptions);
   return registration.pushManager.subscribe(subscribeOptions).then((pushSubscription) => {
-    console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
+    console.log('Received PushSubscription2: ', JSON.stringify(pushSubscription));
     return pushSubscription;
   });
 }
@@ -24,14 +24,26 @@ function create(user) {
     return registerServiceWorker('./sw.js').then((registration) => {
         console.log('Service Worker 注册成功');
         // 开启该客户端的消息推送订阅功能
+        registration.pushManager.getSubscription()
+          .then(function (subscription) {
+            var isSubscribed = !(subscription === null);
+            if (isSubscribed) {
+              return null;
+            } else {
+              console.log('User is NOT subscribed.');
+            }
+          });
         return SubscribeUserToPush(registration, publicKey);
       })
       .then((subscription) => {
-        var body = {
-          subscription: subscription,
-          user: user
-        };
-        return body;
+        if (subscription != null) {
+          var body = {
+            subscription: subscription,
+            user: user
+          };
+          return body;
+        }
+        return null;
       })
   }
 
