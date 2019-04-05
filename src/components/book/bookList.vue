@@ -11,6 +11,7 @@
       <ui-button color="primary" icon="cloud_download" @click="exportExcel">{{$t('message.export')}}</ui-button>
     </Card>
     <Card class="ms-depth-16" v-if="$store.state.isListMode">
+      <ou-spinner v-if="books.list==null" label="Loading..." type="large"/>
       <ou-list style="text-align:left;">
         <ou-list-item
           v-for="(item,index) in books.list"

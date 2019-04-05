@@ -38,3 +38,8 @@ export default {
   }
 };
 </script>
+<style>
+.command {
+  display: inline-block !important;
+}
+</style>

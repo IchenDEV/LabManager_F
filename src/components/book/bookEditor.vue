@@ -26,6 +26,9 @@ export default {
       tools.easyfetch(tools.Api.UpdateBook,this.item)
       .then(() => {
           this.$Loading.finish();
+          this.$Notice.success({
+            title: "Success"
+          });
         })
     },
     getBookInfo() {

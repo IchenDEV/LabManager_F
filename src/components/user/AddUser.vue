@@ -76,6 +76,9 @@ export default {
       this.con.roleId = this.roleString.indexOf(this.role) + 1;
       tools.easyfetch(tools.Api.AddUser, this.con).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.$emit("added");
       });
     }

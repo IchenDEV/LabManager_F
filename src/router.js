@@ -13,6 +13,7 @@ const departmentView = () => import('@/view/public/departmentView')
 const groupView = () => import('@/view/public/groupView')
 const userView = () => import('@/view/public/userView')
 const projectView = () => import('@/view/public/projectView')
+const labView = () => import('@/view/public/labView')
 
 const departmentAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/departmentAdmin')
 const groupAdmin = () => import( /* webpackChunkName: "editorPage" */ '@/view/admin/editorPage/groupAdmin')
@@ -45,7 +46,7 @@ export default new Router({
     {
       path: '/',
       redirect: '/home',
-      name: 'redict'
+      name: 'homeView'
     },
     {
       path: '/calendar',
@@ -74,28 +75,33 @@ export default new Router({
     },
     {
       path: '/device/:id',
-      name: 'device',
+      name: 'deviceView',
       component: deviceView
     },
     {
       path: '/department/:id',
-      name: 'department',
+      name: 'departmentView',
       component: departmentView
     },
     {
       path: '/group/:id',
-      name: 'group',
+      name: 'groupView',
       component: groupView
     },
     {
       path: '/user/:id',
-      name: 'user',
+      name: 'userView',
       component: userView
     },
     {
       path: '/project/:id',
-      name: 'project',
+      name: 'projectView',
       component: projectView
+    },
+    {
+      path: '/lab/:id',
+      name: 'labView',
+      component: labView
     },
     {
       path: '/admin/',
@@ -104,76 +110,94 @@ export default new Router({
       component: adminView,
       children: [{
           path: 'department',
+          name: 'adminView',
           component: department
         },
         {
           path: 'backup',
+          name: 'adminView',
           component: backup
         },
         {
           path: 'announcement',
+          name: 'adminView',
           component: announcement
         },
         {
           path: 'statistics',
+          name: 'adminView',
           component: statistics
         },
         {
           path: 'department/:id',
+          name: 'adminView',
           component: departmentAdmin
         },
         {
           path: 'log',
+          name: 'adminView',
           component: log
         },
         {
           path: 'lab',
+          name: 'adminView',
           component: lab
         },
         {
           path: 'lab/:id',
+          name: 'adminView',
           component: labAdmin
         },
         {
           path: 'project',
+          name: 'adminView',
           component: project
         },
         {
           path: 'project/:id',
+          name: 'adminView',
           component: projectAdmin
         },
         {
           path: 'device',
+          name: 'adminView',
           component: device
         },
         {
           path: 'device/:id',
+          name: 'adminView',
           component: deviceAdmin
         },
         {
           path: 'group',
+          name: 'adminView',
           component: group
         },
         {
           path: 'group/:id',
+          name: 'adminView',
           component: groupAdmin
         },
         {
           path: 'user',
+          name: 'adminView',
           component: user
         },
         {
           path: 'user/:id',
+          name: 'adminView',
           component: userAdmin
         },
         {
           path: 'book',
+          name: 'adminView',
           component: book
         }
       ]
     },
     {
       path: '*',
+      name: 'V404View',
       component: View404
     }
   ]

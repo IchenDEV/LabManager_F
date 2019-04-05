@@ -2,33 +2,49 @@
   <section class="htmleaf-container">
     <div class="search-wrapper" :class="{'active':isActive}">
       <div class="input-holder">
-        <input type="text" class="search-input" :placeholder="placeholder" v-model="content" @keyup.enter="searchToggle">
+        <input
+          type="text"
+          class="search-input"
+          :placeholder="placeholder"
+          v-model="content"
+          @keyup.enter="searchToggle"
+        >
         <button class="search-icon" @click="searchToggle">
           <span></span>
         </button>
       </div>
     </div>
+    <ou-spinner v-if="isWaitting" label="Loading..." type="large"/>
   </section>
 </template>
 <script>
 import tools from "@/util/tools.js";
 export default {
-  props: { placeholder: { default: 'Type to search' }, selected:{ default: null }},
+  props: {
+    placeholder: { default: "Type to search" },
+    selected: { default: null }
+  },
   model: {
-    prop: 'selected',
-    event: 'change'
+    prop: "selected",
+    event: "change"
   },
   data() {
     return {
       isActive: false,
-      content: ""
+      content: "",
+      isWaitting: false
     };
   },
   methods: {
     searchToggle() {
       if (this.isActive && this.content != "") {
-        let data={search:this.content}
-        tools.easyfetch(tools.Api.HyperSearch,data).then((res)=>{this.$Loading.finish();this.$emit('change', res.data)})
+        this.isWaitting = true;
+        let data = { search: this.content };
+        tools.easyfetch(tools.Api.HyperSearch, data).then(res => {
+          this.isWaitting = false;
+          this.$Loading.finish();
+          this.$emit("change", res.data);
+        });
       }
       this.isActive = !this.isActive;
     }
@@ -36,8 +52,8 @@ export default {
 };
 </script>
 <style>
-.htmleaf-container{
-    margin-bottom: 60px;
+.htmleaf-container {
+  margin-bottom: 60px;
 }
 .input-holder {
   margin-left: auto;

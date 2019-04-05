@@ -1,6 +1,7 @@
 <template>
   <div>
     <language-switch></language-switch>
+    <ou-spinner v-if="id==null||id==''" label="Loading..." type="large"/>
     <div v-if="hasSingin">
       <div v-if="mo" class="user-panel">
         <span>
@@ -42,6 +43,7 @@
             :key="index"
             :to=" '/department/'+item.departmentId"
           >{{item.departmentName}}</router-link>
+          <ou-spinner v-if="dpinfo.list==null||dpinfo.list==''" label="Loading..." type="large"/>
         </span>
         <span>
           <h3>{{$t("message.group")}}</h3>
@@ -50,6 +52,7 @@
             :key="index"
             :to=" '/group/'+item.groupId"
           >{{item.groupName}}</router-link>
+          <ou-spinner v-if="dpinfo.list==null||dpinfo.list==''" label="Loading..." type="large"/>
         </span>
       </div>
       <div v-else class="user-panel">
@@ -247,6 +250,9 @@ export default {
           this.mo = true;
         }
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
       });
     },
     mohandle() {
@@ -281,6 +287,9 @@ export default {
           });
         }
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
       });
     },
     modalClose() {

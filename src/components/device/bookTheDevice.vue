@@ -9,7 +9,10 @@
           <p>{{$t('message.band')}} {{item.bands}}</p>
           <p>{{$t('message.description')}} {{item.description}}</p>
           <p>{{$t('message.model')}} {{item.model}}</p>
-          <p>{{$t('message.lab')}} {{item.locationName}}</p>
+          <p>
+            {{$t('message.lab')}}
+            <router-link :to=" '../../lab/'+item.location">{{item.locationName}}</router-link>
+          </p>
           <p>{{item.locationDescription}}</p>
           <p>{{$t('message.address')}} {{item.locationAddress}}</p>
           <p>{{$t('message.useRate')}} {{useRate}} %</p>
@@ -18,11 +21,33 @@
         <Timeline>
           <TimelineItem v-for="(item,index) in bookInfo.list" :key="index">
             <p>
-              <a @click="openModel(item.applicant,item.applicantNickname)">
-                <Tooltip
-                  :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
-                >{{item.beginTime}} ~ {{item.endTime}}</Tooltip>
-              </a>
+              <ou-callout type="OOBE" title="预约信息">
+                <div slot="content" class="flex-panel">
+                  <span>
+                    <ou-button @click="openModel(item.applicant,item.applicantNickname)">
+                      <i class="ms-Icon ms-Icon--AccountManagement" aria-hidden="true"></i>
+                      {{item.applicantNickname}}
+                    </ou-button>
+                  </span>
+                  <span>
+                    <ou-button @click="projectClicked(item.project)">
+                      <i class="ms-Icon ms-Icon--EMI" aria-hidden="true"></i>
+                      {{item.projectName}}
+                    </ou-button>
+                  </span>
+                  <span>
+                    <ou-button>
+                      <i class="ms-Icon ms-Icon--DateTime" aria-hidden="true"></i>
+                      {{item.updateTime}}
+                    </ou-button>
+                  </span>
+                </div>
+                <a>
+                  <Tooltip
+                    :content="stringCat(item.applicantNickname,item.projectName,item.updateTime) "
+                  >{{item.beginTime}} ~ {{item.endTime}}</Tooltip>
+                </a>
+              </ou-callout>
             </p>
           </TimelineItem>
         </Timeline>
@@ -91,6 +116,7 @@
   </div>
 </template>
 <script>
+import router from "@/router";
 import tools from "@/util/tools.js";
 import projectSelector from "@/components/project/projectSelector";
 import monthlyRate from "@/components/statistics/monthlyRate";
@@ -223,6 +249,10 @@ export default {
           });
         }
       });
+    },
+
+    projectClicked(id) {
+      router.push("../../project/" + id);
     },
     clickDay(dax) {
       var day = new Date(dax._d);

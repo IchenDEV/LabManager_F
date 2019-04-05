@@ -2,9 +2,20 @@
   <div>
     <div v-if="hasSingin">
       <div>
-        <ui-textbox icon="lock" floating-label :label="$t('message.password')" v-model="password" type="password"></ui-textbox>
+        <ui-textbox
+          icon="lock"
+          floating-label
+          :label="$t('message.password')"
+          v-model="password"
+          type="password"
+        ></ui-textbox>
       </div>
-      <ui-button color="primary" icon="fingerprint" @click="mohandle" :loading="iswaitting">{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
+      <ui-button
+        color="primary"
+        icon="fingerprint"
+        @click="mohandle"
+        :loading="iswaitting"
+      >{{$t('message.modify')}} {{$t('message.password')}}</ui-button>
     </div>
   </div>
 </template>
@@ -44,12 +55,16 @@ export default {
           username: this.$store.state.currentUser.username,
           password: code
         };
-        tools.easyfetch(tools.Api.UpdatePassword,data)
-        .then(res => {
+        tools
+          .easyfetch(tools.Api.UpdatePassword, data)
+          .then(res => {
             if (res.data.code === "100") {
               this.$emit("close");
             }
             this.$Loading.finish();
+            this.$Notice.success({
+              title: "Success"
+            });
           })
           .catch();
       }

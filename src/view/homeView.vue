@@ -6,7 +6,7 @@
         <AnchorLink href="#my_reserve" title="我的预约"/>
       </AnchorLink>
       <AnchorLink href="#message" title="信息服务">
-        <AnchorLink href="#announcement" title="公告"/>
+        <AnchorLink href="#announcement" title="公告"></AnchorLink>
         <AnchorLink href="#send_message" title="发送信息"/>
       </AnchorLink>
       <AnchorLink href="#data" title="数据" v-if="$store.state.hasSingin&&$store.state.isAdmin"/>
@@ -65,7 +65,7 @@ export default {
 <style>
 .hdb {
   min-width: 100px;
-  width: 95%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }

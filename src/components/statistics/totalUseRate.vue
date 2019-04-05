@@ -26,7 +26,8 @@
       @click="bookClick"
       :loading="iswaitting"
     >{{$t('message.search')}}</ui-button>
-    <ve-gauge class="gauge" :data="chartData" :settings="chartSettings" ></ve-gauge>
+    <ou-spinner v-if="chartData==null||chartData==''" label="Loading..." type="large"/>
+    <ve-gauge class="gauge" :data="chartData" :settings="chartSettings"></ve-gauge>
   </div>
 </template>
 <script>
@@ -81,7 +82,7 @@ export default {
 };
 </script>
 <style>
-.gauge > div{
+.gauge > div {
   margin-left: auto;
   margin-right: auto;
 }

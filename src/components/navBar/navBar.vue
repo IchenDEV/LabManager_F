@@ -56,14 +56,17 @@
     >
     <nav class="nav-bar">
       <ul style="list-style:none;">
+        <li :class="{'b_active':$store.state.path=='findView'}" v-if="$store.state.hasSingin">
+          <router-link to="/find">{{$t('message.search')}}</router-link>
+        </li>
         <li :class="{'b_active':$store.state.path=='homeView'}">
           <router-link to="/home">Home</router-link>
         </li>
         <li :class="{'b_active':$store.state.path=='calendarView'}" v-if="$store.state.hasSingin">
-          <router-link to="/calendar">{{$t('message.appointment')}}</router-link>
+          <router-link to="/calendar">日程式{{$t('message.appointment')}}</router-link>
         </li>
         <li :class="{'b_active':$store.state.path=='bookView'}" v-if="$store.state.hasSingin">
-          <router-link to="/book">{{$t('message.appointment')}}</router-link>
+          <router-link to="/book">设备式{{$t('message.appointment')}}</router-link>
         </li>
         <li :class="{'b_active':$store.state.path=='myView'}" v-if="$store.state.hasSingin">
           <router-link to="/my">{{$t('message.my')}}</router-link>
@@ -73,6 +76,48 @@
           v-if="isAdmin&&$store.state.hasSingin"
         >
           <router-link to="/admin">{{$t('message.admin')}}</router-link>
+        </li>
+        <li
+          :class="{'b_active':$store.state.path=='deviceView'}"
+          v-if="$store.state.hasSingin&&$store.state.path=='deviceView'"
+        >
+          <router-link to="/device">{{$t('message.device')}}</router-link>
+        </li>
+        <li
+          :class="{'b_active':$store.state.path=='departmentView'}"
+          v-if="$store.state.hasSingin&&$store.state.path=='departmentView'"
+        >
+          <router-link to="/department">{{$t('message.department')}}</router-link>
+        </li>
+        <li
+          :class="{'b_active':$store.state.path=='groupView'}"
+          v-if="$store.state.hasSingin&&$store.state.path=='groupView'"
+        >
+          <router-link to="/group">{{$t('message.group')}}</router-link>
+        </li>
+        <li
+          :class="{'b_active':$store.state.path=='userView'}"
+          v-if="$store.state.hasSingin&&$store.state.path=='userView'"
+        >
+          <router-link to="/user">{{$t('message.user')}}</router-link>
+        </li>
+        <li
+          :class="{'b_active':$store.state.path=='projectView'}"
+          v-if="$store.state.hasSingin&&$store.state.path=='projectView'"
+        >
+          <router-link to="/project">{{$t('message.project')}}</router-link>
+        </li>
+        <li
+          :class="{'b_active':$store.state.path=='labView'}"
+          v-if="$store.state.hasSingin&&$store.state.path=='labView'"
+        >
+          <router-link to="/lab">{{$t('message.lab')}}</router-link>
+        </li>
+        <li
+          :class="{'b_active':$store.state.path=='loginView'}"
+          v-if="$store.state.path=='loginView'"
+        >
+          <router-link to="/login">{{$t('message.login')}}</router-link>
         </li>
       </ul>
     </nav>

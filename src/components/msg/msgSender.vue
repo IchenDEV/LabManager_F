@@ -44,10 +44,14 @@ export default {
       } else {
         this.con.receiver = this.s.id;
       }
-      tools.easyfetch(tools.Api.AddMsg,this.con)
-       .then(() => {
+      tools
+        .easyfetch(tools.Api.AddMsg, this.con)
+        .then(() => {
           this.$Loading.finish();
-          this.$emit('send')
+          this.$Notice.success({
+            title: "Success"
+          });
+          this.$emit("send");
         })
         .catch();
     }

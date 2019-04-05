@@ -5,9 +5,12 @@
     <Time v-else :time="data.lastBackupTime" :interval="1"/>
     <h2>{{$t('message.setBackupSchedule')}}</h2>
     <ui-textbox icon="access_time" floating-label label="cron" v-model="data.schedule"/>
-    <ui-button color="primary" icon="backup" @click="backupClicked" :loading="iswaitting">
-      {{$t('message.set')}}
-    </ui-button>
+    <ui-button
+      color="primary"
+      icon="backup"
+      @click="backupClicked"
+      :loading="iswaitting"
+    >{{$t('message.set')}}</ui-button>
   </div>
 </template>
 <script>
@@ -27,6 +30,9 @@ export default {
       this.$Loading.start();
       tools.easyfetch(tools.Api.SetBackupSchedule, this.data);
       this.$Loading.finish();
+      this.$Notice.success({
+        title: "Success"
+      });
     },
     backupGtClicked() {
       this.$Loading.start();

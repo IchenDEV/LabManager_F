@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ou-spinner v-if="msgs.list==null||msgs.list==''" label="Loading..." type="large"/>
     <ou-list style="text-align:left;">
       <ou-list-item
         v-for="(item,index) in msgs.list"
@@ -70,6 +71,7 @@ export default {
     getAnnouncement(id) {
       let da = { id: id, pageRow: 10, pageNum: 0 };
       this.isWaitting = true;
+      document.getElementById("model").innerHTML = "";
       tools.easyfetch(tools.Api.GetAnnouncement, da).then(res => {
         document.getElementById("model").innerHTML = res.data.info.msg;
         this.isWaitting = false;

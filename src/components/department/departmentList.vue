@@ -14,6 +14,7 @@
       <ui-button color="primary" icon="search" @click="searchClicked">{{$t('message.search')}}</ui-button>
     </Card>
     <Card class="ms-depth-16" v-if="$store.state.isListMode">
+      <ou-spinner v-if="departments.list==null" label="Loading..." type="large"/>
       <ou-list style="text-align:left;">
         <ou-list-item
           v-for="(item,index) in departments.list"

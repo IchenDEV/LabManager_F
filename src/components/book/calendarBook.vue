@@ -5,11 +5,13 @@
         <template slot="main">
           <span>
             <ou-search-box
+              id="deviceName"
               type="commandBar"
               :placeholder="$t('message.name')"
               v-model="search.name"
             />
             <ou-search-box
+              id="deviceId"
               type="commandBar"
               :placeholder="$t('message.func')"
               v-model="search.func"
@@ -17,12 +19,13 @@
           </span>
         </template>
         <template slot="side">
-          <ou-command-button icon="Emoji2" @click="searchClicked">筛选</ou-command-button>
+          <ou-command-button icon="Filter" @click="searchClicked">筛选</ou-command-button>
         </template>
       </ou-command-bar>
     </Card>
     <div class="flex-panel">
       <Card class="ms-depth-16" style="width:35%">
+        <ou-spinner v-if="fcEvents==null" label="Loading..." type="large"/>
         <full-calendar
           defaultView="month"
           :events="fcEvents"
@@ -154,6 +157,9 @@ export default {
       this.con.device = this.selectBook.id;
       tools.easyfetch(tools.Api.AddBook, this.con).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.$refs["bookitmodal"].close();
       });
     },
@@ -209,6 +215,16 @@ export default {
   },
   mounted() {
     this.getInfo();
+    document
+      .getElementById("deviceName")
+      .getElementsByTagName("label")[0]
+      .getElementsByTagName("i")[0].className =
+      "ms-SearchBox-icon ms-Icon ms-Icon--Devices4";
+    document
+      .getElementById("deviceId")
+      .getElementsByTagName("label")[0]
+      .getElementsByTagName("i")[0].className =
+      "ms-SearchBox-icon ms-Icon ms-Icon--NumberField";
   }
 };
 </script>

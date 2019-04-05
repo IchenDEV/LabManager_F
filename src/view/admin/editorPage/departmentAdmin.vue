@@ -106,6 +106,9 @@ export default {
       };
       tools.easyfetch(tools.Api.AddDepartmentUser, con).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.getDepartmentInfo();
       });
     },
@@ -114,6 +117,9 @@ export default {
       let con = { id: id };
       tools.easyfetch(tools.Api.DelDepartmentUser, con).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.getDepartmentInfo();
       });
     },
@@ -125,6 +131,9 @@ export default {
       this.$Loading.start();
       tools.easyfetch(tools.Api.UpdateDepartment, this.item).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.getDepartmentInfo();
       });
     }

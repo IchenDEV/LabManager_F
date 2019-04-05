@@ -5,6 +5,7 @@
       <p>{{item.description}}</p>
     </Card>
     <h3>部门成员</h3>
+    <p>共{{userInfo.totalCount}}人</p>
     <Card class="ms-depth-16" v-if="$store.state.isListMode">
       <ou-list style="text-align:left;">
         <ou-list-item

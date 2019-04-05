@@ -1,7 +1,7 @@
 <template>
   <div>
     <video :class="{blur:isBlur}" id="v" autoplay></video>
-    <canvas id="qr-canvas" width="600" height="600" style="display:none;"></canvas>
+    <canvas id="qr-canvas" min-width="300" min-height="300" style="display:none;"></canvas>
     <div id="result" v-show="showRes"></div>
   </div>
 </template>

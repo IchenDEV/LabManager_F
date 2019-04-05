@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ou-spinner v-if="con.msg==null||con.msg==''" label="Loading..." type="large"/>
     <ui-textbox icon="person" floating-label :label="$t('message.title')" v-model="con.title"></ui-textbox>
     <ui-textbox icon="lock" floating-label :label="$t('message.summary')" v-model="con.summary"></ui-textbox>
     <quill-editor v-model="con.msg"></quill-editor>
@@ -41,6 +42,9 @@ export default {
       this.$Loading.start();
       tools.easyfetch(tools.Api.UpdateAnnouncement, this.con).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.$emit("added");
       });
     },

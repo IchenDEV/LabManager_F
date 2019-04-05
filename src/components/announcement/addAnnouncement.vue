@@ -40,6 +40,9 @@ export default {
       this.$Loading.start();
       tools.easyfetch(tools.Api.AddAnnouncement, this.con).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.$emit("added");
       });
     }

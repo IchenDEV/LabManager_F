@@ -160,6 +160,9 @@ export default {
       let con = { user: this.s.id, group: this.$route.params.id, status: 1 };
       tools.easyfetch(tools.Api.AddGroupUser, con).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.getGroupInfo();
       });
     },
@@ -172,6 +175,9 @@ export default {
       };
       tools.easyfetch(tools.Api.AddGroupProject, con).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.getGroupInfo();
       });
     },
@@ -181,6 +187,9 @@ export default {
       tools.easyfetch(tools.Api.DelGroupUser, con).then(() => {
         this.getGroupInfo();
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
       });
     },
     deleteProjectClick(id) {
@@ -190,6 +199,9 @@ export default {
         .easyfetch(tools.Api.DelGroupProject, con)
         .then(() => {
           this.$Loading.finish();
+          this.$Notice.success({
+            title: "Success"
+          });
           this.getGroupInfo();
         })
         .catch();
@@ -206,6 +218,9 @@ export default {
       this.$Loading.start();
       tools.easyfetch(tools.Api.UpdateGroup, this.item).then(() => {
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
         this.getGroupInfo();
       });
     }

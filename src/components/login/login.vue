@@ -55,6 +55,9 @@ export default {
           });
         }
         this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
       });
     }
   }

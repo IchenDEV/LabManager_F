@@ -152,6 +152,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to) => {
   iView.LoadingBar.finish();
+  store.state.path = to.name;
   if (to.name == null && to.path == '/') {
     router.push("/home");
     return;
@@ -160,7 +161,6 @@ router.afterEach((to) => {
     router.push("/home");
     return;
   }
-  store.state.path = to.name;
 })
 
 new Vue({

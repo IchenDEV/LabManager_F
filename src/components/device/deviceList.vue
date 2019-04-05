@@ -1,6 +1,7 @@
 <template>
   <div>
     <Card class="ms-depth-16" v-if="$store.state.isListMode">
+      <ou-spinner v-if="info.list==null" label="Loading..." type="large"/>
       <ou-list style="text-align:left;">
         <ou-list-item
           v-for="(item,index) in info.list"

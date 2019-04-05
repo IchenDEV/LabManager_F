@@ -1,12 +1,13 @@
 <template>
   <div>
     <table class="table">
+      <ou-spinner v-if="books.list==null||books.list==''" label="Loading..." type="large"/>
       <tr v-for="(item,index) in books.list" :key="index">
         <th>
-          <a @click="devicecli(item.id,index)">{{item.deviceName}}</a>
+          <router-link :to=" '../../device/'+item.device">{{item.deviceName}}</router-link>
         </th>
         <th>
-          <a @click="projectcli(item.id,index)">{{item.projectName}}</a>
+          <router-link :to=" '../../project/'+item.project">{{item.projectName}}</router-link>
         </th>
         <th>
           <Badge v-if="item.status==1" status="warning"/>
@@ -35,23 +36,10 @@
       @on-change="onPageChange"
     />
     <ui-fab icon="refresh" class="fab" tooltip-position="right" @click="getInfo"></ui-fab>
-    <ui-modal ref="devicemodal" :title="selectBook.deviceName" @close="modalClose">
-      <p>{{selectBook.device}}</p>
-      <p>{{selectBook.deviceName}}</p>
-      <p>{{selectBook.deviceNo}}</p>
-      <p>{{selectBook.deviceModel}}</p>
-      <p>{{selectBook.deviceBand}}</p>
-      <p>{{selectBook.deviceDescription}}</p>
-    </ui-modal>
-    <ui-modal ref="projectmodal" :title="selectBook.projectName" @close="modalClose">
-      <p>{{selectBook.project}}</p>
-      <p>{{selectBook.projectName}}</p>
-      <p>{{selectBook.projectDescription}}</p>
-    </ui-modal>
-    <ui-modal ref="QRAmodal" title="扫一扫" @close="modalClose">
+    <ui-modal ref="QRAmodal" title="扫一扫">
       <QRScanner v-if="QRA" @recived="QrRecivedUse"/>
     </ui-modal>
-    <ui-modal ref="QRBmodal" title="扫一扫" @close="modalClose">
+    <ui-modal ref="QRBmodal" title="扫一扫">
       <QRScanner v-if="QRB" @recived="QrRecivedDone"/>
     </ui-modal>
   </div>
@@ -127,17 +115,6 @@ export default {
     onPageChange(page) {
       this.conp.pageNum = page;
       this.getInfo();
-    },
-    projectcli(id, index) {
-      this.selectBook = this.books.list[index];
-      this.$refs["projectmodal"].open();
-    },
-    devicecli(id, index) {
-      this.selectBook = this.books.list[index];
-      this.$refs["devicemodal"].open();
-    },
-    modalClose() {
-      this.$store.state.modal = false;
     },
     use(id) {
       this.selectBook.id = id;

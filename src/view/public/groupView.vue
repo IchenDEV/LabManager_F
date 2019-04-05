@@ -4,7 +4,6 @@
       <h2>{{item.name}}</h2>
       <div class="flex-panel">
         <ui-textbox
-          icon="phone"
           floating-label
           disabled
           :label="$t('message.description')"
@@ -13,6 +12,8 @@
       </div>
     </Card>
     <Card class="ms-depth-16" v-if="$store.state.isListMode">
+      <h3>项目</h3>
+      <p>共{{projectInfo.totalCount}}人</p>
       <ou-list style="text-align:left;">
         <ou-list-item
           v-for="(item,index) in projectInfo.list"
@@ -47,6 +48,8 @@
       @on-change="onPageChange2"
     />
     <Card class="ms-depth-16" v-if="$store.state.isListMode">
+      <h3>部门成员</h3>
+      <p>共{{userInfo.totalCount}}人</p>
       <ou-list style="text-align:left;">
         <ou-list-item
           v-for="(item,index) in userInfo.list"

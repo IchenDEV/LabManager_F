@@ -1,18 +1,18 @@
 <template>
   <div>
-    <Card class="ms-depth-16"   >
+    <Card class="ms-depth-16">
+      <ou-spinner v-if="item==null" label="Loading..." type="large"/>
       <h2>{{$t('message.modify')}} {{$t('message.project')}}</h2>
       <Tag color="success" v-if="item.status===1">{{$t('message.working')}}</Tag>
       <Tag color="error" v-if="item.status===0">{{$t('message.done')}}</Tag>
       <Tag color="warning" v-if="item.status===3">{{$t('message.pause')}}</Tag>
       <div class="flex-panel">
-        <ui-textbox icon="phone" floating-label :label="$t('message.name')" v-model="item.name"></ui-textbox>
-        <ui-textbox
-          icon="phone"
-          floating-label
-          :label="$t('message.description')"
-          v-model="item.description"
-        ></ui-textbox>
+        <ui-textbox floating-label :label="$t('message.name')" v-model="item.name">
+          <i slot="icon" class="ms-Icon ms-Icon--ExternalTFVC" aria-hidden="true"></i>
+        </ui-textbox>
+        <ui-textbox floating-label :label="$t('message.description')" v-model="item.description">
+          <i slot="icon" class="ms-Icon ms-Icon--Storyboard" aria-hidden="true"></i>
+        </ui-textbox>
       </div>
       <ui-button
         color="primary"
@@ -60,17 +60,18 @@ export default {
   },
   methods: {
     getInfo() {
-      tools.easyfetch(tools.Api.ListProject,this.search)
-      .then(res => {
-          this.item = res.data.info.list[0];
-        })
+      tools.easyfetch(tools.Api.ListProject, this.search).then(res => {
+        this.item = res.data.info.list[0];
+      });
     },
     updateClick() {
       this.$Loading.start();
-      tools.easyfetch(tools.Api.UpdateProject,this.item)
-      .then(() => {
-          this.$Loading.finish();
-        })
+      tools.easyfetch(tools.Api.UpdateProject, this.item).then(() => {
+        this.$Loading.finish();
+        this.$Notice.success({
+          title: "Success"
+        });
+      });
     },
     setStatusClick(st) {
       this.item.status = st;
